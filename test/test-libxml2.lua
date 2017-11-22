@@ -6,15 +6,21 @@ TestLibxml2HTML = {}
 function TestLibxml2HTML:test_parse_valid()
   local html = "<html></html>"
   local context = libxml2.htmlCreateMemoryParserCtxt(html)
-  luaunit.assertEquals(true,
-                       libxml2.htmlParseDocument(context))
+  luaunit.assertEquals(libxml2.htmlParseDocument(context),
+                       true)
 end
 
 function TestLibxml2HTML:test_parse_invalid()
   local html = " "
   local context = libxml2.htmlCreateMemoryParserCtxt(html)
-  luaunit.assertEquals(false,
-                       libxml2.htmlParseDocument(context))
-  luaunit.assertEquals("Document is empty\n",
-                       ffi.string(context.lastError.message))
+  luaunit.assertEquals(libxml2.htmlParseDocument(context),
+                       false)
+  luaunit.assertEquals(ffi.string(context.lastError.message),
+                       "Document is empty\n")
 end
+
+-- TODO
+TestLibxml2XMLBuffer = {}
+
+-- TODO
+TestLibxml2XMLSave = {}

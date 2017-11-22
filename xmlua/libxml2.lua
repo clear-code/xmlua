@@ -256,6 +256,37 @@ void htmlFreeParserCtxt(htmlParserCtxt *context);
 int htmlCtxtUseOptions(htmlParserCtxt *context, int options);
 
 int htmlParseDocument(htmlParserCtxt *context);
+
+
+typedef enum {
+    XML_BUFFER_ALLOC_DOUBLEIT,	/* double each time one need to grow */
+    XML_BUFFER_ALLOC_EXACT,	/* grow only to the minimal size */
+    XML_BUFFER_ALLOC_IMMUTABLE, /* immutable buffer */
+    XML_BUFFER_ALLOC_IO,	/* special allocation scheme used for I/O */
+    XML_BUFFER_ALLOC_HYBRID,	/* exact up to a threshold, and doubleit thereafter */
+    XML_BUFFER_ALLOC_BOUNDED	/* limit the upper size of the buffer */
+} xmlBufferAllocationScheme;
+
+typedef struct _xmlBuffer xmlBuffer;
+struct _xmlBuffer {
+    xmlChar *content;		/* The buffer content UTF8 */
+    unsigned int use;		/* The buffer size used */
+    unsigned int size;		/* The buffer size */
+    xmlBufferAllocationScheme alloc; /* The realloc method */
+    xmlChar *contentIO;		/* in IO mode we may have a different base */
+};
+
+xmlBuffer *xmlBufferCreate(void);
+void xmlBufferFree(xmlBuffer *buf);
+
+typedef struct _xmlSaveCtxt xmlSaveCtxt;
+typedef xmlSaveCtxt *xmlSaveCtxtPtr;
+
+xmlSaveCtxtPtr xmlSaveToBuffer(xmlBuffer *buffer,
+                               const char *encoding,
+                               int options);
+long xmlSaveDoc(xmlSaveCtxtPtr ctxt, xmlDocPtr doc);
+int xmlSaveClose(xmlSaveCtxtPtr ctxt);
 ]]
 local xml2 = ffi.load("xml2")
 
@@ -275,6 +306,15 @@ libxml2.HTML_PARSE_NOIMPLIED  = bit.lshift(1, 13)
 libxml2.HTML_PARSE_COMPACT    = bit.lshift(1, 16)
 libxml2.HTML_PARSE_IGNORE_ENC = bit.lshift(1, 21)
 
+libxml2.XML_SAVE_FORMAT   = bit.bor(1, 0)
+libxml2.XML_SAVE_NO_DECL  = bit.bor(1, 1)
+libxml2.XML_SAVE_NO_EMPTY = bit.bor(1, 2)
+libxml2.XML_SAVE_NO_XHTML = bit.bor(1, 3)
+libxml2.XML_SAVE_XHTML    = bit.bor(1, 4)
+libxml2.XML_SAVE_AS_XML   = bit.bor(1, 5)
+libxml2.XML_SAVE_AS_HTML  = bit.bor(1, 6)
+libxml2.XML_SAVE_WSNONSIG = bit.bor(1, 7)
+
 function libxml2.htmlCreateMemoryParserCtxt(html)
   local context = xml2.htmlCreateMemoryParserCtxt(html, #html)
   if not context then
@@ -289,6 +329,22 @@ end
 function libxml2.htmlParseDocument(context)
   local status = xml2.htmlParseDocument(context)
   return status == 0
+end
+
+function libxml2.xmlBufferCreate()
+  return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)
+end
+
+function libxml2.xmlBufferGetContent(buffer)
+  return ffi.string(buffer.content, buffer.use)
+end
+
+libxml2.xmlSaveToBuffer = xml2.xmlSaveToBuffer
+libxml2.xmlSaveClose = xml2.xmlSaveClose
+
+function libxml2.xmlSaveDoc(context, document)
+  local written = xml2.xmlSaveDoc(context, document)
+  return written ~= -1
 end
 
 return libxml2

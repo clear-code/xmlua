@@ -7,6 +7,7 @@ require("xmlua.libxml2.hash")
 require("xmlua.libxml2.tree")
 require("xmlua.libxml2.valid")
 require("xmlua.libxml2.parser")
+require("xmlua.libxml2.parser-internals")
 require("xmlua.libxml2.htmlparser")
 require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
@@ -30,6 +31,20 @@ function libxml2.htmlParseDocument(context)
   return status == 0
 end
 
+function libxml2.xmlCreateMemoryParserCtxt(xml)
+  local context = xml2.xmlCreateMemoryParserCtxt(xml, #xml)
+  ffi.gc(context, xml2.xmlFreeParserCtxt)
+  xml2.xmlCtxtUseOptions(context,
+                         bit.bor(ffi.C.XML_PARSE_NOERROR,
+                                 ffi.C.XML_PARSE_NOWARNING))
+  return context
+end
+
+function libxml2.xmlParseDocument(context)
+  local status = xml2.xmlParseDocument(context)
+  return status == 0
+end
+
 function libxml2.xmlBufferCreate()
   return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)
 end
@@ -44,10 +59,6 @@ libxml2.xmlSaveClose = xml2.xmlSaveClose
 function libxml2.xmlSaveDoc(context, document)
   local written = xml2.xmlSaveDoc(context, document)
   return written ~= -1
-end
-
-function libxml2.xmlParseMemory(xml)
-  return xml2.xmlParseMemory(xml, string.len(xml))
 end
 
 function libxml2.xmlXPathNewContext(xmldoc)

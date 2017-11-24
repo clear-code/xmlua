@@ -6,6 +6,9 @@ typedef void *xmlDocPtr;
 typedef void *xmlNodePtr;
 typedef void *xmlAttrPtr;
 
+typedef struct _xmlParserCtxt xmlParserCtxt;
+typedef xmlParserCtxt *xmlParserCtxtPtr;
+
 typedef enum {
     XML_BUFFER_ALLOC_DOUBLEIT,	/* double each time one need to grow */
     XML_BUFFER_ALLOC_EXACT,	/* grow only to the minimal size */

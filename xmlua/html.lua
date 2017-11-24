@@ -19,7 +19,7 @@ function HTML.parse(html)
 end
 
 function metatable.to_html(self, options) -- TODO: Support encoding
-  local buffer = libxml2.xmlBufferCreate();
+  local buffer = libxml2.xmlBufferCreate()
   local context = libxml2.xmlSaveToBuffer(buffer,
                                           "UTF-8",
                                           bit.bor(ffi.C.XML_SAVE_FORMAT,

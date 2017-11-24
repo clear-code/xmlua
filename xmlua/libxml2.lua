@@ -1,8 +1,9 @@
 local libxml2 = {}
 
+require("xmlua.libxml2.xmlstring")
+
 local ffi = require("ffi")
 ffi.cdef[[
-typedef unsigned char xmlChar;
 typedef void *xmlDocPtr;
 typedef void *xmlParserInputPtr;
 typedef void *xmlNodePtr;

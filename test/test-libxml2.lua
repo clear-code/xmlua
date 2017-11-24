@@ -24,3 +24,24 @@ TestLibxml2XMLBuffer = {}
 
 -- TODO
 TestLibxml2XMLSave = {}
+
+TestLibXPath = {}
+function TestLibXPath:test_create_doc()
+  local xml = [[
+ <!DOCTYPE doc [
+ <!ELEMENT doc (src | dest)*>
+ <!ELEMENT src EMPTY>
+ <!ELEMENT dest EMPTY>
+ <!ATTLIST src ref IDREF #IMPLIED>
+ <!ATTLIST dest id ID #IMPLIED>
+ ]>
+ <doc>
+   <src ref="foo"/>
+   <dest id="foo"/>
+   <src ref="foo"/>
+ </doc>
+]]
+-- TODO
+-- Add assertion
+  libxml2.xmlParseMemory(xml)
+end

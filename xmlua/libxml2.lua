@@ -45,4 +45,8 @@ function libxml2.xmlSaveDoc(context, document)
   return written ~= -1
 end
 
+function libxml2.xmlParseMemory(xml)
+  return xml2.xmlParseMemory(xml, string.len(xml))
+end
+
 return libxml2

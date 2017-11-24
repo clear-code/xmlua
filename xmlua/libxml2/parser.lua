@@ -180,4 +180,6 @@ struct _xmlParserCtxt {
     int                input_id;      /* we need to label inputs */
     unsigned long      sizeentcopy;   /* volume of entity copy */
 };
+
+xmlDocPtr xmlParseMemory(const char *buffer, int size);
 ]]

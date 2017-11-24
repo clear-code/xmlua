@@ -17,7 +17,7 @@ local xml2 = ffi.load("xml2")
 
 function libxml2.htmlCreateMemoryParserCtxt(html)
   local context = xml2.htmlCreateMemoryParserCtxt(html, #html)
-  if not context then
+  if context == ffi.NULL then
     return nil
   end
   xml2.htmlCtxtUseOptions(context,
@@ -33,6 +33,9 @@ end
 
 function libxml2.xmlCreateMemoryParserCtxt(xml)
   local context = xml2.xmlCreateMemoryParserCtxt(xml, #xml)
+  if context == ffi.NULL then
+    return nil
+  end
   ffi.gc(context, xml2.xmlFreeParserCtxt)
   xml2.xmlCtxtUseOptions(context,
                          bit.bor(ffi.C.XML_PARSE_NOERROR,
@@ -63,7 +66,7 @@ end
 
 function libxml2.xmlXPathNewContext(xmldoc)
   local context = xml2.xmlXPathNewContext(xmldoc)
-  if not context then
+  if context == ffi.NULL then
     return nil
   end
   return context

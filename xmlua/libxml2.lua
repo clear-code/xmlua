@@ -2,6 +2,7 @@ local libxml2 = {}
 
 require("xmlua.libxml2.xmlstring")
 require("xmlua.libxml2.xmlerror")
+require("xmlua.libxml2.parser")
 
 local ffi = require("ffi")
 ffi.cdef[[
@@ -13,22 +14,6 @@ typedef void *xmlHashTablePtr;
 typedef void *xmlAttrPtr;
 
 
-typedef struct _xmlParserNodeInfo xmlParserNodeInfo;
-struct _xmlParserNodeInfo {
-  const struct _xmlNode* node;
-  /* Position & line # that text that created the node begins & ends on */
-  unsigned long begin_pos;
-  unsigned long begin_line;
-  unsigned long end_pos;
-  unsigned long end_line;
-};
-
-typedef struct _xmlParserNodeInfoSeq xmlParserNodeInfoSeq;
-struct _xmlParserNodeInfoSeq {
-  unsigned long maximum;
-  unsigned long length;
-  xmlParserNodeInfo* buffer;
-};
 
 typedef void (*xmlValidityErrorFunc) (void *ctx,
                                       const char *msg,

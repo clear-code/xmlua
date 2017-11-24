@@ -7,10 +7,10 @@ require("xmlua.libxml2.hash")
 require("xmlua.libxml2.tree")
 require("xmlua.libxml2.valid")
 require("xmlua.libxml2.parser")
+require("xmlua.libxml2.xmlsave")
 
 local ffi = require("ffi")
 ffi.cdef[[
-
 typedef xmlParserCtxt htmlParserCtxt;
 
 htmlParserCtxt *htmlCreateMemoryParserCtxt(const char *buffer, int size);
@@ -18,15 +18,6 @@ void htmlFreeParserCtxt(htmlParserCtxt *context);
 int htmlCtxtUseOptions(htmlParserCtxt *context, int options);
 
 int htmlParseDocument(htmlParserCtxt *context);
-
-typedef struct _xmlSaveCtxt xmlSaveCtxt;
-typedef xmlSaveCtxt *xmlSaveCtxtPtr;
-
-xmlSaveCtxtPtr xmlSaveToBuffer(xmlBuffer *buffer,
-                               const char *encoding,
-                               int options);
-long xmlSaveDoc(xmlSaveCtxtPtr ctxt, xmlDocPtr doc);
-int xmlSaveClose(xmlSaveCtxtPtr ctxt);
 ]]
 local xml2 = ffi.load("xml2")
 

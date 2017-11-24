@@ -64,12 +64,12 @@ function libxml2.xmlSaveDoc(context, document)
   return written ~= -1
 end
 
-function libxml2.xmlXPathNewContext(xmldoc)
-  local context = xml2.xmlXPathNewContext(xmldoc)
+function libxml2.xmlXPathNewContext(document)
+  local context = xml2.xmlXPathNewContext(document)
   if context == ffi.NULL then
     return nil
   end
-  return context
+  return ffi.gc(context, xml2.xmlXPathFreeContext)
 end
 
 return libxml2

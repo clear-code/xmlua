@@ -54,24 +54,18 @@ function TestLibxml2XML:test_parse_invalid()
                        "Premature end of data in tag root line 1\n")
 end
 
-TestLibxml2XPath = {}
-function TestLibxml2XPath:test_xpath_new_context()
-  local xml = [[
- <!DOCTYPE doc [
- <!ELEMENT doc (src | dest)*>
- <!ELEMENT src EMPTY>
- <!ELEMENT dest EMPTY>
- <!ATTLIST src ref IDREF #IMPLIED>
- <!ATTLIST dest id ID #IMPLIED>
- ]>
- <doc>
-   <src ref="foo"/>
-   <dest id="foo"/>
-   <src ref="foo"/>
- </doc>
-]]
+local function parse_xml(xml)
   local context = libxml2.xmlCreateMemoryParserCtxt(xml)
-  libxml2.xmlParseDocument(context)
-  local document = context.myDoc
-  luaunit.assertNotNil(libxml2.xmlXPathNewContext(document))
+  if not libxml2.xmlParseDocument(context) then
+    error({message = ffi.string(context.lastError.message)})
+  end
+  return context.myDoc
+end
+
+TestLibxml2XPathContext = {}
+function TestLibxml2XPathContext:test_new()
+  local xml = "<root/>"
+  local document = parse_xml(xml)
+  luaunit.assertEquals(ffi.typeof(libxml2.xmlXPathNewContext(document)),
+                       ffi.typeof("xmlXPathContextPtr"))
 end

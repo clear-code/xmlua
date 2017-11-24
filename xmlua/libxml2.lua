@@ -18,17 +18,6 @@ libxml2.XML_ERR_WARNING = 1
 libxml2.XML_ERR_ERROR   = 2
 libxml2.XML_ERR_FATAL   = 3
 
-libxml2.HTML_PARSE_RECOVER    = bit.lshift(1, 0)
-libxml2.HTML_PARSE_NODEFDTD   = bit.lshift(1, 2)
-libxml2.HTML_PARSE_NOERROR    = bit.lshift(1, 5)
-libxml2.HTML_PARSE_NOWARNING  = bit.lshift(1, 6)
-libxml2.HTML_PARSE_PEDANTIC   = bit.lshift(1, 7)
-libxml2.HTML_PARSE_NOBLANKS   = bit.lshift(1, 8)
-libxml2.HTML_PARSE_NONET      = bit.lshift(1, 11)
-libxml2.HTML_PARSE_NOIMPLIED  = bit.lshift(1, 13)
-libxml2.HTML_PARSE_COMPACT    = bit.lshift(1, 16)
-libxml2.HTML_PARSE_IGNORE_ENC = bit.lshift(1, 21)
-
 libxml2.XML_SAVE_FORMAT   = bit.bor(1, 0)
 libxml2.XML_SAVE_NO_DECL  = bit.bor(1, 1)
 libxml2.XML_SAVE_NO_EMPTY = bit.bor(1, 2)
@@ -44,8 +33,8 @@ function libxml2.htmlCreateMemoryParserCtxt(html)
     return nil
   end
   xml2.htmlCtxtUseOptions(context,
-                          bit.bor(libxml2.HTML_PARSE_NOERROR,
-                                  libxml2.HTML_PARSE_NOWARNING))
+                          bit.bor(ffi.C.HTML_PARSE_NOERROR,
+                                  ffi.C.HTML_PARSE_NOWARNING))
   return ffi.gc(context, xml2.htmlFreeParserCtxt)
 end
 

@@ -25,8 +25,8 @@ TestLibxml2XMLBuffer = {}
 -- TODO
 TestLibxml2XMLSave = {}
 
-TestLibXPath = {}
-function TestLibXPath:test_create_doc()
+TestLibxml2XPath = {}
+function TestLibxml2XPath:test_create_doc()
   local xml = [[
  <!DOCTYPE doc [
  <!ELEMENT doc (src | dest)*>
@@ -46,7 +46,7 @@ function TestLibXPath:test_create_doc()
   libxml2.xmlParseMemory(xml)
 end
 
-function TestLibXPath:test_xpath_new_context()
+function TestLibxml2XPath:test_xpath_new_context()
   local xml = [[
  <!DOCTYPE doc [
  <!ELEMENT doc (src | dest)*>

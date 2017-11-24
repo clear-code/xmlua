@@ -9,6 +9,7 @@ require("xmlua.libxml2.valid")
 require("xmlua.libxml2.parser")
 require("xmlua.libxml2.htmlparser")
 require("xmlua.libxml2.xmlsave")
+require("xmlua.libxml2.xpath")
 
 local ffi = require("ffi")
 local xml2 = ffi.load("xml2")
@@ -47,6 +48,14 @@ end
 
 function libxml2.xmlParseMemory(xml)
   return xml2.xmlParseMemory(xml, string.len(xml))
+end
+
+function libxml2.xmlXPathNewContext(xmldoc)
+  local context = xml2.xmlXPathNewContext(xmldoc)
+  if not context then
+    return nil
+  end
+  return context
 end
 
 return libxml2

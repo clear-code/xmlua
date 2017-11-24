@@ -45,3 +45,22 @@ function TestLibXPath:test_create_doc()
 -- Add assertion
   libxml2.xmlParseMemory(xml)
 end
+
+function TestLibXPath:test_xpath_new_context()
+  local xml = [[
+ <!DOCTYPE doc [
+ <!ELEMENT doc (src | dest)*>
+ <!ELEMENT src EMPTY>
+ <!ELEMENT dest EMPTY>
+ <!ATTLIST src ref IDREF #IMPLIED>
+ <!ATTLIST dest id ID #IMPLIED>
+ ]>
+ <doc>
+   <src ref="foo"/>
+   <dest id="foo"/>
+   <src ref="foo"/>
+ </doc>
+]]
+  doc = libxml2.xmlParseMemory(xml)
+  luaunit.assertNotNil(libxml2.xmlXPathNewContext(doc))
+end

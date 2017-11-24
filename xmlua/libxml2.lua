@@ -7,18 +7,10 @@ require("xmlua.libxml2.hash")
 require("xmlua.libxml2.tree")
 require("xmlua.libxml2.valid")
 require("xmlua.libxml2.parser")
+require("xmlua.libxml2.htmlparser")
 require("xmlua.libxml2.xmlsave")
 
 local ffi = require("ffi")
-ffi.cdef[[
-typedef xmlParserCtxt htmlParserCtxt;
-
-htmlParserCtxt *htmlCreateMemoryParserCtxt(const char *buffer, int size);
-void htmlFreeParserCtxt(htmlParserCtxt *context);
-int htmlCtxtUseOptions(htmlParserCtxt *context, int options);
-
-int htmlParseDocument(htmlParserCtxt *context);
-]]
 local xml2 = ffi.load("xml2")
 
 libxml2.XML_ERR_NONE    = 0

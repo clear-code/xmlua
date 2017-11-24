@@ -13,15 +13,6 @@ require("xmlua.libxml2.xmlsave")
 local ffi = require("ffi")
 local xml2 = ffi.load("xml2")
 
-libxml2.XML_SAVE_FORMAT   = bit.bor(1, 0)
-libxml2.XML_SAVE_NO_DECL  = bit.bor(1, 1)
-libxml2.XML_SAVE_NO_EMPTY = bit.bor(1, 2)
-libxml2.XML_SAVE_NO_XHTML = bit.bor(1, 3)
-libxml2.XML_SAVE_XHTML    = bit.bor(1, 4)
-libxml2.XML_SAVE_AS_XML   = bit.bor(1, 5)
-libxml2.XML_SAVE_AS_HTML  = bit.bor(1, 6)
-libxml2.XML_SAVE_WSNONSIG = bit.bor(1, 7)
-
 function libxml2.htmlCreateMemoryParserCtxt(html)
   local context = xml2.htmlCreateMemoryParserCtxt(html, #html)
   if not context then

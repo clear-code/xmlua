@@ -4,9 +4,10 @@ RUN \
   yum install -y epel-release
 RUN \
   yum install -y \
+    libxml2 \
     luajit \
     luarocks \
-    libxml2
+    unzip
 RUN \
   luarocks install \
     luaunit

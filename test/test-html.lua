@@ -2,7 +2,7 @@ local luaunit = require("luaunit")
 local xmlua = require("xmlua")
 
 TestHTML = {}
-function TestHTML:test_parse_valid()
+function TestHTML.test_parse_valid()
   local success, html = pcall(xmlua.HTML.parse, "<html></html>")
   luaunit.assertEquals(success, true)
   luaunit.assertEquals(html:to_html(),
@@ -12,7 +12,7 @@ function TestHTML:test_parse_valid()
 ]])
 end
 
-function TestHTML:test_parse_invalid()
+function TestHTML.test_parse_invalid()
   local success, err = pcall(xmlua.HTML.parse, " ")
   luaunit.assertEquals(success, false)
   luaunit.assertEquals(err, {message = "Document is empty\n"})

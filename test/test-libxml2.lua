@@ -3,14 +3,14 @@ local libxml2 = require("xmlua").libxml2
 local ffi = require("ffi")
 
 TestLibxml2HTML = {}
-function TestLibxml2HTML:test_parse_valid()
+function TestLibxml2HTML.test_parse_valid()
   local html = "<html></html>"
   local context = libxml2.htmlCreateMemoryParserCtxt(html)
   luaunit.assertEquals(libxml2.htmlParseDocument(context),
                        true)
 end
 
-function TestLibxml2HTML:test_parse_invalid()
+function TestLibxml2HTML.test_parse_invalid()
   local html = " "
   local context = libxml2.htmlCreateMemoryParserCtxt(html)
   luaunit.assertEquals(libxml2.htmlParseDocument(context),
@@ -38,14 +38,14 @@ local function to_xml(document)
 end
 
 TestLibxml2XML = {}
-function TestLibxml2XML:test_parse_valid()
+function TestLibxml2XML.test_parse_valid()
   local xml = "<root/>"
   local context = libxml2.xmlCreateMemoryParserCtxt(xml)
   luaunit.assertEquals(libxml2.xmlParseDocument(context),
                        true)
 end
 
-function TestLibxml2XML:test_parse_invalid()
+function TestLibxml2XML.test_parse_invalid()
   local xml = "<root>"
   local context = libxml2.xmlCreateMemoryParserCtxt(xml)
   luaunit.assertEquals(libxml2.xmlParseDocument(context),
@@ -63,7 +63,7 @@ local function parse_xml(xml)
 end
 
 TestLibxml2XPathContext = {}
-function TestLibxml2XPathContext:test_new()
+function TestLibxml2XPathContext.test_new()
   local xml = "<root/>"
   local document = parse_xml(xml)
   luaunit.assertEquals(ffi.typeof(libxml2.xmlXPathNewContext(document)),
@@ -71,7 +71,7 @@ function TestLibxml2XPathContext:test_new()
 end
 
 TestLibxml2XPath = {}
-function TestLibxml2XPath:test_eval_expression_valid()
+function TestLibxml2XPath.test_eval_expression_valid()
   local xml = "<root><sub/></root>"
   local document = parse_xml(xml)
   local context = libxml2.xmlXPathNewContext(document)
@@ -80,7 +80,7 @@ function TestLibxml2XPath:test_eval_expression_valid()
                        ffi.C.XPATH_NODESET)
 end
 
-function TestLibxml2XPath:test_eval_expression_invalid()
+function TestLibxml2XPath.test_eval_expression_invalid()
   local xml = "<root><sub/></root>"
   local document = parse_xml(xml)
   local context = libxml2.xmlXPathNewContext(document)

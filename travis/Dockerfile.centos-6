@@ -13,9 +13,6 @@ RUN \
     luaunit
 
 RUN \
-  systemd-machine-id-setup
-
-RUN \
   useradd --user-group --create-home xmlua
 
 COPY . /home/xmlua/xmlua

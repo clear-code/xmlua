@@ -1,0 +1,34 @@
+notifications:
+  email:
+    recipients:
+      - clear-code@ml.commit-email.info
+
+dist: trusty
+
+sudo: required
+
+services:
+  - docker
+
+matrix:
+  include:
+    - env: TYPE=centos-6
+    - env: TYPE=centos-7
+    - os: osx
+      install:
+        - brew update && brew install luajit libxml2
+        - luarocks install luaunit
+      script:
+        - test/run-test.lua
+
+install:
+  - docker build
+      -t clear-code/xmlua-${TYPE}
+      -f travis/Dockerfile.${TYPE}
+      .
+
+script:
+  - docker run
+      --interactive
+      --tty
+      clear-code/xmlua-${TYPE}

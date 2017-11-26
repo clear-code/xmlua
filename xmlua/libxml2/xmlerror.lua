@@ -9,6 +9,7 @@ typedef enum {
 } xmlErrorLevel;
 
 typedef struct _xmlError xmlError;
+typedef xmlError *xmlErrorPtr;
 struct _xmlError {
     int		domain;	/* What part of the library raised this error */
     int		code;	/* The error code, e.g. an xmlParserError */
@@ -24,4 +25,6 @@ struct _xmlError {
     void       *ctxt;   /* the parser context if available */
     void       *node;   /* the node in the tree */
 };
+
+typedef void (*xmlStructuredErrorFunc) (void *userData, xmlErrorPtr error);
 ]]

@@ -67,6 +67,11 @@ function libxml2.xmlSaveDoc(context, document)
   return written ~= -1
 end
 
+function libxml2.xmlSaveTree(context, ndoe)
+  local written = xml2.xmlSaveTree(context, node)
+  return written ~= -1
+end
+
 local suppress_error = ffi.cast("xmlStructuredErrorFunc",
                                 function(user_data, err) end)
 

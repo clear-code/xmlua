@@ -19,5 +19,6 @@ xmlSaveCtxtPtr xmlSaveToBuffer(xmlBuffer *buffer,
                                const char *encoding,
                                int options);
 long xmlSaveDoc(xmlSaveCtxtPtr ctxt, xmlDocPtr doc);
+long xmlSaveTree(xmlSaveCtxtPtr ctxt, xmlNodePtr node);
 int xmlSaveClose(xmlSaveCtxtPtr ctxt);
 ]]

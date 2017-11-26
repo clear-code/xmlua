@@ -1,4 +1,4 @@
-local HTML = {}
+local XML = {}
 
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
@@ -9,17 +9,17 @@ function metatable.__index(table, key)
   return Savable[key]
 end
 
-function HTML.parse(html)
-  local context = libxml2.htmlCreateMemoryParserCtxt(html)
-  local success = libxml2.htmlParseDocument(context)
+function XML.parse(xml)
+  local context = libxml2.xmlCreateMemoryParserCtxt(xml)
+  local success = libxml2.xmlParseDocument(context)
   if not success then
     error({message = ffi.string(context.lastError.message)})
   end
-  local html_document = {
+  local xml_document = {
     document = context.myDoc,
   }
-  setmetatable(html_document, metatable)
-  return html_document
+  setmetatable(xml_document, metatable)
+  return xml_document
 end
 
-return HTML
+return XML

@@ -1,6 +1,7 @@
 #!/usr/bin/env luajit
 
 require("test.test-libxml2")
+require("test.test-xml")
 require("test.test-html")
 
 luaunit = require("luaunit")

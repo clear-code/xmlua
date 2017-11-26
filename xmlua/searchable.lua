@@ -4,8 +4,6 @@ local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 local NodeSet = require("xmlua.node-set")
 
-local serpent = require("serpent")
-
 local ERROR_MESSAGES = {}
 ERROR_MESSAGES[ffi.C.XPATH_NUMBER_ERROR]             = "Number encoding\n"
 ERROR_MESSAGES[ffi.C.XPATH_UNFINISHED_LITERAL_ERROR] = "Unfinished literal\n"

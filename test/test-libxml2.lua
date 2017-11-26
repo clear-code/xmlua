@@ -84,7 +84,7 @@ function TestLibxml2XPath:test_eval_expression_invalid()
   local xml = "<root><sub/></root>"
   local document = parse_xml(xml)
   local context = libxml2.xmlXPathNewContext(document)
-  -- TODO
-  -- Supress error message
   luaunit.assertNil(libxml2.xmlXPathEvalExpression("", context))
+  luaunit.assertEquals(context.lastError.code,
+                       ffi.C.XML_XPATH_EXPRESSION_OK + ffi.C.XPATH_EXPR_ERROR)
 end

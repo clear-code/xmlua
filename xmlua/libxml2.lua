@@ -67,11 +67,15 @@ function libxml2.xmlSaveDoc(context, document)
   return written ~= -1
 end
 
+local suppress_error = ffi.cast("xmlStructuredErrorFunc",
+                                function(user_data, err) end)
+
 function libxml2.xmlXPathNewContext(document)
   local context = xml2.xmlXPathNewContext(document)
   if context == ffi.NULL then
     return nil
   end
+  context.error = suppress_error
   return ffi.gc(context, xml2.xmlXPathFreeContext)
 end
 

@@ -4,6 +4,8 @@ require("test.test-libxml2")
 require("test.test-xml")
 require("test.test-html")
 require("test.test-search")
+require("test.test-element")
+require("test.test-node-set")
 
 luaunit = require("luaunit")
 os.exit(luaunit.LuaUnit.run())

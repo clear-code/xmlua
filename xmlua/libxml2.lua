@@ -67,7 +67,7 @@ function libxml2.xmlSaveDoc(context, document)
   return written ~= -1
 end
 
-function libxml2.xmlSaveTree(context, ndoe)
+function libxml2.xmlSaveTree(context, node)
   local written = xml2.xmlSaveTree(context, node)
   return written ~= -1
 end

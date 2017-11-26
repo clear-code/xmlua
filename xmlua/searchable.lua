@@ -2,6 +2,8 @@ local Searchable = {}
 
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
+
+local Element = require("xmlua.element")
 local NodeSet = require("xmlua.node-set")
 
 local ERROR_MESSAGES = {}
@@ -50,7 +52,11 @@ function Searchable.search(self, xpath)
     local raw_node_set = {}
     for i = 1, found_node_set.nodeNr do
       local node = found_node_set.nodeTab[i - 1]
-      table.insert(raw_node_set, node)
+      if tonumber(node.type) == ffi.C.XML_ELEMENT_NODE then
+        table.insert(raw_node_set, Element.new(node))
+      else
+        table.insert(raw_node_set, node)
+      end
     end
     return(NodeSet.new(raw_node_set))
   end

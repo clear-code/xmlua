@@ -3,7 +3,6 @@ local ffi = require("ffi")
 ffi.cdef[[
 typedef void *xmlParserInputPtr;
 typedef void *xmlDocPtr;
-typedef void *xmlNodePtr;
 typedef void *xmlAttrPtr;
 
 typedef struct _xmlParserCtxt xmlParserCtxt;
@@ -55,6 +54,7 @@ typedef enum {
     XML_DOCB_DOCUMENT_NODE=	21
 } xmlElementType;
 
+
 typedef xmlElementType xmlNsType;
 
 typedef struct _xmlNs xmlNs;
@@ -66,5 +66,29 @@ struct _xmlNs {
     const xmlChar *prefix;	/* prefix for the namespace */
     void           *_private;   /* application data */
     struct _xmlDoc *context;		/* normally an xmlDoc */
+};
+
+
+typedef struct _xmlNode xmlNode;
+typedef xmlNode *xmlNodePtr;
+struct _xmlNode {
+    void           *_private;	/* application data */
+    xmlElementType   type;	/* type number, must be second ! */
+    const xmlChar   *name;      /* the name of the node, or the entity */
+    struct _xmlNode *children;	/* parent->childs link */
+    struct _xmlNode *last;	/* last child link */
+    struct _xmlNode *parent;	/* child->parent link */
+    struct _xmlNode *next;	/* next sibling link  */
+    struct _xmlNode *prev;	/* previous sibling link  */
+    struct _xmlDoc  *doc;	/* the containing document */
+
+    /* End of common part */
+    xmlNs           *ns;        /* pointer to the associated namespace */
+    xmlChar         *content;   /* the content */
+    struct _xmlAttr *properties;/* properties list */
+    xmlNs           *nsDef;     /* namespace definitions on this node */
+    void            *psvi;	/* for type/PSVI informations */
+    unsigned short   line;	/* line number */
+    unsigned short   extra;	/* extra data for XPath/XSLT */
 };
 ]]

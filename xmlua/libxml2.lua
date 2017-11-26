@@ -13,7 +13,10 @@ require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
 
 local ffi = require("ffi")
-local xml2 = ffi.load("xml2")
+local loaded, xml2 = pcall(ffi.load, "xml2")
+if not loaded then
+  xml2 = ffi.load("libxml2.so.2")
+end
 
 function libxml2.htmlCreateMemoryParserCtxt(html)
   local context = xml2.htmlCreateMemoryParserCtxt(html, #html)

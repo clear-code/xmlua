@@ -15,8 +15,16 @@ matrix:
     - env: TYPE=centos-6
     - env: TYPE=centos-7
     - os: osx
+      env: LUAROCKS_VERSION=2.4.3
       install:
         - brew update && brew install luajit libxml2
+        - curl -O http://luarocks.github.io/luarocks/releases/luarocks-${LUAROCKS_VERSION}.tar.gz
+        - tar xf luarocks-${LUAROCKS_VERSION}.tar.gz
+        - cd luarocks-${LUAROCKS_VERSION}
+        - ./configure
+        - make build
+        - sudo make install
+        - cd ..
         - luarocks install luaunit
       script:
         - test/run-test.lua

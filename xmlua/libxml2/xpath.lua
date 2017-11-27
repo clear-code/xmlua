@@ -170,7 +170,9 @@ struct _xmlXPathObject {
 };
 
 xmlXPathContextPtr xmlXPathNewContext(xmlDocPtr doc);
-void xmlXPathFreeContext		(xmlXPathContextPtr ctxt);
+void xmlXPathFreeContext(xmlXPathContextPtr ctxt);
+int xmlXPathSetContextNode(xmlNodePtr node, xmlXPathContextPtr ctx);
+
 xmlXPathObjectPtr xmlXPathEvalExpression	(const xmlChar *str, xmlXPathContextPtr ctxt);
 
 void xmlXPathFreeObject		(xmlXPathObjectPtr obj);

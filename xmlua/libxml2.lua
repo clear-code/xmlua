@@ -76,6 +76,14 @@ function libxml2.xmlDocGetRootElement(document)
 end
 
 
+function libxml2.xmlPreviousElementSibling(node)
+  local node = xml2.xmlPreviousElementSibling(node)
+  if node == ffi.NULL then
+    return nil
+  end
+  return node
+end
+
 function libxml2.xmlNextElementSibling(node)
   local node = xml2.xmlNextElementSibling(node)
   if node == ffi.NULL then

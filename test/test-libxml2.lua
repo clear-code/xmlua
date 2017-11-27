@@ -120,6 +120,21 @@ local function root_element(document)
 end
 
 TestLibxml2Node = {}
+function TestLibxml2Node.test_previous_sibling_element()
+  local xml = "<root><child1/><child2/></root>"
+  local document = parse_xml(xml)
+  local child2 = find_element(document, "/root/child2")
+  local child1 = libxml2.xmlPreviousElementSibling(child2)
+  luaunit.assertEquals(ffi.string(child1.name), "child1")
+end
+
+function TestLibxml2Node.test_previous_sibling_element_first()
+  local xml = "<root><child1/><child2/></root>"
+  local document = parse_xml(xml)
+  local child1 = find_element(document, "/root/child1")
+  luaunit.assertNil(libxml2.xmlPreviousElementSibling(child1))
+end
+
 function TestLibxml2Node.test_next_sibling_element()
   local xml = "<root><child1/><child2/></root>"
   local document = parse_xml(xml)
@@ -129,10 +144,10 @@ function TestLibxml2Node.test_next_sibling_element()
 end
 
 function TestLibxml2Node.test_next_sibling_element_last()
-  local xml = "<root><child1/></root>"
+  local xml = "<root><child1/><child2/></root>"
   local document = parse_xml(xml)
-  local child1 = find_element(document, "/root/child1")
-  luaunit.assertNil(libxml2.xmlNextElementSibling(child1))
+  local child2 = find_element(document, "/root/child2")
+  luaunit.assertNil(libxml2.xmlNextElementSibling(child2))
 end
 
 function TestLibxml2Node.test_search_namespace_found()

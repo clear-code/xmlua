@@ -96,6 +96,7 @@ struct _xmlNode {
 
 xmlNodePtr xmlDocGetRootElement(const xmlDoc *doc);
 
+xmlNodePtr xmlPreviousElementSibling(xmlNodePtr node);
 xmlNodePtr xmlNextElementSibling(xmlNodePtr node);
 
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);

@@ -51,6 +51,15 @@ function libxml2.xmlParseDocument(context)
   return status == 0
 end
 
+function libxml2.xmlDocGetRootElement(document)
+  local root = xml2.xmlDocGetRootElement(document)
+  if root == ffi.NULL then
+    return nil
+  else
+    return root
+  end
+end
+
 function libxml2.xmlBufferCreate()
   return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)
 end

@@ -70,6 +70,23 @@ function TestLibxml2XPathContext.test_new()
                        ffi.typeof("xmlXPathContextPtr"))
 end
 
+function TestLibxml2XPathContext.test_set_context_node_valid()
+  local xml = "<root/>"
+  local document = parse_xml(xml)
+  local root = libxml2.xmlDocGetRootElement(document)
+  local context = libxml2.xmlXPathNewContext(document)
+  luaunit.assertEquals(libxml2.xmlXPathSetContextNode(root, context),
+                       true)
+end
+
+function TestLibxml2XPathContext.test_set_context_node_invalid()
+  local xml = "<root/>"
+  local document = parse_xml(xml)
+  local context = libxml2.xmlXPathNewContext(document)
+  luaunit.assertEquals(libxml2.xmlXPathSetContextNode(nil, context),
+                       false)
+end
+
 TestLibxml2XPath = {}
 function TestLibxml2XPath.test_eval_expression_valid()
   local xml = "<root><sub/></root>"

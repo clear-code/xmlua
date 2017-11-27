@@ -2,8 +2,10 @@ local ffi = require("ffi")
 
 ffi.cdef[[
 typedef void *xmlParserInputPtr;
-typedef void *xmlDocPtr;
 typedef void *xmlAttrPtr;
+
+typedef struct _xmlDoc xmlDoc;
+typedef xmlDoc *xmlDocPtr;
 
 typedef struct _xmlParserCtxt xmlParserCtxt;
 typedef xmlParserCtxt *xmlParserCtxtPtr;
@@ -91,4 +93,6 @@ struct _xmlNode {
     unsigned short   line;	/* line number */
     unsigned short   extra;	/* extra data for XPath/XSLT */
 };
+
+xmlNodePtr xmlDocGetRootElement(const xmlDoc *doc);
 ]]

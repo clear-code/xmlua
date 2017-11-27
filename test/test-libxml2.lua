@@ -120,6 +120,21 @@ local function root_element(document)
 end
 
 TestLibxml2Node = {}
+function TestLibxml2Node.test_next_sibling_element()
+  local xml = "<root><child1/><child2/></root>"
+  local document = parse_xml(xml)
+  local child1 = find_element(document, "/root/child1")
+  local child2 = libxml2.xmlNextElementSibling(child1)
+  luaunit.assertEquals(ffi.string(child2.name), "child2")
+end
+
+function TestLibxml2Node.test_next_sibling_element_last()
+  local xml = "<root><child1/></root>"
+  local document = parse_xml(xml)
+  local child1 = find_element(document, "/root/child1")
+  luaunit.assertNil(libxml2.xmlNextElementSibling(child1))
+end
+
 function TestLibxml2Node.test_search_namespace_found()
   local xml = "<root xmlns:example=\"http://example.com/\"/>"
   local document = parse_xml(xml)

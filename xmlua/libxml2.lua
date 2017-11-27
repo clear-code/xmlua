@@ -75,6 +75,15 @@ function libxml2.xmlDocGetRootElement(document)
   return root
 end
 
+
+function libxml2.xmlNextElementSibling(node)
+  local node = xml2.xmlNextElementSibling(node)
+  if node == ffi.NULL then
+    return nil
+  end
+  return node
+end
+
 function libxml2.xmlSearchNs(document, node, namespace_prefix)
   local namespace = xml2.xmlSearchNs(document, node, namespace_prefix)
   if namespace == ffi.NULL then

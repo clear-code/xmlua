@@ -84,6 +84,11 @@ function libxml2.xmlXPathNewContext(document)
   return ffi.gc(context, xml2.xmlXPathFreeContext)
 end
 
+function libxml2.xmlXPathSetContextNode(node, context)
+  local status = xml2.xmlXPathSetContextNode(node, context)
+  return status == 0
+end
+
 function libxml2.xmlXPathEvalExpression(expression, context)
   local object = xml2.xmlXPathEvalExpression(expression, context)
   if object == ffi.NULL then

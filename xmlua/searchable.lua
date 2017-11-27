@@ -3,8 +3,13 @@ local Searchable = {}
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
-local Element = require("xmlua.element")
-local NodeSet = require("xmlua.node-set")
+local Element
+local NodeSet
+
+function Searchable.lazy_load()
+  Element = require("xmlua.element")
+  NodeSet = require("xmlua.node-set")
+end
 
 local ERROR_MESSAGES = {}
 ERROR_MESSAGES[ffi.C.XPATH_NUMBER_ERROR]             = "Number encoding\n"
@@ -33,7 +38,11 @@ ERROR_MESSAGES[ffi.C.XPATH_STACK_ERROR]              = "Stack usage error\n"
 ERROR_MESSAGES[ffi.C.XPATH_FORBID_VARIABLE_ERROR]    = "Forbidden variable\n"
 
 function Searchable.search(self, xpath)
-  local context = libxml2.xmlXPathNewContext(self.document)
+  local document = self.document
+  local context = libxml2.xmlXPathNewContext(document)
+  if self.node then
+    libxml2.xmlXPathSetContextNode(self.node, context)
+  end
   local object = libxml2.xmlXPathEvalExpression(xpath, context)
   if not object then
     local raw_error_message = context.lastError.message
@@ -53,7 +62,7 @@ function Searchable.search(self, xpath)
     for i = 1, found_node_set.nodeNr do
       local node = found_node_set.nodeTab[i - 1]
       if tonumber(node.type) == ffi.C.XML_ELEMENT_NODE then
-        table.insert(raw_node_set, Element.new(node))
+        table.insert(raw_node_set, Element.new(document, node))
       else
         table.insert(raw_node_set, node)
       end

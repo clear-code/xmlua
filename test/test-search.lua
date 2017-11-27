@@ -39,3 +39,16 @@ function TestSearch.test_multiple()
   luaunit.assertEquals(#document:search("/root/sub[@class='A']"),
                        2)
 end
+
+function TestSearch.test_node()
+  local document = xmlua.XML.parse([[
+<root>
+  <sub>
+    <subsub/>
+  </sub>
+</root>
+]])
+  local node = document:search("/root/sub")[1]
+  luaunit.assertEquals(node:search("subsub")[1]:to_xml(),
+                       "<subsub/>")
+end

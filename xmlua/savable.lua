@@ -11,10 +11,10 @@ local function save(target, flags, failure_message, options)
   end
   local context = libxml2.xmlSaveToBuffer(buffer, encoding, flags)
   local success
-  if target.document then
-    success = libxml2.xmlSaveDoc(context, target.document)
-  else
+  if target.node then
     success = libxml2.xmlSaveTree(context, target.node)
+  else
+    success = libxml2.xmlSaveDoc(context, target.document)
   end
   libxml2.xmlSaveClose(context)
   if not success then

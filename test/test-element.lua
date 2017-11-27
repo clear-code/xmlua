@@ -45,8 +45,8 @@ end
 
 function TestElement.test_next_last()
   local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
-  local child1 = document:search("/root/child2")[1]
-  luaunit.assertNil(child1:next())
+  local child2 = document:search("/root/child2")[1]
+  luaunit.assertNil(child2:next())
 end
 
 function TestElement.test_parent()

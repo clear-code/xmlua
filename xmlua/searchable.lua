@@ -72,7 +72,7 @@ function Searchable.search(self, xpath)
         table.insert(raw_node_set, node)
       end
     end
-    return(NodeSet.new(raw_node_set))
+    return NodeSet.new(raw_node_set)
   end
 end
 

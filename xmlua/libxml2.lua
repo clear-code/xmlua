@@ -1,5 +1,7 @@
 local libxml2 = {}
 
+require("xmlua.libxml2.memory")
+require("xmlua.libxml2.global")
 require("xmlua.libxml2.xmlstring")
 require("xmlua.libxml2.xmlerror")
 require("xmlua.libxml2.dict")
@@ -16,6 +18,20 @@ local ffi = require("ffi")
 local loaded, xml2 = pcall(ffi.load, "xml2")
 if not loaded then
   xml2 = ffi.load("libxml2.so.2")
+end
+
+local function __xmlFreeIsAvailable()
+  local success, err = pcall(function()
+      local func = xml2.__xmlFree
+  end)
+  return success
+end
+
+local xmlFree
+if __xmlFreeIsAvailable() then
+  xmlFree = xml2.__xmlFree()
+else
+  xmlFree = xml2.xmlFree
 end
 
 function libxml2.htmlCreateMemoryParserCtxt(html)

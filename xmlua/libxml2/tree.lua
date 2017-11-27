@@ -100,6 +100,7 @@ xmlNodePtr xmlPreviousElementSibling(xmlNodePtr node);
 xmlNodePtr xmlNextElementSibling(xmlNodePtr node);
 
 xmlNodePtr xmlFirstElementChild(xmlNodePtr node);
+xmlNodePtr xmlLastElementChild(xmlNodePtr node);
 
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);
 

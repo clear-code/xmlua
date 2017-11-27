@@ -76,12 +76,36 @@ function libxml2.xmlDocGetRootElement(document)
 end
 
 
-function libxml2.xmlPreviousElementSibling(node)
-  local element = xml2.xmlPreviousElementSibling(node)
-  if element == ffi.NULL then
+local function xmlPreviousElementSiblingIsBuggy()
+  local xml = "<root><child1/>text<child2/></root>"
+  local context = libxml2.xmlCreateMemoryParserCtxt(xml)
+  libxml2.xmlParseDocument(context)
+  local document = context.myDoc
+  local root = xml2.xmlDocGetRootElement(document)
+  local child2 = xml2.xmlLastElementChild(root)
+  return xml2.xmlPreviousElementSibling(child2) == ffi.NULL
+end
+
+if xmlPreviousElementSiblingIsBuggy() then
+  -- For libxml2 < 2.7.7. CentOS 6 ships libxml2 2.7.6.
+  function libxml2.xmlPreviousElementSibling(node)
+    local node = node.prev
+    while node ~= ffi.NULL do
+      if tonumber(node.type) == ffi.C.XML_ELEMENT_NODE then
+        return node
+      end
+      node = node.prev
+    end
     return nil
   end
-  return element
+else
+  function libxml2.xmlPreviousElementSibling(node)
+    local element = xml2.xmlPreviousElementSibling(node)
+    if element == ffi.NULL then
+      return nil
+    end
+    return element
+  end
 end
 
 function libxml2.xmlNextElementSibling(node)

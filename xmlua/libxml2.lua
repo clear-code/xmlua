@@ -93,9 +93,23 @@ function libxml2.xmlXPathNewContext(document)
   return ffi.gc(context, xml2.xmlXPathFreeContext)
 end
 
-function libxml2.xmlXPathSetContextNode(node, context)
-  local status = xml2.xmlXPathSetContextNode(node, context)
-  return status == 0
+local function xmlXPathSetContextNodeIsAvailable()
+  local success, err = pcall(function()
+      local func = xml2.xmlXPathSetContextNode
+  end)
+  return success
+end
+
+if xmlXPathSetContextNodeIsAvailable() then
+  function libxml2.xmlXPathSetContextNode(node, context)
+    local status = xml2.xmlXPathSetContextNode(node, context)
+    return status == 0
+  end
+else
+  function libxml2.xmlXPathSetContextNode(node, context)
+    context.node = node
+    return true
+  end
 end
 
 function libxml2.xmlXPathEvalExpression(expression, context)

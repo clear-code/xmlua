@@ -44,7 +44,9 @@ function Searchable.search(self, xpath)
     error({message = "failed to create XPath context"})
   end
   if self.node then
-    libxml2.xmlXPathSetContextNode(self.node, context)
+    if not libxml2.xmlXPathSetContextNode(self.node, context) then
+      error("failed to set target node: <" .. tostring(self.node) .. ">")
+    end
   end
   local object = libxml2.xmlXPathEvalExpression(xpath, context)
   if not object then

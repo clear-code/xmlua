@@ -15,3 +15,10 @@ function TestElement.test_to_html()
   luaunit.assertEquals(node_set[1]:to_html(),
                        "<title>Title</title>")
 end
+
+function TestElement.test_to_xml()
+  local document = xmlua.XML.parse([[<root/>]])
+  local node_set = document:search("/root")
+  luaunit.assertEquals(node_set[1]:to_xml(),
+                       "<root/>")
+end

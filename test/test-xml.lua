@@ -14,3 +14,12 @@ function TestXML.test_parse_invalid()
   luaunit.assertEquals(success, false)
   luaunit.assertEquals(err, {message = "Start tag expected, '<' not found\n"})
 end
+
+function TestXML.test_root_element()
+  local xml = xmlua.XML.parse("<root><child/></root>")
+  luaunit.assertEquals(xml:root_element():to_xml(),
+                       [[
+<root>
+  <child/>
+</root>]])
+end

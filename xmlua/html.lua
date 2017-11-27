@@ -3,12 +3,15 @@ local HTML = {}
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
+local Document = require("xmlua.document")
 local Savable = require("xmlua.savable")
 local Searchable = require("xmlua.searchable")
 
 local metatable = {}
 function metatable.__index(table, key)
-  return Savable[key] or Searchable[key]
+  return Document[key] or
+    Savable[key] or
+    Searchable[key]
 end
 
 function HTML.parse(html)

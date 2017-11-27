@@ -17,3 +17,9 @@ function TestHTML.test_parse_invalid()
   luaunit.assertEquals(success, false)
   luaunit.assertEquals(err, {message = "Document is empty\n"})
 end
+
+function TestHTML.test_root_element()
+  local html = xmlua.HTML.parse("<html></html>")
+  luaunit.assertEquals(html:root_element():to_html(),
+                       "<html></html>")
+end

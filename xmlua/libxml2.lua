@@ -83,7 +83,7 @@ local function xmlPreviousElementSiblingIsBuggy()
   local document = context.myDoc
   local root = xml2.xmlDocGetRootElement(document)
   local child2 = xml2.xmlLastElementChild(root)
-  return xml2.xmlPreviousElementSibling(child2) == ffi.NULL
+  return xml2.xmlPreviousElementSibling(child2) == child2
 end
 
 if xmlPreviousElementSiblingIsBuggy() then

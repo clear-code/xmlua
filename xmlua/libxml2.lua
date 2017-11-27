@@ -92,6 +92,14 @@ function libxml2.xmlNextElementSibling(node)
   return element
 end
 
+function libxml2.xmlFirstElementChild(node)
+  local element = xml2.xmlFirstElementChild(node)
+  if element == ffi.NULL then
+    return nil
+  end
+  return element
+end
+
 function libxml2.xmlSearchNs(document, node, namespace_prefix)
   local namespace = xml2.xmlSearchNs(document, node, namespace_prefix)
   if namespace == ffi.NULL then

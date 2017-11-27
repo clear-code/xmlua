@@ -99,6 +99,8 @@ xmlNodePtr xmlDocGetRootElement(const xmlDoc *doc);
 xmlNodePtr xmlPreviousElementSibling(xmlNodePtr node);
 xmlNodePtr xmlNextElementSibling(xmlNodePtr node);
 
+xmlNodePtr xmlFirstElementChild(xmlNodePtr node);
+
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);
 
 char *xmlGetNoNsProp(const xmlNode *node, const xmlChar *name);

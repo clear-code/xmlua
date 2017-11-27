@@ -109,7 +109,14 @@ end
 local function find_element(document, xpath)
   local context = libxml2.xmlXPathNewContext(document)
   local object = libxml2.xmlXPathEvalExpression(xpath, context)
+  if object.nodesetval.nodeNr == 0 then
+    return nil
+  end
   return object.nodesetval.nodeTab[0]
+end
+
+local function root_element(document)
+  return libxml2.xmlDocGetRootElement(document)
 end
 
 TestLibxml2Node = {}
@@ -127,4 +134,34 @@ function TestLibxml2Node.test_search_namespace_not_found()
   local document = parse_xml(xml)
   local root = find_element(document, "/root")
   luaunit.assertNil(libxml2.xmlSearchNs(document, root, "nonexistent"))
+end
+
+function TestLibxml2Node.test_get_no_ns_prop_found()
+  local xml = [[
+<root attribute="value"/>
+]]
+  local document = parse_xml(xml)
+  local root = root_element(document)
+  luaunit.assertEquals(libxml2.xmlGetNoNsProp(root, "attribute"),
+                       "value")
+end
+
+function TestLibxml2Node.test_get_no_ns_prop_with_defalt_namespace()
+  local xml = [[
+<root xmlns:example="http://example.com/"
+      attribute="value"/>
+]]
+  local document = parse_xml(xml)
+  local root = root_element(document)
+  luaunit.assertEquals(libxml2.xmlGetNoNsProp(root, "attribute"),
+                       "value")
+end
+
+function TestLibxml2Node.test_get_no_ns_prop_not_found()
+  local xml = [[
+<root attribute="value"/>
+]]
+  local document = parse_xml(xml)
+  local root = root_element(document)
+  luaunit.assertNil(libxml2.xmlGetNoNsProp(root, "nonexistent"))
 end

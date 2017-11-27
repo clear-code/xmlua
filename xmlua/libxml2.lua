@@ -83,6 +83,17 @@ function libxml2.xmlSearchNs(document, node, namespace_prefix)
   return namespace
 end
 
+function libxml2.xmlGetNoNsProp(node, name)
+  local value = xml2.xmlGetNoNsProp(node, name)
+  if value == ffi.NULL then
+    return nil
+  end
+  local lua_string = ffi.string(value)
+  xmlFree(value)
+  return lua_string
+end
+
+
 function libxml2.xmlBufferCreate()
   return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)
 end

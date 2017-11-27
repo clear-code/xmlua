@@ -43,6 +43,21 @@ function TestElement.test_parent()
                        "root")
 end
 
+function TestElement.test_children()
+  local document = xmlua.XML.parse([[
+<root>
+  text1
+  <child1/>
+  text2
+  <child2/>
+  text3
+</root>
+]])
+  local root = document:root_element()
+  luaunit.assertEquals(root:children():to_xml(),
+                       "<child1/><child2/>")
+end
+
 function TestElement.test_get_attribute_raw()
   local document = xmlua.XML.parse([[<root class="A"/>]])
   local node_set = document:search("/root")

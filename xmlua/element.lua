@@ -6,6 +6,8 @@ local ffi = require("ffi")
 local Savable = require("xmlua.savable")
 local Searchable = require("xmlua.searchable")
 
+local NodeSet = require("xmlua.node-set")
+
 local methods = {}
 
 local metatable = {}
@@ -50,6 +52,16 @@ end
 
 function methods.parent(self)
   return Element.new(self.document, self.node.parent)
+end
+
+function methods.children(self)
+  local children = {}
+  local child = libxml2.xmlFirstElementChild(self.node)
+  while child do
+    table.insert(children, Element.new(self.document, child))
+    child = libxml2.xmlNextElementSibling(child)
+  end
+  return NodeSet.new(children)
 end
 
 function Element.new(document, node)

@@ -36,6 +36,13 @@ function TestElement.test_previous_first()
   luaunit.assertNil(child1:previous())
 end
 
+function TestElement.test_parent()
+  local document = xmlua.XML.parse([[<root><child/></root>]])
+  local child = document:search("/root/child")[1]
+  luaunit.assertEquals(child:parent():name(),
+                       "root")
+end
+
 function TestElement.test_get_attribute_raw()
   local document = xmlua.XML.parse([[<root class="A"/>]])
   local node_set = document:search("/root")

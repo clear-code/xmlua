@@ -48,6 +48,10 @@ function methods.previous(self)
   return Element.new(self.document, element)
 end
 
+function methods.parent(self)
+  return Element.new(self.document, self.node.parent)
+end
+
 function Element.new(document, node)
   local element = {
     document = document,

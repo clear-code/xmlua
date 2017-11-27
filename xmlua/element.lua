@@ -64,6 +64,14 @@ function methods.children(self)
   return NodeSet.new(children)
 end
 
+function methods.next(self)
+  local element = libxml2.xmlNextElementSibling(self.node)
+  if not element then
+    return nil
+  end
+  return Element.new(self.document, element)
+end
+
 function Element.new(document, node)
   local element = {
     document = document,

@@ -36,6 +36,19 @@ function TestElement.test_previous_first()
   luaunit.assertNil(child1:previous())
 end
 
+function TestElement.test_next()
+  local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
+  local child1 = document:search("/root/child1")[1]
+  luaunit.assertEquals(child1:next():name(),
+                       "child2")
+end
+
+function TestElement.test_next_last()
+  local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
+  local child1 = document:search("/root/child2")[1]
+  luaunit.assertNil(child1:next())
+end
+
 function TestElement.test_parent()
   local document = xmlua.XML.parse([[<root><child/></root>]])
   local child = document:search("/root/child")[1]

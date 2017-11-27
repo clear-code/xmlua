@@ -30,6 +30,12 @@ function TestElement.test_previous()
                        "child1")
 end
 
+function TestElement.test_previous_first()
+  local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
+  local child1 = document:search("/root/child1")[1]
+  luaunit.assertNil(child1:previous())
+end
+
 function TestElement.test_get_attribute_raw()
   local document = xmlua.XML.parse([[<root class="A"/>]])
   local node_set = document:search("/root")

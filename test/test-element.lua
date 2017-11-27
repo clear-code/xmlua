@@ -22,3 +22,24 @@ function TestElement.test_to_xml()
   luaunit.assertEquals(node_set[1]:to_xml(),
                        "<root/>")
 end
+
+function TestElement.test_get_attribute_raw()
+  local document = xmlua.XML.parse([[<root class="A"/>]])
+  local node_set = document:search("/root")
+  luaunit.assertEquals(node_set[1]:get_attribute("class"),
+                       "A")
+end
+
+function TestElement.test_get_attribute_property()
+  local document = xmlua.XML.parse([[<root class="A"/>]])
+  local node_set = document:search("/root")
+  luaunit.assertEquals(node_set[1].class,
+                       "A")
+end
+
+function TestElement.test_get_attribute_array_referece()
+  local document = xmlua.XML.parse([[<root class="A"/>]])
+  local node_set = document:search("/root")
+  luaunit.assertEquals(node_set[1]["class"],
+                       "A")
+end

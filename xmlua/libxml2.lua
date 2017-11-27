@@ -107,6 +107,9 @@ if xmlXPathSetContextNodeIsAvailable() then
   end
 else
   function libxml2.xmlXPathSetContextNode(node, context)
+    if not node then
+      return false
+    end
     context.node = node
     return true
   end

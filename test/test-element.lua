@@ -66,7 +66,7 @@ function TestElement.test_children()
   text3
 </root>
 ]])
-  local root = document:root_element()
+  local root = document:root()
   luaunit.assertEquals(root:children():to_xml(),
                        "<child1/><child2/>")
 end

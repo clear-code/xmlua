@@ -5,7 +5,7 @@ local ffi = require("ffi")
 
 local Element = require("xmlua.element")
 
-function Document.root_element(self)
+function Document.root(self)
   local root_element = libxml2.xmlDocGetRootElement(self.document)
   if not root_element then
     return nil

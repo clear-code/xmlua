@@ -55,9 +55,16 @@ function libxml2.xmlDocGetRootElement(document)
   local root = xml2.xmlDocGetRootElement(document)
   if root == ffi.NULL then
     return nil
-  else
-    return root
   end
+  return root
+end
+
+function libxml2.xmlSearchNs(document, node, namespace_prefix)
+  local namespace = xml2.xmlSearchNs(document, node, namespace_prefix)
+  if namespace == ffi.NULL then
+    return nil
+  end
+  return namespace
 end
 
 function libxml2.xmlBufferCreate()

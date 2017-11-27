@@ -105,3 +105,26 @@ function TestLibxml2XPath.test_eval_expression_invalid()
   luaunit.assertEquals(context.lastError.code,
                        ffi.C.XML_XPATH_EXPRESSION_OK + ffi.C.XPATH_EXPR_ERROR)
 end
+
+local function find_element(document, xpath)
+  local context = libxml2.xmlXPathNewContext(document)
+  local object = libxml2.xmlXPathEvalExpression(xpath, context)
+  return object.nodesetval.nodeTab[0]
+end
+
+TestLibxml2Node = {}
+function TestLibxml2Node.test_search_namespace_found()
+  local xml = "<root xmlns:example=\"http://example.com/\"/>"
+  local document = parse_xml(xml)
+  local root = find_element(document, "/root")
+  local namespace = libxml2.xmlSearchNs(document, root, "example")
+  luaunit.assertEquals(ffi.string(namespace.href),
+                       "http://example.com/")
+end
+
+function TestLibxml2Node.test_search_namespace_not_found()
+  local xml = "<root xmlns:example=\"http://example.com/\"/>"
+  local document = parse_xml(xml)
+  local root = find_element(document, "/root")
+  luaunit.assertNil(libxml2.xmlSearchNs(document, root, "nonexistent"))
+end

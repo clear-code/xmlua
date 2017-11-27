@@ -3,10 +3,14 @@ local Savable = {}
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
-function Savable.to_html(self, options) -- TODO: Support encoding
+function Savable.to_html(self, options)
   local buffer = libxml2.xmlBufferCreate()
+  local encoding = "UTF-8"
+  if options and options.encoding then
+    encoding = options.encoding
+  end
   local context = libxml2.xmlSaveToBuffer(buffer,
-                                          "UTF-8",
+                                          encoding,
                                           bit.bor(ffi.C.XML_SAVE_FORMAT,
                                                   ffi.C.XML_SAVE_NO_DECL,
                                                   ffi.C.XML_SAVE_NO_EMPTY,

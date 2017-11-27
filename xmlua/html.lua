@@ -16,6 +16,9 @@ end
 
 function HTML.parse(html)
   local context = libxml2.htmlCreateMemoryParserCtxt(html)
+  if not context then
+    error({message = "failed to create context to parse HTML"})
+  end
   local success = libxml2.htmlParseDocument(context)
   if not success then
     error({message = ffi.string(context.lastError.message)})

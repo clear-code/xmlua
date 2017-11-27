@@ -16,6 +16,9 @@ end
 
 function XML.parse(xml)
   local context = libxml2.xmlCreateMemoryParserCtxt(xml)
+  if not context then
+    error({message = "failed to create context to parse XML"})
+  end
   local success = libxml2.xmlParseDocument(context)
   if not success then
     error({message = ffi.string(context.lastError.message)})

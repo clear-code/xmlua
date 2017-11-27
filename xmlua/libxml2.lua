@@ -77,19 +77,19 @@ end
 
 
 function libxml2.xmlPreviousElementSibling(node)
-  local node = xml2.xmlPreviousElementSibling(node)
-  if node == ffi.NULL then
+  local element = xml2.xmlPreviousElementSibling(node)
+  if element == ffi.NULL then
     return nil
   end
-  return node
+  return element
 end
 
 function libxml2.xmlNextElementSibling(node)
-  local node = xml2.xmlNextElementSibling(node)
-  if node == ffi.NULL then
+  local element = xml2.xmlNextElementSibling(node)
+  if element == ffi.NULL then
     return nil
   end
-  return node
+  return element
 end
 
 function libxml2.xmlSearchNs(document, node, namespace_prefix)

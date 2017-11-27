@@ -40,6 +40,9 @@ ERROR_MESSAGES[ffi.C.XPATH_FORBID_VARIABLE_ERROR]    = "Forbidden variable\n"
 function Searchable.search(self, xpath)
   local document = self.document
   local context = libxml2.xmlXPathNewContext(document)
+  if not context then
+    error({message = "failed to create XPath context"})
+  end
   if self.node then
     libxml2.xmlXPathSetContextNode(self.node, context)
   end

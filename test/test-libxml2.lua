@@ -161,15 +161,14 @@ function TestLibxml2Node.test_get_no_ns_prop_found()
                        "value")
 end
 
-function TestLibxml2Node.test_get_no_ns_prop_with_defalt_namespace()
+function TestLibxml2Node.test_get_no_ns_prop_found_with_namespace()
   local xml = [[
 <root xmlns:example="http://example.com/"
-      attribute="value"/>
+      example:attribute="value"/>
 ]]
   local document = parse_xml(xml)
   local root = root_element(document)
-  luaunit.assertEquals(libxml2.xmlGetNoNsProp(root, "attribute"),
-                       "value")
+  luaunit.assertNil(libxml2.xmlGetNoNsProp(root, "attribute"))
 end
 
 function TestLibxml2Node.test_get_no_ns_prop_not_found()
@@ -179,4 +178,30 @@ function TestLibxml2Node.test_get_no_ns_prop_not_found()
   local document = parse_xml(xml)
   local root = root_element(document)
   luaunit.assertNil(libxml2.xmlGetNoNsProp(root, "nonexistent"))
+end
+
+function TestLibxml2Node.test_get_ns_prop_found()
+  local xml = [[
+<root xmlns:example="http://example.com/"
+      example:attribute="value-ns"
+      attribute="value-no-ns"/>
+]]
+  local document = parse_xml(xml)
+  local root = root_element(document)
+  luaunit.assertEquals(libxml2.xmlGetNsProp(root,
+                                            "attribute",
+                                            "http://example.com/"),
+                       "value-ns")
+end
+
+function TestLibxml2Node.test_get_ns_prop_not_found()
+  local xml = [[
+<root xmlns:example="http://example.com/"
+      example:attribute="value"/>
+]]
+  local document = parse_xml(xml)
+  local root = root_element(document)
+  luaunit.assertNil(libxml2.xmlGetNsProp(root,
+                                         "nonexistent",
+                                         "http://example.com/"))
 end

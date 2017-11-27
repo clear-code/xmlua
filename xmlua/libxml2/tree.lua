@@ -101,4 +101,7 @@ xmlNodePtr xmlNextElementSibling(xmlNodePtr node);
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);
 
 char *xmlGetNoNsProp(const xmlNode *node, const xmlChar *name);
+xmlChar *xmlGetNsProp(const xmlNode *node,
+                      const xmlChar *name,
+                      const xmlChar *nameSpace);
 ]]

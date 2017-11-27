@@ -12,7 +12,6 @@ function TestNodeSet.test_nth()
 </root>
 ]])
   local node_set = document:search("/root/sub[@class='A']")
-  -- TODO: Use to_xml()
-  luaunit.assertEquals(node_set[1]:to_html(),
+  luaunit.assertEquals(node_set[1]:to_xml(),
                        "<sub class=\"A\">1</sub>")
 end

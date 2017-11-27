@@ -36,6 +36,18 @@ function methods.get_attribute(self, name)
   return value
 end
 
+function methods.name(self)
+  return ffi.string(self.node.name)
+end
+
+function methods.previous(self)
+  local element = libxml2.xmlPreviousElementSibling(self.node)
+  if not element then
+    return nil
+  end
+  return Element.new(self.document, element)
+end
+
 function Element.new(document, node)
   local element = {
     document = document,

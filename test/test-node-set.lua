@@ -16,6 +16,23 @@ function TestNodeSet.test_nth()
                        "<sub class=\"A\">1</sub>")
 end
 
+function TestNodeSet.test_search()
+  local document = xmlua.XML.parse([[
+<root>
+  <sub>
+    <subsub>1</subsub>
+    <subsub>2</subsub>
+    <subsub>3</subsub>
+  </sub>
+</root>
+]])
+  local sub_node_set = document:search("/root/sub")
+  luaunit.assertEquals(sub_node_set:search("subsub"):to_xml(),
+                       "<subsub>1</subsub>" ..
+                       "<subsub>2</subsub>" ..
+                       "<subsub>3</subsub>")
+end
+
 function TestNodeSet.test_to_xml()
   local document = xmlua.XML.parse([[
 <root>

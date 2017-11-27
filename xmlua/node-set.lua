@@ -18,18 +18,29 @@ end
 
 function methods.to_xml(self, options)
   return table.concat(map(self,
-                          function(value)
-                            return value:to_xml(options)
+                          function(node)
+                            return node:to_xml(options)
                           end),
                       "")
 end
 
 function methods.to_html(self, options)
   return table.concat(map(self,
-                          function(value)
-                            return value:to_html(options)
+                          function(node)
+                            return node:to_html(options)
                           end),
                       "")
+end
+
+function methods.search(self, xpath)
+  local nodes = {}
+  for i, node in ipairs(self) do
+    local sub_nodes = node:search(xpath)
+    for j, sub_node in ipairs(sub_nodes) do
+      table.insert(nodes, sub_node)
+    end
+  end
+  return NodeSet.new(nodes)
 end
 
 function NodeSet.new(nodes)

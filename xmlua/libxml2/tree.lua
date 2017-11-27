@@ -104,4 +104,5 @@ char *xmlGetNoNsProp(const xmlNode *node, const xmlChar *name);
 xmlChar *xmlGetNsProp(const xmlNode *node,
                       const xmlChar *name,
                       const xmlChar *nameSpace);
+xmlChar *xmlGetProp(const xmlNode *node, const xmlChar *name);
 ]]

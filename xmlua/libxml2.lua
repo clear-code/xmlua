@@ -112,6 +112,16 @@ function libxml2.xmlGetNsProp(node, name, namespace_uri)
   return lua_string
 end
 
+function libxml2.xmlGetProp(node, name)
+  local value = xml2.xmlGetProp(node, name)
+  if value == ffi.NULL then
+    return nil
+  end
+  local lua_string = ffi.string(value)
+  xmlFree(value)
+  return lua_string
+end
+
 
 function libxml2.xmlBufferCreate()
   return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)

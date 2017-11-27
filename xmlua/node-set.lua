@@ -7,12 +7,29 @@ function metatable.__index(node_set, key)
   return methods[key]
 end
 
-function methods.to_xml(self, options)
-  local xml = ""
-  for i in pairs(self) do
-    xml = xml .. self[i]:to_xml(options)
+local function map(values, func)
+  local converted_values = {}
+  for i, value in ipairs(values) do
+    local converted_value = func(value)
+    table.insert(converted_values, converted_value)
   end
-  return xml
+  return converted_values
+end
+
+function methods.to_xml(self, options)
+  return table.concat(map(self,
+                          function(value)
+                            return value:to_xml(options)
+                          end),
+                      "")
+end
+
+function methods.to_html(self, options)
+  return table.concat(map(self,
+                          function(value)
+                            return value:to_html(options)
+                          end),
+                      "")
 end
 
 function NodeSet.new(nodes)

@@ -21,7 +21,7 @@ matrix:
         - curl -O http://luarocks.github.io/luarocks/releases/luarocks-${LUAROCKS_VERSION}.tar.gz
         - tar xf luarocks-${LUAROCKS_VERSION}.tar.gz
         - cd luarocks-${LUAROCKS_VERSION}
-        - ./configure --with-lua=luajit
+        - ./configure --with-lua-suffix=jit
         - make build
         - sudo make install
         - cd ..

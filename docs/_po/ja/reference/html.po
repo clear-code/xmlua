@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-28 11:51+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua.HTML\n"
+"---"
+msgstr ""
+"title: xmlua.HTML\n"
+"\""
+
+msgid "# `xmlua.HTML` module"
+msgstr "# `xmlua.HTML` モジュール"
+
+msgid "## Summary"
+msgstr "## サマリー"
+
+msgid "It has methods of the following modules:"
+msgstr "`xmlua.HTML` は、以下のモジュールのメソッドを持っています："
+
+msgid ""
+"  * [`xmlua.Document`][document]: Provides document such as HTML and XML relat"
+"ed methods."
+msgstr "  * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。"
+
+msgid ""
+"  * [`xmlua.Savable`][savable]: Provides HTML and XML serialization related me"
+"thods."
+msgstr "  * [`xmlua.Savable`][savable]: HTMLとXMLのシリアライズ関連のメソッドを提供します。"
+
+msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
+msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
+
+msgid "It means that you can use methods in the modules. For example:"
+msgstr "つまり、`xmlua.HTML`内で上記のメソッドを使うことができます。例："
+
+msgid ""
+"```lua\n"
+"-- Call `xmlua.Document:root` method\n"
+"html:root() -- -> Root element\n"
+"```"
+msgstr ""
+
+msgid "## Class methods"
+msgstr ""
+
+msgid "### `xmlua.HTML.parse(html) -> xmlua.HTML`"
+msgstr ""
+
+msgid "`html`: HTML string to be parsed."
+msgstr ""
+
+msgid "It parses the given HTML and returns `xmlua.HTML` object."
+msgstr ""
+
+msgid "The encoding of HTML is guessed."
+msgstr ""
+
+msgid ""
+"If HTML parsing is failed, it raises an error. The error has the\n"
+"following structure:"
+msgstr ""
+
+msgid ""
+"```lua\n"
+"{\n"
+"  message = \"Error details\",\n"
+"}\n"
+"```"
+msgstr ""
+
+msgid "Here is an example to parse HTML:"
+msgstr ""
+
+msgid ""
+"```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid ""
+"-- HTML to be parsed.\n"
+"-- You may want to use HTML in a file. If you want to use HTML in a file,\n"
+"-- you need to read HTML content from a file by yourself.\n"
+"local html = [[\n"
+"<html>\n"
+"  <body>\n"
+"    <p>Hello</p>\n"
+"  </body>\n"
+"</html>\n"
+"]]"
+msgstr ""
+
+msgid ""
+"-- Parses HTML\n"
+"local success, document = pcall(xmlua.HTML.parse, html)\n"
+"if not success then\n"
+"  local err = document\n"
+"  print(\"Failed to parse HTML: \" .. err.message)\n"
+"  os.exit(1)\n"
+"end"
+msgstr ""
+
+msgid ""
+"-- Gets the root element\n"
+"local root = document:root() -- --> <html> element as xmlua.Element"
+msgstr ""
+
+msgid ""
+"-- Prints root element name\n"
+"print(root:name()) -- -> html\n"
+"```"
+msgstr ""
+
+msgid "## Instance methods"
+msgstr ""
+
+msgid "There are not instance methods."
+msgstr ""
+
+msgid "Use methods of the included modules."
+msgstr ""
+
+msgid "## See also"
+msgstr ""
+
+msgid "[document]:document.html"
+msgstr ""
+
+msgid "[savable]:savable.html"
+msgstr ""
+
+msgid "[searchable]:searchable.html"
+msgstr ""

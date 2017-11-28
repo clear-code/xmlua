@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{{ page.language }}">
+  <head>
+    {% if page.description %}
+      {% assign description = page.description %}
+    {% else %}
+      {% capture description %}{% include site-description.html %}{% endcapture %}
+    {% endif %}
+
+    {% capture title %}{% if page.title == "none" %}{{ site.title }} - {{ description }}{% else %}{{ page.title }} | {{ site.title }}{% endif %}{% endcapture %}
+    {% capture relative_path %}{{ page.url | remove_first: page.path_prefix | remove: "index.html" }}{% endcapture %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% if page.redirect %}
+      <meta http-equiv="refresh" content="0;URL={{ page.redirect }}">
+    {% endif %}
+
+<!--
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.png">
+-->
+
+    <title>{{ title }}</title>
+    <link href="/assets/stylesheets/xmlua.css" rel="stylesheet" medis="screen">
+    <meta name="description" content="{{ description | strip_newlines }}">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        {% include navbar-content.html %}
+      </div>
+    </nav>
+
+    <div class="container">
+      {{ content }}
+    </div>
+
+    <footer>
+      <hr>
+      <div class="container">
+        {% include contribute.html %}
+        <p class="copyright">&copy; {{ site.year }} <a href="https://github.com/clear-code/xmlua/graphs/contributors">XMLua developers</a></p>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="/assets/javascripts/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+<p class="contribute">
+  {% assign source_path = page.path | prepend: "_po/" | replace_first: ".md", ".po" %}
+  {% assign source_url = source_path | prepend: "https://github.com/clear-code/xmlua/blob/master/docs/" %}
+  <a href="{{ source_url }}">誤字や誤訳、未訳を見つけたらお気軽にプルリクエストを送ってください！</a>
+</p>

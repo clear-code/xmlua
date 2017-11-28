@@ -1,0 +1,36 @@
+title: XMLua
+markdown: kramdown
+highlighter: rouge
+version: 1.0.0
+release_date: 2017-11-29
+copyright_year: 2017
+exclude:
+  - "Rakefile"
+  - "Gemfile"
+  - "Gemfile.lock"
+description:
+  en: Easy to use HTML and XML library for Lua
+  ja: 使いやすいLua用のHTML・XML処理ライブラリー
+
+kramdown:
+  input: GFM
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+
+sass:
+  sass_dir: assets/stylesheets
+
+defaults:
+  - scope:
+      path: "ja"
+    values:
+      path_prefix: /ja/
+      layout: "base"
+      language: ja
+      country: JP
+  - scope:
+      path: ""
+    values:
+      path_prefix: /
+      layout: "base"
+      language: en
+      country: US

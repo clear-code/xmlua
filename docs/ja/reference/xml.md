@@ -21,11 +21,12 @@ title: xmlua.XML
 例：
 
 ```lua
--- xmlua.Document:rootメソッドを呼ぶ
 local xmlua = require("xmlua")
 
 local document = xmlua.XML.parse("<root><sub/></root>")
 
+```lua
+-- xmlua.Document:rootメソッドを呼ぶ
 document:root() -- -> ルート要素
 ```
 

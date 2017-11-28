@@ -21,11 +21,11 @@ It means that you can use methods in the modules.
 Example:
 
 ```lua
--- Call xmlua.Document:root method
 local xmlua = require("xmlua")
 
 local document = xmlua.XML.parse("<root><sub/></root>")
 
+-- Call xmlua.Document:root method
 document:root() -- -> Root element
 ```
 

@@ -11,7 +11,6 @@ It's a class to manage multiple nodes. Normally, it's used as return object for 
 Example:
 
 ```lua
--- Call xmlua.Document:root method
 local xmlua = require("xmlua")
 
 local document = xmlua.XML.parse("<root><sub/></root>")

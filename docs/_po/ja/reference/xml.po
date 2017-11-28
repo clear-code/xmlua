@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 15:31+0900\n"
+"PO-Revision-Date: 2017-11-28 16:46+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,22 +47,11 @@ msgstr "例："
 
 msgid ""
 "```lua\n"
-"-- Call xmlua.Document:root method\n"
 "local xmlua = require(\"xmlua\")"
 msgstr ""
-"```lua\n"
-"-- xmlua.Document:rootメソッドを呼ぶ\n"
-"local xmlua = require(\"xmlua\")"
 
 msgid "local document = xmlua.XML.parse(\"<root><sub/></root>\")"
 msgstr ""
-
-msgid ""
-"document:root() -- -> Root element\n"
-"```"
-msgstr ""
-"document:root() -- -> ルート要素\n"
-"```"
 
 msgid "## Class methods"
 msgstr "## クラスメソッド"
@@ -97,11 +86,6 @@ msgstr ""
 
 msgid "Here is an example to parse XML:"
 msgstr "XMLをパースする例です。"
-
-msgid ""
-"```lua\n"
-"local xmlua = require(\"xmlua\")"
-msgstr ""
 
 msgid ""
 "-- XML to be parsed\n"

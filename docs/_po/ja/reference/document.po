@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-28 11:51+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua.Document\n"
+"---"
+msgstr ""
+
+msgid "# `xmlua.Document` module"
+msgstr "# `xmlua.Document`モジュール"
+
+msgid "## Summary"
+msgstr "## 概要"
+
+msgid "It provides common features for HTML document and XML document."
+msgstr "HTMLドキュメントとXMLドキュメントに共通の機能を提供します。"
+
+msgid "## Methods"
+msgstr ""
+
+msgid "### `root() -> xmlua.Element`"
+msgstr ""
+
+msgid "It returns the root element."
+msgstr ""
+
+msgid "Example:"
+msgstr ""
+
+msgid ""
+"```lua\n"
+"require xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid ""
+"local xml = xmlua.XML.parse(\"<root><sub/></root>\")\n"
+"xml:root() -- -> \"<root>\" element as xmlua.Element object\n"
+"```"
+msgstr ""
+
+msgid "## See also"
+msgstr ""
+
+msgid "  * [`xmlua.HTML`][html]: The class for HTML document."
+msgstr ""
+
+msgid "  * [`xmlua.XML`][xml]: The class for XML document."
+msgstr ""
+
+msgid "  * [`xmlua.Element`][element]: The class for element node."
+msgstr ""
+
+msgid "[html]:html.html"
+msgstr ""
+
+msgid "[xml]:xml.html"
+msgstr ""
+
+msgid "[element]:element.html"
+msgstr ""

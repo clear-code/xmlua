@@ -31,7 +31,7 @@ document:root() -- -> Root element
 
 ## Class methods
 
-### `xmlua.HTML.parse(html) -> xmlua.HTML`
+### `xmlua.HTML.parse(html) -> xmlua.HTML` {#parse}
 
 `html`: HTML string to be parsed.
 

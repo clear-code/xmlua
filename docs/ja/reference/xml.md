@@ -31,7 +31,7 @@ document:root() -- -> ルート要素
 
 ## クラスメソッド
 
-### `xmlua.XML.parse(xml) -> xmlua.XML`
+### `xmlua.XML.parse(xml) -> xmlua.XML` {#parse}
 
 `xml`: パース対象のXML文字列
 

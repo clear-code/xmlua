@@ -32,7 +32,7 @@ document:root() -- -> ルート要素
 
 ## クラスメソッド
 
-### `xmlua.HTML.parse(html) -> xmlua.HTML`
+### `xmlua.HTML.parse(html) -> xmlua.HTML` {#parse}
 
 `html`: パース対象のHTML文字列。
 

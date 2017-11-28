@@ -10,7 +10,7 @@ It provides common features for HTML document and XML document.
 
 ## Methods
 
-### `root() -> xmlua.Element`
+### `root() -> xmlua.Element` {#root}
 
 It returns the root element.
 

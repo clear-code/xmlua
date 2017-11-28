@@ -24,7 +24,7 @@ title: xmlua.XML
 -- xmlua.Document:rootメソッドを呼ぶ
 local xmlua = require("xmlua")
 
-local document = xmlua.HTML.parse("<root><sub/></root>")
+local document = xmlua.XML.parse("<root><sub/></root>")
 
 document:root() -- -> ルート要素
 ```

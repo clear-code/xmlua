@@ -54,7 +54,7 @@ msgstr ""
 "-- xmlua.Document:rootメソッドを呼ぶ\n"
 "local xmlua = require(\"xmlua\")"
 
-msgid "local document = xmlua.HTML.parse(\"<root><sub/></root>\")"
+msgid "local document = xmlua.XML.parse(\"<root><sub/></root>\")"
 msgstr ""
 
 msgid ""

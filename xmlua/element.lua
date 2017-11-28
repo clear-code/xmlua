@@ -1,3 +1,8 @@
+--- @module xmlua
+
+--- The class for element node.
+-- @type Element
+
 local Element = {}
 
 local libxml2 = require("xmlua.libxml2")
@@ -64,6 +69,9 @@ function methods.children(self)
   return NodeSet.new(children)
 end
 
+--- Gets the next sibling element.
+-- @function next
+-- @return xmlua.Element: The next sibling element.
 function methods.next(self)
   local element = libxml2.xmlNextElementSibling(self.node)
   if not element then

@@ -44,7 +44,7 @@ HTMLのパースに失敗した場合はエラーが発生します。発生す�
 
 ```lua
 {
-  message = "Error details",
+  message = "エラーの詳細",
 }
 ```
 
@@ -53,9 +53,7 @@ HTMLをパースする例です。
 ```lua
 local xmlua = require("xmlua")
 
--- パース対象のHTML。
--- ファイル内のHTMLをパースしたい場合は、自分でファイルからHTMLを
--- 読み込んでください。
+-- パース対象のHTML
 local html = [[
 <html>
   <body>
@@ -63,6 +61,11 @@ local html = [[
   </body>
 </html>
 ]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
 
 -- HTMLをパース
 local success, document = pcall(xmlua.HTML.parse, html)

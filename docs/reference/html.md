@@ -53,9 +53,7 @@ Here is an example to parse HTML:
 ```lua
 local xmlua = require("xmlua")
 
--- HTML to be parsed.
--- You may want to use HTML in a file. If you want to use HTML in a file,
--- you need to read HTML content from a file by yourself.
+-- HTML to be parsed
 local html = [[
 <html>
   <body>
@@ -63,6 +61,11 @@ local html = [[
   </body>
 </html>
 ]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
 
 -- Parses HTML
 local success, document = pcall(xmlua.HTML.parse, html)
@@ -75,7 +78,7 @@ end
 -- Gets the root element
 local root = document:root() -- --> <html> element as xmlua.Element
 
--- Prints root element name
+-- Prints the root element name
 print(root:name()) -- -> html
 ```
 

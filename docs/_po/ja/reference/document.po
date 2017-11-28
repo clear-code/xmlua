@@ -50,16 +50,16 @@ msgstr ""
 "```"
 
 msgid "## See also"
-msgstr ""
+msgstr "## 参照"
 
 msgid "  * [`xmlua.HTML`][html]: The class for HTML document."
-msgstr ""
+msgstr "  * [`xmlua.HTML`][html]: HTMLドキュメント用のクラスです。"
 
 msgid "  * [`xmlua.XML`][xml]: The class for XML document."
-msgstr ""
+msgstr "  * [`xmlua.XML`][xml]: XMLドキュメント用のクラスです。"
 
 msgid "  * [`xmlua.Element`][element]: The class for element node."
-msgstr ""
+msgstr "  * [`xmlua.Element`][element]: 要素ノード用のクラスです。"
 
 msgid "[html]:html.html"
 msgstr ""

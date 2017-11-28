@@ -25,11 +25,11 @@ xml:root() -- -> xmlua.Elementオブジェクトな"<root>"要素
 
 ## 参照
 
-  * [`xmlua.HTML`][html]: The class for HTML document.
+  * [`xmlua.HTML`][html]: HTMLドキュメント用のクラスです。
 
-  * [`xmlua.XML`][xml]: The class for XML document.
+  * [`xmlua.XML`][xml]: XMLドキュメント用のクラスです。
 
-  * [`xmlua.Element`][element]: The class for element node.
+  * [`xmlua.Element`][element]: 要素ノード用のクラスです。
 
 [html]:html.html
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 11:51+0900\n"
+"PO-Revision-Date: 2017-11-28 15:27+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,14 +26,14 @@ msgstr "HTMLドキュメントとXMLドキュメントに共通の機能を提�
 msgid "## Methods"
 msgstr "## メソッド"
 
-msgid "### `root() -> xmlua.Element`"
+msgid "### `root() -> xmlua.Element` {#root}"
 msgstr ""
 
 msgid "It returns the root element."
 msgstr "ルート要素を返します。"
 
 msgid "Example:"
-msgstr "例"
+msgstr "例："
 
 msgid ""
 "```lua\n"

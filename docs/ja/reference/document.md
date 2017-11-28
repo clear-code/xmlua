@@ -14,7 +14,7 @@ HTMLドキュメントとXMLドキュメントに共通の機能を提供しま�
 
 ルート要素を返します。
 
-例
+例：
 
 ```lua
 require xmlua = require("xmlua")

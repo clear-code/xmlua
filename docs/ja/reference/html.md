@@ -13,7 +13,9 @@ title: xmlua.HTML
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
-つまり、`xmlua.HTML`内で上記のメソッドを使うことができます。例：
+つまり、`xmlua.HTML`内で上記のメソッドを使うことができます。
+
+例：
 
 ```lua
 -- Call `xmlua.Document:root` method

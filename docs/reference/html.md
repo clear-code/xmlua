@@ -14,7 +14,9 @@ It has methods of the following modules:
 
   * [`xmlua.Searchable`][searchable]: Provides node search related methods.
 
-It means that you can use methods in the modules. For example:
+It means that you can use methods in the modules.
+
+Example:
 
 ```lua
 -- Call `xmlua.Document:root` method

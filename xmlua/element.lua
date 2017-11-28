@@ -55,6 +55,17 @@ function methods.previous(self)
   return Element.new(self.document, element)
 end
 
+--- Gets the next sibling element.
+-- @function next
+-- @return xmlua.Element: The next sibling element.
+function methods.next(self)
+  local element = libxml2.xmlNextElementSibling(self.node)
+  if not element then
+    return nil
+  end
+  return Element.new(self.document, element)
+end
+
 function methods.parent(self)
   return Element.new(self.document, self.node.parent)
 end
@@ -67,17 +78,6 @@ function methods.children(self)
     child = libxml2.xmlNextElementSibling(child)
   end
   return NodeSet.new(children)
-end
-
---- Gets the next sibling element.
--- @function next
--- @return xmlua.Element: The next sibling element.
-function methods.next(self)
-  local element = libxml2.xmlNextElementSibling(self.node)
-  if not element then
-    return nil
-  end
-  return Element.new(self.document, element)
 end
 
 function Element.new(document, node)

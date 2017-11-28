@@ -20,18 +20,17 @@ title: xmlua.HTML
 html:root() -- -> Root element
 ```
 
-## Class methods
+Classメソッド
 
 ### `xmlua.HTML.parse(html) -> xmlua.HTML`
 
-`html`: HTML string to be parsed.
+`html`: パース対象のHTML文字列。
 
-It parses the given HTML and returns `xmlua.HTML` object.
+与えられたHTMLをパースして、`xmlua.HTML`オブジェクトを返します。
 
-The encoding of HTML is guessed.
+HTMLのエンコーディングは推測されます。
 
-If HTML parsing is failed, it raises an error. The error has the
-following structure:
+HTMLのパースに失敗した場合はエラーが発生します。発生するエラーは以下の構造を持っています。
 
 ```lua
 {
@@ -39,14 +38,14 @@ following structure:
 }
 ```
 
-Here is an example to parse HTML:
+HTMLのパースの例です。
 
 ```lua
 local xmlua = require("xmlua")
 
--- HTML to be parsed.
--- You may want to use HTML in a file. If you want to use HTML in a file,
--- you need to read HTML content from a file by yourself.
+-- HTMLのパース
+-- ファイル内のHTMLを使いたい場合は、
+-- HTMLの中身をファイルから読み込む必要があります。
 local html = [[
 <html>
   <body>
@@ -63,10 +62,10 @@ if not success then
   os.exit(1)
 end
 
--- Gets the root element
+-- root要素の取得
 local root = document:root() -- --> <html> element as xmlua.Element
 
--- Prints root element name
+-- root要素の名前を出力
 print(root:name()) -- -> html
 ```
 

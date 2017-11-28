@@ -12,7 +12,7 @@ It provides features that serialize to HTML and XML.
 
 ### `to_html(options=nil) -> string` {#to-html}
 
-It serializes a document, an element or a node set as HTML.
+It serializes a document or an element as HTML.
 
 `options`: Here are available options:
 
@@ -105,31 +105,9 @@ print(document:search("/html/body")[1]:to_html())
 -- <body>World</body>
 ```
 
-You can serialize a node set. All nodes are serialized and serialized strings are concatenated.
-
-```lua
-local xmlua = require("xmlua")
-
-local document = xmlua.HTML.parse([[
-<html>
-  <head>
-    <title>Hello</title>
-  </head>
-  <body>World</body>
-</html>
-]])
-
--- Serializes elements under <html> (<head> and <body>) as HTML
-print(document:search("/html/*"):to_html())
--- <head>
--- <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
---    <title>Hello</title>
---  </head><body>World</body>
-```
-
 ### `to_xml(options=nil) -> string` {#to-xml}
 
-It serializes a document, an element or a node set as XML.
+It serializes a document or an element as XML.
 
 `options`: Here are available options:
 
@@ -213,24 +191,6 @@ local document = xmlua.XML.parse([[
 -- Serializes <body> element as XML
 print(document:search("/root/sub1")[1]:to_xml())
 -- <sub1>text1</sub1>
-```
-
-You can serialize a node set. All nodes are serialized and serialized strings are concatenated.
-
-```lua
-local xmlua = require("xmlua")
-
-local document = xmlua.XML.parse([[
-<root>
-  <sub1>text1</sub1>
-  <sub2>text2</sub2>
-  <sub3>text3</sub3>
-</root>
-]])
-
--- Serializes elements under <root> (<sub1>, <sub2> and <sub3>) as XML
-print(document:search("/root/*"):to_xml())
--- <sub1>text1</sub1><sub2>text2</sub2><sub3>text3</sub3>
 ```
 
 ## See also

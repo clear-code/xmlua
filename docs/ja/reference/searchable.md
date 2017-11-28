@@ -22,7 +22,7 @@ XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェク
 
 XPathでの検索に失敗した場合は、エラーが発生します。
 
-エラーの構造を示します。
+発生するエラーは以下の構造になっています。
 
 ```lua
 {
@@ -30,7 +30,7 @@ XPathでの検索に失敗した場合は、エラーが発生します。
 }
 ```
 
-例
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -59,7 +59,7 @@ print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 
 ルート要素からでも検索できます。
 
-例
+例：
 
 ```lua
 local xmlua = require("xmlua")

@@ -1,11 +1,12 @@
+---
 title: xmlua.HTML
-"
+---
 
 # `xmlua.HTML`モジュール
 
-## サマリー
+## 概要
 
-`xmlua.HTML`は、以下のモジュールのメソッドを持っています。
+`xmlua.HTML`では、以下のモジュールのメソッドを使えます。
 
   * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
 
@@ -13,7 +14,7 @@ title: xmlua.HTML
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
-つまり、`xmlua.HTML`内で上記のメソッドを使うことができます。
+つまり、`xmlua.HTML`内で上記のメソッドを使えます。
 
 例：
 
@@ -22,7 +23,7 @@ title: xmlua.HTML
 html:root() -- -> Root element
 ```
 
-Classメソッド
+## クラスメソッド
 
 ### `xmlua.HTML.parse(html) -> xmlua.HTML`
 
@@ -30,9 +31,9 @@ Classメソッド
 
 与えられたHTMLをパースして、`xmlua.HTML`オブジェクトを返します。
 
-HTMLのエンコーディングは推測されます。
+HTMLのエンコーディングは推測します。
 
-HTMLのパースに失敗した場合はエラーが発生します。発生するエラーは以下の構造を持っています。
+HTMLのパースに失敗した場合はエラーが発生します。発生するエラーは以下の構造になっています。
 
 ```lua
 {
@@ -40,14 +41,14 @@ HTMLのパースに失敗した場合はエラーが発生します。発生す�
 }
 ```
 
-HTMLのパースの例です。
+HTMLをパースする例です。
 
 ```lua
 local xmlua = require("xmlua")
 
--- HTMLのパース
--- ファイル内のHTMLを使いたい場合は、
--- HTMLの中身をファイルから読み込む必要があります。
+-- パース対象のHTML。
+-- ファイル内のHTMLをパースしたい場合は、自分でファイルからHTMLを
+-- 読み込んでください。
 local html = [[
 <html>
   <body>
@@ -56,7 +57,7 @@ local html = [[
 </html>
 ]]
 
--- Parses HTML
+-- HTMLをパース
 local success, document = pcall(xmlua.HTML.parse, html)
 if not success then
   local err = document
@@ -64,18 +65,18 @@ if not success then
   os.exit(1)
 end
 
--- root要素の取得
-local root = document:root() -- --> <html> element as xmlua.Element
+-- ルート要素の取得
+local root = document:root() -- --> xmlua.Elementオブジェクトな<html>要素。
 
--- root要素の名前を出力
+-- ルート要素の名前を出力
 print(root:name()) -- -> html
 ```
 
 ## インスタンスメソッド
 
-`xmlua.HTML`はインスタンスメソッドを持っていません。
+`xmlua.HTML`にはインスタンスメソッドはありません。
 
-インクルードしたモジュールのメソッドは使えます。
+インクルードしたモジュールのメソッドを使います。
 
 ## 参照
 

@@ -8,19 +8,19 @@ title: xmlua.Document
 
 HTMLドキュメントとXMLドキュメントに共通の機能を提供します。
 
-## Methods
+## メソッド
 
 ### `root() -> xmlua.Element` {#root}
 
-It returns the root element.
+ルート要素を返します。
 
-例：
+例
 
 ```lua
 require xmlua = require("xmlua")
 
 local xml = xmlua.XML.parse("<root><sub/></root>")
-xml:root() -- -> "<root>" element as xmlua.Element object
+xml:root() -- -> xmlua.Elementオブジェクトな"<root>"要素
 ```
 
 ## 参照

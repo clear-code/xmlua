@@ -24,16 +24,16 @@ msgid "It provides common features for HTML document and XML document."
 msgstr "HTMLドキュメントとXMLドキュメントに共通の機能を提供します。"
 
 msgid "## Methods"
-msgstr ""
+msgstr "## メソッド"
 
 msgid "### `root() -> xmlua.Element`"
 msgstr ""
 
 msgid "It returns the root element."
-msgstr ""
+msgstr "ルート要素を返します。"
 
 msgid "Example:"
-msgstr ""
+msgstr "例"
 
 msgid ""
 "```lua\n"
@@ -45,6 +45,9 @@ msgid ""
 "xml:root() -- -> \"<root>\" element as xmlua.Element object\n"
 "```"
 msgstr ""
+"local xml = xmlua.XML.parse(\"<root><sub/></root>\")\n"
+"xml:root() -- -> xmlua.Elementオブジェクトな\"<root>\"要素\n"
+"```"
 
 msgid "## See also"
 msgstr ""

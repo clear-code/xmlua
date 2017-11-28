@@ -97,7 +97,7 @@ print(root["example:attribute"])
 print(root["attribute"])
 -- -> value
 
--- With nonexistent namespace prefix
+-- 存在しない名前空間プレフィックスつき
 print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```

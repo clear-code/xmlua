@@ -172,7 +172,7 @@ msgstr ""
 "-- -> value"
 
 msgid ""
-"-- with nonexistent namespace prefix\n"
+"-- With nonexistent namespace prefix\n"
 "print(root[\"nonexistent-namespace:attribute\"])\n"
 "-- -> value-nonexistent-namespace\n"
 "```"

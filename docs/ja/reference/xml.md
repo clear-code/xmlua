@@ -33,12 +33,12 @@ document:root() -- -> ルート要素
 
 ### `xmlua.XML.parse(xml) -> xmlua.XML`
 
-`xml`: XML string to be parsed.
+`xml`: パース対象のXML文字列
 
-It parses the given XML and returns `xmlua.XML` object.
+与えられたXMLをパースして、`xmlua.XML`オブジェクトを返します。
 
-If XML parsing is failed, it raises an error. The error has the
-following structure:
+XMLのパースに失敗した場合は、エラーが発生します。発生するエラーは以下の構造になっています。
+
 
 ```lua
 {
@@ -46,12 +46,12 @@ following structure:
 }
 ```
 
-Here is an example to parse XML:
+XMLをパースする例です。
 
 ```lua
 local xmlua = require("xmlua")
 
--- XML to be parsed
+-- パース対象のXML
 local xml = [[
 <root>
   <sub/>
@@ -64,7 +64,7 @@ local xml = [[
 -- local xml = io.open("example.xml"):read("*all")
 
 
--- Parses XML
+-- XMLをパース
 local success, document = pcall(xmlua.XML.parse, xml)
 if not success then
   local err = document
@@ -72,10 +72,10 @@ if not success then
   os.exit(1)
 end
 
--- Gets the root element
-local root = document:root() -- --> <root> element as xmlua.Element
+-- ルート要素の取得
+local root = document:root() -- --> <root> xmlua.Elementオブジェクトな要素
 
--- Prints the root element name
+-- ルート要素の名前を出力
 print(root:name()) -- -> root
 ```
 

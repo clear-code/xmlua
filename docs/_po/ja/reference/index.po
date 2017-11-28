@@ -1,0 +1,97 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-28 22:17+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: Reference manual\n"
+"---"
+msgstr ""
+
+msgid "# Reference manual"
+msgstr "# リファレンスマニュアル"
+
+msgid ""
+"This document describes about all features. [Tutorial][tutorial] focuses on ea"
+"sy to understand only about important features. This document focuses on compl"
+"eteness. If you don't read [tutorial][tutorial] yet, read tutorial before read"
+" this document."
+msgstr ""
+"このドキュメントは全ての機能について記載しています。[Tutorial][tutorial]は、重要な機能について簡単に理解できる事に重点をおいています。こ"
+"のドキュメントは網羅性を重視しています。まだ、[Tutorial][tutorial]を読んでいないのであれば、このドキュメントを読む前にTutorialを"
+"読んでください。"
+
+msgid "## Internal modules {#internal-modules}"
+msgstr ""
+
+msgid ""
+"XMLua has internal modules to provide common methods. They aren't exported int"
+"o public API but you can use them via public classes such as [`xmlua.HTML`][ht"
+"ml] and [`xmlua.Element`][element]."
+msgstr ""
+
+msgid ""
+"  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization "
+"related methods."
+msgstr ""
+
+msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
+msgstr ""
+
+msgid "## Classes {#classes}"
+msgstr ""
+
+msgid "XMLua provides the following classes:"
+msgstr ""
+
+msgid "  * [`xmlua.HTML`][html]: The class for parsing HTML."
+msgstr ""
+
+msgid "  * [`xmlua.XML`][xml]: The class for parsing XML."
+msgstr ""
+
+msgid ""
+"  * [`xmlua.Document`][document]: The class for HTML document and XML document"
+"."
+msgstr ""
+
+msgid "  * [`xmlua.Element`][element]: The class for element node."
+msgstr ""
+
+msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
+msgstr ""
+
+msgid ""
+"You can access only `xmlua.HTML` and `xmlua.XML` directly. Other classes are a"
+"ccessible via methods of `xmlua.HTML` and `xmlua.XML."
+msgstr ""
+
+msgid "[tutorial]:../tutorial/"
+msgstr ""
+
+msgid "[document]:document.html"
+msgstr ""
+
+msgid "[serializable]:serializable.html"
+msgstr ""
+
+msgid "[searchable]:searchable.html"
+msgstr ""
+
+msgid "[html]:html.html"
+msgstr ""
+
+msgid "[xml]:xml.html"
+msgstr ""
+
+msgid "[element]:element.html"
+msgstr ""
+
+msgid "[node-set]:node-set.html"
+msgstr ""

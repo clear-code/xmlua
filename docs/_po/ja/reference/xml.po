@@ -15,13 +15,13 @@ msgid ""
 msgstr ""
 
 msgid "# `xmlua.XML` module"
-msgstr ""
+msgstr "# `xmlua.XML`モジュール"
 
 msgid "## Summary"
 msgstr "## 概要"
 
 msgid "It's a class for processing a XML document."
-msgstr ""
+msgstr "このクラスはXMLドキュメントを処理します。"
 
 msgid "It has methods of the following modules:"
 msgstr "このクラスのオブジェクトは以下のモジュールのメソッドを使えます。"
@@ -50,6 +50,9 @@ msgid ""
 "-- Call xmlua.Document:root method\n"
 "local xmlua = require(\"xmlua\")"
 msgstr ""
+"```lua\n"
+"-- xmlua.Document:rootメソッドを呼ぶ\n"
+"local xmlua = require(\"xmlua\")"
 
 msgid "local document = xmlua.HTML.parse(\"<root><sub/></root>\")"
 msgstr ""
@@ -58,11 +61,24 @@ msgid ""
 "document:root() -- -> Root element\n"
 "```"
 msgstr ""
+"document:root() -- -> ルート要素\n"
+"```"
 
 msgid "## Class methods"
 msgstr "## クラスメソッド"
 
 msgid "### `xmlua.XML.parse(xml) -> xmlua.XML`"
+msgstr ""
+
+msgid "`xml`: XML string to be parsed."
+msgstr ""
+
+msgid "It parses the given XML and returns `xmlua.XML` object."
+msgstr ""
+
+msgid ""
+"If XML parsing is failed, it raises an error. The error has the\n"
+"following structure:"
 msgstr ""
 
 msgid ""
@@ -77,6 +93,9 @@ msgstr ""
 "  message = \"エラーの詳細\",\n"
 "}\n"
 "```"
+
+msgid "Here is an example to parse XML:"
+msgstr ""
 
 msgid ""
 "```lua\n"
@@ -102,8 +121,32 @@ msgstr ""
 msgid "-- local xml = io.open(\"example.xml\"):read(\"*all\")"
 msgstr ""
 
+msgid ""
+"-- Parses XML\n"
+"local success, document = pcall(xmlua.XML.parse, xml)\n"
+"if not success then\n"
+"  local err = document\n"
+"  print(\"Failed to parse XML: \" .. err.message)\n"
+"  os.exit(1)\n"
+"end"
+msgstr ""
+
+msgid ""
+"-- Gets the root element\n"
+"local root = document:root() -- --> <root> element as xmlua.Element"
+msgstr ""
+
+msgid ""
+"-- Prints the root element name\n"
+"print(root:name()) -- -> root\n"
+"```"
+msgstr ""
+
 msgid "## Instance methods"
 msgstr "## インスタンスメソッド"
+
+msgid "There are no instance methods."
+msgstr ""
 
 msgid "Use methods of the included modules."
 msgstr "インクルードしたモジュールのメソッドを使います。"

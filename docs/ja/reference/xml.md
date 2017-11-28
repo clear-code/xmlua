@@ -2,11 +2,11 @@
 title: xmlua.XML
 ---
 
-# `xmlua.XML` module
+# `xmlua.XML`モジュール
 
 ## 概要
 
-It's a class for processing a XML document.
+このクラスはXMLドキュメントを処理します。
 
 このクラスのオブジェクトは以下のモジュールのメソッドを使えます。
 
@@ -21,12 +21,12 @@ It's a class for processing a XML document.
 例：
 
 ```lua
--- Call xmlua.Document:root method
+-- xmlua.Document:rootメソッドを呼ぶ
 local xmlua = require("xmlua")
 
 local document = xmlua.HTML.parse("<root><sub/></root>")
 
-document:root() -- -> Root element
+document:root() -- -> ルート要素
 ```
 
 ## クラスメソッド

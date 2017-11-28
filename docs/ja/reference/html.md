@@ -5,7 +5,7 @@ title: xmlua.HTML
 
 ## サマリー
 
-`xmlua.HTML`は、以下のモジュールのメソッドを持っています：
+`xmlua.HTML`は、以下のモジュールのメソッドを持っています。
 
   * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
 

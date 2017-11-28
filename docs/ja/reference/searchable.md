@@ -12,17 +12,17 @@ title: xmlua.Searchable
 
 ### `search(xpath) -> xmlua.NodeSet` {#search}
 
-It searches nodes by XPath and returns as [`xmlua.NodeSet`][node-set] object.
+XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェクトを返します。
 
-If the receiver is a document ([`xmlua.HTML`][html] or [`xmlua.XTML`][xtml]), the context node in XPath is the root node.
+レシーバーがドキュメント([`xmlua.HTML`][html] or [`xmlua.XTML`][xtml])場合、XPathのコンテキストノードはルートノードとなります。
 
-If the receiver is an element ([`xmlua.Element`][element]), the context node in XPath is the element. It means that "`.`" XPath is the receiver element.
+レシーバーが要素([`xmlua.Element`][element])の場合、XPathのコンテキストノードはレシーバーの要素になります。つまり、レシーバーの要素がXPathの"`.`"となります。
 
-`xpath`: XPath to search nodes as `string`.
+`xpath`: ノードを検索するためのXPath文字列です。
 
-If XPath searching is failed, it raises an error.
+XPathでの検索に失敗した場合は、エラーが発生します。
 
-発生するエラーは以下の構造になっています。
+エラーの構造を示します。
 
 ```lua
 {
@@ -30,7 +30,7 @@ If XPath searching is failed, it raises an error.
 }
 ```
 
-例：
+例
 
 ```lua
 local xmlua = require("xmlua")
@@ -45,21 +45,21 @@ local xml = [[
 
 local document = xmlua.XML.parse(xml)
 
--- Searches all sub elements under the <root> element
+-- <root>要素配下の要素を全て検索します。
 local all_subs = document:search("/root/*")
 
--- You can use "#" for getting the number of matched nodes
+-- "#"を使ってマッチしたノードの数を出力できます。
 print(#all_subs) -- -> 3
 
--- You can access the N-th node by "[]".
+-- "[]"を使って、N番目のノードにアクセスできます。
 print(all_subs[1]:to_xml()) -- -> <sub1>text1</sub1>
 print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
 print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 ```
 
-You can search from an element.
+ルート要素からでも検索できます。
 
-例：
+例
 
 ```lua
 local xmlua = require("xmlua")
@@ -74,16 +74,16 @@ local xml = [[
 
 local document = xmlua.XML.parse(xml)
 
--- Root element
+-- ルート要素
 local root = document:root()
 
--- Searches all sub elements under the <root> element
+-- <root>要素配下の要素を全て検索します。
 local all_subs = root:search("*")
 
--- You can use "#" for getting the number of matched nodes
+-- "#"を使ってマッチしたノードの数を出力できます。
 print(#all_subs) -- -> 3
 
--- You can access the N-th node by "[]".
+-- "[]"を使って、N番目のノードにアクセスできます。
 print(all_subs[1]:to_xml()) -- -> <sub1>text1</sub1>
 print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
 print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>

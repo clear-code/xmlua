@@ -31,7 +31,7 @@ document:search("/root")[1] -- -> xmlua.Element
 
 ### `name() -> string` {#name}
 
-It returns name of the element as `string`.
+要素の名前を`string`で返します。
 
 例：
 
@@ -41,15 +41,15 @@ local xmlua = require("xmlua")
 local document = xmlua.XML.parse("<root/>")
 local root = document:root()
 
--- <root>'s name is "root"
+-- <root>要素の名前は"root"
 print(root:name()) -- -> root
 ```
 
 ### `get_attribute(name) -> string` {#get-attribute}
 
-It gets attribute value of the given attribute name. If the attribute name doesn't exist, it returns `nil`.
+与えられた属性の属性値を取得します。属性が存在しない場合は`nil`を返します。
 
-Normally, you can use `element.attribute_name` or `element["attribute-name"]` form. They are easy to use than `element:get_attribute("attribute-name")` because they are shorter.
+通常、`element.attribute_name`または`element["attribute-name"]`の形式で使います。`element:get_attribute("attribute-name")`の形式より短く簡単に使えるためです。
 
 例：
 
@@ -59,20 +59,20 @@ local xmlua = require("xmlua")
 local document = xmlua.XML.parse("<root class='A'/>")
 local root = document:root()
 
--- Uses dot syntax to get attribute value
+-- ドットを使った属性値の取得
 print(root.class)
 -- -> A
 
--- Uses [] syntax to get attribute value
+-- []を使った属性値の取得
 print(root["class"])
 -- -> A
 
--- Uses get_attribute method to get attribute value
+-- get_attributeメソッドを使った属性値の取得
 print(root:get_attribute("class"))
 -- -> A
 ```
 
-You can use namespace by specifying attribute name with namespace prefix. If you specify nonexistent namespace prefix, whole name is processed as attribute name.
+名前空間プレフィックスと一緒に属性名を指定することで名前空間を使うことができます。存在しない名前空間プレフィックスを指定した場合は、属性名として処理されます。
 
 例：
 
@@ -89,11 +89,11 @@ local xml = [[
 local document = xmlua.XML.parse(xml)
 local root = document:root()
 
--- With namespace prefix
+-- 名前空間プレフィックスつき
 print(root["example:attribute"])
 -- -> value-example
 
--- Without namespace prefix
+-- 名前空間プレフィックスなし
 print(root["attribute"])
 -- -> value
 
@@ -104,7 +104,7 @@ print(root["nonexistent-namespace:attribute"])
 
 ### `previous() -> xmlua.Element` {#previous}
 
-It returns the previous sibling element as `xmlua.Element`. If there is no previous sibling element, it returns `nil`.
+前の兄弟要素を`xmlua.Element`として返します。前の兄弟要素が存在しない場合は、`nil`を返します。
 
 例：
 
@@ -122,20 +122,20 @@ local xml = [[
 local document = xmlua.XML.parse(xml)
 local sub2 = document:search("/root/sub2")[1]
 
--- Gets the previous sibling element of <sub2>
+-- <sub2>の前の兄弟要素を取得する
 print(sub2:previous():to_xml())
 -- <sub1/>
 
 local sub1 = sub2:previous()
 
--- Gets the previous sibling element of <sub1>
+-- <sub1>の前の兄弟要素を取得
 print(sub1:previous())
 -- nil
 ```
 
 ### `next() -> xmlua.Element` {#next}
 
-It returns the next sibling element as `xmlua.Element`. If there is no next sibling element, it returns `nil`.
+次の兄弟要素を`xmlua.Element`として返します。次の兄弟要素が無い場合は、`nil`を返します。
 
 例：
 
@@ -153,20 +153,20 @@ local xml = [[
 local document = xmlua.XML.parse(xml)
 local sub2 = document:search("/root/sub2")[1]
 
--- Gets the next sibling element of <sub2>
+-- <sub2>の次の兄弟要素を取得
 print(sub2:next():to_xml())
 -- <sub3/>
 
 local sub3 = sub2:next()
 
--- Gets the next sibling element of <sub3>
+-- <sub3>の次の兄弟要素を取得
 print(sub3:next())
 -- nil
 ```
 
 ### `parent() -> xmlua.Element` {#parent}
 
-It returns the parent element as `xmlua.Element`. If the element is root element, it returns [`xmlua.Document`][document].
+親要素を`xmlua.Element`として返します。要素がルート要素の場合は、[`xmlua.Document`][document]を返します。
 
 例：
 
@@ -184,7 +184,7 @@ local xml = [[
 local document = xmlua.XML.parse(xml)
 local sub2 = document:search("/root/sub2")[1]
 
--- Gets the parent element of <sub2>
+-- <sub2>の親要素を取得
 print(sub2:parent():to_xml())
 -- <root>
 --   <sub1/>
@@ -194,7 +194,7 @@ print(sub2:parent():to_xml())
 
 local root = sub2:parent()
 
--- Gets the parent element of <root>: xmlua.Document
+-- <root>要素の親要素を取得: xmlua.Document
 print(root:parent():to_xml())
 -- <?xml version="1.0" encoding="UTF-8"?>
 -- <root>
@@ -205,14 +205,14 @@ print(root:parent():to_xml())
 
 local document = root:parent()
 
--- Gets the parent of document
+-- documentの親要素を取得
 print(document:parent())
 -- nil
 ```
 
 ### `children() -> [xmlua.Element]` {#children}
 
-It returns the child elements as an array of `xmlua.Element`.
+子要素を`xmlua.Element`の配列として返す。
 
 例：
 
@@ -230,7 +230,7 @@ local xml = [[
 local document = xmlua.XML.parse(xml)
 local root = document:root()
 
--- Gets all child elements of <root> (<sub1>, <sub2> and <sub3>)
+-- <root>の全ての子要素を取得(<sub1>, <sub2> and <sub3>)
 local subs = root:children()
 
 print(#subs)

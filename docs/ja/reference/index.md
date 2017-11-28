@@ -14,9 +14,9 @@ XMLuaは共通の機能を提供する内部メソッドがあります。これ
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
-## Classes {#classes}
+## クラス
 
-XMLua provides the following classes:
+XMLuaは以下のクラスを提供します。
 
   * [`xmlua.HTML`][html]: HTMLをパースするクラスです。
 
@@ -28,7 +28,7 @@ XMLua provides the following classes:
 
   * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。
 
-You can access only `xmlua.HTML` and `xmlua.XML` directly. Other classes are accessible via methods of `xmlua.HTML` and `xmlua.XML.
+`xmlua.HTML`と`xmlua.XML`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XMLのメソッド経由でアクセスできます。
 
 [tutorial]:../tutorial/
 

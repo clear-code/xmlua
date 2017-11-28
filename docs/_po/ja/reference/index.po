@@ -47,32 +47,34 @@ msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related method
 msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
 
 msgid "## Classes {#classes}"
-msgstr ""
+msgstr "## クラス"
 
 msgid "XMLua provides the following classes:"
-msgstr ""
+msgstr "XMLuaは以下のクラスを提供します。"
 
 msgid "  * [`xmlua.HTML`][html]: The class for parsing HTML."
-msgstr ""
+msgstr "  * [`xmlua.HTML`][html]: HTMLをパースするクラスです。"
 
 msgid "  * [`xmlua.XML`][xml]: The class for parsing XML."
-msgstr ""
+msgstr "  * [`xmlua.XML`][xml]: XMLをパースするクラスです。"
 
 msgid ""
 "  * [`xmlua.Document`][document]: The class for HTML document and XML document"
 "."
-msgstr ""
+msgstr "  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。"
 
 msgid "  * [`xmlua.Element`][element]: The class for element node."
-msgstr ""
+msgstr "  * [`xmlua.Element`][element]: 要素ノード用のクラスです。"
 
 msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
-msgstr ""
+msgstr "  * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。"
 
 msgid ""
 "You can access only `xmlua.HTML` and `xmlua.XML` directly. Other classes are a"
 "ccessible via methods of `xmlua.HTML` and `xmlua.XML."
 msgstr ""
+"`xmlua.HTML`と`xmlua.XML`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XMLのメソッド経由で"
+"アクセスできます。"
 
 msgid "[tutorial]:../tutorial/"
 msgstr ""

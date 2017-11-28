@@ -12,7 +12,7 @@ HTML文書を処理するクラスです。
 
   * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
 
-  * [`xmlua.Savable`][savable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
+  * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
@@ -92,13 +92,13 @@ print(root:name()) -- -> html
 
   * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
 
-  * [`xmlua.Savable`][savable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
+  * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
 
 [document]:document.html
 
-[savable]:savable.html
+[serializable]:serializable.html
 
 [searchable]:searchable.html

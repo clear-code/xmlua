@@ -4,13 +4,13 @@ local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
 local Document = require("xmlua.document")
-local Savable = require("xmlua.savable")
+local Serializable = require("xmlua.serializable")
 local Searchable = require("xmlua.searchable")
 
 local metatable = {}
 function metatable.__index(table, key)
   return Document[key] or
-    Savable[key] or
+    Serializable[key] or
     Searchable[key]
 end
 

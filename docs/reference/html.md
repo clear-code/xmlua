@@ -12,7 +12,7 @@ It has methods of the following modules:
 
   * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
 
-  * [`xmlua.Savable`][savable]: Provides HTML and XML serialization related methods.
+  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
 
   * [`xmlua.Searchable`][searchable]: Provides node search related methods.
 
@@ -92,13 +92,13 @@ Use methods of the included modules.
 
   * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
 
-  * [`xmlua.Savable`][savable]: Provides HTML and XML serialization related methods.
+  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
 
   * [`xmlua.Searchable`][searchable]: Provides node search related methods.
 
 
 [document]:document.html
 
-[savable]:savable.html
+[serializable]:serializable.html
 
 [searchable]:searchable.html

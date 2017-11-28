@@ -1,4 +1,4 @@
-local Savable = {}
+local Serializable = {}
 
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
@@ -23,7 +23,7 @@ local function save(target, flags, failure_message, options)
   return libxml2.xmlBufferGetContent(buffer)
 end
 
-function Savable.to_html(self, options)
+function Serializable.to_html(self, options)
   return save(self,
               bit.bor(ffi.C.XML_SAVE_FORMAT,
                       ffi.C.XML_SAVE_NO_DECL,
@@ -33,7 +33,7 @@ function Savable.to_html(self, options)
               options)
 end
 
-function Savable.to_xml(self, options)
+function Serializable.to_xml(self, options)
   return save(self,
               bit.bor(ffi.C.XML_SAVE_FORMAT,
                       ffi.C.XML_SAVE_AS_XML),
@@ -41,4 +41,4 @@ function Savable.to_xml(self, options)
               options)
 end
 
-return Savable
+return Serializable

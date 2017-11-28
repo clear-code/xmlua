@@ -8,7 +8,7 @@ local Element = {}
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
-local Savable = require("xmlua.savable")
+local Serializable = require("xmlua.serializable")
 local Searchable = require("xmlua.searchable")
 
 local NodeSet = require("xmlua.node-set")
@@ -18,7 +18,7 @@ local methods = {}
 local metatable = {}
 function metatable.__index(element, key)
   return methods[key] or
-    Savable[key] or
+    Serializable[key] or
     Searchable[key] or
     methods.get_attribute(element, key)
 end

@@ -12,7 +12,7 @@ XMLua has internal modules to provide common methods. They aren't exported into 
 
   * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
 
-  * [`xmlua.Savable`][savable]: Provides HTML and XML serialization related methods.
+  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
 
   * [`xmlua.Searchable`][searchable]: Provides node search related methods.
 
@@ -34,7 +34,7 @@ You can access only `xmlua.HTML` and `xmlua.XML` directly. Other classes are acc
 
 [document]:document.html
 
-[savable]:savable.html
+[serializable]:serializable.html
 
 [searchable]:searchable.html
 

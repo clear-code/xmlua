@@ -1,8 +1,8 @@
 ---
-title: xmlua.Savable
+title: xmlua.Serializable
 ---
 
-# `xmlua.Savable` module
+# `xmlua.Serializable` module
 
 ## Summary
 
@@ -12,7 +12,7 @@ It provides features that serialize to HTML and XML.
 
 ### `to_html(options=nil) -> string` {#to-html}
 
-It saves document or element as HTML.
+It serializes a document, an element or a node set as HTML.
 
 `options`: Here are available options:
 
@@ -119,7 +119,7 @@ print(document:search("/html/*"):to_html())
 
 ### `to_xml(options=nil) -> string` {#to-xml}
 
-It saves document or element as XML.
+It serializes a document, an element or a node set as XML.
 
 `options`: Here are available options:
 

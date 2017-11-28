@@ -6,9 +6,9 @@ title: Reference manual
 
 このドキュメントは全ての機能について記載しています。[Tutorial][tutorial]は、重要な機能について簡単に理解できる事に重点をおいています。このドキュメントは網羅性を重視しています。まだ、[Tutorial][tutorial]を読んでいないのであれば、このドキュメントを読む前にTutorialを読んでください。
 
-## Internal modules {#internal-modules}
+## 内部モジュール
 
-XMLua has internal modules to provide common methods. They aren't exported into public API but you can use them via public classes such as [`xmlua.HTML`][html] and [`xmlua.Element`][element].
+XMLuaは共通の機能を提供する内部メソッドがあります。これらは、パブリックなAPIへエクスポートされませんが、[`xmlua.HTML`][html]や[`xmlua.Element`][element]のようなパブリッククラス経由で使うことができます。
 
   * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
 

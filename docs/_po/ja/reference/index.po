@@ -28,21 +28,23 @@ msgstr ""
 "読んでください。"
 
 msgid "## Internal modules {#internal-modules}"
-msgstr ""
+msgstr "## 内部モジュール"
 
 msgid ""
 "XMLua has internal modules to provide common methods. They aren't exported int"
 "o public API but you can use them via public classes such as [`xmlua.HTML`][ht"
 "ml] and [`xmlua.Element`][element]."
 msgstr ""
+"XMLuaは共通の機能を提供する内部メソッドがあります。これらは、パブリックなAPIへエクスポートされませんが、[`xmlua.HTML`][html]や["
+"`xmlua.Element`][element]のようなパブリッククラス経由で使うことができます。"
 
 msgid ""
 "  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization "
 "related methods."
-msgstr ""
+msgstr "  * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。"
 
 msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
-msgstr ""
+msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
 
 msgid "## Classes {#classes}"
 msgstr ""

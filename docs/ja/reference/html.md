@@ -69,13 +69,13 @@ local root = document:root() -- --> <html> element as xmlua.Element
 print(root:name()) -- -> html
 ```
 
-## Instance methods
+## インスタンスメソッド
 
-There are not instance methods.
+`xmlua.HTML`はインスタンスメソッドを持っていません。
 
-Use methods of the included modules.
+インクルードしたモジュールのメソッドは使えます。
 
-## See also
+## 参照
 
   * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
 

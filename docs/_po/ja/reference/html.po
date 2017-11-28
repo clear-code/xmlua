@@ -134,16 +134,16 @@ msgstr ""
 "```"
 
 msgid "## Instance methods"
-msgstr ""
+msgstr "## インスタンスメソッド"
 
 msgid "There are not instance methods."
-msgstr ""
+msgstr "`xmlua.HTML`はインスタンスメソッドを持っていません。"
 
 msgid "Use methods of the included modules."
-msgstr ""
+msgstr "インクルードしたモジュールのメソッドは使えます。"
 
 msgid "## See also"
-msgstr ""
+msgstr "## 参照"
 
 msgid "[document]:document.html"
 msgstr ""

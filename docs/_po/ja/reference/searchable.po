@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 15:46+0900\n"
+"PO-Revision-Date: 2017-11-28 16:46+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,11 +33,11 @@ msgid "It searches nodes by XPath and returns as [`xmlua.NodeSet`][node-set] obj
 msgstr "XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェクトを返します。"
 
 msgid ""
-"If the receiver is a document ([`xmlua.HTML`][html] or [`xmlua.XTML`][xml]), t"
-"he context node in XPath is the root node."
+"If the receiver is a document ([`xmlua.HTML`][html] or [`xmlua.XML`][xml]), th"
+"e context node in XPath is the root node."
 msgstr ""
-"レシーバーがドキュメント([`xmlua.HTML`][html] or [`xmlua.XTML`][xml])場合、XPathのコンテキストノードはルー"
-"トノードとなります。"
+"レシーバーがドキュメント([`xmlua.HTML`][html] or [`xmlua.XML`][xml])場合、XPathのコンテキストノードはルート"
+"ノードとなります。"
 
 msgid ""
 "If the receiver is an element ([`xmlua.Element`][element]), the context node i"
@@ -53,7 +53,7 @@ msgid "If XPath searching is failed, it raises an error."
 msgstr "XPathでの検索に失敗した場合は、エラーが発生します。"
 
 msgid "Here is the error structure:"
-msgstr "エラーの構造を示します。"
+msgstr "発生するエラーは以下の構造になっています。"
 
 msgid ""
 "```lua\n"
@@ -62,9 +62,14 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```lua\n"
+"{\n"
+"  message = \"エラーの詳細\",\n"
+"}\n"
+"```"
 
 msgid "Example:"
-msgstr "例"
+msgstr "例："
 
 msgid ""
 "```lua\n"
@@ -129,19 +134,19 @@ msgstr ""
 "local all_subs = root:search(\"*\")"
 
 msgid "## See also"
-msgstr ""
+msgstr "## 参照"
 
 msgid "  * [XPath][xpath]: The XPath specification."
 msgstr ""
 
 msgid "  * [`xmlua.HTML`][html]: The class for HTML document."
-msgstr ""
+msgstr "  * [`xmlua.HTML`][html]: HTMLドキュメント用のクラスです。"
 
 msgid "  * [`xmlua.XML`][xml]: The class for XML document."
-msgstr ""
+msgstr "  * [`xmlua.XML`][xml]: XMLドキュメント用のクラスです。"
 
 msgid "  * [`xmlua.Element`][element]: The class for element node."
-msgstr ""
+msgstr "  * [`xmlua.Element`][element]: 要素ノード用のクラスです。"
 
 msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
 msgstr ""

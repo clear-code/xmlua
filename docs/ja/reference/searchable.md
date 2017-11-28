@@ -14,7 +14,7 @@ title: xmlua.Searchable
 
 XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェクトを返します。
 
-レシーバーがドキュメント([`xmlua.HTML`][html] or [`xmlua.XTML`][xml])場合、XPathのコンテキストノードはルートノードとなります。
+レシーバーがドキュメント([`xmlua.HTML`][html] or [`xmlua.XML`][xml])場合、XPathのコンテキストノードはルートノードとなります。
 
 レシーバーが要素([`xmlua.Element`][element])の場合、XPathのコンテキストノードはレシーバーの要素になります。つまり、レシーバーの要素がXPathの"`.`"となります。
 

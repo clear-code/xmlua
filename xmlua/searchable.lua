@@ -72,7 +72,8 @@ function Searchable.search(self, xpath)
       if tonumber(node.type) == ffi.C.XML_ELEMENT_NODE then
         table.insert(raw_node_set, Element.new(document, node))
       else
-        table.insert(raw_node_set, node)
+        -- TODO: Support more nodes such as text node
+        -- table.insert(raw_node_set, node)
       end
     end
     return NodeSet.new(raw_node_set)

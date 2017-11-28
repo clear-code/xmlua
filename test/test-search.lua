@@ -64,3 +64,16 @@ function TestSearch.test_node()
   luaunit.assertEquals(node:search("subsub")[1]:to_xml(),
                        "<subsub/>")
 end
+
+function TestSearch.test_text()
+  local document = xmlua.XML.parse([[
+<root>
+  <sub>text1</sub>
+  <sub>text2</sub>
+  <sub>text3</sub>
+</root>
+]])
+  -- TODO: Support text nodes
+  luaunit.assertEquals(#document:search("/root/sub/text()"),
+                       0)
+end

@@ -1,0 +1,322 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-28 17:53+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua.Element\n"
+"---"
+msgstr ""
+
+msgid "# `xmlua.Element` class"
+msgstr "# `xmlua.Element`クラス"
+
+msgid "## Summary"
+msgstr "## 概要"
+
+msgid ""
+"It's a class for element node. You can get element object by [`xmlua.Document:"
+"root`][document-root] and [`xmlua.NodeSet`][node-set]'s `[]`."
+msgstr ""
+"要素ノードのためのクラスです。[`xmlua.Document:root`][document-root]と[`xmlua.NodeSet`][node-s"
+"et]の`[]`を使って、要素オブジェクトを取得することができます。"
+
+msgid "Example:"
+msgstr "例："
+
+msgid ""
+"```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid "local document = xmlua.XML.parse(\"<root><sub/></root>\")"
+msgstr ""
+
+msgid ""
+"document:root() -- -> xmlua.Element\n"
+"document:search(\"/root\")[1] -- -> xmlua.Element\n"
+"```"
+msgstr ""
+
+msgid "It has methods of the following modules:"
+msgstr "このクラスのオブジェクトは以下のモジュールのメソッドを使えます。"
+
+msgid ""
+"  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization "
+"related methods."
+msgstr "  * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。"
+
+msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
+msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
+
+msgid "It means that you can use methods in the modules."
+msgstr "つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。"
+
+msgid "## Instance methods"
+msgstr ""
+
+msgid "### `name() -> string` {#name}"
+msgstr ""
+
+msgid "It returns name of the element as `string`."
+msgstr ""
+
+msgid ""
+"local document = xmlua.XML.parse(\"<root/>\")\n"
+"local root = document:root()"
+msgstr ""
+
+msgid ""
+"-- <root>'s name is \"root\"\n"
+"print(root:name()) -- -> root\n"
+"```"
+msgstr ""
+
+msgid "### `get_attribute(name) -> string` {#get-attribute}"
+msgstr ""
+
+msgid ""
+"It gets attribute value of the given attribute name. If the attribute name doe"
+"sn't exist, it returns `nil`."
+msgstr ""
+
+msgid ""
+"Normally, you can use `element.attribute_name` or `element[\"attribute-name\"]` "
+"form. They are easy to use than `element:get_attribute(\"attribute-name\")` beca"
+"use they are shorter."
+msgstr ""
+
+msgid ""
+"local document = xmlua.XML.parse(\"<root class='A'/>\")\n"
+"local root = document:root()"
+msgstr ""
+
+msgid ""
+"-- Uses dot syntax to get attribute value\n"
+"print(root.class)\n"
+"-- -> A"
+msgstr ""
+
+msgid ""
+"-- Uses [] syntax to get attribute value\n"
+"print(root[\"class\"])\n"
+"-- -> A"
+msgstr ""
+
+msgid ""
+"-- Uses get_attribute method to get attribute value\n"
+"print(root:get_attribute(\"class\"))\n"
+"-- -> A\n"
+"```"
+msgstr ""
+
+msgid ""
+"You can use namespace by specifying attribute name with namespace prefix. If y"
+"ou specify nonexistent namespace prefix, whole name is processed as attribute "
+"name."
+msgstr ""
+
+msgid ""
+"local xml = [[\n"
+"<root xmlns:example=\"http://example.com/\"\n"
+"      example:attribute=\"value-example\"\n"
+"      attribute=\"value\"\n"
+"      nonexistent-namespace:attribute=\"value-nonexistent-namespace\"/>\n"
+"]]"
+msgstr ""
+
+msgid ""
+"local document = xmlua.XML.parse(xml)\n"
+"local root = document:root()"
+msgstr ""
+
+msgid ""
+"-- With namespace prefix\n"
+"print(root[\"example:attribute\"])\n"
+"-- -> value-example"
+msgstr ""
+
+msgid ""
+"-- Without namespace prefix\n"
+"print(root[\"attribute\"])\n"
+"-- -> value"
+msgstr ""
+
+msgid ""
+"-- With nonexistent namespace prefix\n"
+"print(root[\"nonexistent-namespace:attribute\"])\n"
+"-- -> value-nonexistent-namespace\n"
+"```"
+msgstr ""
+
+msgid "### `previous() -> xmlua.Element` {#previous}"
+msgstr ""
+
+msgid ""
+"It returns the previous sibling element as `xmlua.Element`. If there is no pre"
+"vious sibling element, it returns `nil`."
+msgstr ""
+
+msgid ""
+"local xml = [[\n"
+"<root>\n"
+"  <sub1/>\n"
+"  <sub2/>\n"
+"  <sub3/>\n"
+"</root>\n"
+"]]"
+msgstr ""
+
+msgid ""
+"local document = xmlua.XML.parse(xml)\n"
+"local sub2 = document:search(\"/root/sub2\")[1]"
+msgstr ""
+
+msgid ""
+"-- Gets the previous sibling element of <sub2>\n"
+"print(sub2:previous():to_xml())\n"
+"-- <sub1/>"
+msgstr ""
+
+msgid "local sub1 = sub2:previous()"
+msgstr ""
+
+msgid ""
+"-- Gets the previous sibling element of <sub1>\n"
+"print(sub1:previous())\n"
+"-- nil\n"
+"```"
+msgstr ""
+
+msgid "### `next() -> xmlua.Element` {#next}"
+msgstr ""
+
+msgid ""
+"It returns the next sibling element as `xmlua.Element`. If there is no next si"
+"bling element, it returns `nil`."
+msgstr ""
+
+msgid ""
+"-- Gets the next sibling element of <sub2>\n"
+"print(sub2:next():to_xml())\n"
+"-- <sub3/>"
+msgstr ""
+
+msgid "local sub3 = sub2:next()"
+msgstr ""
+
+msgid ""
+"-- Gets the next sibling element of <sub3>\n"
+"print(sub3:next())\n"
+"-- nil\n"
+"```"
+msgstr ""
+
+msgid "### `parent() -> xmlua.Element` {#parent}"
+msgstr ""
+
+msgid ""
+"It returns the parent element as `xmlua.Element`. If the element is root eleme"
+"nt, it returns [`xmlua.Document`][document]."
+msgstr ""
+
+msgid ""
+"-- Gets the parent element of <sub2>\n"
+"print(sub2:parent():to_xml())\n"
+"-- <root>\n"
+"--   <sub1/>\n"
+"--   <sub2/>\n"
+"--   <sub3/>\n"
+"-- </root>"
+msgstr ""
+
+msgid "local root = sub2:parent()"
+msgstr ""
+
+msgid ""
+"-- Gets the parent element of <root>: xmlua.Document\n"
+"print(root:parent():to_xml())\n"
+"-- <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"-- <root>\n"
+"--   <sub1/>\n"
+"--   <sub2/>\n"
+"--   <sub3/>\n"
+"-- </root>"
+msgstr ""
+
+msgid "local document = root:parent()"
+msgstr ""
+
+msgid ""
+"-- Gets the parent of document\n"
+"print(document:parent())\n"
+"-- nil\n"
+"```"
+msgstr ""
+
+msgid "### `children() -> [xmlua.Element]` {#children}"
+msgstr ""
+
+msgid "It returns the child elements as an array of `xmlua.Element`."
+msgstr ""
+
+msgid ""
+"-- Gets all child elements of <root> (<sub1>, <sub2> and <sub3>)\n"
+"local subs = root:children()"
+msgstr ""
+
+msgid ""
+"print(#subs)\n"
+"-- 3\n"
+"print(subs[1]:to_xml())\n"
+"-- <sub1/>\n"
+"print(subs[2]:to_xml())\n"
+"-- <sub2/>\n"
+"print(subs[3]:to_xml())\n"
+"-- <sub3/>\n"
+"```"
+msgstr ""
+
+msgid "## See also"
+msgstr ""
+
+msgid "  * [`xmlua.HTML`][html]: The class for parsing HTML."
+msgstr ""
+
+msgid "  * [`xmlua.XML`][xml]: The class for parsing XML."
+msgstr ""
+
+msgid ""
+"  * [`xmlua.Document`][document]: The class for HTML document and XML document"
+"."
+msgstr ""
+
+msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
+msgstr ""
+
+msgid "[document-root]:document.html#root"
+msgstr ""
+
+msgid "[node-set]:node-set.html"
+msgstr ""
+
+msgid "[html]:html.html"
+msgstr ""
+
+msgid "[xml]:xml.html"
+msgstr ""
+
+msgid "[document]:document.html"
+msgstr ""
+
+msgid "[serializable]:serializable.html"
+msgstr ""
+
+msgid "[searchable]:searchable.html"
+msgstr ""

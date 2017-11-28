@@ -12,15 +12,15 @@ HTML、XMLへのシリアライズ機能を提供します。
 
 ### `to_html(options=nil) -> string` {#to-html}
 
-It serializes a document or an element as HTML.
+ドキュメントまたは、要素をHTMLへシリアライズします。
 
-`options`: Here are available options:
+`options`: 利用可能なオプションは以下の通りです。
 
-  * `encoding`: The output encoding as `string`.
+  * `encoding`: 出力のエンコーディングを`string`で指定します。
 
-    * Example: `"UTF-8'`
+    * 例: `"UTF-8'`
 
-If serialization is failed, it raises an error.
+シリアライズに失敗した場合は、エラーが発生します。
 
 発生するエラーは以下の構造になっています。
 
@@ -44,7 +44,7 @@ local document = xmlua.HTML.parse([[
 </html>
 ]])
 
--- Serializes as HTML
+-- HTMLへのシリアライズ
 print(document:to_html())
 -- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 -- <html>
@@ -56,7 +56,7 @@ print(document:to_html())
 -- </html>
 ```
 
-You can specify output encoding by `encoding` option.
+出力のエンコーディングを`encoding`オプションで指定できます。
 
 例：
 
@@ -72,7 +72,7 @@ local document = xmlua.HTML.parse([[
 </html>
 ]])
 
--- Serializes as EUC-JP encoded HTML
+-- EUC-JPエンコードされたHTMLへシリアライズ
 print(document:to_html({encoding = "EUC-JP"}))
 -- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 -- <html>
@@ -84,7 +84,7 @@ print(document:to_html({encoding = "EUC-JP"}))
 -- </html>
 ```
 
-You can serialize an element.
+要素をシリアライズすることもできます。
 
 例：
 
@@ -100,22 +100,22 @@ local document = xmlua.HTML.parse([[
 </html>
 ]])
 
--- Serializes <body> element as HTML
+-- <body>要素をHTMLへシリアライズ
 print(document:search("/html/body")[1]:to_html())
 -- <body>World</body>
 ```
 
 ### `to_xml(options=nil) -> string` {#to-xml}
 
-It serializes a document or an element as XML.
+ドキュメントまたは、要素をXMLへシリアライズします。
 
-`options`: Here are available options:
+`options`: 利用可能なオプションは以下の通りです。
 
-  * `encoding`: The output encoding as `string`.
+  * `encoding`: 出力のエンコーディングを`string`で指定します。
 
-    * Example: `"UTF-8'`
+    * 例: `"UTF-8'`
 
-If serialization is failed, it raises an error.
+シリアライズに失敗した場合は、エラーが発生します。
 
 発生するエラーは以下の構造になっています。
 
@@ -138,7 +138,7 @@ local document = xmlua.XML.parse([[
 </root>
 ]])
 
--- Serializes as XML
+-- XMLへシリアライズ
 print(document:to_xml())
 -- <?xml version="1.0" encoding="UTF-8"?>
 -- <root>
@@ -148,7 +148,7 @@ print(document:to_xml())
 -- </root>
 ```
 
-You can specify output encoding by `encoding` option.
+出力のエンコーディングを`encoding`オプションで指定できます。
 
 例：
 
@@ -163,7 +163,7 @@ local document = xmlua.XML.parse([[
 </root>
 ]])
 
--- Serializes as EUC-JP encoded XML
+-- EUC-JPエンコードされたXMLへシリアライズ
 print(document:to_xml({encoding = "EUC-JP"}))
 -- <?xml version="1.0" encoding="EUC-JP"?>
 -- <root>
@@ -173,7 +173,7 @@ print(document:to_xml({encoding = "EUC-JP"}))
 -- </root>
 ```
 
-You can serialize an element.
+要素をシリアライズすることもできます。
 
 例：
 
@@ -188,7 +188,7 @@ local document = xmlua.XML.parse([[
 </root>
 ]])
 
--- Serializes <body> element as XML
+-- <body>要素をXMLへシリアライズ
 print(document:search("/root/sub1")[1]:to_xml())
 -- <sub1>text1</sub1>
 ```

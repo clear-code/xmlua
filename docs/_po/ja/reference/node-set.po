@@ -1,0 +1,269 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-28 16:46+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua.NodeSet\n"
+"---"
+msgstr ""
+
+msgid "# `xmlua.NodeSet` class"
+msgstr "# `xmlua.NodeSet`クラス"
+
+msgid "## Summary"
+msgstr "## 概要"
+
+msgid ""
+"It's a class to manage multiple nodes. Normally, it's used as return object fo"
+"r [`xmlua.Searchable:search`][searchable-search]."
+msgstr ""
+"複数ノードを管理するクラスです。通常、[`xmlua.Searchable:search`][searchable-search]で返却されるオブジェクトを"
+"使います。"
+
+msgid "Example:"
+msgstr "例："
+
+msgid ""
+"```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid "local document = xmlua.XML.parse(\"<root><sub/></root>\")"
+msgstr ""
+
+msgid ""
+"document:search(\"/root\") -- -> xmlua.NodeSet\n"
+"```"
+msgstr ""
+
+msgid ""
+"For now, it contains only element node ([`xmlua.Element`][element]). We will s"
+"upport other node such as text node in the future."
+msgstr "今の所、要素ノード([`xmlua.Element`][element])のみを扱います。将来的にはテキストノードのように他のノードもサポートする予定です。"
+
+msgid "## Instance methods"
+msgstr "## インスタンスメソッド"
+
+msgid ""
+"It's based on normal table. It means that you can use normal table features su"
+"ch as `#node_set` (getting the number of nodes in the node set) and `node_set["
+"1]` (getting the 1st node in the node set)."
+msgstr ""
+
+msgid "### `to_html(options=nil) -> string` {#to-html}"
+msgstr ""
+
+msgid ""
+"It serializes all nodes in the node set as HTML by [`xmlua.Serializable:to_htm"
+"l`][serializable-to-html] and concatenates serialized strings."
+msgstr ""
+
+msgid "`options`: Here are available options:"
+msgstr ""
+
+msgid "  * `encoding`: The output encoding as `string`."
+msgstr ""
+
+msgid "    * Example: `\"UTF-8'`"
+msgstr ""
+
+msgid "If serialization is failed, it raises an error."
+msgstr ""
+
+msgid "Here is the error structure:"
+msgstr "発生するエラーは以下の構造になっています。"
+
+msgid ""
+"```lua\n"
+"{\n"
+"  message = \"Error details\",\n"
+"}\n"
+"```"
+msgstr ""
+"```lua\n"
+"{\n"
+"  message = \"エラーの詳細\",\n"
+"}\n"
+"```"
+
+msgid ""
+"local document = xmlua.HTML.parse([[\n"
+"<html>\n"
+"  <head>\n"
+"    <title>Hello</title>\n"
+"  </head>\n"
+"  <body>World</body>\n"
+"</html>\n"
+"]])"
+msgstr ""
+
+msgid ""
+"-- All elements under <html> (<head> and <body>)\n"
+"local node_set = document:search(\"/html/*\")"
+msgstr ""
+
+msgid ""
+"-- Serializes all elements as HTML and concatenates serialized HTML\n"
+"print(node_set:to_html())\n"
+"-- <head>\n"
+"-- <meta http-equiv=\"Content-Type\" content=\"text/html; charset=EUC-JP\">\n"
+"--    <title>Hello</title>\n"
+"--  </head><body>World</body>"
+msgstr ""
+
+msgid ""
+"-- FYI: <head> serialization\n"
+"print(node_set[1]:to_html())\n"
+"-- <head>\n"
+"-- <meta http-equiv=\"Content-Type\" content=\"text/html; charset=EUC-JP\">\n"
+"--    <title>Hello</title>\n"
+"--  </head>"
+msgstr ""
+
+msgid ""
+"-- FYI: <body> serialization\n"
+"print(node_set[2]:to_html())\n"
+"-- <body>World</body>\n"
+"```"
+msgstr ""
+
+msgid "### `to_xml(options=nil) -> string` {#to-xml}"
+msgstr ""
+
+msgid ""
+"It serializes all nodes in the node set as XML by [`xmlua.Serializable:to_xml`"
+"][serializable-to-xml] and concatenates serialized strings."
+msgstr ""
+
+msgid ""
+"local document = xmlua.XML.parse([[\n"
+"<root>\n"
+"  <sub1>text1</sub1>\n"
+"  <sub2>text2</sub2>\n"
+"  <sub3>text3</sub3>\n"
+"</root>\n"
+"]])"
+msgstr ""
+
+msgid ""
+"-- All elements under <root> (<sub1>, <sub2> and <sub3>)\n"
+"local node_set = document:search(\"/root/*\")"
+msgstr ""
+
+msgid ""
+"-- Serializes all elements as XML and concatenates serialized XML\n"
+"print(node_set:to_xml())\n"
+"-- <sub1>text1</sub1><sub2>text2</sub2><sub3>text3</sub3>"
+msgstr ""
+
+msgid ""
+"-- FYI: <sub1> serialization\n"
+"print(node_set[1]:to_xml())\n"
+"-- <sub1>text1</sub1>"
+msgstr ""
+
+msgid ""
+"-- FYI: <sub2> serialization\n"
+"print(node_set[2]:to_xml())\n"
+"-- <sub2>text2</sub2>"
+msgstr ""
+
+msgid ""
+"-- FYI: <sub3> serialization\n"
+"print(node_set[3]:to_xml())\n"
+"-- <sub3>text3</sub3>\n"
+"```"
+msgstr ""
+
+msgid "### `search(xpath) -> xmlua.NodeSet` {#search}"
+msgstr ""
+
+msgid "It searches nodes by XPath and returns as [`xmlua.NodeSet`][node-set] object."
+msgstr "XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェクトを返します。"
+
+msgid ""
+"It calls [`xmlua.Searchable:search`][searchable-search] against each node in t"
+"he node set, collects matched nodes into one `xmlua.NodeSet` and returns the `"
+"xmlua.NodeSet`."
+msgstr ""
+
+msgid ""
+"local xml = [[\n"
+"<root>\n"
+"  <sub class=\"A\"><subsub1/></sub>\n"
+"  <sub class=\"B\"><subsub2/></sub>\n"
+"  <sub class=\"A\"><subsub3/></sub>\n"
+"</root>\n"
+"]]"
+msgstr ""
+
+msgid "local document = xmlua.XML.parse(xml)"
+msgstr ""
+
+msgid ""
+"-- Searches all <sub class=\"A\"> elements\n"
+"local class_a_subs = document:search(\"//sub[@class='A']\")"
+msgstr ""
+
+msgid ""
+"-- Searches all elements under <sub class=\"A\"> elements\n"
+"local subsubs_in_class_a = class_a_subs:search(\"*\")"
+msgstr ""
+
+msgid "print(#subsubs_in_class_a) -- -> 2"
+msgstr ""
+
+msgid ""
+"-- It's /root/sub[@class=\"A\"]/subsub1\n"
+"print(subsubs_in_class_a[1]:to_xml())\n"
+"-- <subsub1/>"
+msgstr ""
+
+msgid ""
+"-- It's /root/sub[@class=\"A\"]/subsub3\n"
+"print(subsubs_in_class_a[2]:to_xml())\n"
+"-- <subsub3/>\n"
+"```"
+msgstr ""
+
+msgid "## See also"
+msgstr "## 参照"
+
+msgid "  * [`xmlua.Element`][element]: The class for element node."
+msgstr "  * [`xmlua.Element`][element]: 要素ノード用のクラスです。"
+
+msgid ""
+"  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization "
+"related methods."
+msgstr "  * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。"
+
+msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
+msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
+
+msgid "[searchable-search]:searchable.html#search"
+msgstr ""
+
+msgid "[element]:element.html"
+msgstr ""
+
+msgid "[serializable-to-html]:serializable.html#to-html"
+msgstr ""
+
+msgid "[serializable-to-xml]:serializable.html#to-xml"
+msgstr ""
+
+msgid "[node-set]:node-set.html"
+msgstr ""
+
+msgid "[serializable]:serializable.html"
+msgstr ""
+
+msgid "[searchable]:searchable.html"
+msgstr ""

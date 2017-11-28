@@ -14,7 +14,7 @@ It provides features that search nodes by [XPath][xpath].
 
 It searches nodes by XPath and returns as [`xmlua.NodeSet`][node-set] object.
 
-If the receiver is a document ([`xmlua.HTML`][html] or [`xmlua.XTML`][xtml]), the context node in XPath is the root node.
+If the receiver is a document ([`xmlua.HTML`][html] or [`xmlua.XTML`][xml]), the context node in XPath is the root node.
 
 If the receiver is an element ([`xmlua.Element`][element]), the context node in XPath is the element. It means that "`.`" XPath is the receiver element.
 

@@ -53,6 +53,16 @@ msgstr ""
 msgid "local document = xmlua.XML.parse(\"<root><sub/></root>\")"
 msgstr ""
 
+msgid ""
+"-- Call xmlua.Document:root method\n"
+"document:root() -- -> Root element\n"
+"```"
+msgstr ""
+"```lua\n"
+"-- xmlua.Document:rootメソッドを呼ぶ\n"
+"document:root() -- -> ルート要素\n"
+"```"
+
 msgid "## Class methods"
 msgstr "## クラスメソッド"
 

@@ -1,0 +1,34 @@
+#!/usr/bin/env luajit
+
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local sub2 = document:search("/root/sub2")[1]
+
+-- Gets the previous sibling element of <sub2>
+print(sub2:previous():to_xml())
+-- <sub1/>
+
+local sub1 = sub2:previous()
+
+-- Gets the previous sibling element of <sub1>
+print(sub1:previous())
+-- nil
+
+-- Gets the next sibling element of <sub2>
+print(sub2:next():to_xml())
+-- <sub3/>
+
+local sub3 = sub2:next()
+
+-- Gets the next sibling element of <sub3>
+print(sub3:next())
+-- nil

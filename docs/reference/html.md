@@ -2,7 +2,7 @@
 title: xmlua.HTML
 ---
 
-# `xmlua.HTML` module
+# `xmlua.HTML` class
 
 ## Summary
 

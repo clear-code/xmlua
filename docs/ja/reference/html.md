@@ -2,7 +2,7 @@
 title: xmlua.HTML
 ---
 
-# `xmlua.HTML`モジュール
+# `xmlua.HTML`クラス
 
 ## 概要
 

@@ -2,7 +2,7 @@
 title: xmlua.XML
 ---
 
-# `xmlua.XML` module
+# `xmlua.XML` class
 
 ## Summary
 

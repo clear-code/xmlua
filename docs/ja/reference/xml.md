@@ -2,7 +2,7 @@
 title: xmlua.XML
 ---
 
-# `xmlua.XML`モジュール
+# `xmlua.XML`クラス
 
 ## 概要
 

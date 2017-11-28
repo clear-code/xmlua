@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 16:46+0900\n"
+"PO-Revision-Date: 2017-11-28 18:34+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgid "## Summary"
 msgstr "## 概要"
 
 msgid "It provides features that serialize to HTML and XML."
-msgstr "HTML、XMLへのシリアライズ機能を提供します。"
+msgstr "HTML・XMLへのシリアライズ機能を提供します。"
 
 msgid "## Methods"
 msgstr "## メソッド"
@@ -30,7 +30,7 @@ msgid "### `to_html(options=nil) -> string` {#to-html}"
 msgstr ""
 
 msgid "It serializes a document or an element as HTML."
-msgstr "ドキュメントまたは、要素をHTMLへシリアライズします。"
+msgstr "ドキュメントまたは要素をHTMLへシリアライズします。"
 
 msgid "`options`: Here are available options:"
 msgstr "`options`: 利用可能なオプションは以下の通りです。"
@@ -154,7 +154,7 @@ msgid "### `to_xml(options=nil) -> string` {#to-xml}"
 msgstr ""
 
 msgid "It serializes a document or an element as XML."
-msgstr "ドキュメントまたは、要素をXMLへシリアライズします。"
+msgstr "ドキュメントまたは要素をXMLへシリアライズします。"
 
 msgid ""
 "local document = xmlua.XML.parse([[\n"
@@ -222,22 +222,18 @@ msgstr ""
 msgid "## See also"
 msgstr "## 参照"
 
-msgid "  * [`xmlua.HTML`][html]: The class for HTML document."
-msgstr "  * [`xmlua.HTML`][html]: HTMLドキュメント用のクラスです。"
-
-msgid "  * [`xmlua.XML`][xml]: The class for XML document."
-msgstr "  * [`xmlua.XML`][xml]: XMLドキュメント用のクラスです。"
+msgid ""
+"  * [`xmlua.Document`][document]: The class for HTML document and XML document"
+"."
+msgstr "  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。"
 
 msgid "  * [`xmlua.Element`][element]: The class for element node."
 msgstr "  * [`xmlua.Element`][element]: 要素ノード用のクラスです。"
 
 msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
-msgstr "  * [`xmlua.NodeSet`][node-set]: 複数ノード用のクラスです。"
+msgstr "  * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。"
 
-msgid "[html]:html.html"
-msgstr ""
-
-msgid "[xml]:xml.html"
+msgid "[document]:document.html"
 msgstr ""
 
 msgid "[element]:element.html"

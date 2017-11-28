@@ -14,9 +14,9 @@ It provides features that search nodes by [XPath][xpath].
 
 It searches nodes by XPath and returns as [`xmlua.NodeSet`][node-set] object.
 
-If the receiver is a document ([`xmlua.HTML`][html] or [`xmlua.XML`][xml]), the context node in XPath is the root node.
+If the receiver is a [`xmlua.Document`][document], the context node in XPath is the root node.
 
-If the receiver is an element ([`xmlua.Element`][element]), the context node in XPath is the element. It means that "`.`" XPath is the receiver element.
+If the receiver is a [`xmlua.Element`][element], the context node in XPath is the element. It means that "`.`" XPath is the receiver element.
 
 `xpath`: XPath to search nodes as `string`.
 
@@ -93,19 +93,16 @@ print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 
   * [XPath][xpath]: The XPath specification.
 
-  * [`xmlua.HTML`][html]: The class for HTML document.
-
-  * [`xmlua.XML`][xml]: The class for XML document.
+  * [`xmlua.Document`][document]: The class for HTML document and XML document.
 
   * [`xmlua.Element`][element]: The class for element node.
 
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
 
+
 [xpath]:https://www.w3.org/TR/xpath/
 
-[html]:html.html
-
-[xml]:xml.html
+[document]:document.html
 
 [element]:element.html
 

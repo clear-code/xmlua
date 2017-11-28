@@ -6,17 +6,9 @@ title: xmlua.XML
 
 ## Summary
 
-It's a class for processing a XML document.
+It's a class for parsing a XML.
 
-It has methods of the following modules:
-
-  * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
-
-  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
-
-  * [`xmlua.Searchable`][searchable]: Provides node search related methods.
-
-It means that you can use methods in the modules.
+The parsed document is returned as [`xmlua.Document`][document] object.
 
 Example:
 
@@ -31,11 +23,11 @@ document:root() -- -> Root element
 
 ## Class methods
 
-### `xmlua.XML.parse(xml) -> xmlua.XML` {#parse}
+### `xmlua.XML.parse(xml) -> xmlua.Document` {#parse}
 
 `xml`: XML string to be parsed.
 
-It parses the given XML and returns `xmlua.XML` object.
+It parses the given XML and returns `xmlua.Document` object.
 
 If XML parsing is failed, it raises an error.
 
@@ -80,15 +72,9 @@ local root = document:root() -- --> <root> element as xmlua.Element
 print(root:name()) -- -> root
 ```
 
-## Instance methods
-
-There are no instance methods.
-
-Use methods of the included modules.
-
 ## See also
 
-  * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
+  * [`xmlua.Document`][document]: The class for HTML document and XML document.
 
   * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
 

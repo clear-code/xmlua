@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 15:30+0900\n"
+"PO-Revision-Date: 2017-11-28 18:26+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,27 +23,11 @@ msgstr "# `xmlua.HTML`クラス"
 msgid "## Summary"
 msgstr "## 概要"
 
-msgid "It's a class for processing a HTML document."
-msgstr "HTML文書を処理するクラスです。"
+msgid "It's a class for parsing a HTML."
+msgstr "HTMLドキュメントをパースするクラスです。"
 
-msgid "It has methods of the following modules:"
-msgstr "このクラスのオブジェクトは以下のモジュールのメソッドを使えます。"
-
-msgid ""
-"  * [`xmlua.Document`][document]: Provides document such as HTML and XML relat"
-"ed methods."
-msgstr "  * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。"
-
-msgid ""
-"  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization "
-"related methods."
-msgstr "  * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。"
-
-msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
-msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
-
-msgid "It means that you can use methods in the modules."
-msgstr "つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。"
+msgid "The parsed document is returned as [`xmlua.Document`][document] object."
+msgstr "パースしたドキュメントは[`xmlua.Document`][document]オブジェクトになります。"
 
 msgid "Example:"
 msgstr "例："
@@ -69,14 +53,14 @@ msgstr ""
 msgid "## Class methods"
 msgstr "## クラスメソッド"
 
-msgid "### `xmlua.HTML.parse(html) -> xmlua.HTML` {#parse}"
+msgid "### `xmlua.HTML.parse(html) -> xmlua.Document` {#parse}"
 msgstr ""
 
 msgid "`html`: HTML string to be parsed."
 msgstr "`html`: パース対象のHTML文字列。"
 
-msgid "It parses the given HTML and returns `xmlua.HTML` object."
-msgstr "与えられたHTMLをパースして、`xmlua.HTML`オブジェクトを返します。"
+msgid "It parses the given HTML and returns `xmlua.Document` object."
+msgstr "与えられたHTMLをパースして、`xmlua.Document`オブジェクトを返します。"
 
 msgid "The encoding of HTML is guessed."
 msgstr "HTMLのエンコーディングは推測します。"
@@ -165,17 +149,21 @@ msgstr ""
 "print(root:name()) -- -> html\n"
 "```"
 
-msgid "## Instance methods"
-msgstr "## インスタンスメソッド"
-
-msgid "There are no instance methods."
-msgstr "インスタンスメソッドはありません。"
-
-msgid "Use methods of the included modules."
-msgstr "インクルードしたモジュールのメソッドを使います。"
-
 msgid "## See also"
 msgstr "## 参照"
+
+msgid ""
+"  * [`xmlua.Document`][document]: The class for HTML document and XML document"
+"."
+msgstr "  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。"
+
+msgid ""
+"  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization "
+"related methods."
+msgstr "  * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。"
+
+msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
+msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
 
 msgid "[document]:document.html"
 msgstr ""

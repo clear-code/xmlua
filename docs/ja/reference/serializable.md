@@ -6,13 +6,13 @@ title: xmlua.Serializable
 
 ## 概要
 
-HTML、XMLへのシリアライズ機能を提供します。
+HTML・XMLへのシリアライズ機能を提供します。
 
 ## メソッド
 
 ### `to_html(options=nil) -> string` {#to-html}
 
-ドキュメントまたは、要素をHTMLへシリアライズします。
+ドキュメントまたは要素をHTMLへシリアライズします。
 
 `options`: 利用可能なオプションは以下の通りです。
 
@@ -107,7 +107,7 @@ print(document:search("/html/body")[1]:to_html())
 
 ### `to_xml(options=nil) -> string` {#to-xml}
 
-ドキュメントまたは、要素をXMLへシリアライズします。
+ドキュメントまたは要素をXMLへシリアライズします。
 
 `options`: 利用可能なオプションは以下の通りです。
 
@@ -195,17 +195,14 @@ print(document:search("/root/sub1")[1]:to_xml())
 
 ## 参照
 
-  * [`xmlua.HTML`][html]: HTMLドキュメント用のクラスです。
-
-  * [`xmlua.XML`][xml]: XMLドキュメント用のクラスです。
+  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。
 
-  * [`xmlua.NodeSet`][node-set]: 複数ノード用のクラスです。
+  * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。
 
-[html]:html.html
 
-[xml]:xml.html
+[document]:document.html
 
 [element]:element.html
 

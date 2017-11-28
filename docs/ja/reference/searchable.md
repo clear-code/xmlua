@@ -14,9 +14,9 @@ title: xmlua.Searchable
 
 XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェクトを返します。
 
-レシーバーがドキュメント([`xmlua.HTML`][html] or [`xmlua.XML`][xml])場合、XPathのコンテキストノードはルートノードとなります。
+レシーバーが[`xmlua.Document`][document]の場合はXPathのコンテキストノードはルートノードになります。
 
-レシーバーが要素([`xmlua.Element`][element])の場合、XPathのコンテキストノードはレシーバーの要素になります。つまり、レシーバーの要素がXPathの"`.`"となります。
+レシーバーが[`xmlua.Element`][element]の場合、XPathのコンテキストノードはレシーバーの要素になります。つまり、XPathの「`.`」はレシーバーの要素です。
 
 `xpath`: ノードを検索するためのXPath文字列です。
 
@@ -91,21 +91,18 @@ print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 
 ## 参照
 
-  * [XPath][xpath]: The XPath specification.
+  * [XPath][xpath]: XPathの仕様です。
 
-  * [`xmlua.HTML`][html]: HTMLドキュメント用のクラスです。
-
-  * [`xmlua.XML`][xml]: XMLドキュメント用のクラスです。
+  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。
 
-  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
+  * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。
+
 
 [xpath]:https://www.w3.org/TR/xpath/
 
-[html]:html.html
-
-[xml]:xml.html
+[document]:document.html
 
 [element]:element.html
 

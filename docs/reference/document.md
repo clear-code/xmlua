@@ -2,11 +2,19 @@
 title: xmlua.Document
 ---
 
-# `xmlua.Document` module
+# `xmlua.Document` class
 
 ## Summary
 
-It provides common features for HTML document and XML document.
+It's a class for a document. Document is HTML document or XML document.
+
+It has methods of the following modules:
+
+  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
+
+  * [`xmlua.Searchable`][searchable]: Provides node search related methods.
+
+It means that you can use methods in the modules.
 
 ## Methods
 
@@ -31,8 +39,17 @@ xml:root() -- -> "<root>" element as xmlua.Element object
 
   * [`xmlua.Element`][element]: The class for element node.
 
+  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
+
+  * [`xmlua.Searchable`][searchable]: Provides node search related methods.
+
+
 [html]:html.html
 
 [xml]:xml.html
 
 [element]:element.html
+
+[serializable]:serializable.html
+
+[searchable]:searchable.html

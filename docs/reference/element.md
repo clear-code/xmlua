@@ -245,11 +245,11 @@ print(subs[3]:to_xml())
 
 ## See also
 
-  * [`xmlua.HTML`][html]: The class for HTML document.
+  * [`xmlua.HTML`][html]: The class for parsing HTML.
 
-  * [`xmlua.XML`][xml]: The class for XML document.
+  * [`xmlua.XML`][xml]: The class for parsing XML.
 
-  * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
+  * [`xmlua.Document`][document]: The class for HTML document and XML document.
 
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
 

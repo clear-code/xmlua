@@ -195,17 +195,14 @@ print(document:search("/root/sub1")[1]:to_xml())
 
 ## See also
 
-  * [`xmlua.HTML`][html]: The class for HTML document.
-
-  * [`xmlua.XML`][xml]: The class for XML document.
+  * [`xmlua.Document`][document]: The class for HTML document and XML document.
 
   * [`xmlua.Element`][element]: The class for element node.
 
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
 
-[html]:html.html
 
-[xml]:xml.html
+[document]:document.html
 
 [element]:element.html
 

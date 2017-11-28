@@ -10,8 +10,6 @@ This document describes about all features. [Tutorial][tutorial] focuses on easy
 
 XMLua has internal modules to provide common methods. They aren't exported into public API but you can use them via public classes such as [`xmlua.HTML`][html] and [`xmlua.Element`][element].
 
-  * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
-
   * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
 
   * [`xmlua.Searchable`][searchable]: Provides node search related methods.
@@ -20,9 +18,11 @@ XMLua has internal modules to provide common methods. They aren't exported into 
 
 XMLua provides the following classes:
 
-  * [`xmlua.HTML`][html]: The class for HTML document.
+  * [`xmlua.HTML`][html]: The class for parsing HTML.
 
-  * [`xmlua.XML`][xml]: The class for XML document.
+  * [`xmlua.XML`][xml]: The class for parsing XML.
+
+  * [`xmlua.Document`][document]: The class for HTML document and XML document.
 
   * [`xmlua.Element`][element]: The class for element node.
 

@@ -6,17 +6,9 @@ title: xmlua.HTML
 
 ## 概要
 
-HTML文書を処理するクラスです。
+HTMLドキュメントをパースするクラスです。
 
-このクラスのオブジェクトは以下のモジュールのメソッドを使えます。
-
-  * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
-
-  * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
-
-  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
-
-つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。
+パースしたドキュメントは[`xmlua.Document`][document]オブジェクトになります。
 
 例：
 
@@ -32,11 +24,11 @@ document:root() -- -> ルート要素
 
 ## クラスメソッド
 
-### `xmlua.HTML.parse(html) -> xmlua.HTML` {#parse}
+### `xmlua.HTML.parse(html) -> xmlua.Document` {#parse}
 
 `html`: パース対象のHTML文字列。
 
-与えられたHTMLをパースして、`xmlua.HTML`オブジェクトを返します。
+与えられたHTMLをパースして、`xmlua.Document`オブジェクトを返します。
 
 HTMLのエンコーディングは推測します。
 
@@ -84,15 +76,9 @@ local root = document:root() -- --> xmlua.Elementオブジェクトな<html>要�
 print(root:name()) -- -> html
 ```
 
-## インスタンスメソッド
-
-インスタンスメソッドはありません。
-
-インクルードしたモジュールのメソッドを使います。
-
 ## 参照
 
-  * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
+  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。
 
   * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
 

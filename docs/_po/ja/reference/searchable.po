@@ -21,7 +21,7 @@ msgid "## Summary"
 msgstr "## 概要"
 
 msgid "It provides features that search nodes by [XPath][xpath]."
-msgstr "XPathを使ってノードを検索する機能を提供します。"
+msgstr "[XPath][xpath]を使ってノードを検索する機能を提供します。"
 
 msgid "## Methods"
 msgstr ""

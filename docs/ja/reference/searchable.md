@@ -6,7 +6,7 @@ title: xmlua.Searchable
 
 ## 概要
 
-XPathを使ってノードを検索する機能を提供します。
+[XPath][xpath]を使ってノードを検索する機能を提供します。
 
 ## メソッド
 

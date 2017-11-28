@@ -28,6 +28,18 @@ function TestSearch.test_no_match()
                        0)
 end
 
+function TestSearch.test_no_node_set()
+  local document = xmlua.XML.parse([[
+<root>
+  <sub class="A"/>
+  <sub class="A"/>
+  <sub class="B"/>
+</root>
+]])
+  luaunit.assertEquals(#document:search(".."),
+                       0)
+end
+
 function TestSearch.test_multiple()
   local document = xmlua.XML.parse([[
 <root>

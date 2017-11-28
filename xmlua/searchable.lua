@@ -63,6 +63,9 @@ function Searchable.search(self, xpath)
   local type = tonumber(object.type)
   if type == ffi.C.XPATH_NODESET then
     local found_node_set = object.nodesetval
+    if found_node_set == ffi.NULL then
+      return NodeSet.new({})
+    end
     local raw_node_set = {}
     for i = 1, found_node_set.nodeNr do
       local node = found_node_set.nodeTab[i - 1]

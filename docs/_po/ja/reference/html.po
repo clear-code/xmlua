@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 13:41+0900\n"
+"PO-Revision-Date: 2017-11-28 13:51+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,8 +23,11 @@ msgstr "# `xmlua.HTML`モジュール"
 msgid "## Summary"
 msgstr "## 概要"
 
+msgid "It's a class for processing a HTML document."
+msgstr "HTML文書を処理するクラスです。"
+
 msgid "It has methods of the following modules:"
-msgstr "`xmlua.HTML`では、以下のモジュールのメソッドを使えます。"
+msgstr "このクラスのオブジェクトは以下のモジュールのメソッドを使えます。"
 
 msgid ""
 "  * [`xmlua.Document`][document]: Provides document such as HTML and XML relat"
@@ -40,20 +43,27 @@ msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related method
 msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
 
 msgid "It means that you can use methods in the modules."
-msgstr "つまり、`xmlua.HTML`内で上述のモジュールのメソッドを使えます。"
+msgstr "つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。"
 
 msgid "Example:"
 msgstr "例："
 
 msgid ""
 "```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid "local document = xmlua.HTML.parse(\"<html><body></body></html>\")"
+msgstr ""
+
+msgid ""
 "-- Call xmlua.Document:root method\n"
-"html:root() -- -> Root element\n"
+"document:root() -- -> Root element\n"
 "```"
 msgstr ""
 "```lua\n"
 "-- xmlua.Document:rootメソッドを呼ぶ\n"
-"html:root() -- -> ルート要素\n"
+"document:root() -- -> ルート要素\n"
 "```"
 
 msgid "## Class methods"
@@ -86,11 +96,6 @@ msgstr ""
 
 msgid "Here is an example to parse HTML:"
 msgstr "HTMLをパースする例です。"
-
-msgid ""
-"```lua\n"
-"local xmlua = require(\"xmlua\")"
-msgstr ""
 
 msgid ""
 "-- HTML to be parsed.\n"

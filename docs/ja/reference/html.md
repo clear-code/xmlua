@@ -6,7 +6,9 @@ title: xmlua.HTML
 
 ## 概要
 
-`xmlua.HTML`では、以下のモジュールのメソッドを使えます。
+HTML文書を処理するクラスです。
+
+このクラスのオブジェクトは以下のモジュールのメソッドを使えます。
 
   * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
 
@@ -14,13 +16,18 @@ title: xmlua.HTML
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
-つまり、`xmlua.HTML`内で上述のモジュールのメソッドを使えます。
+つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。
 
 例：
 
 ```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.HTML.parse("<html><body></body></html>")
+
+```lua
 -- xmlua.Document:rootメソッドを呼ぶ
-html:root() -- -> ルート要素
+document:root() -- -> ルート要素
 ```
 
 ## クラスメソッド

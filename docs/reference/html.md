@@ -6,6 +6,8 @@ title: xmlua.HTML
 
 ## Summary
 
+It's a class for processing a HTML document.
+
 It has methods of the following modules:
 
   * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
@@ -19,8 +21,12 @@ It means that you can use methods in the modules.
 Example:
 
 ```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.HTML.parse("<html><body></body></html>")
+
 -- Call xmlua.Document:root method
-html:root() -- -> Root element
+document:root() -- -> Root element
 ```
 
 ## Class methods

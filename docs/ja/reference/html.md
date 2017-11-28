@@ -10,11 +10,11 @@ title: xmlua.HTML
 
   * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
 
-  * [`xmlua.Savable`][savable]: HTMLとXMLのシリアライズ関連のメソッドを提供します。
+  * [`xmlua.Savable`][savable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
-つまり、`xmlua.HTML`内で上記のメソッドを使えます。
+つまり、`xmlua.HTML`内で上述のモジュールのメソッドを使えます。
 
 例：
 
@@ -82,7 +82,7 @@ print(root:name()) -- -> html
 
   * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。
 
-  * [`xmlua.Savable`][savable]: HTMLとXMLのシリアライズ関連のメソッドを提供します。
+  * [`xmlua.Savable`][savable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 

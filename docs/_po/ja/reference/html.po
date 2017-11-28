@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 13:37+0900\n"
+"PO-Revision-Date: 2017-11-28 13:39+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,13 +34,13 @@ msgstr "  * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連の�
 msgid ""
 "  * [`xmlua.Savable`][savable]: Provides HTML and XML serialization related me"
 "thods."
-msgstr "  * [`xmlua.Savable`][savable]: HTMLとXMLのシリアライズ関連のメソッドを提供します。"
+msgstr "  * [`xmlua.Savable`][savable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。"
 
 msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
 msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
 
 msgid "It means that you can use methods in the modules."
-msgstr "つまり、`xmlua.HTML`内で上記のメソッドを使えます。"
+msgstr "つまり、`xmlua.HTML`内で上述のモジュールのメソッドを使えます。"
 
 msgid "Example:"
 msgstr "例："

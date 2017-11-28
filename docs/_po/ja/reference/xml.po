@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-28 14:00+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua.XML\n"
+"---"
+msgstr ""
+
+msgid "# `xmlua.XML` module"
+msgstr ""
+
+msgid "## Summary"
+msgstr "## 概要"
+
+msgid "It's a class for processing a XML document."
+msgstr ""
+
+msgid "It has methods of the following modules:"
+msgstr "このクラスのオブジェクトは以下のモジュールのメソッドを使えます。"
+
+msgid ""
+"  * [`xmlua.Document`][document]: Provides document such as HTML and XML relat"
+"ed methods."
+msgstr "  * [`xmlua.Document`][document]: HTMLやXMLドキュメント関連のメソッドを提供します。"
+
+msgid ""
+"  * [`xmlua.Savable`][savable]: Provides HTML and XML serialization related me"
+"thods."
+msgstr "  * [`xmlua.Savable`][savable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。"
+
+msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
+msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
+
+msgid "It means that you can use methods in the modules."
+msgstr "つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。"
+
+msgid "Example:"
+msgstr "例："
+
+msgid ""
+"```lua\n"
+"-- Call xmlua.Document:root method\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid "local document = xmlua.HTML.parse(\"<root><sub/></root>\")"
+msgstr ""
+
+msgid ""
+"document:root() -- -> Root element\n"
+"```"
+msgstr ""
+
+msgid "## Class methods"
+msgstr "## クラスメソッド"
+
+msgid "### `xmlua.XML.parse(xml) -> xmlua.XML`"
+msgstr ""
+
+msgid ""
+"```lua\n"
+"{\n"
+"  message = \"Error details\",\n"
+"}\n"
+"```"
+msgstr ""
+"```lua\n"
+"{\n"
+"  message = \"エラーの詳細\",\n"
+"}\n"
+"```"
+
+msgid ""
+"```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid ""
+"-- XML to be parsed\n"
+"local xml = [[\n"
+"<root>\n"
+"  <sub/>\n"
+"</root>\n"
+"]]"
+msgstr ""
+
+msgid ""
+"-- If you want to parse text in a file,\n"
+"-- you need to read file content by yourself."
+msgstr ""
+"-- ファイル内のテキストをパースしたい場合は\n"
+"-- 自分でファイルの内容を読み込む必要があります。"
+
+msgid "-- local xml = io.open(\"example.xml\"):read(\"*all\")"
+msgstr ""
+
+msgid "## Instance methods"
+msgstr "## インスタンスメソッド"
+
+msgid "Use methods of the included modules."
+msgstr "インクルードしたモジュールのメソッドを使います。"
+
+msgid "## See also"
+msgstr "## 参照"
+
+msgid "[document]:document.html"
+msgstr ""
+
+msgid "[savable]:savable.html"
+msgstr ""
+
+msgid "[searchable]:searchable.html"
+msgstr ""

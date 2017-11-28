@@ -95,7 +95,7 @@ print(document:search("/html/body")[1]:to_html())
 -- <body>World</body>
 ```
 
-You can serialize a node set.
+You can serialize a node set. All nodes are serialized and serialized strings are concatenated.
 
 ```lua
 local xmlua = require("xmlua")
@@ -195,7 +195,7 @@ print(document:search("/root/sub1")[1]:to_xml())
 -- <sub1>text1</sub1>
 ```
 
-You can serialize a node set.
+You can serialize a node set. All nodes are serialized and serialized strings are concatenated.
 
 ```lua
 local xmlua = require("xmlua")

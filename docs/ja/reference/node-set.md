@@ -22,11 +22,11 @@ document:search("/root") -- -> xmlua.NodeSet
 
 ## インスタンスメソッド
 
-It's based on normal table. It means that you can use normal table features such as `#node_set` (getting the number of nodes in the node set) and `node_set[1]` (getting the 1st node in the node set).
+このクラスは、通常のテーブルに基づいています。つまり、`#node_set`(ノードセットが持つノードの数を取得する)や`node_set[1]`(ノードセットの最初のノードを取得する)のような通常のテーブルの機能が使えます。
 
 ### `to_html(options=nil) -> string` {#to-html}
 
-It serializes all nodes in the node set as HTML by [`xmlua.Serializable:to_html`][serializable-to-html] and concatenates serialized strings.
+ノードセット内の全てのノードを[`xmlua.Serializable:to_html`][serializable-to-html]を使ってHTMLへシリアライズし、シリアライズした文字列を結合します。
 
 `options`: 利用可能なオプションは以下の通りです。
 
@@ -58,31 +58,31 @@ local document = xmlua.HTML.parse([[
 </html>
 ]])
 
--- All elements under <html> (<head> and <body>)
+-- <html>配下の全ての要素 (<head> and <body>)
 local node_set = document:search("/html/*")
 
--- Serializes all elements as HTML and concatenates serialized HTML
+-- 全ての要素をHTMLへシリアライズし、シリアライズしたHTMLを結合します。
 print(node_set:to_html())
 -- <head>
 -- <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
 --    <title>Hello</title>
 --  </head><body>World</body>
 
--- FYI: <head> serialization
+-- 参考: <head>要素のシリアライズ
 print(node_set[1]:to_html())
 -- <head>
 -- <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
 --    <title>Hello</title>
 --  </head>
 
--- FYI: <body> serialization
+-- 参考: <body>要素のシリアライズ
 print(node_set[2]:to_html())
 -- <body>World</body>
 ```
 
 ### `to_xml(options=nil) -> string` {#to-xml}
 
-It serializes all nodes in the node set as XML by [`xmlua.Serializable:to_xml`][serializable-to-xml] and concatenates serialized strings.
+ノードセット内の全てのノードを[`xmlua.Serializable:to_xml`][serializable-to-xml]を使ってXMLへシリアライズし、シリアライズした文字列を結合します。
 
 `options`: 利用可能なオプションは以下の通りです。
 
@@ -113,22 +113,22 @@ local document = xmlua.XML.parse([[
 </root>
 ]])
 
--- All elements under <root> (<sub1>, <sub2> and <sub3>)
+-- <root>配下の全ての要素 (<sub1>, <sub2> and <sub3>)
 local node_set = document:search("/root/*")
 
--- Serializes all elements as XML and concatenates serialized XML
+-- 全ての要素をXMLへシリアライズし、シリアライズしたXMLを結合します。
 print(node_set:to_xml())
 -- <sub1>text1</sub1><sub2>text2</sub2><sub3>text3</sub3>
 
--- FYI: <sub1> serialization
+-- 参考: <sub1>要素のシリアライズ
 print(node_set[1]:to_xml())
 -- <sub1>text1</sub1>
 
--- FYI: <sub2> serialization
+-- 参考: <sub2>要素のシリアライズ
 print(node_set[2]:to_xml())
 -- <sub2>text2</sub2>
 
--- FYI: <sub3> serialization
+-- 参考: <sub3>要素のシリアライズ
 print(node_set[3]:to_xml())
 -- <sub3>text3</sub3>
 ```
@@ -137,7 +137,7 @@ print(node_set[3]:to_xml())
 
 XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェクトを返します。
 
-It calls [`xmlua.Searchable:search`][searchable-search] against each node in the node set, collects matched nodes into one `xmlua.NodeSet` and returns the `xmlua.NodeSet`.
+ノードセット内のそれぞれのノードに対して、[`xmlua.Searchable:search`][searchable-search]を実行し、`xmlua.NodeSet`内でマッチしたノードを収集し、`xmlua.NodeSet`を返します。
 
 例：
 
@@ -154,19 +154,19 @@ local xml = [[
 
 local document = xmlua.XML.parse(xml)
 
--- Searches all <sub class="A"> elements
+-- 全ての<sub class="A">要素を検索
 local class_a_subs = document:search("//sub[@class='A']")
 
--- Searches all elements under <sub class="A"> elements
+-- <sub class="a">配下の全ての要素を検索
 local subsubs_in_class_a = class_a_subs:search("*")
 
 print(#subsubs_in_class_a) -- -> 2
 
--- It's /root/sub[@class="A"]/subsub1
+-- /root/sub[@class="A"]/subsub1
 print(subsubs_in_class_a[1]:to_xml())
 -- <subsub1/>
 
--- It's /root/sub[@class="A"]/subsub3
+-- /root/sub[@class="A"]/subsub3
 print(subsubs_in_class_a[2]:to_xml())
 -- <subsub3/>
 ```

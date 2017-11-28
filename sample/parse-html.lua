@@ -2,9 +2,7 @@
 
 local xmlua = require("xmlua")
 
--- HTML to be parsed.
--- You may want to use HTML in a file. If you want to use HTML in a file,
--- you need to read HTML content from a file by yourself.
+-- HTML to be parsed
 local html = [[
 <html>
   <body>
@@ -12,6 +10,10 @@ local html = [[
   </body>
 </html>
 ]]
+
+-- If you want to use text in a file, you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
 
 -- Parses HTML
 local success, document = pcall(xmlua.HTML.parse, html)

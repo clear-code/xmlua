@@ -23,3 +23,8 @@ function TestHTML.test_root()
   luaunit.assertEquals(html:root():to_html(),
                        "<html></html>")
 end
+
+function TestHTML.test_parent()
+  local html = xmlua.HTML.parse("<html></html>")
+  luaunit.assertNil(html:parent())
+end

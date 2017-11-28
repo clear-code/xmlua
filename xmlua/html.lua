@@ -4,15 +4,6 @@ local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
 local Document = require("xmlua.document")
-local Serializable = require("xmlua.serializable")
-local Searchable = require("xmlua.searchable")
-
-local metatable = {}
-function metatable.__index(table, key)
-  return Document[key] or
-    Serializable[key] or
-    Searchable[key]
-end
 
 function HTML.parse(html)
   local context = libxml2.htmlCreateMemoryParserCtxt(html)
@@ -23,11 +14,7 @@ function HTML.parse(html)
   if not success then
     error({message = ffi.string(context.lastError.message)})
   end
-  local html_document = {
-    document = context.myDoc,
-  }
-  setmetatable(html_document, metatable)
-  return html_document
+  return Document.new(context.myDoc)
 end
 
 return HTML

@@ -11,6 +11,7 @@ local ffi = require("ffi")
 local Serializable = require("xmlua.serializable")
 local Searchable = require("xmlua.searchable")
 
+local Document = require("xmlua.document")
 local NodeSet = require("xmlua.node-set")
 
 local methods = {}
@@ -67,7 +68,11 @@ function methods.next(self)
 end
 
 function methods.parent(self)
-  return Element.new(self.document, self.node.parent)
+  if tonumber(self.node.parent.type) == ffi.C.XML_DOCUMENT_NODE then
+    return Document.new(self.document)
+  else
+    return Element.new(self.document, self.node.parent)
+  end
 end
 
 function methods.children(self)

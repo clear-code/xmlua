@@ -56,6 +56,18 @@ function TestElement.test_parent()
                        "root")
 end
 
+function TestElement.test_parent_root()
+  local document = xmlua.XML.parse([[<root><child/></root>]])
+  local root = document:root()
+  luaunit.assertEquals(root:parent():to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child/>
+</root>
+]])
+end
+
 function TestElement.test_children()
   local document = xmlua.XML.parse([[
 <root>

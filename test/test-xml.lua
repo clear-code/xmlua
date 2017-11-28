@@ -23,3 +23,8 @@ function TestXML.test_root()
   <child/>
 </root>]])
 end
+
+function TestXML.test_parent()
+  local xml = xmlua.XML.parse("<root><child/></root>")
+  luaunit.assertNil(xml:parent())
+end

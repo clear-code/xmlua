@@ -201,7 +201,7 @@ print(document:search("/root/sub1")[1]:to_xml())
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。
 
-  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
+  * [`xmlua.NodeSet`][node-set]: 複数ノード用のクラスです。
 
 [html]:html.html
 

@@ -19,7 +19,7 @@ It means that you can use methods in the modules.
 Example:
 
 ```lua
--- Call `xmlua.Document:root` method
+-- Call xmlua.Document:root method
 html:root() -- -> Root element
 ```
 

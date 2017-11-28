@@ -19,8 +19,8 @@ title: xmlua.HTML
 例：
 
 ```lua
--- Call `xmlua.Document:root` method
-html:root() -- -> Root element
+-- xmlua.Document:rootメソッドを呼ぶ
+html:root() -- -> ルート要素
 ```
 
 ## クラスメソッド

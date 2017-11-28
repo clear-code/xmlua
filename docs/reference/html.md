@@ -84,7 +84,7 @@ print(root:name()) -- -> html
 
 ## Instance methods
 
-There are not instance methods.
+There are no instance methods.
 
 Use methods of the included modules.
 

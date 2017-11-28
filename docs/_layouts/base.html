@@ -19,12 +19,14 @@
     {% endif %}
 
 <!--
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="icon" href="/favicon.png">
+    <link rel="shortcut icon" href="{{ site.baseurl }}/favicon.ico">
+    <link rel="icon" href="{{ site.baseurl }}/favicon.png">
 -->
 
     <title>{{ title }}</title>
-    <link href="/assets/stylesheets/xmlua.css" rel="stylesheet" medis="screen">
+    <link href="{{ site.baseurl }}/assets/stylesheets/xmlua.css"
+          rel="stylesheet"
+          medis="screen">
     <meta name="description" content="{{ description | strip_newlines }}">
   </head>
 
@@ -48,6 +50,6 @@
     </footer>
 
     <script src="//code.jquery.com/jquery.js"></script>
-    <script src="/assets/javascripts/bootstrap.min.js"></script>
+    <script src="{{ site.baseurl }}/assets/javascripts/bootstrap.min.js"></script>
   </body>
 </html>

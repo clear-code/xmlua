@@ -39,8 +39,9 @@ It parses the given HTML and returns `xmlua.HTML` object.
 
 The encoding of HTML is guessed.
 
-If HTML parsing is failed, it raises an error. The error has the
-following structure:
+If HTML parsing is failed, it raises an error.
+
+Here is the error structure:
 
 ```lua
 {

@@ -37,8 +37,9 @@ document:root() -- -> Root element
 
 It parses the given XML and returns `xmlua.XML` object.
 
-If XML parsing is failed, it raises an error. The error has the
-following structure:
+If XML parsing is failed, it raises an error.
+
+Here is the error structure:
 
 ```lua
 {

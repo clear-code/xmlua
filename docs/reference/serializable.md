@@ -20,6 +20,16 @@ It serializes a document, an element or a node set as HTML.
 
     * Example: `"UTF-8'`
 
+If serialization is failed, it raises an error.
+
+Here is the error structure:
+
+```lua
+{
+  message = "Error details",
+}
+```
+
 Example:
 
 ```lua
@@ -126,6 +136,16 @@ It serializes a document, an element or a node set as XML.
   * `encoding`: The output encoding as `string`.
 
     * Example: `"UTF-8'`
+
+If serialization is failed, it raises an error.
+
+Here is the error structure:
+
+```lua
+{
+  message = "Error details",
+}
+```
 
 Example:
 

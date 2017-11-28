@@ -164,11 +164,92 @@ print(sub3:next())
 -- nil
 ```
 
+### `parent() -> xmlua.Element` {#parent}
+
+It returns the parent element as `xmlua.Element`. If the element is root element, it returns [`xmlua.Document`][document].
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local sub2 = document:search("/root/sub2")[1]
+
+-- Gets the parent element of <sub2>
+print(sub2:parent():to_xml())
+-- <root>
+--   <sub1/>
+--   <sub2/>
+--   <sub3/>
+-- </root>
+
+local root = sub2:parent()
+
+-- Gets the parent element of <root>: xmlua.Document
+print(root:parent():to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <sub1/>
+--   <sub2/>
+--   <sub3/>
+-- </root>
+
+local document = root:parent()
+
+-- Gets the parent of document
+print(document:parent())
+-- nil
+```
+
+### `children() -> [xmlua.Element]` {#children}
+
+It returns the child elements as an array of `xmlua.Element`.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+
+-- Gets all child elements of <root> (<sub1>, <sub2> and <sub3>)
+local subs = root:children()
+
+print(#subs)
+-- 3
+print(subs[1]:to_xml())
+-- <sub1/>
+print(subs[2]:to_xml())
+-- <sub2/>
+print(subs[3]:to_xml())
+-- <sub3/>
+```
+
 ## See also
 
   * [`xmlua.HTML`][html]: The class for HTML document.
 
   * [`xmlua.XML`][xml]: The class for XML document.
+
+  * [`xmlua.Document`][document]: Provides document such as HTML and XML related methods.
 
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
 
@@ -184,6 +265,8 @@ print(sub3:next())
 [html]:html.html
 
 [xml]:xml.html
+
+[document]:document.html
 
 [serializable]:serializable.html
 

@@ -31,11 +31,24 @@ local xml = xmlua.XML.parse("<root><sub/></root>")
 xml:root() -- -> "<root>" element as xmlua.Element object
 ```
 
+### `parent() -> nil` {#parent}
+
+It always returns `nil`. It's just for consistency with [`xmlua.Element:parent`][element-parent].
+
+Example:
+
+```lua
+require xmlua = require("xmlua")
+
+local document = xmlua.XML.parse("<root><sub/></root>")
+document:parent() -- -> nil
+```
+
 ## See also
 
-  * [`xmlua.HTML`][html]: The class for HTML document.
+  * [`xmlua.HTML`][html]: The class for parsing HTML.
 
-  * [`xmlua.XML`][xml]: The class for XML document.
+  * [`xmlua.XML`][xml]: The class for parsing XML.
 
   * [`xmlua.Element`][element]: The class for element node.
 
@@ -43,6 +56,8 @@ xml:root() -- -> "<root>" element as xmlua.Element object
 
   * [`xmlua.Searchable`][searchable]: Provides node search related methods.
 
+
+[element-parent]:element.html#parent
 
 [html]:html.html
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 18:30+0900\n"
+"PO-Revision-Date: 2017-11-28 18:40+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,17 +63,34 @@ msgstr ""
 "xml:root() -- -> xmlua.Elementオブジェクトな\"<root>\"要素\n"
 "```"
 
+msgid "### `parent() -> nil` {#parent}"
+msgstr ""
+
+msgid ""
+"It always returns `nil`. It's just for consistency with [`xmlua.Element:parent"
+"`][element-parent]."
+msgstr "常に`nil`を返します。[`xmlua.Element:parent`][element-parent]との一貫性のためにあります。"
+
+msgid ""
+"local document = xmlua.XML.parse(\"<root><sub/></root>\")\n"
+"document:parent() -- -> nil\n"
+"```"
+msgstr ""
+
 msgid "## See also"
 msgstr "## 参照"
 
-msgid "  * [`xmlua.HTML`][html]: The class for HTML document."
-msgstr "  * [`xmlua.HTML`][html]: HTMLドキュメント用のクラスです。"
+msgid "  * [`xmlua.HTML`][html]: The class for parsing HTML."
+msgstr "  * [`xmlua.HTML`][html]: HTMLをパースするクラスです。"
 
-msgid "  * [`xmlua.XML`][xml]: The class for XML document."
-msgstr "  * [`xmlua.XML`][xml]: XMLドキュメント用のクラスです。"
+msgid "  * [`xmlua.XML`][xml]: The class for parsing XML."
+msgstr "  * [`xmlua.XML`][xml]: XMLをパースするクラスです。"
 
 msgid "  * [`xmlua.Element`][element]: The class for element node."
 msgstr "  * [`xmlua.Element`][element]: 要素ノード用のクラスです。"
+
+msgid "[element-parent]:element.html#parent"
+msgstr ""
 
 msgid "[html]:html.html"
 msgstr ""

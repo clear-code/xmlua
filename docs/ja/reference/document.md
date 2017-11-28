@@ -31,11 +31,24 @@ local xml = xmlua.XML.parse("<root><sub/></root>")
 xml:root() -- -> xmlua.Elementオブジェクトな"<root>"要素
 ```
 
+### `parent() -> nil` {#parent}
+
+常に`nil`を返します。[`xmlua.Element:parent`][element-parent]との一貫性のためにあります。
+
+例：
+
+```lua
+require xmlua = require("xmlua")
+
+local document = xmlua.XML.parse("<root><sub/></root>")
+document:parent() -- -> nil
+```
+
 ## 参照
 
-  * [`xmlua.HTML`][html]: HTMLドキュメント用のクラスです。
+  * [`xmlua.HTML`][html]: HTMLをパースするクラスです。
 
-  * [`xmlua.XML`][xml]: XMLドキュメント用のクラスです。
+  * [`xmlua.XML`][xml]: XMLをパースするクラスです。
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。
 
@@ -43,6 +56,8 @@ xml:root() -- -> xmlua.Elementオブジェクトな"<root>"要素
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
+
+[element-parent]:element.html#parent
 
 [html]:html.html
 

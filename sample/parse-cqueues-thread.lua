@@ -3,7 +3,7 @@
 local thread = require("cqueues.thread")
 local xmlua = require("xmlua")
 
--- You must call xmlua.init() in main thread before you create threads
+-- You must call xmlua.init in main thread before you create threads
 -- when you use XMLua with multiple threads.
 xmlua.init()
 
@@ -14,9 +14,9 @@ local connections = {}
 
 for i = 1, n do
   local worker, connection = thread.start(function(connection)
-      -- require("xmlua") isn't thread safe.
+      -- require("xmlua") isn't thread safe
       local xmlua = require("xmlua")
-      -- Notify that require("xmlua") is finished.
+      -- Notify that require("xmlua") is finished
       connection:write("ready\n")
 
       for path in connection:lines("*l") do
@@ -33,7 +33,7 @@ for i = 1, n do
         end
       end
   end)
-  -- Wait until require("xmlua") is finished.
+  -- Wait until require("xmlua") is finished
   connection:read("*l")
   table.insert(workers, worker)
   table.insert(connections, connection)
@@ -53,7 +53,7 @@ for _, worker in ipairs(workers) do
   worker:join()
 end
 
--- You can call xmlua.cleanup() in main thread to free all resources
+-- You can call xmlua.cleanup in main thread to free all resources
 -- used by XMLua. You must ensure that all threads are finished and
 -- all XMLua related objects aren't used anymore.
 xmlua.cleanup()

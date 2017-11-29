@@ -513,22 +513,22 @@ print(document:parent())
 
 You can use XMLua with multiple threads. But you need more codes to do it.
 
-You must call [`xmlua.init()`][xmlua-init] in the main thread before you create any threads that use xmlua.
+You must call [`xmlua.init`][xmlua-init] in the main thread before you create any threads that use XMLua.
 
 Example:
 
 ```lua
 local xmlua = require("xmlua")
 
--- You must call xmlua.init() in main thread before you create threads
--- when you use xmlua with multiple threads.
+-- You must call xmlua.init in main thread before you create threads
+-- when you use XMLua with multiple threads.
 xmlua.init()
 
 local thread = require("cqueues.thread")
 -- ...
 ```
 
-You can call [`xmlua.cleanup()`][xmlua-cleanup] in the main thread after you finish all threads that use XMLua and you finish all MXLua use.
+You can call [`xmlua.cleanup`][xmlua-cleanup] in the main thread after you finish all threads that use XMLua and you finish all MXLua use.
 
 Example:
 
@@ -540,9 +540,9 @@ xmlua.init()
 local thread = require("cqueues.thread")
 -- ...
 
--- You can call xmlua.cleanup() in main thread to free all resources
--- used by xmlua. You must ensure that all threads are finished and
--- all xmlua related objects aren't used anymore.
+-- You can call xmlua.cleanup in main thread to free all resources
+-- used by XMLua. You must ensure that all threads are finished and
+-- all XMLua related objects aren't used anymore.
 xmlua.cleanup()
 
 os.exit()
@@ -568,7 +568,7 @@ CentOS:
 % LD_PRELOAD=/lib64/libpthread.so.o luajit XXX.lua
 ```
 
-If you use [cqueues][cqueues], you can use connection returned by `cqueues.thread.start`.
+If you use [cqueues][cqueues], you can use connection returned by `cqueues.thread.start` to prevent executing `require("xmlua")` at the same time.
 
 Example:
 
@@ -585,9 +585,11 @@ local connections = {}
 
 for i = 1, n do
   local worker, connection = thread.start(function(connection)
-    -- require("xmlua") isn't thread safe.
+
+    -- require("xmlua") isn't thread safe
     local xmlua = require("xmlua")
-    -- Notify that require("xmlua") is finished.
+
+    -- Notify that require("xmlua") is finished
     connection:write("ready\n")
 
     for job in connection:lines("*l") do
@@ -596,22 +598,28 @@ for i = 1, n do
       -- document:search("...")
     end
   end)
-  -- Wait until require("xmlua") is finished.
+
+  -- Wait until require("xmlua") is finished
   connection:read("*l")
+
   table.insert(workers, worker)
   table.insert(connections, connection)
 end
 
 for _, connection in ipairs(connections) do
+
   -- Put jobs to workers
   connection:write("Job1\n")
   connection:write("Job2\n")
   -- ...
+
 end
 
 for _, connection in ipairs(connections) do
+
   -- Finish providing jobs
   connection:close()
+
 end
 
 for _, worker in ipairs(workers) do

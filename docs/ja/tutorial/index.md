@@ -373,13 +373,266 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
-## Get elements
+## 要素の取得
 
-...
+兄弟要素を取得するには[`xmlua.Element:previous`][element-previous]と[`xmlua.Element:next`][element-next]を使います。
 
-## Next step
+例：
 
-Now, you knew all major XMLua features! If you want to understand each feature, see [reference manual][reference] for each feature.
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local sub2 = document:search("/root/sub2")[1]
+
+-- <sub2>の1つ前の兄弟要素を取得
+print(sub2:previous():to_xml())
+-- <sub1/>
+
+-- <sub2>の1つ後の兄弟要素を取得
+print(sub2:next():to_xml())
+-- <sub3/>
+```
+
+兄弟要素がない場合は`nil`を返します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local sub1 = document:search("/root/sub1")[1]
+local sub3 = document:search("/root/sub3")[1]
+
+-- <sub1>の1つ前の兄弟要素を取得
+print(sub1:previous())
+-- nil
+
+-- <sub3>の1つ後の兄弟要素を取得
+print(sub3:next():to_xml())
+-- nil
+```
+
+[`xmlua.Element:parent`][element-parent]で親要素を取得できます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local sub2 = document:search("/root/sub2")[1]
+
+-- <sub2>の親要素を取得
+print(sub2:parent():to_xml())
+-- <root>
+--   <sub1/>
+--   <sub2/>
+--   <sub3/>
+-- </root>
+
+```
+
+要素がルート要素のときは[`xmlua.Document`][document]を返します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+
+-- <root>の親要素を取得：xmlua.Document
+print(root:parent():to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <sub1/>
+--   <sub2/>
+--   <sub3/>
+-- </root>
+
+```
+
+[`xmlua.Document:parent`][document-parent]もあります。このメソッドは常に`nil`を返します。一貫性のあるAPIにするためだけに存在しています。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+-- ドキュメントの親を取得
+print(document:parent())
+-- nil
+```
+
+## マルチスレッド
+
+複数のスレッドでXMLuaを使えます。複数のスレッドで使うためのコードを追加する必要があります。
+
+XMLuaを使うスレッドを作る前に、メインスレッドで[`xmlua.init`][xmlua-init]を呼ばなければいけません。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- 複数のスレッドでXMLuaを使う場合は
+-- スレッドを作る前にメインスレッドでxmlua.initを呼ばないといけません。
+xmlua.init()
+
+local thread = require("cqueues.thread")
+-- ...
+```
+
+XMLuaを使っているすべてのスレッドを終了し、XMLuaをもう使わない状態になった後なら、メインスレッドで[`xmlua.cleanup`][xmlua-cleanup]を呼べます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+xmlua.init()
+
+local thread = require("cqueues.thread")
+-- ...
+
+-- XMLuaが使っているすべてのリソースを開放するために
+-- メインスレッドでxmlua.cleanupを呼べます。
+-- 呼ぶときは、すべてのスレッドを終了して、XMLua関連のオブジェクトを今後
+-- 絶対使わないようにしてください。
+xmlua.cleanup()
+
+os.exit()
+```
+
+GNU/Linux上でpthreadにリンクしていないLuaJITを動かすときは、`require("xmlua")`はスレッドセーフではありません。解決策は次の通りです。
+
+  * `LD_PRELOAD`環境変数を使って`libpthread.so.0`をリンクする。
+
+  * 同時に`require("xmlua")`を実行しない。
+
+`LD_PRELOAD`を使うコマンドライン例は次の通りです。
+
+Debian GNU/LinuxとUbuntuの場合：
+
+```console
+% LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.o luajit XXX.lua
+```
+
+CentOSの場合：
+
+```console
+% LD_PRELOAD=/lib64/libpthread.so.o luajit XXX.lua
+```
+
+[cqueues][cqueues]を使っている場合は、同時に`require("xmlua")`を実行するのを防ぐために`cqueues.thread.start`が返すコネクションを使えます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+xmlua.init()
+
+local thread = require("cqueues.thread")
+
+local n = 10
+
+local workers = {}
+local connections = {}
+
+for i = 1, n do
+  local worker, connection = thread.start(function(connection)
+
+    -- require("xmlua")はスレッドセーフではない
+    local xmlua = require("xmlua")
+
+    -- Notify that require("xmlua") is finished
+    connection:write("ready\n")
+
+    for job in connection:lines("*l") do
+      -- local html = ...
+      -- local document = xmlua.HTML.parse(html)
+      -- document:search("...")
+    end
+  end)
+
+  -- require("xmlua")が終了するまで待つ
+  connection:read("*l")
+
+  table.insert(workers, worker)
+  table.insert(connections, connection)
+end
+
+for _, connection in ipairs(connections) do
+
+  -- Put jobs to workers
+  connection:write("Job1\n")
+  connection:write("Job2\n")
+  -- ...
+
+end
+
+for _, connection in ipairs(connections) do
+
+  -- ジョブの投入を終了
+  connection:close()
+
+end
+
+for _, worker in ipairs(workers) do
+  worker:join()
+end
+
+xmlua.cleanup()
+```
+
+## 次のステップ
+
+これでXMLuaのすべての主な機能を学びました！それぞれの機能をより理解したい場合は、各機能の[リファレンスマニュアル][reference]を見てください。
 
 
 [install]:../install/
@@ -401,5 +654,19 @@ Now, you knew all major XMLua features! If you want to understand each feature, 
 [element]:../reference/element.html
 
 [document-root]:../reference/document.html#root
+
+[element-previous]:../reference/element.html#previous
+
+[element-next]:../reference/element.html#next
+
+[element-parent]:../reference/element.html#parent
+
+[document-parent]:../reference/document.html#parent
+
+[xmlua-init]:../reference/xmlua.html#init
+
+[xmlua-cleanup]:../reference/xmlua.html#cleanup
+
+[cqueues]:http://25thandclement.com/~william/projects/cqueues.html
 
 [reference]:../reference/

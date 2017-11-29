@@ -25,9 +25,10 @@ matrix:
         - make build
         - sudo make install
         - cd ..
-        - sudo luarocks install luaunit
+        - sudo luarocks install cqueues luaunit
       script:
         - test/run-test.lua
+        - sample/parse-html-cqueues-thread.lua sample/sample.html
 
 install:
   - docker build

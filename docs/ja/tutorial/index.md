@@ -6,16 +6,16 @@ title: Tutorial
 
 このドキュメントは、XMLuaの使い方をステップ・バイ・ステップで紹介しています。まだ、XMLuaをインストールしていない場合は、このドキュメントを読む前にXMLuaを[インストール][install]してください。
 
-## Parse a document
+## ドキュメントのパース
 
-You need to parse document at first to use XMLua. XMLua supports HTML document and XML document.
+XMLuaを使うために最初にドキュメントのパースをします。XMLuaはHTMLドキュメントとXMLドキュメントをサポートしています。
 
-You can use [`xmlua.HTML.parse`][html-parse] to parse HTML.
+HTMLをパースするには、[`xmlua.HTML.parse`][html-parse]を使います。
 
 例：
 
 ```lua
--- Requires "xmlua" module
+-- "xmlua"モジュールの読み込み
 local xmlua = require("xmlua")
 
 local html = [[
@@ -29,10 +29,10 @@ local html = [[
 </html>
 ]]
 
--- Parses HTML
+-- HTMLをパース
 local document = xmlua.HTML.parse(html)
 
--- Serializes to HTML
+-- HTMLへのシリアライズ
 print(document:to_html())
 -- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 -- <html>
@@ -46,12 +46,12 @@ print(document:to_html())
 -- </html>
 ```
 
-You can use [`xmlua.XML.parse`][xml-parse] to parse XML.
+XMLをパースするには、[`xmlua.XML.parse`][xml-parse]を使います。
 
 例：
 
 ```lua
--- Requires "xmlua" module
+-- "xmlua"モジュールの読み込み
 local xmlua = require("xmlua")
 
 local xml = [[
@@ -62,10 +62,10 @@ local xml = [[
 </root>
 ]]
 
--- Parses XML
+-- XMLをパース
 local document = xmlua.XML.parse(xml)
 
--- Serializes to XML
+-- XMLへのシリアライズ
 print(document:to_xml())
 -- <?xml version="1.0" encoding="UTF-8"?>
 -- <root>
@@ -75,7 +75,7 @@ print(document:to_xml())
 -- </root>
 ```
 
-You must pass HTML or XML as `string`. If you want to parse HTML or XML in a file, you need to read it by yourself.
+パースするHTMLまたは、XMLは`string`でなければなりません。ファイル内のHTMLやXMLをパースしたい場合は、自分でファイルの内容を読み込む必要があります。
 
 例：
 
@@ -89,7 +89,7 @@ xml_file:close()
 local document = xmlua.XML.parse(xml)
 ```
 
-`xmlua.HTML.parse` and `xmlua.XML.parse` may fail. For example, they fail with invalid document. If they fail, they raises an error.
+`xmlua.HTML.parse`や`xmlua.XML.parse`は、失敗することがあります。例えば、無効なドキュメントを使った場合に失敗します。`xmlua.HTML.parse`や`xmlua.XML.parse`が失敗した場合は、エラーが発生します。
 
 発生するエラーは以下の構造になっています。
 
@@ -99,7 +99,7 @@ local document = xmlua.XML.parse(xml)
 }
 ```
 
-If you need to assume that document may be invalid, you need to handle error with `pcall`.
+ドキュメントが無効である可能性がある場合は、`pcall`を使ってエラーを処理する必要があります。
 
 例：
 
@@ -108,21 +108,21 @@ local xmlua = require("xmlua")
 
 local invalid_xml = "<root>"
 
--- Parses invalid XML
+-- 無効なXMLをパース
 local success, document = pcall(xmlua.XML.parse, invalid_xml)
 
 if success then
   print("Succeeded to parse XML")
 else
-  -- If pcall returns not success, the second return value is error
-  -- object not document.
+  -- pcallが成功を返さない場合、戻り値はエラーとなります
+  -- パース対象のオブジェクトがドキュメントでない
   local err = document
   print("Failed to parse XML: " .. err.message)
   -- -> Failed to parse XML: Premature end of data in tag root line 1
 end
 ```
 
-Both parsed HTML and parsed XML are [`xmlua.Document`][document] object in XMLua. You can handle both of them in the same way.
+パースしたHTML、パースしたXMLともにXMLuaの[`xmlua.Document`][document]オブジェクトとなり、同じ方法で操作できます。
 
 ## Search elements
 

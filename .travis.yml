@@ -25,7 +25,8 @@ matrix:
         - make build
         - sudo make install
         - cd ..
-        - sudo luarocks install cqueues luaunit
+        - sudo luarocks install cqueues
+        - sudo luarocks install luaunit
       script:
         - test/run-test.lua
         - sample/parse-html-cqueues-thread.lua sample/sample.html

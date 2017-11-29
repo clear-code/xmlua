@@ -4,7 +4,7 @@ local thread = require("cqueues.thread")
 local xmlua = require("xmlua")
 
 -- You must call xmlua.init() in main thread before you create threads
--- when you use xmlua with multiple threads.
+-- when you use XMLua with multiple threads.
 xmlua.init()
 
 local n = 10
@@ -54,6 +54,6 @@ for _, worker in ipairs(workers) do
 end
 
 -- You can call xmlua.cleanup() in main thread to free all resources
--- used by xmlua. You must ensure that all threads are finished and
--- all xmlua related objects aren't used anymore.
+-- used by XMLua. You must ensure that all threads are finished and
+-- all XMLua related objects aren't used anymore.
 xmlua.cleanup()

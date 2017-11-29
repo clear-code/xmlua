@@ -375,7 +375,251 @@ print(root["nonexistent-namespace:attribute"])
 
 ## Get elements
 
-...
+You can get the sibling elements by [`xmlua.Element:previous`][element-previous] and [`xmlua.Element:next`][element-next].
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local sub2 = document:search("/root/sub2")[1]
+
+-- Gets the previous sibling element of <sub2>
+print(sub2:previous():to_xml())
+-- <sub1/>
+
+-- Gets the next sibling element of <sub2>
+print(sub2:next():to_xml())
+-- <sub3/>
+```
+
+If there are no sibling elements, they returns `nil`.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local sub1 = document:search("/root/sub1")[1]
+local sub3 = document:search("/root/sub3")[1]
+
+-- Gets the previous sibling element of <sub1>
+print(sub1:previous())
+-- nil
+
+-- Gets the next sibling element of <sub3>
+print(sub3:next():to_xml())
+-- nil
+```
+
+You can get the parent element by [`xmlua.Element:parent`][element-parent].
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local sub2 = document:search("/root/sub2")[1]
+
+-- Gets the parent element of <sub2>
+print(sub2:parent():to_xml())
+-- <root>
+--   <sub1/>
+--   <sub2/>
+--   <sub3/>
+-- </root>
+
+```
+
+If the element is the root element, it returns [`xmlua.Document`][document].
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+
+-- Gets the parent of <root>: xmlua.Document
+print(root:parent():to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <sub1/>
+--   <sub2/>
+--   <sub3/>
+-- </root>
+
+```
+
+[`xmlua.Document:parent`][document-parent] also exists. It always returns `nil`. It just exist for consistent API.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+-- Gets the parent of document
+print(document:parent())
+-- nil
+```
+
+## Multithread
+
+You can use XMLua with multiple threads. But you need more codes to do it.
+
+You must call [`xmlua.init()`][xmlua-init] in the main thread before you create any threads that use xmlua.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- You must call xmlua.init() in main thread before you create threads
+-- when you use xmlua with multiple threads.
+xmlua.init()
+
+local thread = require("cqueues.thread")
+-- ...
+```
+
+You can call [`xmlua.cleanup()`][xmlua-cleanup] in the main thread after you finish all threads that use XMLua and you finish all MXLua use.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+xmlua.init()
+
+local thread = require("cqueues.thread")
+-- ...
+
+-- You can call xmlua.cleanup() in main thread to free all resources
+-- used by xmlua. You must ensure that all threads are finished and
+-- all xmlua related objects aren't used anymore.
+xmlua.cleanup()
+
+os.exit()
+```
+
+If you work on GNU/Linux and your LuaJIT isn't linked with pthread, `require("xmlua")` isn't thread safe. Here are solutions:
+
+  * Link `libpthread.so.0` by `LD_PRELOAD` environment variable.
+
+  * Don't execute `require("xmlua")` at the same time.
+
+Here are example command lines to use `LD_PRELOAD`.
+
+Debian GNU/Linux and Ubuntu:
+
+```console
+% LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.o luajit XXX.lua
+```
+
+CentOS:
+
+```console
+% LD_PRELOAD=/lib64/libpthread.so.o luajit XXX.lua
+```
+
+If you use [cqueues][cqueues], you can use connection returned by `cqueues.thread.start`.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+xmlua.init()
+
+local thread = require("cqueues.thread")
+
+local n = 10
+
+local workers = {}
+local connections = {}
+
+for i = 1, n do
+  local worker, connection = thread.start(function(connection)
+    -- require("xmlua") isn't thread safe.
+    local xmlua = require("xmlua")
+    -- Notify that require("xmlua") is finished.
+    connection:write("ready\n")
+
+    for job in connection:lines("*l") do
+      -- local html = ...
+      -- local document = xmlua.HTML.parse(html)
+      -- document:search("...")
+    end
+  end)
+  -- Wait until require("xmlua") is finished.
+  connection:read("*l")
+  table.insert(workers, worker)
+  table.insert(connections, connection)
+end
+
+for _, connection in ipairs(connections) do
+  -- Put jobs to workers
+  connection:write("Job1\n")
+  connection:write("Job2\n")
+  -- ...
+end
+
+for _, connection in ipairs(connections) do
+  -- Finish providing jobs
+  connection:close()
+end
+
+for _, worker in ipairs(workers) do
+  worker:join()
+end
+
+xmlua.cleanup()
+```
 
 ## Next step
 
@@ -401,5 +645,19 @@ Now, you knew all major XMLua features! If you want to understand each feature, 
 [element]:../reference/element.html
 
 [document-root]:../reference/document.html#root
+
+[element-previous]:../reference/element.html#previous
+
+[element-next]:../reference/element.html#next
+
+[element-parent]:../reference/element.html#parent
+
+[document-parent]:../reference/document.html#parent
+
+[xmlua-init]:../reference/xmlua.html#init
+
+[xmlua-cleanup]:../reference/xmlua.html#cleanup
+
+[cqueues]:http://25thandclement.com/~william/projects/cqueues.html
 
 [reference]:../reference/

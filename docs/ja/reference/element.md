@@ -122,7 +122,7 @@ local xml = [[
 local document = xmlua.XML.parse(xml)
 local sub2 = document:search("/root/sub2")[1]
 
--- <sub2>の前の兄弟要素を取得する
+-- <sub2>の1つ前の兄弟要素を取得
 print(sub2:previous():to_xml())
 -- <sub1/>
 
@@ -205,7 +205,7 @@ print(root:parent():to_xml())
 
 local document = root:parent()
 
--- documentの親要素を取得
+-- ドキュメントの親を取得
 print(document:parent())
 -- nil
 ```

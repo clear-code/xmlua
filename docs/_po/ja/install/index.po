@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-30 01:21+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: Install\n"
+"---"
+msgstr ""
+"---\n"
+"title: インストール\n"
+"---"
+
+msgid "# Install"
+msgstr "# インストール"
+
+msgid "This document how to install XMLua on the following platforms:"
+msgstr "このドキュメントでは次のプラットフォーム上でXMLuaをインストールする方法を説明します。"
+
+msgid "  * [Debian GNU/Linux](#debian)"
+msgstr ""
+
+msgid "  * [Ubuntu](#ubuntu)"
+msgstr ""
+
+msgid "  * [CentOS](#centos)"
+msgstr ""
+
+msgid "  * [macOS](#macos)"
+msgstr ""
+
+msgid ""
+"You must install [LuaJIT][luajit] and [LuaRocks][luarocks] before installing X"
+"MLua."
+msgstr "XMLuaをインストールする前に[LuaJIT][luajit]と[LuaRocks][luarocks]をインストールしておいてください。"
+
+msgid "## Debian GNU/Linux {#debian}"
+msgstr ""
+
+msgid ""
+"```console\n"
+"% sudo apt install -y -V libxml2\n"
+"% sudo luarocks install xmlua\n"
+"```"
+msgstr ""
+
+msgid "## Ubuntu {#ubuntu}"
+msgstr ""
+
+msgid "## CentOS {#centos}"
+msgstr ""
+
+msgid ""
+"```console\n"
+"% sudo yum install -y libxml2\n"
+"% sudo luarocks install xmlua\n"
+"```"
+msgstr ""
+
+msgid "## macOS {#macos}"
+msgstr ""
+
+msgid ""
+"```console\n"
+"% brew install libxml2\n"
+"% sudo luarocks install xmlua\n"
+"```"
+msgstr ""
+
+msgid "[luajit]:http://luajit.org/"
+msgstr ""
+
+msgid "[luarocks]:https://luarocks.org/"
+msgstr ""

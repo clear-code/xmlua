@@ -163,3 +163,51 @@ else
   print("Failed to search by XPath: " .. err.message)
   -- -> Failed to search by XPath: Invalid expression
 end
+
+
+local document = xmlua.XML.parse("<root class='A'/>")
+
+-- Gets the root element: <root>
+local root = document:root()
+
+-- Gets the root element: <root>
+local root = document:search("/root")[1]
+
+-- Uses dot syntax to get attribute value
+print(root.class)
+-- -> A
+
+-- Uses [] syntax to get attribute value
+print(root["class"])
+-- -> A
+
+-- Uses get_attribute method to get attribute value
+print(root:get_attribute("class"))
+-- -> A
+
+-- Returns nil for nonexistent attribute name
+print(root.nonexistent)
+-- -> nil
+
+
+local xml = [[
+<root xmlns:example="http://example.com/"
+      example:attribute="value-example"
+      attribute="value"
+      nonexistent-namespace:attribute="value-nonexistent-namespace"/>
+]]
+
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+
+-- With namespace prefix
+print(root["example:attribute"])
+-- -> value-example
+
+-- Without namespace prefix
+print(root["attribute"])
+-- -> value
+
+-- With nonexistent namespace prefix
+print(root["nonexistent-namespace:attribute"])
+-- -> value-nonexistent-namespace

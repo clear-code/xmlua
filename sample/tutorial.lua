@@ -66,4 +66,100 @@ else
   -- object not document.
   local err = document
   print("Failed to parse XML: " .. err.message)
+  -- -> Failed to parse XML: Premature end of data in tag root line 1
+end
+
+
+local xml = [[
+<root>
+  <sub>text1</sub>
+  <sub>text2</sub>
+  <sub>text3</sub>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+-- Searches all <sub> elements under the <root> element
+local all_subs = document:search("/root/sub")
+
+-- You can use "#" for getting the number of matched nodes
+print(#all_subs) -- -> 3
+
+-- You can access the N-th node by "[]".
+print(all_subs[1]:to_xml()) -- -> <sub1>text1</sub1>
+print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
+print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
+
+
+local xml = [[
+<root>
+  <sub class="A"><subsub1/></sub>
+  <sub class="B"><subsub2/></sub>
+  <sub class="A"><subsub3/></sub>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+-- Searches all <sub class="A"> elements
+local class_a_subs = document:search("//sub[@class='A']")
+
+-- Searches all elements under <sub class="A"> elements
+local subsubs_in_class_a = class_a_subs:search("*")
+
+print(#subsubs_in_class_a) -- -> 2
+
+-- It's /root/sub[@class="A"]/subsub1
+print(subsubs_in_class_a[1]:to_xml())
+-- <subsub1/>
+
+-- It's /root/sub[@class="A"]/subsub3
+print(subsubs_in_class_a[2]:to_xml())
+-- <subsub3/>
+
+
+local xml = [[
+<root>
+  <sub>text1</sub>
+  <sub>text2</sub>
+  <sub>text3</sub>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+-- Searches the <root> element
+local roots = document:search("/root")
+local root = roots[1]
+
+-- Searches all <sub> elements under the <root> element
+local all_subs = root:search("sub")
+
+-- You can use "#" for getting the number of matched nodes
+print(#all_subs) -- -> 3
+
+-- You can access the N-th node by "[]".
+print(all_subs[1]:to_xml()) -- -> <sub1>text1</sub1>
+print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
+print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
+
+
+local xml = "<root/>"
+
+local document = xmlua.XML.parse(xml)
+
+local invalid_xpath = "..."
+local success, node_set = pcall(function()
+  return document:search(invalid_xpath)
+end)
+
+if success then
+  print("Succeeded to search by XPath")
+else
+  -- If pcall returns not success, the second return value is error
+  -- object not node set.
+  local err = node_set
+  print("Failed to search by XPath: " .. err.message)
+  -- -> Failed to search by XPath: Invalid expression
 end

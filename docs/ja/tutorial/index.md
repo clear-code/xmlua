@@ -265,15 +265,15 @@ else
 end
 ```
 
-## Get attribute value
+## 属性値の取得
 
-You need to get [`xmlua.Element`][element] object to get attribute value in element.
+要素の属性値を取得するには、[`xmlua.Element`][element]オブジェクトを取得する必要があります。
 
-Normally, you can get `xmlua.Element` by [`xmlua.Document:root`][document-root] or [`xmlua.Searchable:search`][searchable-search].
+通常、`xmlua.Element`は[`xmlua.Document:root`][document-root]または、[`xmlua.Searchable:search`][searchable-search]を使って取得できます。
 
-`xmlua.Document:root` returns the root element of the document.
+`xmlua.Document:root`は、ドキュメントのルート要素を返します。
 
-`xmlua.Searchable:search` returns elements as [`xmlua.NodeSet`][node-set]. You can get the first element by `node_set[1]`.
+`xmlua.Searchable:search`は、[`xmlua.NodeSet`][node-set]として、複数の要素を返します。`node_set[1]`とすることで、先頭の要素を取得できます。
 
 例：
 
@@ -282,28 +282,28 @@ local xmlua = require("xmlua")
 
 local document = xmlua.XML.parse("<root class='A'/>")
 
--- Gets the root element: <root>
+-- ルート要素の取得
 local root = document:root()
 
--- Gets the root element: <root>
+-- ルート要素の取得
 local root = document:search("/root")[1]
 ```
 
-You can get attribute value by one of the followings:
+以下のいずれかを使って、属性値を取得できます。
 
-  * `element.attribute_name`: Dot syntax.
+  * `element.attribute_name`: ドット構文
 
-  * `element["attribute_name"]`: `[]` syntax.
+  * `element["attribute_name"]`: `[]`構文
 
-  * `element:get_attribute("attribute_name")`: Method syntax.
+  * `element:get_attribute("attribute_name")`: メソッド構文
 
-Normally, dot syntax and `[]` syntax are recommended.
+通常は、ドットか`[]`を用いた構文をおすすめします。
 
-If attribute name is valid Lua identifier such as "`class`", dot syntax is recommended.
+"`class`"のように属性名がLuaの識別子である場合は、ドットを用いた構文をおすすめします。
 
-If attribute name isn't valid Lua identifier such as "`xml:lang`", `[]` syntax is recommended.
+"`xml:lang`"のように属性名がLuaの識別子では無い場合は、`[]`を用いた構文をおすすめします。
 
-If attribute name conflicts with method names available in `xmlua.Element` such as `search` and `parent`, method syntax is recommended.
+`search`や`parent`のように`xmlua.Element`で使えるメソッド名と衝突している場合は、メソッドを用いた取得をおすすめします。
 
 例：
 
@@ -326,7 +326,7 @@ print(root:get_attribute("class"))
 -- -> A
 ```
 
-If the specified attribute doesn't exist, `nil` is returned.
+指定した属性が存在しない場合は、`nil`を返します。
 
 例：
 
@@ -336,14 +336,14 @@ local xmlua = require("xmlua")
 local document = xmlua.XML.parse("<root class='A'/>")
 local root = document:root()
 
--- Returns nil for nonexistent attribute name
+-- 属性名が存在しないためnilが返ります。
 print(root.nonexistent)
 -- -> nil
 ```
 
-If the attribute what you find has namespace, you can use `"namespace-prefix:local-name"` syntax attribute name such as `"xml:lang"`. In this case, you can't use dot syntax because `":"` is included in attribute name.
+属性が名前空間を持っている場合、`"xml:lang"`のように`"namespace-prefix:local-name"`構文を用いた属性名を使うことができます。このケースでは、`":"`が属性名に含まれているため、ドットを用いた構文は使えません。
 
-If the specified namespace prefix doesn't exist, the whole specified attribute name is treated as attribute name instead of namespace URI and local name.
+指定した名前空間プレフィックスが存在しない場合は、指定した名前空間プレフィックス付きの属性名は、名前空間URIやローカル名ではなく属性名として扱われます。
 
 例：
 

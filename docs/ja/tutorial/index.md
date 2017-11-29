@@ -89,7 +89,7 @@ xml_file:close()
 local document = xmlua.XML.parse(xml)
 ```
 
-`xmlua.HTML.parse`や`xmlua.XML.parse`は、失敗することがあります。例えば、無効なドキュメントを使った場合に失敗します。`xmlua.HTML.parse`や`xmlua.XML.parse`が失敗した場合は、エラーが発生します。
+`xmlua.HTML.parse`や`xmlua.XML.parse`は、失敗することがあります。例えば、不正なドキュメントを使った場合に失敗します。`xmlua.HTML.parse`や`xmlua.XML.parse`が失敗した場合は、エラーが発生します。
 
 発生するエラーは以下の構造になっています。
 
@@ -99,7 +99,7 @@ local document = xmlua.XML.parse(xml)
 }
 ```
 
-ドキュメントが無効である可能性がある場合は、`pcall`を使ってエラーを処理する必要があります。
+不正なドキュメントである可能性がある場合は、`pcall`を使ってエラーを処理する必要があります。
 
 例：
 
@@ -108,7 +108,7 @@ local xmlua = require("xmlua")
 
 local invalid_xml = "<root>"
 
--- 無効なXMLをパース
+-- 不正なXMLをパース
 local success, document = pcall(xmlua.XML.parse, invalid_xml)
 
 if success then

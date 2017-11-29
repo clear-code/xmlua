@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-29 09:37+0900\n"
+"PO-Revision-Date: 2017-11-30 01:48+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,6 +26,15 @@ msgstr ""
 "このドキュメントは全ての機能について記載しています。[チュートリアル][tutorial]は、重要な機能について簡単に理解できる事に重点をおいています。この"
 "ドキュメントは網羅性を重視しています。まだ、[チュートリアル][tutorial]を読んでいないのであれば、このドキュメントを読む前にチュートリアルを読んで"
 "ください。"
+
+msgid "## Modules {#modules}"
+msgstr "## モジュール {#modules}"
+
+msgid "XMLua has only one public modules. It's `xmlua` main module."
+msgstr "XMLuaには1つだけ公開モジュールがあります。それは`xmlua`メインモジュールです。"
+
+msgid "  * [`xmlua`][xmlua]: The main module."
+msgstr "  * [`xmlua`][xmlua]: メインモジュール。"
 
 msgid "## Internal modules {#internal-modules}"
 msgstr "## 内部モジュール {#internal-modules}"
@@ -77,6 +86,9 @@ msgstr ""
 "でアクセスできます。"
 
 msgid "[tutorial]:../tutorial/"
+msgstr ""
+
+msgid "[xmlua]:xmlua.html"
 msgstr ""
 
 msgid "[document]:document.html"

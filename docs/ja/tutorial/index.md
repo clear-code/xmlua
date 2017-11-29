@@ -6,7 +6,7 @@ title: Tutorial
 
 このドキュメントは、XMLuaの使い方を段階的に説明しています。まだ、XMLuaをインストールしていない場合は、このドキュメントを読む前にXMLuaを[インストール][install]してください。
 
-## ドキュメントのパース
+## ドキュメントのパース {#parse-document}
 
 XMLuaを使うために最初にドキュメントのパースをします。XMLuaはHTMLドキュメントとXMLドキュメントをサポートしています。
 
@@ -124,7 +124,7 @@ end
 
 パースしたHTML、パースしたXMLともにXMLuaの[`xmlua.Document`][document]オブジェクトとなり、同じ方法で操作できます。
 
-## 要素の検索
+## 要素の検索 {#search-element}
 
 [XPath][xpath]を使って要素の検索ができます。[`xmlua.Searchable:search`][searchable-search]メソッドを使って要素の検索ができます。
 
@@ -265,7 +265,7 @@ else
 end
 ```
 
-## 属性値の取得
+## 属性値の取得 {#get-attribute-value}
 
 要素の属性値を取得するには、[`xmlua.Element`][element]オブジェクトを取得する必要があります。
 
@@ -373,7 +373,7 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
-## 要素の取得
+## 要素の取得 {#get-elements}
 
 兄弟要素を取得するには[`xmlua.Element:previous`][element-previous]と[`xmlua.Element:next`][element-next]を使います。
 
@@ -509,7 +509,7 @@ print(document:parent())
 -- nil
 ```
 
-## マルチスレッド
+## マルチスレッド {#multithread}
 
 複数のスレッドでXMLuaを使えます。複数のスレッドで使うためのコードを追加する必要があります。
 
@@ -630,7 +630,7 @@ end
 xmlua.cleanup()
 ```
 
-## 次のステップ
+## 次のステップ {#next-step}
 
 これでXMLuaのすべての主な機能を学びました！それぞれの機能をより理解したい場合は、各機能の[リファレンスマニュアル][reference]を見てください。
 

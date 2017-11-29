@@ -6,7 +6,7 @@ title: Tutorial
 
 This document describes how to use XMLua step by step. If you don't install XMLua yet, [install][install] XMLua before you read this document.
 
-## Parse a document
+## Parse a document {#parse-document}
 
 You need to parse document at first to use XMLua. XMLua supports HTML document and XML document.
 
@@ -124,7 +124,7 @@ end
 
 Both parsed HTML and parsed XML are [`xmlua.Document`][document] object in XMLua. You can handle both of them in the same way.
 
-## Search elements
+## Search elements {#search-element}
 
 You can use [XPath][xpath] to search elements. You can use [`xmlua.Searchable:search`][searchable-search] method for it.
 
@@ -265,7 +265,7 @@ else
 end
 ```
 
-## Get attribute value
+## Get attribute value {#get-attribute-value}
 
 You need to get [`xmlua.Element`][element] object to get attribute value in element.
 
@@ -373,7 +373,7 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
-## Get elements
+## Get elements {#get-elements}
 
 You can get the sibling elements by [`xmlua.Element:previous`][element-previous] and [`xmlua.Element:next`][element-next].
 
@@ -509,7 +509,7 @@ print(document:parent())
 -- nil
 ```
 
-## Multithread
+## Multithread {#multithread}
 
 You can use XMLua with multiple threads. But you need more codes to do it.
 
@@ -629,7 +629,7 @@ end
 xmlua.cleanup()
 ```
 
-## Next step
+## Next step {#next-step}
 
 Now, you knew all major XMLua features! If you want to understand each feature, see [reference manual][reference] for each feature.
 

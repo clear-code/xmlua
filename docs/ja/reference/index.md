@@ -6,6 +6,12 @@ title: Reference manual
 
 このドキュメントは全ての機能について記載しています。[チュートリアル][tutorial]は、重要な機能について簡単に理解できる事に重点をおいています。このドキュメントは網羅性を重視しています。まだ、[チュートリアル][tutorial]を読んでいないのであれば、このドキュメントを読む前にチュートリアルを読んでください。
 
+## モジュール {#modules}
+
+XMLuaには1つだけ公開モジュールがあります。それは`xmlua`メインモジュールです。
+
+  * [`xmlua`][xmlua]: メインモジュール。
+
 ## 内部モジュール {#internal-modules}
 
 XMLuaは共通の機能を提供する内部メソッドがあります。これらは、APIとして公開されていませんが、[`xmlua.HTML`][html]や[`xmlua.Element`][element]のような公開クラス経由で使うことができます。
@@ -31,6 +37,8 @@ XMLuaは以下のクラスを提供します。
 `xmlua.HTML`と`xmlua.XML`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XML`のメソッド経由でアクセスできます。
 
 [tutorial]:../tutorial/
+
+[xmlua]:xmlua.html
 
 [document]:document.html
 

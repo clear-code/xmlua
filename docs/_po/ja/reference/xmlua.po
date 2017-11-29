@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-30 01:47+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua\n"
+"---"
+msgstr ""
+
+msgid "# `xmlua` module"
+msgstr "# `xmlua`モジュール"
+
+msgid "## Summary"
+msgstr "## 概要"
+
+msgid "It's the main module."
+msgstr "メインモジュールです。"
+
+msgid "## Module functions"
+msgstr ""
+
+msgid "### `init() -> nil` {#init}"
+msgstr ""
+
+msgid ""
+"It initializes XMLua implicitly. Normally, you don't need to call it because X"
+"MLua is initialized explicitly."
+msgstr "XMLuaを明示的に初期化します。XMLuaは暗黙的に初期化されるので、通常、呼ぶ必要はありません。"
+
+msgid "It's needed for supporting multithread."
+msgstr "マルチスレッドに対応するときに必要になります。"
+
+msgid ""
+"If you want to use XMLua in multiple threads, you must call `xmlua.init` in th"
+"e main thread before you create any thread."
+msgstr "複数のスレッドでXMLuaを使いたいときは、スレッドを作る前にメインスレッドで`xmlua.init`を呼ばなければいけません。"
+
+msgid "Example:"
+msgstr "例："
+
+msgid ""
+"```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid ""
+"-- You must call xmlua.init in main thread before you create threads\n"
+"-- when you use XMLua with multiple threads.\n"
+"xmlua.init()"
+msgstr ""
+"-- 複数のスレッドでXMLuaを使う場合は\n"
+"-- スレッドを作る前にメインスレッドでxmlua.initを呼ばないといけません。\n"
+"xmlua.init()"
+
+msgid "local thread = require(\"cqueues.thread\")"
+msgstr ""
+
+msgid ""
+"-- thread.start(function() ... end)\n"
+"```"
+msgstr ""
+
+msgid "### `cleanup() -> nil` {#cleanup}"
+msgstr ""
+
+msgid ""
+"It frees all resources used by XMLua. Normally, you don't need to call it beca"
+"use your process will be exited soon when you want to call it."
+msgstr "XMLuaが使っているすべてのリソースを解放します。通常、呼ぶ必要はありません。なぜなら、これを呼びたいときはプロセスが終了する直前だからです。"
+
+msgid "You must call it in the main thread."
+msgstr "メインスレッドで呼ばないといけません。"
+
+msgid ""
+"You must ensure that all threads are finished and all XMLua related objects ar"
+"en't used anymore when you call it."
+msgstr "呼ぶときは、すべてのスレッドを終了し、すべてのXMLua関連のオブジェクトをこれ以上触らないようにしないといけません。"
+
+msgid ""
+"-- local xml = ...\n"
+"-- local document = xmlua.XML.parse(xml)\n"
+"-- document:search(...)"
+msgstr ""
+
+msgid ""
+"-- You can call xmlua.cleanup in main thread to free all resources\n"
+"-- used by XMLua. You must ensure that all threads are finished and\n"
+"-- all XMLua related objects aren't used anymore.\n"
+"xmlua.cleanup()"
+msgstr ""
+"-- XMLuaが使っているすべてのリソースを開放するために\n"
+"-- メインスレッドでxmlua.cleanupを呼べます。\n"
+"-- 呼ぶときは、すべてのスレッドを終了して、XMLua関連のオブジェクトを今後\n"
+"-- 絶対使わないようにしてください。\n"
+"xmlua.cleanup()"
+
+msgid ""
+"os.exit()\n"
+"```"
+msgstr ""
+
+msgid "## See also"
+msgstr "## 参照"
+
+msgid "  * [Multithread section in Tutorial][tutorial-multithread]"
+msgstr "  * [チュートリアルのマルチスレッドセクション][tutorial-multithread]"
+
+msgid "[tutorial-multithread]:../tutorial/#multithread"
+msgstr ""

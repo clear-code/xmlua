@@ -6,6 +6,12 @@ title: Reference manual
 
 This document describes about all features. [Tutorial][tutorial] focuses on easy to understand only about important features. This document focuses on completeness. If you don't read [tutorial][tutorial] yet, read tutorial before read this document.
 
+## Modules {#modules}
+
+XMLua has only one public modules. It's `xmlua` main module.
+
+  * [`xmlua`][xmlua]: The main module.
+
 ## Internal modules {#internal-modules}
 
 XMLua has internal modules to provide common methods. They aren't exported into public API but you can use them via public classes such as [`xmlua.HTML`][html] and [`xmlua.Element`][element].
@@ -31,6 +37,8 @@ XMLua provides the following classes:
 You can access only `xmlua.HTML` and `xmlua.XML` directly. Other classes are accessible via methods of `xmlua.HTML` and `xmlua.XML.
 
 [tutorial]:../tutorial/
+
+[xmlua]:xmlua.html
 
 [document]:document.html
 

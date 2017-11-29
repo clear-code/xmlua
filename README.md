@@ -20,13 +20,11 @@ The user-friendly API is implemented top of low-level libxml2 API.
 
 ## Install
 
-```console
-% luarocks install xmlua
-```
+See [online document](https://clear-code.github.io/xmlua/install/).
 
 ## Usage
 
-See [online document](https://clear-code.github.io/xmlua/).
+See [online document](https://clear-code.github.io/xmlua/tutorial/).
 
 ## Authors
 

@@ -10,9 +10,10 @@ function TestXML.test_parse_valid()
 end
 
 function TestXML.test_parse_invalid()
-  local success, err = pcall(xmlua.XML.parse, " ")
+  local success, message = pcall(xmlua.XML.parse, " ")
   luaunit.assertEquals(success, false)
-  luaunit.assertEquals(err, {message = "Start tag expected, '<' not found\n"})
+  luaunit.assertEquals(message,
+                       "./xmlua/xml.lua:15: Start tag expected, '<' not found\n")
 end
 
 function TestXML.test_root()

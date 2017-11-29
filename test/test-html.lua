@@ -13,9 +13,9 @@ function TestHTML.test_parse_valid()
 end
 
 function TestHTML.test_parse_invalid()
-  local success, err = pcall(xmlua.HTML.parse, " ")
+  local success, message = pcall(xmlua.HTML.parse, " ")
   luaunit.assertEquals(success, false)
-  luaunit.assertEquals(err, {message = "Document is empty\n"})
+  luaunit.assertEquals(message, "./xmlua/html.lua:15: Document is empty\n")
 end
 
 function TestHTML.test_root()

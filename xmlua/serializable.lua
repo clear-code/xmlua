@@ -18,7 +18,7 @@ local function save(target, flags, failure_message, options)
   end
   libxml2.xmlSaveClose(context)
   if not success then
-    error({message = failure_message})
+    error(failure_message)
   end
   return libxml2.xmlBufferGetContent(buffer)
 end

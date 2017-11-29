@@ -32,14 +32,6 @@ document:root() -- -> ルート要素
 
 XMLのパースに失敗した場合はエラーが発生します。
 
-発生するエラーは以下の構造になっています。
-
-```lua
-{
-  message = "エラーの詳細",
-}
-```
-
 XMLをパースする例です。
 
 ```lua
@@ -61,8 +53,8 @@ local xml = [[
 -- XMLをパース
 local success, document = pcall(xmlua.XML.parse, xml)
 if not success then
-  local err = document
-  print("Failed to parse XML: " .. err.message)
+  local message = document
+  print("Failed to parse XML: " .. message)
   os.exit(1)
 end
 

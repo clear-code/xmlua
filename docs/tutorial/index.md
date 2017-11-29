@@ -91,14 +91,6 @@ local document = xmlua.XML.parse(xml)
 
 `xmlua.HTML.parse` and `xmlua.XML.parse` may fail. For example, they fail with invalid document. If they fail, they raises an error.
 
-Here is the error structure:
-
-```lua
-{
-  message = "Error details",
-}
-```
-
 If you need to assume that document may be invalid, you need to handle error with `pcall`.
 
 Example:
@@ -115,10 +107,10 @@ if success then
   print("Succeeded to parse XML")
 else
   -- If pcall returns not success, the second return value is error
-  -- object not document.
-  local err = document
-  print("Failed to parse XML: " .. err.message)
-  -- -> Failed to parse XML: Premature end of data in tag root line 1
+  -- message not document.
+  local message = document
+  print("Failed to parse XML: " .. message)
+  -- -> Failed to parse XML: ./xmlua/xml.lua:15: Premature end of data in tag root line 1
 end
 ```
 
@@ -230,14 +222,6 @@ print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 
 `search` may fail. For example. it fails with invalid XPath. If it fails, it raises an error.
 
-Here is the error structure:
-
-```lua
-{
-  message = "Error details",
-}
-```
-
 If you need to assume that XPath may be invalid, you need to handle error with `pcall`.
 
 Example:
@@ -258,10 +242,10 @@ if success then
   print("Succeeded to search by XPath")
 else
   -- If pcall returns not success, the second return value is error
-  -- object not node set.
-  local err = node_set
-  print("Failed to search by XPath: " .. err.message)
-  -- -> Failed to search by XPath: Invalid expression
+  -- message not node set.
+  local message = node_set
+  print("Failed to search by XPath: " .. message)
+  -- -> Failed to search by XPath: ./xmlua/searchable.lua:57: Invalid expression
 end
 ```
 

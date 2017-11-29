@@ -36,14 +36,6 @@ It serializes all nodes in the node set as HTML by [`xmlua.Serializable:to_html`
 
 If serialization is failed, it raises an error.
 
-Here is the error structure:
-
-```lua
-{
-  message = "Error details",
-}
-```
-
 Example:
 
 ```lua
@@ -91,14 +83,6 @@ It serializes all nodes in the node set as XML by [`xmlua.Serializable:to_xml`][
     * Example: `"UTF-8'`
 
 If serialization is failed, it raises an error.
-
-Here is the error structure:
-
-```lua
-{
-  message = "Error details",
-}
-```
 
 Example:
 

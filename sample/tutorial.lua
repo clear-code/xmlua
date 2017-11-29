@@ -63,9 +63,9 @@ if success then
   print("Succeeded to parse XML")
 else
   -- If pcall returns not success, the second return value is error
-  -- object not document.
-  local err = document
-  print("Failed to parse XML: " .. err.message)
+  -- message not document.
+  local message = document
+  print("Failed to parse XML: " .. message)
   -- -> Failed to parse XML: Premature end of data in tag root line 1
 end
 
@@ -158,9 +158,9 @@ if success then
   print("Succeeded to search by XPath")
 else
   -- If pcall returns not success, the second return value is error
-  -- object not node set.
-  local err = node_set
-  print("Failed to search by XPath: " .. err.message)
+  -- message not node set.
+  local message = node_set
+  print("Failed to search by XPath: " .. message)
   -- -> Failed to search by XPath: Invalid expression
 end
 

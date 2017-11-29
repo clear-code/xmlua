@@ -18,8 +18,8 @@ local xml = [[
 -- Parses XML
 local success, document = pcall(xmlua.XML.parse, xml)
 if not success then
-  local err = document
-  print("Failed to parse XML: " .. err.message)
+  local message = document
+  print("Failed to parse XML: " .. message)
   os.exit(1)
 end
 

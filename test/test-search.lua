@@ -11,9 +11,10 @@ function TestSearch.test_invalid()
   <sub class="B"/>
 </root>
 ]])
-  local success, err = pcall(function() document:search("") end)
+  local success, message = pcall(function() document:search("") end)
   luaunit.assertEquals(success, false)
-  luaunit.assertEquals(err, {message = "Invalid expression\n"})
+  luaunit.assertEquals(message,
+                       "./xmlua/searchable.lua:57: Invalid expression\n")
 end
 
 function TestSearch.test_no_match()

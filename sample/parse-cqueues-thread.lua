@@ -28,8 +28,8 @@ for i = 1, n do
         if success then
           print(path .. ": " .. document:search("//title")[1]:to_html())
         else
-          local err = document
-          print(path .. ": Failed to parse: " .. err.message)
+          local message = document
+          print(path .. ": Failed to parse: " .. message)
         end
       end
   end)

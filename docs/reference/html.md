@@ -33,14 +33,6 @@ The encoding of HTML is guessed.
 
 If HTML parsing is failed, it raises an error.
 
-Here is the error structure:
-
-```lua
-{
-  message = "Error details",
-}
-```
-
 Here is an example to parse HTML:
 
 ```lua
@@ -63,8 +55,8 @@ local html = [[
 -- Parses HTML
 local success, document = pcall(xmlua.HTML.parse, html)
 if not success then
-  local err = document
-  print("Failed to parse HTML: " .. err.message)
+  local message = document
+  print("Failed to parse HTML: " .. message)
   os.exit(1)
 end
 

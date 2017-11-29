@@ -22,14 +22,6 @@ If the receiver is a [`xmlua.Element`][element], the context node in XPath is th
 
 If XPath searching is failed, it raises an error.
 
-Here is the error structure:
-
-```lua
-{
-  message = "Error details",
-}
-```
-
 Example:
 
 ```lua

@@ -41,7 +41,7 @@ function Searchable.search(self, xpath)
   local document = self.document
   local context = libxml2.xmlXPathNewContext(document)
   if not context then
-    error({message = "failed to create XPath context"})
+    error("failed to create XPath context")
   end
   if self.node then
     if not libxml2.xmlXPathSetContextNode(self.node, context) then
@@ -54,9 +54,9 @@ function Searchable.search(self, xpath)
     if raw_error_message == ffi.NULL then
       local xpath_error_code =
         context.lastError.code - ffi.C.XML_XPATH_EXPRESSION_OK
-      error({message = ERROR_MESSAGES[xpath_error_code]})
+      error(ERROR_MESSAGES[xpath_error_code])
     else
-      error({message = ffi.string(context.lastError.message)})
+      error(ffi.string(context.lastError.message))
     end
   end
 

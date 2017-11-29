@@ -22,14 +22,6 @@ It serializes a document or an element as HTML.
 
 If serialization is failed, it raises an error.
 
-Here is the error structure:
-
-```lua
-{
-  message = "Error details",
-}
-```
-
 Example:
 
 ```lua
@@ -116,14 +108,6 @@ It serializes a document or an element as XML.
     * Example: `"UTF-8'`
 
 If serialization is failed, it raises an error.
-
-Here is the error structure:
-
-```lua
-{
-  message = "Error details",
-}
-```
 
 Example:
 

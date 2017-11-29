@@ -18,8 +18,8 @@ local html = [[
 -- Parses HTML
 local success, document = pcall(xmlua.HTML.parse, html)
 if not success then
-  local err = document
-  print("Failed to parse HTML: " .. err.message)
+  local message = document
+  print("Failed to parse HTML: " .. message)
   os.exit(1)
 end
 

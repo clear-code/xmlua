@@ -91,14 +91,6 @@ local document = xmlua.XML.parse(xml)
 
 `xmlua.HTML.parse`や`xmlua.XML.parse`は、失敗することがあります。例えば、不正なドキュメントを使った場合に失敗します。`xmlua.HTML.parse`や`xmlua.XML.parse`が失敗した場合は、エラーが発生します。
 
-発生するエラーは以下の構造になっています。
-
-```lua
-{
-  message = "エラーの詳細",
-}
-```
-
 不正なドキュメントである可能性がある場合は、`pcall`を使ってエラーを処理する必要があります。
 
 例：
@@ -114,11 +106,11 @@ local success, document = pcall(xmlua.XML.parse, invalid_xml)
 if success then
   print("Succeeded to parse XML")
 else
-  -- pcallが成功を返さない場合、戻り値はエラーとなります
-  -- パース対象のオブジェクトがドキュメントでない
+  -- pcallが成功を返さない場合、パースされたドキュメントではなく
+  -- エラーメッセージになります。
   local err = document
   print("Failed to parse XML: " .. err.message)
-  -- -> Failed to parse XML: Premature end of data in tag root line 1
+  -- -> Failed to parse XML: ./xmlua/xml.lua:15: Premature end of data in tag root line 1
 end
 ```
 
@@ -230,14 +222,6 @@ print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 
 `search`メソッドは、失敗することがあります。例えば、不正なXPathを使った場合に失敗します。`search`メソッドが失敗した場合は、エラーが発生します。
 
-発生するエラーは以下の構造になっています。
-
-```lua
-{
-  message = "エラーの詳細",
-}
-```
-
 XPathが不正である可能性がある場合は、`pcall`を使ってエラーを処理する必要があります。
 
 例：
@@ -257,11 +241,11 @@ end)
 if success then
   print("Succeeded to search by XPath")
 else
-  -- pcallが成功を返さない場合、戻り値はエラーとなります
-  -- 検索対象のオブジェクトがノードセットでない
-  local err = node_set
-  print("Failed to search by XPath: " .. err.message)
-  -- -> Failed to search by XPath: Invalid expression
+  -- pcallが成功を返さない場合、ノードセットではなく
+  -- エラーメッセージになります。
+  local message = node_set
+  print("Failed to search by XPath: " .. message)
+  -- -> Failed to search by XPath: ./xmlua/searchable.lua:57: Invalid expression
 end
 ```
 

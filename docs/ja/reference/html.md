@@ -34,14 +34,6 @@ HTMLのエンコーディングは推測します。
 
 HTMLのパースに失敗した場合はエラーが発生します。
 
-発生するエラーは以下の構造になっています。
-
-```lua
-{
-  message = "エラーの詳細",
-}
-```
-
 HTMLをパースする例です。
 
 ```lua
@@ -64,8 +56,8 @@ local html = [[
 -- HTMLをパース
 local success, document = pcall(xmlua.HTML.parse, html)
 if not success then
-  local err = document
-  print("Failed to parse HTML: " .. err.message)
+  local message = document
+  print("Failed to parse HTML: " .. message)
   os.exit(1)
 end
 

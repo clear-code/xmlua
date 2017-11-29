@@ -9,7 +9,11 @@ local connections = {}
 
 for i = 1, n do
   local worker, connection = thread.start(function(connection)
+      -- require("xmlua") isn't thread safe.
       local xmlua = require("xmlua")
+      -- Notify that require("xmlua") is finished.
+      connection:write("ready\n")
+
       for path in connection:lines("*l") do
         local file = io.open(path)
         local html = file:read("*all")
@@ -24,6 +28,8 @@ for i = 1, n do
         end
       end
   end)
+  -- Wait until require("xmlua") is finished.
+  connection:read("*l")
   table.insert(workers, worker)
   table.insert(connections, connection)
 end

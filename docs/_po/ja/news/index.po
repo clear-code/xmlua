@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2017-11-29 09:12+0900\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: News\n"
+"---"
+msgstr ""
+"---\n"
+"title: おしらせ\n"
+"---"
+
+msgid "# News"
+msgstr "# おしらせ"
+
+msgid "## 1.0.0: 2017-11-29 {#version-1-0-0}"
+msgstr ""
+
+msgid "The first release!!!"
+msgstr ""

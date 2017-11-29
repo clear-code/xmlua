@@ -1,7 +1,7 @@
 package = "xmlua"
-version = "1.0-1"
+version = "1.0.0"
 source = {
-   url = "https://github.com/clear-code/xmlua/archive/v1.0.0.zip"
+   url = "https://github.com/clear-code/xmlua/archive/1.0.0.zip"
 }
 description = {
    summary = "XMLua is a Lua library for processing XML and HTML",

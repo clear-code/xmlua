@@ -124,13 +124,13 @@ end
 
 パースしたHTML、パースしたXMLともにXMLuaの[`xmlua.Document`][document]オブジェクトとなり、同じ方法で操作できます。
 
-## Search elements
+## 要素の検索
 
-You can use [XPath][xpath] to search elements. You can use [`xmlua.Searchable:search`][searchable-search] method for it.
+[XPath][xpath]を使って要素の検索ができます。[`xmlua.Searchable:search`][searchable-search]メソッドを使って要素の検索ができます。
 
-[`xmlua.Document`][document] can use the method.
+[`xmlua.Document`][document]は[`xmlua.Searchable:search`][searchable-search]メソッドを使えます。
 
-The method returns a [`xmlua.NodeSet`][node-set] object. It's a normal array with convenience methods. You can use normal array features such as `#` and `[]`.
+このメソッドは、[`xmlua.NodeSet`][node-set]オブジェクトを返します。[`xmlua.NodeSet`][node-set]オブジェクトは、通常の配列がもつ便利なメソッドが使えます。`#`や`[]`といった、機能を使うこともできます。
 
 例：
 
@@ -147,7 +147,7 @@ local xml = [[
 
 local document = xmlua.XML.parse(xml)
 
--- Searches all <sub> elements under the <root> element
+-- <root>要素配下の全ての<sub>要素を検索します
 local all_subs = document:search("/root/sub")
 
 -- "#"を使ってマッチしたノードの数を出力できます。
@@ -159,7 +159,7 @@ print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
 print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 ```
 
-[`xmlua.NodeSet`][node-set] object can also use `search` method. It means that you can search against searched result.
+[`xmlua.NodeSet`][node-set]オブジェクトも`search`メソッドを使えます。つまり、検索結果に対して検索をすることができます。
 
 例：
 
@@ -193,9 +193,9 @@ print(subsubs_in_class_a[2]:to_xml())
 -- <subsub3/>
 ```
 
-The `search` method is [`xmlua.NodeSet:search`][node-set-search]. It's not [`xmlua.Searchable:search`][searchable-search] method.
+`search`メソッドは、[`xmlua.NodeSet:search`][node-set-search]メソッドです。[`xmlua.Searchable:search`][searchable-search]メソッドではありません。
 
-You can also use [`xmlua.Searchable:search`][searchable-search] method against element.
+[`xmlua.Searchable:search`][searchable-search]メソッドは、要素に対しても使えます。
 
 例：
 
@@ -212,11 +212,11 @@ local xml = [[
 
 local document = xmlua.XML.parse(xml)
 
--- Searches the <root> element
+--<root>要素の検索
 local roots = document:search("/root")
 local root = roots[1]
 
--- Searches all <sub> elements under the <root> element
+-- <root>要素配下の全ての<sub>要素を検索します
 local all_subs = root:search("sub")
 
 -- "#"を使ってマッチしたノードの数を出力できます。
@@ -228,7 +228,7 @@ print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
 print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 ```
 
-`search` may fail. For example. it fails with invalid XPath. If it fails, it raises an error.
+`search`メソッドは、失敗することがあります。例えば、不正なXPathを使った場合に失敗します。`search`メソッドが失敗した場合は、エラーが発生します。
 
 発生するエラーは以下の構造になっています。
 
@@ -238,7 +238,7 @@ print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 }
 ```
 
-If you need to assume that XPath may be invalid, you need to handle error with `pcall`.
+XPathが不正である可能性がある場合は、`pcall`を使ってエラーを処理する必要があります。
 
 例：
 
@@ -257,8 +257,8 @@ end)
 if success then
   print("Succeeded to search by XPath")
 else
-  -- If pcall returns not success, the second return value is error
-  -- object not node set.
+  -- pcallが成功を返さない場合、戻り値はエラーとなります
+  -- 検索対象のオブジェクトがノードセットでない
   local err = node_set
   print("Failed to search by XPath: " .. err.message)
   -- -> Failed to search by XPath: Invalid expression

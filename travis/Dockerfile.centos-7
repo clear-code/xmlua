@@ -3,13 +3,18 @@ FROM centos:7
 RUN \
   yum install -y epel-release
 RUN \
-  yum install -y \
+  yum install -y  \
+    gcc \
     libxml2 \
     luajit \
-    luarocks
+    luajit-devel \
+    luarocks \
+    make \
+    m4 \
+    openssl-devel
 RUN \
-  luarocks install \
-    luaunit
+  luarocks install cqueues && \
+  luarocks install luaunit
 
 RUN \
   systemd-machine-id-setup
@@ -23,4 +28,6 @@ RUN chown -R xmlua:xmlua ~xmlua/xmlua
 USER xmlua
 WORKDIR /home/xmlua/xmlua
 
-CMD test/run-test.lua
+CMD \
+  test/run-test.lua && \
+  sample/parse-html-cqueues-thread.lua sample/sample.html

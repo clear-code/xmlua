@@ -1,6 +1,9 @@
 local ffi = require("ffi")
 
 ffi.cdef[[
+void xmlInitParser(void);
+void xmlCleanupParser(void);
+
 typedef struct _xmlParserNodeInfo xmlParserNodeInfo;
 struct _xmlParserNodeInfo {
   const struct _xmlNode* node;

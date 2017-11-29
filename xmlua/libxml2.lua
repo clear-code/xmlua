@@ -34,6 +34,9 @@ else
   xmlFree = xml2.xmlFree
 end
 
+libxml2.xmlInitParser = xml2.xmlInitParser
+libxml2.xmlCleanupParser = xml2.xmlCleanupParser
+
 function libxml2.htmlCreateMemoryParserCtxt(html)
   local context = xml2.htmlCreateMemoryParserCtxt(html, #html)
   if context == ffi.NULL then

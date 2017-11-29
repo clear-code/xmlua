@@ -1,6 +1,11 @@
 #!/usr/bin/env luajit
 
 local thread = require("cqueues.thread")
+local xmlua = require("xmlua")
+
+-- You must call xmlua.init() in main thread before you create threads
+-- when you use xmlua with multiple threads.
+xmlua.init()
 
 local n = 10
 
@@ -47,3 +52,8 @@ end
 for _, worker in ipairs(workers) do
   worker:join()
 end
+
+-- You can call xmlua.cleanup() in main thread to free all resources
+-- used by xmlua. You must ensure that all threads are finished and
+-- all xmlua related objects aren't used anymore.
+xmlua.cleanup()

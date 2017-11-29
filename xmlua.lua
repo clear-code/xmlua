@@ -14,4 +14,13 @@ local Searchable = require("xmlua.searchable")
 Searchable.lazy_load()
 Searchable.lazy_load = nil
 
+function xmlua.init()
+  xmlua.libxml2.xmlInitParser()
+end
+
+function xmlua.cleanup()
+  collectgarbage()
+  xmlua.libxml2.xmlCleanupParser()
+end
+
 return xmlua

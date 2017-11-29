@@ -10,7 +10,7 @@ require("xmlua.libxml2.tree")
 require("xmlua.libxml2.valid")
 require("xmlua.libxml2.parser")
 require("xmlua.libxml2.parser-internals")
-require("xmlua.libxml2.htmlparser")
+require("xmlua.libxml2.html-parser")
 require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
 

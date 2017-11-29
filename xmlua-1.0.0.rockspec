@@ -1,3 +1,5 @@
+# -*- lua -*-
+
 package = "xmlua"
 version = "1.0.0"
 source = {

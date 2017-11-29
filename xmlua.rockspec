@@ -26,6 +26,7 @@ external_dependencies = {
 }
 source = {
   url = "https://github.com/clear-code/xmlua/archive/" .. package_version .. ".zip",
+  dir = package .. "-" .. package_version,
 }
 build = {
   type = "builtin",

@@ -4,17 +4,17 @@ title: Reference manual
 
 # リファレンスマニュアル
 
-このドキュメントは全ての機能について記載しています。[Tutorial][tutorial]は、重要な機能について簡単に理解できる事に重点をおいています。このドキュメントは網羅性を重視しています。まだ、[Tutorial][tutorial]を読んでいないのであれば、このドキュメントを読む前にTutorialを読んでください。
+このドキュメントは全ての機能について記載しています。[チュートリアル][tutorial]は、重要な機能について簡単に理解できる事に重点をおいています。このドキュメントは網羅性を重視しています。まだ、[チュートリアル][tutorial]を読んでいないのであれば、このドキュメントを読む前にチュートリアルを読んでください。
 
-## 内部モジュール
+## 内部モジュール {#internal-modules}
 
-XMLuaは共通の機能を提供する内部メソッドがあります。これらは、パブリックなAPIへエクスポートされませんが、[`xmlua.HTML`][html]や[`xmlua.Element`][element]のようなパブリッククラス経由で使うことができます。
+XMLuaは共通の機能を提供する内部メソッドがあります。これらは、APIとして公開されていませんが、[`xmlua.HTML`][html]や[`xmlua.Element`][element]のような公開クラス経由で使うことができます。
 
   * [`xmlua.Serializable`][serializable]: HTML・XMLへのシリアライズ関連のメソッドを提供します。
 
   * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。
 
-## クラス
+## クラス {#classes}
 
 XMLuaは以下のクラスを提供します。
 
@@ -28,7 +28,7 @@ XMLuaは以下のクラスを提供します。
 
   * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。
 
-`xmlua.HTML`と`xmlua.XML`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XMLのメソッド経由でアクセスできます。
+`xmlua.HTML`と`xmlua.XML`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XML`のメソッド経由でアクセスできます。
 
 [tutorial]:../tutorial/
 

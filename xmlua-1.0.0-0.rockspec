@@ -12,8 +12,11 @@ description = {
     XMLua provides user-friendly API instead of low-level libxml2 API.
     The user-friendly API is implemented top of low-level libxml2 API.
   ]],
-  homepage = "https://github.com/clear-code/xmlua",
   license = "MIT"
+  homepage = "https://clear-code.github.io/xmlua/",
+  issues_url = "https://github.com/clear-code/xmlua/issues",
+  maintainer = "Horimoto Yasuhiro <horimoto@clear-code.com> and Kouhei Sutou <kou@clear-code.com>",
+  labels = ["xml"],
 }
 external_dependencies = {
   XML2 = {

@@ -32,7 +32,7 @@ local html = [[
 -- Parses HTML
 local document = xmlua.HTML.parse(html)
 
--- Serializes to HTML
+-- Serializes as HTML
 print(document:to_html())
 -- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 -- <html>
@@ -44,6 +44,7 @@ print(document:to_html())
 --     <p>World</p>
 --   </body>
 -- </html>
+
 ```
 
 You can use [`xmlua.XML.parse`][xml-parse] to parse XML.
@@ -65,7 +66,7 @@ local xml = [[
 -- Parses XML
 local document = xmlua.XML.parse(xml)
 
--- Serializes to XML
+-- Serializes as XML
 print(document:to_xml())
 -- <?xml version="1.0" encoding="UTF-8"?>
 -- <root>
@@ -73,6 +74,7 @@ print(document:to_xml())
 --   <sub>text2</sub>
 --   <sub>text3</sub>
 -- </root>
+
 ```
 
 You must pass HTML or XML as `string`. If you want to parse HTML or XML in a file, you need to read it by yourself.
@@ -493,6 +495,140 @@ print(document:parent())
 -- nil
 ```
 
+## Serialize as HTML and XML {#serialize}
+
+You can serialize document and element as HTML and XML.
+
+[`xmlua.Serializable:to_html`][serializable-to-html] serializes target as HTML.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.HTML.parse([[
+<html>
+  <head>
+    <title>Hello</title>
+  </head>
+  <body>World</body>
+</html>
+]])
+
+-- Serializes as HTML
+print(document:to_html())
+-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+-- <html>
+--   <head>
+-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+--     <title>Hello</title>
+--   </head>
+--   <body>World</body>
+-- </html>
+
+-- Serializes <body> element as HTML
+print(document:search("/html/body")[1]:to_html())
+-- <body>World</body>
+
+```
+
+[`xmlua.Serializable:to_xml`][serializable-to-xml] serializes target as XML.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]])
+
+-- Serializes as XML
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <sub1>text1</sub1>
+--   <sub2>text2</sub2>
+--   <sub3>text3</sub3>
+-- </root>
+
+-- Serializes <body> element as XML
+print(document:search("/root/sub1")[1]:to_xml())
+-- <sub1>text1</sub1>
+
+```
+
+[`xmlua.NodeSet`][node-set] also has [`to_html`][node-set-to-html] and [`to_xml`][node-set-to-xml]. They just concatenate serialized strings of nodes in the node set. They are useful just for debug.
+
+Example:
+
+```lua
+local document = xmlua.HTML.parse([[
+<html>
+  <head>
+    <title>Hello</title>
+  </head>
+  <body>World</body>
+</html>
+]])
+
+-- All elements under <html> (<head> and <body>)
+local node_set = document:search("/html/*")
+
+-- Serializes all elements as HTML and concatenates serialized HTML
+print(node_set:to_html())
+-- <head>
+-- <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+--    <title>Hello</title>
+--  </head><body>World</body>
+
+-- FYI: <head> serialization
+print(node_set[1]:to_html())
+-- <head>
+-- <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+--    <title>Hello</title>
+--  </head>
+
+-- FYI: <body> serialization
+print(node_set[2]:to_html())
+-- <body>World</body>
+```
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]])
+
+-- All elements under <root> (<sub1>, <sub2> and <sub3>)
+local node_set = document:search("/root/*")
+
+-- Serializes all elements as XML and concatenates serialized XML
+print(node_set:to_xml())
+-- <sub1>text1</sub1><sub2>text2</sub2><sub3>text3</sub3>
+
+-- FYI: <sub1> serialization
+print(node_set[1]:to_xml())
+-- <sub1>text1</sub1>
+
+-- FYI: <sub2> serialization
+print(node_set[2]:to_xml())
+-- <sub2>text2</sub2>
+
+-- FYI: <sub3> serialization
+print(node_set[3]:to_xml())
+-- <sub3>text3</sub3>
+```
+
 ## Multithread {#multithread}
 
 You can use XMLua with multiple threads. But you need more codes to do it.
@@ -645,6 +781,14 @@ Now, you knew all major XMLua features! If you want to understand each feature, 
 [element-parent]:../reference/element.html#parent
 
 [document-parent]:../reference/document.html#parent
+
+[serializable-to-html]:../reference/serializable.html#to-html
+
+[serializable-to-xml]:../reference/serializable.html#to-xml
+
+[node-set-to-html]:../reference/node-set.html#to-html
+
+[node-set-to-xml]:../reference/node-set.html#to-xml
 
 [xmlua-init]:../reference/xmlua.html#init
 

@@ -46,6 +46,7 @@ print(document:to_html())
 --   </head>
 --   <body>World</body>
 -- </html>
+
 ```
 
 You can specify output encoding by `encoding` option.
@@ -74,6 +75,7 @@ print(document:to_html({encoding = "EUC-JP"}))
 --   </head>
 --   <body>World</body>
 -- </html>
+
 ```
 
 You can serialize an element.
@@ -95,6 +97,7 @@ local document = xmlua.HTML.parse([[
 -- Serializes <body> element as HTML
 print(document:search("/html/body")[1]:to_html())
 -- <body>World</body>
+
 ```
 
 ### `to_xml(options=nil) -> string` {#to-xml}
@@ -130,6 +133,7 @@ print(document:to_xml())
 --   <sub2>text2</sub2>
 --   <sub3>text3</sub3>
 -- </root>
+
 ```
 
 You can specify output encoding by `encoding` option.
@@ -155,6 +159,7 @@ print(document:to_xml({encoding = "EUC-JP"}))
 --   <sub2>text2</sub2>
 --   <sub3>text3</sub3>
 -- </root>
+
 ```
 
 You can serialize an element.
@@ -175,6 +180,7 @@ local document = xmlua.XML.parse([[
 -- Serializes <body> element as XML
 print(document:search("/root/sub1")[1]:to_xml())
 -- <sub1>text1</sub1>
+
 ```
 
 ## See also

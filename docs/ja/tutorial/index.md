@@ -32,7 +32,7 @@ local html = [[
 -- HTMLをパース
 local document = xmlua.HTML.parse(html)
 
--- HTMLへのシリアライズ
+-- HTMLへシリアライズ
 print(document:to_html())
 -- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 -- <html>
@@ -44,6 +44,7 @@ print(document:to_html())
 --     <p>World</p>
 --   </body>
 -- </html>
+
 ```
 
 XMLをパースするには、[`xmlua.XML.parse`][xml-parse]を使います。
@@ -65,7 +66,7 @@ local xml = [[
 -- XMLをパース
 local document = xmlua.XML.parse(xml)
 
--- XMLへのシリアライズ
+-- XMLへシリアライズ
 print(document:to_xml())
 -- <?xml version="1.0" encoding="UTF-8"?>
 -- <root>
@@ -73,6 +74,7 @@ print(document:to_xml())
 --   <sub>text2</sub>
 --   <sub>text3</sub>
 -- </root>
+
 ```
 
 パースするHTMLまたは、XMLは`string`でなければなりません。ファイル内のHTMLやXMLをパースしたい場合は、自分でファイルの内容を読み込む必要があります。
@@ -493,6 +495,142 @@ print(document:parent())
 -- nil
 ```
 
+## HTML・XMLへシリアライズ {#serialize}
+
+ドキュメントと要素をHTML・XMLへシリアライズできます。
+
+[`xmlua.Serializable:to_html`][serializable-to-html]は対象をHTMLにシリアライズします。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.HTML.parse([[
+<html>
+  <head>
+    <title>Hello</title>
+  </head>
+  <body>World</body>
+</html>
+]])
+
+-- HTMLへシリアライズ
+print(document:to_html())
+-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+-- <html>
+--   <head>
+-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+--     <title>Hello</title>
+--   </head>
+--   <body>
+--     <p>World</p>
+--   </body>
+-- </html>
+
+-- <body>要素をHTMLへシリアライズ
+print(document:search("/html/body")[1]:to_html())
+-- <body>World</body>
+
+```
+
+[`xmlua.Serializable:to_xml`][serializable-to-xml]は対象をXMLにシリアライズします。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]])
+
+-- XMLへシリアライズ
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <sub>text1</sub>
+--   <sub>text2</sub>
+--   <sub>text3</sub>
+-- </root>
+
+-- <body>要素をXMLへシリアライズ
+print(document:search("/root/sub1")[1]:to_xml())
+-- <sub1>text1</sub1>
+
+```
+
+[`xmlua.NodeSet`][node-set]にも[`to_html`][node-set-to-html]と[`to_xml`][node-set-to-xml]があります。これらはノードセット中の各ノードをシリアライズした文字列を単に連結します。デバッグに便利です。
+
+例：
+
+```lua
+local document = xmlua.HTML.parse([[
+<html>
+  <head>
+    <title>Hello</title>
+  </head>
+  <body>World</body>
+</html>
+]])
+
+-- <html>配下の全ての要素 (<head> and <body>)
+local node_set = document:search("/html/*")
+
+-- 全ての要素をHTMLへシリアライズし、シリアライズしたHTMLを結合します。
+print(node_set:to_html())
+-- <head>
+-- <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+--    <title>Hello</title>
+--  </head><body>World</body>
+
+-- 参考: <head>要素のシリアライズ
+print(node_set[1]:to_html())
+-- <head>
+-- <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+--    <title>Hello</title>
+--  </head>
+
+-- 参考: <body>要素のシリアライズ
+print(node_set[2]:to_html())
+-- <body>World</body>
+```
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]])
+
+-- <root>配下の全ての要素 (<sub1>, <sub2> and <sub3>)
+local node_set = document:search("/root/*")
+
+-- 全ての要素をXMLへシリアライズし、シリアライズしたXMLを結合します。
+print(node_set:to_xml())
+-- <sub1>text1</sub1><sub2>text2</sub2><sub3>text3</sub3>
+
+-- 参考: <sub1>要素のシリアライズ
+print(node_set[1]:to_xml())
+-- <sub1>text1</sub1>
+
+-- 参考: <sub2>要素のシリアライズ
+print(node_set[2]:to_xml())
+-- <sub2>text2</sub2>
+
+-- 参考: <sub3>要素のシリアライズ
+print(node_set[3]:to_xml())
+-- <sub3>text3</sub3>
+```
+
 ## マルチスレッド {#multithread}
 
 複数のスレッドでXMLuaを使えます。複数のスレッドで使うためのコードを追加する必要があります。
@@ -646,6 +784,14 @@ xmlua.cleanup()
 [element-parent]:../reference/element.html#parent
 
 [document-parent]:../reference/document.html#parent
+
+[serializable-to-html]:../reference/serializable.html#to-html
+
+[serializable-to-xml]:../reference/serializable.html#to-xml
+
+[node-set-to-html]:../reference/node-set.html#to-html
+
+[node-set-to-xml]:../reference/node-set.html#to-xml
 
 [xmlua-init]:../reference/xmlua.html#init
 

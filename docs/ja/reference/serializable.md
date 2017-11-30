@@ -36,7 +36,7 @@ local document = xmlua.HTML.parse([[
 </html>
 ]])
 
--- HTMLへのシリアライズ
+-- HTMLへシリアライズ
 print(document:to_html())
 -- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 -- <html>
@@ -44,8 +44,11 @@ print(document:to_html())
 -- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 --     <title>Hello</title>
 --   </head>
---   <body>World</body>
+--   <body>
+--     <p>World</p>
+--   </body>
 -- </html>
+
 ```
 
 出力のエンコーディングを`encoding`オプションで指定できます。
@@ -74,6 +77,7 @@ print(document:to_html({encoding = "EUC-JP"}))
 --   </head>
 --   <body>World</body>
 -- </html>
+
 ```
 
 要素をシリアライズすることもできます。
@@ -95,6 +99,7 @@ local document = xmlua.HTML.parse([[
 -- <body>要素をHTMLへシリアライズ
 print(document:search("/html/body")[1]:to_html())
 -- <body>World</body>
+
 ```
 
 ### `to_xml(options=nil) -> string` {#to-xml}
@@ -126,10 +131,11 @@ local document = xmlua.XML.parse([[
 print(document:to_xml())
 -- <?xml version="1.0" encoding="UTF-8"?>
 -- <root>
---   <sub1>text1</sub1>
---   <sub2>text2</sub2>
---   <sub3>text3</sub3>
+--   <sub>text1</sub>
+--   <sub>text2</sub>
+--   <sub>text3</sub>
 -- </root>
+
 ```
 
 出力のエンコーディングを`encoding`オプションで指定できます。
@@ -155,6 +161,7 @@ print(document:to_xml({encoding = "EUC-JP"}))
 --   <sub2>text2</sub2>
 --   <sub3>text3</sub3>
 -- </root>
+
 ```
 
 要素をシリアライズすることもできます。
@@ -175,6 +182,7 @@ local document = xmlua.XML.parse([[
 -- <body>要素をXMLへシリアライズ
 print(document:search("/root/sub1")[1]:to_xml())
 -- <sub1>text1</sub1>
+
 ```
 
 ## 参照

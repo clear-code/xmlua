@@ -26,6 +26,8 @@ matrix:
         - sudo make install
         - cd ..
         - sudo luarocks install cqueues
+            CRYPTO_DIR=$(brew --prefix openssl)
+            OPENSSL_DIR=$(brew --prefix openssl)
         - sudo luarocks install luaunit
       script:
         - test/run-test.lua

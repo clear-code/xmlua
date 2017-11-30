@@ -212,9 +212,13 @@ struct _xmlParserCtxt {
     unsigned long      sizeentcopy;   /* volume of entity copy */
 };
 
-xmlDocPtr xmlParseMemory(const char *buffer, int size);
-
+xmlParserCtxtPtr xmlNewParserCtxt(void);
 void xmlFreeParserCtxt	(xmlParserCtxtPtr ctxt);
-int xmlCtxtUseOptions	(xmlParserCtxtPtr ctxt, int options);
-int xmlParseDocument	(xmlParserCtxtPtr ctxt);
+
+xmlDocPtr xmlCtxtReadMemory(xmlParserCtxtPtr ctxt,
+                            const char *buffer,
+                            int size,
+                            const char *URL,
+                            const char *encoding,
+                            int options);
 ]]

@@ -9,7 +9,6 @@ require("xmlua.libxml2.hash")
 require("xmlua.libxml2.tree")
 require("xmlua.libxml2.valid")
 require("xmlua.libxml2.parser")
-require("xmlua.libxml2.parser-internals")
 require("xmlua.libxml2.html-parser")
 require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
@@ -68,21 +67,36 @@ function libxml2.htmlCtxtReadMemory(context, html, options)
   return ffi.gc(document, libxml2.xmlFreeDoc)
 end
 
-function libxml2.xmlCreateMemoryParserCtxt(xml)
-  local context = xml2.xmlCreateMemoryParserCtxt(xml, #xml)
+function libxml2.xmlNewParserCtxt()
+  local context = xml2.xmlNewParserCtxt()
   if context == ffi.NULL then
     return nil
   end
-  ffi.gc(context, xml2.xmlFreeParserCtxt)
-  xml2.xmlCtxtUseOptions(context,
-                         bit.bor(ffi.C.XML_PARSE_NOERROR,
-                                 ffi.C.XML_PARSE_NOWARNING))
   return context
+  -- return ffi.gc(context, xml2.xmlFreeParserCtxt)
 end
 
-function libxml2.xmlParseDocument(context)
-  local status = xml2.xmlParseDocument(context)
-  return status == 0
+function libxml2.xmlCtxtReadMemory(context, xml, options)
+  local url = nil
+  local encoding = nil
+  if options then
+    url = options.url
+    encoding = options.encoding
+  end
+  local parse_options = bit.bor(ffi.C.XML_PARSE_RECOVER,
+                                ffi.C.XML_PARSE_NOERROR,
+                                ffi.C.XML_PARSE_NOWARNING,
+                                ffi.C.XML_PARSE_NONET)
+  local document = xml2.xmlCtxtReadMemory(context,
+                                          xml,
+                                          #xml,
+                                          url,
+                                          encoding,
+                                          parse_options)
+  if document == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(document, libxml2.xmlFreeDoc)
 end
 
 function libxml2.xmlDocGetRootElement(document)
@@ -96,9 +110,8 @@ end
 
 local function xmlPreviousElementSiblingIsBuggy()
   local xml = "<root><child1/>text<child2/></root>"
-  local context = libxml2.xmlCreateMemoryParserCtxt(xml)
-  libxml2.xmlParseDocument(context)
-  local document = ffi.gc(context.myDoc, xml2.xmlFreeDoc)
+  local context = libxml2.xmlNewParserCtxt()
+  local document = libxml2.xmlCtxtReadMemory(context, xml)
   local root = xml2.xmlDocGetRootElement(document)
   local child2 = xml2.xmlLastElementChild(root)
   return xml2.xmlPreviousElementSibling(child2) == child2

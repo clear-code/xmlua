@@ -5,16 +5,16 @@ local ffi = require("ffi")
 
 local Document = require("xmlua.document")
 
-function XML.parse(xml)
-  local context = libxml2.xmlCreateMemoryParserCtxt(xml)
+function XML.parse(xml, options)
+  local context = libxml2.xmlNewParserCtxt()
   if not context then
     error("failed to create context to parse XML")
   end
-  local success = libxml2.xmlParseDocument(context)
-  if not success then
+  local document = libxml2.xmlCtxtReadMemory(context, xml)
+  if context.lastError.message ~= ffi.NULL then
     error("failed to parse XML: " .. ffi.string(context.lastError.message))
   end
-  return Document.new(context.myDoc)
+  return Document.new(document)
 end
 
 return XML

@@ -20,7 +20,7 @@ description = {
   -- labels = {"xml"},
 }
 external_dependencies = {
-  libxml2 = {
+  LIBXML2 = {
     library = "xml2"
   }
 }

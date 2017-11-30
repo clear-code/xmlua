@@ -10,11 +10,12 @@ function HTML.parse(html)
   if not context then
     error("failed to create context to parse HTML")
   end
-  local success = libxml2.htmlParseDocument(context)
-  if not success then
-    error(ffi.string(context.lastError.message))
+  libxml2.htmlParseDocument(context)
+  local document = context.myDoc
+  if document == ffi.NULL then
+    error("failed to parse HTML: " .. ffi.string(context.lastError.message))
   end
-  return Document.new(context.myDoc)
+  return Document.new(document)
 end
 
 return HTML

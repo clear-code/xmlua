@@ -43,8 +43,10 @@ function libxml2.htmlCreateMemoryParserCtxt(html)
     return nil
   end
   xml2.htmlCtxtUseOptions(context,
-                          bit.bor(ffi.C.HTML_PARSE_NOERROR,
-                                  ffi.C.HTML_PARSE_NOWARNING))
+                          bit.bor(ffi.C.HTML_PARSE_RECOVER,
+                                  ffi.C.HTML_PARSE_NOERROR,
+                                  ffi.C.HTML_PARSE_NOWARNING,
+                                  ffi.C.HTML_PARSE_NONET))
   return ffi.gc(context, xml2.htmlFreeParserCtxt)
 end
 

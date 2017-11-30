@@ -12,7 +12,7 @@ function XML.parse(xml)
   end
   local success = libxml2.xmlParseDocument(context)
   if not success then
-    error(ffi.string(context.lastError.message))
+    error("failed to parse XML: " .. ffi.string(context.lastError.message))
   end
   return Document.new(context.myDoc)
 end

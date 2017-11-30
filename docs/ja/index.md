@@ -19,7 +19,7 @@ title: none
 
 ## XMLuaについて {#about}
 
-XMLuaはXML・HTMLを処理するLuaライブラリーです。[libxml2](http://xmlsoft.org/)を使っています。LuaJITのFFIモジュールを使って実装しています。
+XMLua（えっくすえむえるあ）はXML・HTMLを処理するLuaライブラリーです。[libxml2](http://xmlsoft.org/)を使っています。LuaJITのFFIモジュールを使って実装しています。
 
 XMLuaはlibxml2の生のAPIではなく、使いやすいAPIを提供します。使いやすいAPIは生のlibxml2のAPIの上に実装しています。
 

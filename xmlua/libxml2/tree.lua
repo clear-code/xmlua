@@ -94,6 +94,7 @@ struct _xmlNode {
     unsigned short   extra;	/* extra data for XPath/XSLT */
 };
 
+void xmlFreeDoc(xmlDocPtr cur);
 xmlNodePtr xmlDocGetRootElement(const xmlDoc *doc);
 
 xmlNodePtr xmlPreviousElementSibling(xmlNodePtr node);

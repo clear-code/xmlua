@@ -37,22 +37,35 @@ end
 libxml2.xmlInitParser = xml2.xmlInitParser
 libxml2.xmlCleanupParser = xml2.xmlCleanupParser
 
-function libxml2.htmlCreateMemoryParserCtxt(html)
-  local context = xml2.htmlCreateMemoryParserCtxt(html, #html)
+function libxml2.htmlNewParserCtxt()
+  local context = xml2.htmlNewParserCtxt()
   if context == ffi.NULL then
     return nil
   end
-  xml2.htmlCtxtUseOptions(context,
-                          bit.bor(ffi.C.HTML_PARSE_RECOVER,
-                                  ffi.C.HTML_PARSE_NOERROR,
-                                  ffi.C.HTML_PARSE_NOWARNING,
-                                  ffi.C.HTML_PARSE_NONET))
   return ffi.gc(context, xml2.htmlFreeParserCtxt)
 end
 
-function libxml2.htmlParseDocument(context)
-  local status = xml2.htmlParseDocument(context)
-  return status == 0
+function libxml2.htmlCtxtReadMemory(context, html, options)
+  local url = nil
+  local encoding = nil
+  if options then
+    url = options.url
+    encoding = options.encoding
+  end
+  local parse_options = bit.bor(ffi.C.HTML_PARSE_RECOVER,
+                                ffi.C.HTML_PARSE_NOERROR,
+                                ffi.C.HTML_PARSE_NOWARNING,
+                                ffi.C.HTML_PARSE_NONET)
+  local document = xml2.htmlCtxtReadMemory(context,
+                                           html,
+                                           #html,
+                                           url,
+                                           encoding,
+                                           parse_options)
+  if document == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(document, libxml2.xmlFreeDoc)
 end
 
 function libxml2.xmlCreateMemoryParserCtxt(xml)
@@ -85,7 +98,7 @@ local function xmlPreviousElementSiblingIsBuggy()
   local xml = "<root><child1/>text<child2/></root>"
   local context = libxml2.xmlCreateMemoryParserCtxt(xml)
   libxml2.xmlParseDocument(context)
-  local document = context.myDoc
+  local document = ffi.gc(context.myDoc, xml2.xmlFreeDoc)
   local root = xml2.xmlDocGetRootElement(document)
   local child2 = xml2.xmlLastElementChild(root)
   return xml2.xmlPreviousElementSibling(child2) == child2

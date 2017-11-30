@@ -1,6 +1,7 @@
 local ffi = require("ffi")
 
 ffi.cdef[[
+typedef xmlDocPtr htmlDocPtr;
 typedef xmlParserCtxt htmlParserCtxt;
 
 typedef enum {
@@ -16,10 +17,14 @@ typedef enum {
     HTML_PARSE_IGNORE_ENC=1<<21 /* ignore internal document encoding hint */
 } htmlParserOption;
 
-htmlParserCtxt *htmlCreateMemoryParserCtxt(const char *buffer, int size);
+htmlParserCtxt *htmlNewParserCtxt(void);
 void htmlFreeParserCtxt(htmlParserCtxt *context);
-int htmlCtxtUseOptions(htmlParserCtxt *context, int options);
 
-int htmlParseDocument(htmlParserCtxt *context);
+htmlDocPtr htmlCtxtReadMemory(xmlParserCtxtPtr ctxt,
+                              const char *buffer,
+                              int size,
+                              const char *URL,
+                              const char *encoding,
+                              int options);
 ]]
 

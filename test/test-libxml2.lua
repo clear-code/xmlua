@@ -5,16 +5,16 @@ local ffi = require("ffi")
 TestLibxml2HTML = {}
 function TestLibxml2HTML.test_parse_valid()
   local html = "<html></html>"
-  local context = libxml2.htmlCreateMemoryParserCtxt(html)
-  luaunit.assertEquals(libxml2.htmlParseDocument(context),
-                       true)
+  local context = libxml2.htmlNewParserCtxt(html)
+  luaunit.assertEquals(ffi.typeof(libxml2.htmlCtxtReadMemory(context, html)),
+                       ffi.typeof("xmlDocPtr"))
 end
 
 function TestLibxml2HTML.test_parse_invalid()
   local html = " "
-  local context = libxml2.htmlCreateMemoryParserCtxt(html)
-  luaunit.assertEquals(libxml2.htmlParseDocument(context),
-                       false)
+  local context = libxml2.htmlNewParserCtxt()
+  luaunit.assertEquals(ffi.typeof(libxml2.htmlCtxtReadMemory(context, html)),
+                       ffi.typeof("xmlDocPtr"))
   luaunit.assertEquals(ffi.string(context.lastError.message),
                        "Document is empty\n")
 end

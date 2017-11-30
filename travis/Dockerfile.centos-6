@@ -11,9 +11,14 @@ RUN \
     luarocks \
     make \
     m4 \
-    openssl-devel
+    openssl-devel \
+    unzip
 RUN \
-  luarocks install cqueues && \
+  luarocks install cqueues \
+    CRYPTO_LIBDIR=/usr/lib64 \
+    OPENSSL_LIBDIR=/usr/lib64 && \
+  mv /usr/lib/lua/5.1/* \
+     /usr/lib64/lua/5.1/ && \
   luarocks install luaunit
 
 RUN \

@@ -15,22 +15,19 @@ function TestHTML.test_parse_valid()
 end
 
 function TestHTML.test_parse_invalid()
-  local document = xmlua.HTML.parse("<p id='a'></p><p id='a'></p>")
+  local document = xmlua.HTML.parse("&")
   luaunit.assertEquals(document:to_html(),
                        [[
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<p id="a"></p>
-<p id="a"></p>
-</body></html>
+<html><body><p>&amp;</p></body></html>
 ]])
   luaunit.assertEquals(document.errors,
                        {
                          {
-                           code = ffi.C.XML_DTD_ID_REDEFINED,
-                           domain = ffi.C.XML_FROM_VALID,
+                           code = ffi.C.XML_ERR_NAME_REQUIRED,
+                           domain = ffi.C.XML_FROM_HTML,
                            level = ffi.C.XML_ERR_ERROR,
-                           message = "ID a already defined\n",
+                           message = "htmlParseEntityRef: no name\n",
                            line = 1,
                          },
                        })

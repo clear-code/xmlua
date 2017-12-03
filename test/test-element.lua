@@ -84,21 +84,21 @@ function TestElement.test_children()
 end
 
 function TestElement.test_get_attribute_raw()
-  local document = xmlua.XML.parse([[<root class="A"/>]])
+  local document = xmlua.XML.parse("<root class=\"A\"/>")
   local node_set = document:search("/root")
   luaunit.assertEquals(node_set[1]:get_attribute("class"),
                        "A")
 end
 
 function TestElement.test_get_attribute_property()
-  local document = xmlua.XML.parse([[<root class="A"/>]])
+  local document = xmlua.XML.parse("<root class=\"A\"/>")
   local node_set = document:search("/root")
   luaunit.assertEquals(node_set[1].class,
                        "A")
 end
 
 function TestElement.test_get_attribute_array_referece()
-  local document = xmlua.XML.parse([[<root class="A"/>]])
+  local document = xmlua.XML.parse("<root class=\"A\"/>")
   local node_set = document:search("/root")
   luaunit.assertEquals(node_set[1]["class"],
                        "A")

@@ -87,6 +87,10 @@ function methods.children(self)
   return NodeSet.new(children)
 end
 
+function methods.text(self)
+  return self:content()
+end
+
 function Element.new(document, node)
   local element = {
     document = document,

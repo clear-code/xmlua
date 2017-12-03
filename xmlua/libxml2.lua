@@ -193,6 +193,16 @@ function libxml2.xmlGetProp(node, name)
   return lua_string
 end
 
+function libxml2.xmlNodeGetContent(node)
+  local content = xml2.xmlNodeGetContent(node)
+  if content == ffi.NULL then
+    return nil
+  end
+  local lua_string = ffi.string(content)
+  xmlFree(content)
+  return lua_string
+end
+
 
 function libxml2.xmlBufferCreate()
   return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)

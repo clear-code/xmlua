@@ -267,3 +267,17 @@ function TestLibxml2Node.test_get_prop_not_found()
   local root = root_element(document)
   luaunit.assertNil(libxml2.xmlGetProp(root, "nonexistent"))
 end
+
+function TestLibxml2Node.test_get_content_exist()
+  local xml = [[
+<root>root1<child>child</child>root2</root>
+]]
+  local document = parse_xml(xml)
+  local root = root_element(document)
+  luaunit.assertEquals(libxml2.xmlNodeGetContent(root),
+                       "root1childroot2")
+end
+
+function TestLibxml2Node.test_get_content_none()
+  luaunit.assertNil(libxml2.xmlNodeGetContent(nil))
+end

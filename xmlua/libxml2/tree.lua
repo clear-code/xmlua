@@ -4,6 +4,18 @@ ffi.cdef[[
 typedef void *xmlParserInputPtr;
 typedef void *xmlAttrPtr;
 
+typedef struct _xmlEntity xmlEntity;
+typedef xmlEntity *xmlEntityPtr;
+
+typedef struct _xmlEnumeration xmlEnumeration;
+typedef xmlEnumeration *xmlEnumerationPtr;
+
+typedef struct _xmlElementContent xmlElementContent;
+typedef xmlElementContent *xmlElementContentPtr;
+
+typedef struct _xmlSAXLocator xmlSAXLocator;
+typedef xmlSAXLocator *xmlSAXLocatorPtr;
+
 typedef struct _xmlDoc xmlDoc;
 typedef xmlDoc *xmlDocPtr;
 

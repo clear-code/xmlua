@@ -2,7 +2,8 @@
 
 local xmlua = require("xmlua")
 
-local file = assert(io.open(arg[1]))
+local path = arg[1]
+local file = assert(io.open(path))
 local html = file:read("*all")
 file:close()
 
@@ -14,6 +15,14 @@ if not success then
   os.exit(1)
 end
 
-print(document:encoding())
+print("Encoding: " .. document:encoding())
 
-print("title: " .. document:search("/html/head/title"):text())
+print("Title: " .. document:search("/html/head/title"):text())
+
+if #document.errors > 0 then
+  print()
+  for i, err in ipairs(document.errors) do
+    print("Error" .. i .. ":")
+    print(path .. ":" .. err.line .. ":" .. err.message)
+  end
+end

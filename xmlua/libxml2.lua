@@ -19,6 +19,8 @@ if not loaded then
   xml2 = ffi.load("libxml2.so.2")
 end
 
+libxml2.XML_SAX2_MAGIC = 0xDEEDBEAF
+
 local function __xmlFreeIsAvailable()
   local success, err = pcall(function()
       local func = xml2.__xmlFree

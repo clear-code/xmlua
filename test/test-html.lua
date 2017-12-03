@@ -1,6 +1,8 @@
 local luaunit = require("luaunit")
 local xmlua = require("xmlua")
 
+local ffi = require("ffi")
+
 TestHTML = {}
 function TestHTML.test_parse_valid()
   local success, html = pcall(xmlua.HTML.parse, "<html></html>")
@@ -13,13 +15,25 @@ function TestHTML.test_parse_valid()
 end
 
 function TestHTML.test_parse_invalid()
-  local success, html = pcall(xmlua.HTML.parse, "broken tag>")
-  luaunit.assertEquals(success, true)
-  luaunit.assertEquals(html:to_html(),
+  local document = xmlua.HTML.parse("<p id='a'></p><p id='a'></p>")
+  luaunit.assertEquals(document:to_html(),
                        [[
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><p>broken tag&gt;</p></body></html>
+<html><body>
+<p id="a"></p>
+<p id="a"></p>
+</body></html>
 ]])
+  luaunit.assertEquals(document.errors,
+                       {
+                         {
+                           code = ffi.C.XML_DTD_ID_REDEFINED,
+                           domain = ffi.C.XML_FROM_VALID,
+                           level = ffi.C.XML_ERR_ERROR,
+                           message = "ID a already defined\n",
+                           line = 1,
+                         },
+                       })
 end
 
 function TestHTML.test_parse_prefer_charset_meta_charset()

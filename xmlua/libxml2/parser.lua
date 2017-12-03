@@ -212,6 +212,136 @@ struct _xmlParserCtxt {
     unsigned long      sizeentcopy;   /* volume of entity copy */
 };
 
+
+typedef xmlParserInputPtr (*resolveEntitySAXFunc) (void *ctx,
+				const xmlChar *publicId,
+				const xmlChar *systemId);
+typedef void (*internalSubsetSAXFunc) (void *ctx,
+				const xmlChar *name,
+				const xmlChar *ExternalID,
+				const xmlChar *SystemID);
+typedef void (*externalSubsetSAXFunc) (void *ctx,
+				const xmlChar *name,
+				const xmlChar *ExternalID,
+				const xmlChar *SystemID);
+typedef xmlEntityPtr (*getEntitySAXFunc) (void *ctx,
+				const xmlChar *name);
+typedef xmlEntityPtr (*getParameterEntitySAXFunc) (void *ctx,
+				const xmlChar *name);
+typedef void (*entityDeclSAXFunc) (void *ctx,
+				const xmlChar *name,
+				int type,
+				const xmlChar *publicId,
+				const xmlChar *systemId,
+				xmlChar *content);
+typedef void (*notationDeclSAXFunc)(void *ctx,
+				const xmlChar *name,
+				const xmlChar *publicId,
+				const xmlChar *systemId);
+typedef void (*attributeDeclSAXFunc)(void *ctx,
+				const xmlChar *elem,
+				const xmlChar *fullname,
+				int type,
+				int def,
+				const xmlChar *defaultValue,
+				xmlEnumerationPtr tree);
+typedef void (*elementDeclSAXFunc)(void *ctx,
+				const xmlChar *name,
+				int type,
+				xmlElementContentPtr content);
+typedef void (*unparsedEntityDeclSAXFunc)(void *ctx,
+				const xmlChar *name,
+				const xmlChar *publicId,
+				const xmlChar *systemId,
+				const xmlChar *notationName);
+typedef void (*setDocumentLocatorSAXFunc) (void *ctx,
+				xmlSAXLocatorPtr loc);
+typedef void (*startDocumentSAXFunc) (void *ctx);
+typedef void (*endDocumentSAXFunc) (void *ctx);
+typedef void (*startElementSAXFunc) (void *ctx,
+				const xmlChar *name,
+				const xmlChar **atts);
+typedef void (*endElementSAXFunc) (void *ctx,
+				const xmlChar *name);
+typedef void (*attributeSAXFunc) (void *ctx,
+				const xmlChar *name,
+				const xmlChar *value);
+typedef void (*referenceSAXFunc) (void *ctx,
+				const xmlChar *name);
+typedef void (*charactersSAXFunc) (void *ctx,
+				const xmlChar *ch,
+				int len);
+typedef void (*ignorableWhitespaceSAXFunc) (void *ctx,
+				const xmlChar *ch,
+				int len);
+typedef void (*processingInstructionSAXFunc) (void *ctx,
+				const xmlChar *target,
+				const xmlChar *data);
+typedef void (*commentSAXFunc) (void *ctx,
+				const xmlChar *value);
+typedef void (*cdataBlockSAXFunc) (
+	                        void *ctx,
+				const xmlChar *value,
+				int len);
+typedef void (*warningSAXFunc) (void *ctx,
+				const char *msg, ...);
+typedef void (*errorSAXFunc) (void *ctx,
+				const char *msg, ...);
+typedef void (*fatalErrorSAXFunc) (void *ctx,
+				const char *msg, ...);
+typedef int (*isStandaloneSAXFunc) (void *ctx);
+typedef int (*hasInternalSubsetSAXFunc) (void *ctx);
+typedef int (*hasExternalSubsetSAXFunc) (void *ctx);
+typedef void (*startElementNsSAX2Func) (void *ctx,
+					const xmlChar *localname,
+					const xmlChar *prefix,
+					const xmlChar *URI,
+					int nb_namespaces,
+					const xmlChar **namespaces,
+					int nb_attributes,
+					int nb_defaulted,
+					const xmlChar **attributes);
+typedef void (*endElementNsSAX2Func)   (void *ctx,
+					const xmlChar *localname,
+					const xmlChar *prefix,
+					const xmlChar *URI);
+
+struct _xmlSAXHandler {
+    internalSubsetSAXFunc internalSubset;
+    isStandaloneSAXFunc isStandalone;
+    hasInternalSubsetSAXFunc hasInternalSubset;
+    hasExternalSubsetSAXFunc hasExternalSubset;
+    resolveEntitySAXFunc resolveEntity;
+    getEntitySAXFunc getEntity;
+    entityDeclSAXFunc entityDecl;
+    notationDeclSAXFunc notationDecl;
+    attributeDeclSAXFunc attributeDecl;
+    elementDeclSAXFunc elementDecl;
+    unparsedEntityDeclSAXFunc unparsedEntityDecl;
+    setDocumentLocatorSAXFunc setDocumentLocator;
+    startDocumentSAXFunc startDocument;
+    endDocumentSAXFunc endDocument;
+    startElementSAXFunc startElement;
+    endElementSAXFunc endElement;
+    referenceSAXFunc reference;
+    charactersSAXFunc characters;
+    ignorableWhitespaceSAXFunc ignorableWhitespace;
+    processingInstructionSAXFunc processingInstruction;
+    commentSAXFunc comment;
+    warningSAXFunc warning;
+    errorSAXFunc error;
+    fatalErrorSAXFunc fatalError; /* unused error() get all the errors */
+    getParameterEntitySAXFunc getParameterEntity;
+    cdataBlockSAXFunc cdataBlock;
+    externalSubsetSAXFunc externalSubset;
+    unsigned int initialized;
+    /* The following fields are extensions available only on version 2 */
+    void *_private;
+    startElementNsSAX2Func startElementNs;
+    endElementNsSAX2Func endElementNs;
+    xmlStructuredErrorFunc serror;
+};
+
 xmlParserCtxtPtr xmlNewParserCtxt(void);
 void xmlFreeParserCtxt	(xmlParserCtxtPtr ctxt);
 

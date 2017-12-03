@@ -8,6 +8,40 @@ typedef enum {
     XML_ERR_FATAL = 3		/* A fatal error */
 } xmlErrorLevel;
 
+typedef enum {
+    XML_FROM_NONE = 0,
+    XML_FROM_PARSER,	/* The XML parser */
+    XML_FROM_TREE,	/* The tree module */
+    XML_FROM_NAMESPACE,	/* The XML Namespace module */
+    XML_FROM_DTD,	/* The XML DTD validation with parser context*/
+    XML_FROM_HTML,	/* The HTML parser */
+    XML_FROM_MEMORY,	/* The memory allocator */
+    XML_FROM_OUTPUT,	/* The serialization code */
+    XML_FROM_IO,	/* The Input/Output stack */
+    XML_FROM_FTP,	/* The FTP module */
+    XML_FROM_HTTP,	/* The HTTP module */
+    XML_FROM_XINCLUDE,	/* The XInclude processing */
+    XML_FROM_XPATH,	/* The XPath module */
+    XML_FROM_XPOINTER,	/* The XPointer module */
+    XML_FROM_REGEXP,	/* The regular expressions module */
+    XML_FROM_DATATYPE,	/* The W3C XML Schemas Datatype module */
+    XML_FROM_SCHEMASP,	/* The W3C XML Schemas parser module */
+    XML_FROM_SCHEMASV,	/* The W3C XML Schemas validation module */
+    XML_FROM_RELAXNGP,	/* The Relax-NG parser module */
+    XML_FROM_RELAXNGV,	/* The Relax-NG validator module */
+    XML_FROM_CATALOG,	/* The Catalog module */
+    XML_FROM_C14N,	/* The Canonicalization module */
+    XML_FROM_XSLT,	/* The XSLT engine from libxslt */
+    XML_FROM_VALID,	/* The XML DTD validation with valid context */
+    XML_FROM_CHECK,	/* The error checking module */
+    XML_FROM_WRITER,	/* The xmlwriter module */
+    XML_FROM_MODULE,	/* The dynamically loaded module module*/
+    XML_FROM_I18N,	/* The module handling character conversion */
+    XML_FROM_SCHEMATRONV,/* The Schematron validator module */
+    XML_FROM_BUFFER,    /* The buffers module */
+    XML_FROM_URI        /* The URI module */
+} xmlErrorDomain;
+
 typedef struct _xmlError xmlError;
 typedef xmlError *xmlErrorPtr;
 struct _xmlError {

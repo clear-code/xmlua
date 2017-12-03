@@ -14,7 +14,7 @@ function TestSearch.test_invalid()
   local success, message = pcall(function() document:search("") end)
   luaunit.assertEquals(success, false)
   luaunit.assertEquals(message,
-                       "./xmlua/searchable.lua:57: Invalid expression\n")
+                       "./xmlua/searchable.lua:59: Invalid expression\n")
 end
 
 function TestSearch.test_no_match()
@@ -75,6 +75,6 @@ function TestSearch.test_text()
 </root>
 ]])
   -- TODO: Support text nodes
-  luaunit.assertEquals(#document:search("/root/sub/text()"),
-                       0)
+  luaunit.assertEquals(document:search("/root/sub/text()"):content(),
+                       "text1text2text3")
 end

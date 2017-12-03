@@ -4,10 +4,12 @@ local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
 local Element
+local Text
 local NodeSet
 
 function Searchable.lazy_load()
   Element = require("xmlua.element")
+  Text = require("xmlua.text")
   NodeSet = require("xmlua.node-set")
 end
 
@@ -69,8 +71,11 @@ function Searchable.search(self, xpath)
     local raw_node_set = {}
     for i = 1, found_node_set.nodeNr do
       local node = found_node_set.nodeTab[i - 1]
-      if tonumber(node.type) == ffi.C.XML_ELEMENT_NODE then
+      local node_type = tonumber(node.type)
+      if node_type == ffi.C.XML_ELEMENT_NODE then
         table.insert(raw_node_set, Element.new(document, node))
+      elseif node_type == ffi.C.XML_TEXT_NODE then
+        table.insert(raw_node_set, Text.new(document, node))
       else
         -- TODO: Support more nodes such as text node
         -- table.insert(raw_node_set, node)

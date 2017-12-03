@@ -51,6 +51,8 @@ function methods.content(self, xpath)
                       "")
 end
 
+methods.text = methods.content
+
 function NodeSet.new(nodes)
   setmetatable(nodes, metatable)
   return nodes

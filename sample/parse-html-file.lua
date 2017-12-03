@@ -8,7 +8,7 @@ local html = file:read("*all")
 file:close()
 
 -- Parses HTML
-local success, document = pcall(xmlua.HTML.parse, html, {prefer_charset = true})
+local success, document = pcall(xmlua.HTML.parse, html)
 if not success then
   local message = document
   print("Failed to parse HTML: " .. message)

@@ -36,7 +36,7 @@ function TestHTML.test_parse_invalid()
                        })
 end
 
-function TestHTML.test_parse_prefer_charset_meta_charset()
+function TestHTML.test_parse_prefer_meta_charset_default()
   local html = [[
 <html>
   <head>
@@ -45,9 +45,23 @@ function TestHTML.test_parse_prefer_charset_meta_charset()
   </head>
 </html>
 ]]
-  local document = xmlua.HTML.parse(html, {prefer_charset = true})
+  local document = xmlua.HTML.parse(html)
   luaunit.assertEquals(document:search("//title"):text(),
                        "タイトル")
+end
+
+function TestHTML.test_parse_prefer_meta_charset_false()
+  local html = [[
+<html>
+  <head>
+    <title>タイトル</title>
+    <meta charset="UTF-8">
+  </head>
+</html>
+]]
+  local document = xmlua.HTML.parse(html, {prefer_meta_charset = false})
+  luaunit.assertNotEquals(document:search("//title"):text(),
+                          "タイトル")
 end
 
 function TestHTML.test_parse_encoding_content_type()

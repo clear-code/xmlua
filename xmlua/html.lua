@@ -42,16 +42,27 @@ function HTML.parse(html, options)
   end
   local document = Document.new(raw_document, errors)
 
-  if options and not options["encoding"] and options["prefer_charset"] then
+  local prefer_meta_charset = true
+  if options then
+    if options["encoding"] then
+      prefer_meta_charset = false
+    else
+      prefer_meta_charset = options["prefer_meta_charset"]
+      if prefer_meta_charset == nil then
+        prefer_meta_charset = true
+      end
+    end
+  end
+  if prefer_meta_charset then
     -- TODO: Workaround for issue that
     -- libxml2 doesn't support <meta charset="XXX"> yet.
     -- We should feedback it to libxml2.
-    local meta_charsets = document:search("/html/head/meta[@charset]")
+    local meta_charsets = document:search("//meta[@charset]")
     if #meta_charsets > 0 then
-      local new_options = {
-        url = options.url,
-        encoding = meta_charsets[1].charset,
-      }
+      local new_options = {encoding = meta_charsets[1].charset}
+      if options then
+        new_options.url = options.url
+      end
       return HTML.parse(html, new_options)
     end
   end

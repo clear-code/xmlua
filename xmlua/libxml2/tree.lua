@@ -94,6 +94,43 @@ struct _xmlNode {
     unsigned short   extra;	/* extra data for XPath/XSLT */
 };
 
+struct _xmlDoc {
+    void           *_private;	/* application data */
+    xmlElementType  type;       /* XML_DOCUMENT_NODE, must be second ! */
+    char           *name;	/* name/filename/URI of the document */
+    struct _xmlNode *children;	/* the document tree */
+    struct _xmlNode *last;	/* last child link */
+    struct _xmlNode *parent;	/* child->parent link */
+    struct _xmlNode *next;	/* next sibling link  */
+    struct _xmlNode *prev;	/* previous sibling link  */
+    struct _xmlDoc  *doc;	/* autoreference to itself */
+
+    /* End of common part */
+    int             compression;/* level of zlib compression */
+    int             standalone; /* standalone document (no external refs)
+				     1 if standalone="yes"
+				     0 if standalone="no"
+				    -1 if there is no XML declaration
+				    -2 if there is an XML declaration, but no
+					standalone attribute was specified */
+    struct _xmlDtd  *intSubset;	/* the document internal subset */
+    struct _xmlDtd  *extSubset;	/* the document external subset */
+    struct _xmlNs   *oldNs;	/* Global namespace, the old way */
+    const xmlChar  *version;	/* the XML version string */
+    const xmlChar  *encoding;   /* external initial encoding, if any */
+    void           *ids;        /* Hash table for ID attributes if any */
+    void           *refs;       /* Hash table for IDREFs attributes if any */
+    const xmlChar  *URL;	/* The URI for that document */
+    int             charset;    /* encoding of the in-memory content
+				   actually an xmlCharEncoding */
+    struct _xmlDict *dict;      /* dict used to allocate names or NULL */
+    void           *psvi;	/* for type/PSVI informations */
+    int             parseFlags;	/* set of xmlParserOption used to parse the
+				   document */
+    int             properties;	/* set of xmlDocProperties for this document
+				   set at the end of parsing */
+};
+
 void xmlFreeDoc(xmlDocPtr cur);
 xmlNodePtr xmlDocGetRootElement(const xmlDoc *doc);
 

@@ -33,6 +33,10 @@ function methods.parent(self)
   return nil
 end
 
+function methods.encoding(self)
+  return ffi.string(self.document.encoding)
+end
+
 function Document.new(raw_document)
   local document = {
     document = raw_document,

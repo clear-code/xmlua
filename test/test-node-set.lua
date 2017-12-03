@@ -63,3 +63,20 @@ function TestNodeSet.test_to_html()
                        "<p>paragraph2</p>" ..
                        "<p>paragraph3</p>")
 end
+
+function TestNodeSet.test_content()
+  local document = xmlua.HTML.parse([[
+<html>
+  <body>
+    <p>paragraph1</p>
+    <p>paragraph2</p>
+    <p>paragraph3</p>
+  </body>
+</html>
+]])
+  local node_set = document:search("//p")
+  luaunit.assertEquals(node_set:content(),
+                       "paragraph1" ..
+                       "paragraph2" ..
+                       "paragraph3")
+end

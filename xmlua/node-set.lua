@@ -43,6 +43,14 @@ function methods.search(self, xpath)
   return NodeSet.new(nodes)
 end
 
+function methods.content(self, xpath)
+  return table.concat(map(self,
+                          function(node)
+                            return node:content() or ""
+                          end),
+                      "")
+end
+
 function NodeSet.new(nodes)
   setmetatable(nodes, metatable)
   return nodes

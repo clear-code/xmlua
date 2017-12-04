@@ -359,6 +359,12 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
+## Get text {#get-text}
+
+TODO.
+
+今のところは[`xmlua.Element:text`][element-text]と[`xmlua.NodeSet:text`][node-set-text]を参照してください。
+
 ## 要素の取得 {#get-elements}
 
 兄弟要素を取得するには[`xmlua.Element:previous`][element-previous]と[`xmlua.Element:next`][element-next]を使います。
@@ -776,6 +782,10 @@ xmlua.cleanup()
 [element]:../reference/element.html
 
 [document-root]:../reference/document.html#root
+
+[element-text]:../reference/element.html#text
+
+[node-set-text]:../reference/node-set.html#text
 
 [element-previous]:../reference/element.html#previous
 

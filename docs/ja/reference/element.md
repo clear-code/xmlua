@@ -45,6 +45,44 @@ local root = document:root()
 print(root:name()) -- -> root
 ```
 
+### `content() -> string` {#content}
+
+この要素の内容を`string`で返します。
+
+内容とはこの要素以下のすべてのテキストです。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  text1
+  <child1>child1 text</child1>
+  text2
+  <child2>child2 text</child2>
+  text3
+</root>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+
+-- <root>要素の内容。空白も含めて<root>要素の内容。
+print(root:content())
+--
+--  text1
+--  child1 text
+--  text2
+--  child2 text
+--  text3
+--
+```
+
+### `text() -> string` {#text}
+
+[`content`](#content)のエイリアス。
+
 ### `get_attribute(name) -> string` {#get-attribute}
 
 与えられた属性の属性値を取得します。属性が存在しない場合は`nil`を返します。

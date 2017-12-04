@@ -155,6 +155,35 @@ print(subsubs_in_class_a[2]:to_xml())
 -- <subsub3/>
 ```
 
+### `content() -> string` {#content}
+
+It gets contents of all nodes in the node set and concatenates them.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]])
+
+-- All elements under <root> (<sub1>, <sub2> and <sub3>)
+local node_set = document:search("/root/*")
+
+-- Gets all contents and concatenates them
+print(node_set:content())
+-- text1text2text3
+```
+
+### `text() -> string` {#text}
+
+It's an alias of [`content`](#content).
+
 ## See also
 
   * [`xmlua.Element`][element]: The class for element node.

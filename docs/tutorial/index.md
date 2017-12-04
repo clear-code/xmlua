@@ -359,6 +359,12 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
+## Get text {#get-text}
+
+TODO.
+
+See [`xmlua.Element:text`][element-text] and [`xmlua.NodeSet:text`][node-set-text] for now.
+
 ## Get elements {#get-elements}
 
 You can get the sibling elements by [`xmlua.Element:previous`][element-previous] and [`xmlua.Element:next`][element-next].
@@ -773,6 +779,10 @@ Now, you knew all major XMLua features! If you want to understand each feature, 
 [element]:../reference/element.html
 
 [document-root]:../reference/document.html#root
+
+[element-text]:../reference/element.html#text
+
+[node-set-text]:../reference/node-set.html#text
 
 [element-previous]:../reference/element.html#previous
 

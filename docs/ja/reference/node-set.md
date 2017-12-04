@@ -155,6 +155,35 @@ print(subsubs_in_class_a[2]:to_xml())
 -- <subsub3/>
 ```
 
+### `content() -> string` {#content}
+
+このノードセット内のすべてのノードの内容を取得してそれらを連結します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]])
+
+-- <root>配下の全ての要素 (<sub1>, <sub2> and <sub3>)
+local node_set = document:search("/root/*")
+
+-- すべての内容を取得して連結
+print(node_set:content())
+-- text1text2text3
+```
+
+### `text() -> string` {#text}
+
+[`content`](#content)のエイリアス。
+
 ## 参照
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。

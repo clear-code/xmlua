@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-30 01:49+0900\n"
+"PO-Revision-Date: 2017-12-04 09:27+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -268,6 +268,29 @@ msgstr ""
 "print(subsubs_in_class_a[2]:to_xml())\n"
 "-- <subsub3/>\n"
 "```"
+
+msgid "### `content() -> string` {#content}"
+msgstr ""
+
+msgid "It gets contents of all nodes in the node set and concatenates them."
+msgstr "このノードセット内のすべてのノードの内容を取得してそれらを連結します。"
+
+msgid ""
+"-- Gets all contents and concatenates them\n"
+"print(node_set:content())\n"
+"-- text1text2text3\n"
+"```"
+msgstr ""
+"-- すべての内容を取得して連結\n"
+"print(node_set:content())\n"
+"-- text1text2text3\n"
+"```"
+
+msgid "### `text() -> string` {#text}"
+msgstr ""
+
+msgid "It's an alias of [`content`](#content)."
+msgstr "[`content`](#content)のエイリアス。"
 
 msgid "## See also"
 msgstr "## 参照"

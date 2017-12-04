@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-30 16:16+0900\n"
+"PO-Revision-Date: 2017-12-04 09:25+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -573,6 +573,19 @@ msgstr ""
 "print(root[\"nonexistent-namespace:attribute\"])\n"
 "-- -> value-nonexistent-namespace\n"
 "```"
+
+msgid "## Get text {#get-text}"
+msgstr ""
+
+msgid "TODO."
+msgstr ""
+
+msgid ""
+"See [`xmlua.Element:text`][element-text] and [`xmlua.NodeSet:text`][node-set-t"
+"ext] for now."
+msgstr ""
+"今のところは[`xmlua.Element:text`][element-text]と[`xmlua.NodeSet:text`][node-set-tex"
+"t]を参照してください。"
 
 msgid "## Get elements {#get-elements}"
 msgstr "## 要素の取得 {#get-elements}"
@@ -1156,6 +1169,12 @@ msgid "[element]:../reference/element.html"
 msgstr ""
 
 msgid "[document-root]:../reference/document.html#root"
+msgstr ""
+
+msgid "[element-text]:../reference/element.html#text"
+msgstr ""
+
+msgid "[node-set-text]:../reference/node-set.html#text"
 msgstr ""
 
 msgid "[element-previous]:../reference/element.html#previous"

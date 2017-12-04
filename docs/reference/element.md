@@ -45,6 +45,44 @@ local root = document:root()
 print(root:name()) -- -> root
 ```
 
+### `content() -> string` {#content}
+
+It returns content of the element as `string`.
+
+The content is all texts under the element.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  text1
+  <child1>child1 text</child1>
+  text2
+  <child2>child2 text</child2>
+  text3
+</root>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+
+-- The <root>'s content. Spaces are also the <root>'s content.
+print(root:content())
+--
+--  text1
+--  child1 text
+--  text2
+--  child2 text
+--  text3
+--
+```
+
+### `text() -> string` {#text}
+
+It's an alias of [`content`](#content).
+
 ### `get_attribute(name) -> string` {#get-attribute}
 
 It gets attribute value of the given attribute name. If the attribute name doesn't exist, it returns `nil`.

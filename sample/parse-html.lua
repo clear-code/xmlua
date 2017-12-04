@@ -16,7 +16,7 @@ local html = [[
 -- local html = io.open("example.html"):read("*all")
 
 -- Parses HTML
-local success, document = pcall(xmlua.HTML.parse, html)
+local success, document = pcall(xmlua.HTML.parse, "")
 if not success then
   local message = document
   print("Failed to parse HTML: " .. message)
@@ -25,6 +25,5 @@ end
 
 -- Gets the root element
 local root = document:root() -- --> <html> element as xmlua.Element
-
 -- Prints root element name
 print(root:name()) -- -> html

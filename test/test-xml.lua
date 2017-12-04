@@ -13,7 +13,7 @@ function TestXML.test_parse_invalid()
   local success, message = pcall(xmlua.XML.parse, " ")
   luaunit.assertEquals(success, false)
   luaunit.assertEquals(message,
-                       "./xmlua/xml.lua:15: failed to parse XML: " ..
+                       "./xmlua/xml.lua:18: Failed to parse XML: " ..
                          "Start tag expected, '<' not found\n")
 end
 

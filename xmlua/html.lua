@@ -38,7 +38,11 @@ function HTML.parse(html, options)
   c_error_callback:free()
   context.sax.serror = nil
   if raw_document == ffi.NULL then
-    error("failed to parse HTML: " .. ffi.string(context.lastError.message))
+    if context.lastError.message == ffi.NULL then
+      error("Failed to parse HTML")
+    else
+      error("Failed to parse HTML: " .. ffi.string(context.lastError.message))
+    end
   end
   local document = Document.new(raw_document, errors)
 

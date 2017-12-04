@@ -12,7 +12,11 @@ function XML.parse(xml, options)
   end
   local document = libxml2.xmlCtxtReadMemory(context, xml)
   if context.lastError.message ~= ffi.NULL then
-    error("failed to parse XML: " .. ffi.string(context.lastError.message))
+    if context.lastError.message == ffi.NULL then
+      error("Failed to parse XML")
+    else
+      error("Failed to parse XML: " .. ffi.string(context.lastError.message))
+    end
   end
   return Document.new(document)
 end

@@ -23,17 +23,27 @@ document:root() -- -> Root element
 
 ## Class methods
 
-### `xmlua.HTML.parse(html) -> xmlua.Document` {#parse}
+### `xmlua.HTML.parse(html, options=nil) -> xmlua.Document` {#parse}
 
 `html`: HTML string to be parsed.
 
+`options`: Parse options as a `table`.
+
+Here are available options:
+
+  * `url`: The base URL of the HTML. The default is `nil`. It means that no base URL isn't specified.
+
+  * `encoding`: The encoding of the HTML. The default is `nil`. It means that encoding is detected automatically.
+
+  * `prefer_meta_charset`: Whether is `<meta charset="ENCODING">` HTML 5 tag used for detecting encoding. The default is `true` when `encoding` is `nil`, `false` when `encoding` is not `nil`.
+
 It parses the given HTML and returns `xmlua.Document` object.
 
-The encoding of HTML is guessed.
+If HTML parsing is failed, it raises an error only when the error is a critical error. Otherwise, [`xmlua.Document.errors`][document-errors] contain all errors.
 
-If HTML parsing is failed, it raises an error.
+Normally, you don't need to specify any options.
 
-Here is an example to parse HTML:
+Example:
 
 ```lua
 local xmlua = require("xmlua")
@@ -67,17 +77,60 @@ local root = document:root() -- --> <html> element as xmlua.Element
 print(root:name()) -- -> html
 ```
 
+If you know right encoding, you can specify `encoding` option.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local html = [[
+<html>
+  <body><p>Hello</p></body>
+</html>
+]]
+
+-- Parses HTML with the specified encoding
+local document = xmlua.HTML.parse(html, {encoding = "UTF-8"})
+
+-- Prints the <body> element content
+print(document:search("//body"):text())
+-- Hello
+```
+
+You can get error details from [`xmlua.Document.errors`][document-errors].
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- Invalid HTML. "&" is invalid.
+local html = [[
+<html>
+  <body><p>&</p></body>
+</html>
+]]
+
+-- Parses HTML loosely
+local document = xmlua.HTML.parse(html)
+
+-- "&" is parsed as "&amp;"
+print(document:search("//body"):to_html())
+-- <body><p>&amp;<p/></body>
+
+for i, err in ipairs(document.errors) do
+  print("Error" .. i .. ":")
+  print("Line=" .. err.line .. ": " .. err.message)
+  -- Line=2: htmlParseEntityRef: no name
+end
+```
+
 ## See also
 
   * [`xmlua.Document`][document]: The class for HTML document and XML document.
 
-  * [`xmlua.Serializable`][serializable]: Provides HTML and XML serialization related methods.
-
-  * [`xmlua.Searchable`][searchable]: Provides node search related methods.
-
 
 [document]:document.html
 
-[serializable]:serializable.html
-
-[searchable]:searchable.html
+[document-errors]:document.html#errors

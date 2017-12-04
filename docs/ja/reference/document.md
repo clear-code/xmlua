@@ -16,6 +16,41 @@ title: xmlua.Document
 
 つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。
 
+## プロパティー
+
+### `errors -> {ERROR1, ERROR2, ...}` {#errors}
+
+ドキュメントをパースしているときに発生したエラーをすべて記録しています。
+
+各エラーは以下の構造になっています。
+
+```lua
+{
+  domain = ERROR_DOMAIN_AS_NUMBER,
+  code = ERROR_CODE_AS_NUMBER,
+  message = "ERROR_MESSAGE",
+  level = ERROR_LEVEL_AS_NUMBER,
+  file = nil,
+  line = ERROR_LINE_AS_NUMBER,
+}
+```
+
+今のところ、`domain`と`code`は内部で使用しているlibxml2のエラードメイン（`xmlErrorDomain`）とエラーコード（`xmlParserError`）を直接使用しています。そのためこれらを活用することはできません。
+
+`message`はエラーメッセージです。これがもっとも重要な情報です。
+
+`level`も内部で使用しているlibxml2のエラーレベル（`xmlErrorLevel`）をそのまま使っています。しかし、エラーレベルは少ししかないのでこの値を活用できます。以下がすべてのエラーレベルです。
+
+  * `1` (`XML_ERR_WARNING`)：警告。
+
+  * `2` (`XML_ERR_ERROR`)：復旧可能なエラー。
+
+  * `3` (`XML_ERR_FATAL`)：復旧不可能なエラー。
+
+今のところ、`file`は常に`nil`です。なぜなら、XMLuaはメモリー上のHTML・XMLのパースしかサポートしていないからです。
+
+`line`はこのエラーが発生した行番号です。
+
 ## メソッド
 
 ### `root() -> xmlua.Element` {#root}

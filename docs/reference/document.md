@@ -16,6 +16,41 @@ It has methods of the following modules:
 
 It means that you can use methods in the modules.
 
+## Properties
+
+### `errors -> {ERROR1, ERROR2, ...}` {#errors}
+
+It contains errors occurred while parsing document.
+
+Each error has the following structure:
+
+```lua
+{
+  domain = ERROR_DOMAIN_AS_NUMBER,
+  code = ERROR_CODE_AS_NUMBER,
+  message = "ERROR_MESSAGE",
+  level = ERROR_LEVEL_AS_NUMBER,
+  file = nil,
+  line = ERROR_LINE_AS_NUMBER,
+}
+```
+
+`domain` and `code` use internal libxml2's error domain (`xmlErrorDomain`) and error code (`xmlParserError`) directly for now. So you can't use them.
+
+`message` is the error message. It's the most important information.
+
+`level` also uses internal libxml2's error level (`xmlErrorLevel`) but there are few levels. So you can use it. Here are all error levels:
+
+  * `1` (`XML_ERR_WARNING`): A warning.
+
+  * `2` (`XML_ERR_ERROR`): A recoverable error.
+
+  * `3` (`XML_ERR_FATAL`): A fatal error.
+
+`file` is always `nil` for now. Because XMLua only supports parsing HTML and XML in memory.
+
+`line` is the nth line where the error is occurred.
+
 ## Methods
 
 ### `root() -> xmlua.Element` {#root}

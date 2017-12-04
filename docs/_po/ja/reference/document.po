@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-28 18:40+0900\n"
+"PO-Revision-Date: 2017-12-04 09:06+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +36,65 @@ msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッ�
 
 msgid "It means that you can use methods in the modules."
 msgstr "つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。"
+
+msgid "## Properties"
+msgstr "## プロパティー"
+
+msgid "### `errors -> {ERROR1, ERROR2, ...}` {#errors}"
+msgstr ""
+
+msgid "It contains errors occurred while parsing document."
+msgstr "ドキュメントをパースしているときに発生したエラーをすべて記録しています。"
+
+msgid "Each error has the following structure:"
+msgstr "各エラーは以下の構造になっています。"
+
+msgid ""
+"```lua\n"
+"{\n"
+"  domain = ERROR_DOMAIN_AS_NUMBER,\n"
+"  code = ERROR_CODE_AS_NUMBER,\n"
+"  message = \"ERROR_MESSAGE\",\n"
+"  level = ERROR_LEVEL_AS_NUMBER,\n"
+"  file = nil,\n"
+"  line = ERROR_LINE_AS_NUMBER,\n"
+"}\n"
+"```"
+msgstr ""
+
+msgid ""
+"`domain` and `code` use internal libxml2's error domain (`xmlErrorDomain`) and"
+" error code (`xmlParserError`) directly for now. So you can't use them."
+msgstr ""
+"今のところ、`domain`と`code`は内部で使用しているlibxml2のエラードメイン（`xmlErrorDomain`）とエラーコード（`xmlPa"
+"rserError`）を直接使用しています。そのためこれらを活用することはできません。"
+
+msgid "`message` is the error message. It's the most important information."
+msgstr "`message`はエラーメッセージです。これがもっとも重要な情報です。"
+
+msgid ""
+"`level` also uses internal libxml2's error level (`xmlErrorLevel`) but there a"
+"re few levels. So you can use it. Here are all error levels:"
+msgstr ""
+"`level`も内部で使用しているlibxml2のエラーレベル（`xmlErrorLevel`）をそのまま使っています。しかし、エラーレベルは少ししかないの"
+"でこの値を活用できます。以下がすべてのエラーレベルです。"
+
+msgid "  * `1` (`XML_ERR_WARNING`): A warning."
+msgstr "  * `1` (`XML_ERR_WARNING`)：警告。"
+
+msgid "  * `2` (`XML_ERR_ERROR`): A recoverable error."
+msgstr "  * `2` (`XML_ERR_ERROR`)：復旧可能なエラー。"
+
+msgid "  * `3` (`XML_ERR_FATAL`): A fatal error."
+msgstr "  * `3` (`XML_ERR_FATAL`)：復旧不可能なエラー。"
+
+msgid ""
+"`file` is always `nil` for now. Because XMLua only supports parsing HTML and X"
+"ML in memory."
+msgstr "今のところ、`file`は常に`nil`です。なぜなら、XMLuaはメモリー上のHTML・XMLのパースしかサポートしていないからです。"
+
+msgid "`line` is the nth line where the error is occurred."
+msgstr "`line`はこのエラーが発生した行番号です。"
 
 msgid "## Methods"
 msgstr "## メソッド"

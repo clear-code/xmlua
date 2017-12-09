@@ -23,10 +23,18 @@ RUN \
   useradd --user-group --create-home xmlua
 
 COPY . /home/xmlua/xmlua
-RUN chown -R xmlua:xmlua ~xmlua/xmlua
+WORKDIR /home/xmlua/xmlua
+
+RUN \
+  sed \
+    -e 's@url = .*@url = "file:///home/xmlua/xmlua/",@g' \
+    -e 's@dir = .*@@g' \
+    xmlua.rockspec > \
+    xmlua-$(grep VERSION xmlua.lua | sed -e 's/.*"\(.*\)"/\1/g')-0.rockspec
+RUN luarocks install xmlua-*.rockspec
+RUN rm -rf xmlua.lua xmlua
 
 USER xmlua
-WORKDIR /home/xmlua/xmlua
 
 CMD \
   test/run-test.lua && \

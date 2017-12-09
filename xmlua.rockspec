@@ -2,7 +2,7 @@
 
 local package_version = "1.0.3"
 
-package = "xmlua"
+package = "XMLua"
 version = package_version .. "-0"
 description = {
   summary = "XMLua is a Lua library for processing XML and HTML",
@@ -26,7 +26,7 @@ external_dependencies = {
 }
 source = {
   url = "https://github.com/clear-code/xmlua/archive/" .. package_version .. ".zip",
-  dir = package .. "-" .. package_version,
+  dir = "xmlua-" .. package_version,
 }
 build = {
   type = "builtin",

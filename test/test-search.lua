@@ -13,8 +13,8 @@ function TestSearch.test_invalid()
 ]])
   local success, message = pcall(function() document:search("") end)
   luaunit.assertEquals(success, false)
-  luaunit.assertEquals(message,
-                       "./xmlua/searchable.lua:59: Invalid expression\n")
+  luaunit.assertEquals(message:gsub("^.+:%d+: ", ""),
+                       "Invalid expression\n")
 end
 
 function TestSearch.test_no_match()

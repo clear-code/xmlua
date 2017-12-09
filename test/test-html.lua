@@ -17,8 +17,8 @@ end
 function TestHTML.test_parse_invalid_unparsable()
   local success, error_message = pcall(xmlua.HTML.parse, "")
   luaunit.assertEquals(success, false)
-  luaunit.assertEquals(error_message,
-                       "./xmlua/html.lua:42: Failed to parse HTML")
+  luaunit.assertEquals(error_message:gsub("^.+:%d+: ", ""),
+                       "Failed to parse HTML")
 end
 
 function TestHTML.test_parse_invalid_parsable()

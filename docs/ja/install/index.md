@@ -37,6 +37,13 @@ XMLuaをインストールする前に[LuaJIT][luajit]と[LuaRocks][luarocks]を
 % sudo luarocks install xmlua
 ```
 
+CentOS 6 x86_64の場合：
+
+```console
+% sudo yum install -y libxml2
+% sudo luarocks install xmlua LIBXML2_LIBDIR=/usr/lib64
+```
+
 ## macOS {#macos}
 
 ```console

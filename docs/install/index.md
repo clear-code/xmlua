@@ -37,6 +37,13 @@ You must install [LuaJIT][luajit] and [LuaRocks][luarocks] before installing XML
 % sudo luarocks install xmlua
 ```
 
+For CentOS 6 x86_64:
+
+```console
+% sudo yum install -y libxml2
+% sudo luarocks install xmlua LIBXML2_LIBDIR=/usr/lib64
+```
+
 ## macOS {#macos}
 
 ```console

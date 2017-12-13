@@ -74,8 +74,7 @@ function libxml2.xmlNewParserCtxt()
   if context == ffi.NULL then
     return nil
   end
-  return context
-  -- return ffi.gc(context, xml2.xmlFreeParserCtxt)
+  return ffi.gc(context, xml2.xmlFreeParserCtxt)
 end
 
 function libxml2.xmlCtxtReadMemory(context, xml, options)

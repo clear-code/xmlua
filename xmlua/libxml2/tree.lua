@@ -16,6 +16,9 @@ typedef xmlElementContent *xmlElementContentPtr;
 typedef struct _xmlSAXLocator xmlSAXLocator;
 typedef xmlSAXLocator *xmlSAXLocatorPtr;
 
+typedef struct _xmlSAXHandler xmlSAXHandler;
+typedef xmlSAXHandler *xmlSAXHandlerPtr;
+
 typedef struct _xmlDoc xmlDoc;
 typedef xmlDoc *xmlDocPtr;
 

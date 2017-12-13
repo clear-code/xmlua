@@ -351,4 +351,14 @@ xmlDocPtr xmlCtxtReadMemory(xmlParserCtxtPtr ctxt,
                             const char *URL,
                             const char *encoding,
                             int options);
+
+xmlParserCtxtPtr xmlCreatePushParserCtxt(xmlSAXHandlerPtr sax,
+                                         void *user_data,
+                                         const char *chunk,
+                                         int size,
+                                         const char *filename);
+int xmlParseChunk(xmlParserCtxtPtr ctxt,
+                  const char *chunk,
+                  int size,
+                  int terminate);
 ]]

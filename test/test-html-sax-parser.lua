@@ -8,11 +8,16 @@ TestHTMLSAXParser = {}
 local function collect_start_elements(chunk)
   local parser = xmlua.HTMLSAXParser.new()
   local elements = {}
-  parser.start_element = function(local_name, prefix, uri, attributes)
+  parser.start_element = function(local_name,
+                                  prefix,
+                                  uri,
+                                  namespaces,
+                                  attributes)
     local element = {
       local_name = local_name,
       prefix = prefix,
       uri = uri,
+      namespaces = namespaces,
       attributes = attributes
     }
     table.insert(elements, element)
@@ -25,6 +30,7 @@ function TestHTMLSAXParser.test_start_element_no_namespace()
   local expected = {
     {
       local_name = "html",
+      namespaces = {},
       attributes = {},
     },
   }
@@ -38,6 +44,7 @@ function TestHTMLSAXParser.test_start_element_attributes_no_namespace()
   local expected = {
     {
       local_name = "html",
+      namespaces = {},
       attributes = {
         {
           local_name = "id",
@@ -67,6 +74,9 @@ function TestHTMLSAXParser.test_start_element_with_namespace()
       local_name = "html",
       prefix = "xhtml",
       uri = "http://www.w3.org/1999/xhtml",
+      namespaces = {
+        xhtml = "http://www.w3.org/1999/xhtml",
+      },
       attributes = {
         {
           local_name = "id",
@@ -83,6 +93,36 @@ function TestHTMLSAXParser.test_start_element_with_namespace()
       },
     },
   }
+  luaunit.assertEquals(collect_start_elements(xhtml),
+                       expected)
+end
+
+function TestHTMLSAXParser.test_start_element_with_default_namespace()
+  local xhtml = [[
+<html xmlns="http://www.w3.org/1999/xhtml"
+  id="top"
+  class="top-level">
+]]
+  local expected = {
+    {
+      local_name = "html",
+      uri = "http://www.w3.org/1999/xhtml",
+      namespaces = {},
+      attributes = {
+        {
+          local_name = "id",
+          value = "top",
+          is_default = false,
+        },
+        {
+          local_name = "class",
+          value = "top-level",
+          is_default = false,
+        },
+      },
+    },
+  }
+  expected[1].namespaces[""] = "http://www.w3.org/1999/xhtml"
   luaunit.assertEquals(collect_start_elements(xhtml),
                        expected)
 end

@@ -32,6 +32,7 @@ build = {
   type = "builtin",
   modules = {
     ["xmlua"] = "xmlua.lua",
+    ["xmlua.converter"] = "xmlua/converter.lua",
     ["xmlua.document"] = "xmlua/document.lua",
     ["xmlua.element"] = "xmlua/element.lua",
     ["xmlua.html"] = "xmlua/html.lua",

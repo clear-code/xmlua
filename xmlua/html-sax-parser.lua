@@ -2,6 +2,8 @@ local HTMLSAXParser = {}
 
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
+local converter = require("xmlua.converter")
+local to_string = converter.to_string
 
 local Document = require("xmlua.document")
 
@@ -24,7 +26,14 @@ local function create_start_element_callback(user_callback)
                             raw_attributes)
     local namespaces = {}
     for i = 1, n_namespaces do
-      table.insert(namespaces, ffi.string(raw_namespaces[i]))
+      local base_index = (2 * (i - 1))
+      local prefix = to_string(raw_namespaces[base_index + 0])
+      local uri = to_string(raw_namespaces[base_index + 1])
+      if prefix then
+        namespaces[prefix] = uri
+      else
+        namespaces[""] = uri
+      end
     end
     local attributes = {}
     for i = 1, n_attributes + n_defaulted do
@@ -34,37 +43,21 @@ local function create_start_element_callback(user_callback)
       local raw_attribute_uri = raw_attributes[base_index + 2]
       local raw_attribute_value = raw_attributes[base_index + 3]
       local raw_attribute_end = raw_attributes[base_index + 4]
-      local attribute_local_name = ffi.string(raw_attribute_local_name)
-      local attribute_prefix = nil
-      local attribute_uri = nil
-      local attribute_value = nil
-      if raw_attribute_prefix ~= ffi.NULL then
-        attribute_prefix = ffi.string(raw_attribute_prefix)
-      end
-      if raw_attribute_uri ~= ffi.NULL then
-        attribute_uri = ffi.string(raw_attribute_uri)
-      end
-      attribute_value = ffi.string(raw_attribute_value,
-                                   raw_attribute_end - raw_attribute_value)
       local attribute = {
-        local_name = attribute_local_name,
-        prefix = attribute_prefix,
-        uri = attribute_uri,
-        value = attribute_value,
+        local_name = to_string(raw_attribute_local_name),
+        prefix = to_string(raw_attribute_prefix),
+        uri = to_string(raw_attribute_uri),
+        value = to_string(raw_attribute_value,
+                          raw_attribute_end - raw_attribute_value),
         is_default = i > n_attributes,
       }
       table.insert(attributes, attribute)
     end
-    local local_name = ffi.string(raw_local_name)
-    local prefix = nil
-    if raw_prefix ~= ffi.NULL then
-      prefix = ffi.string(raw_prefix)
-    end
-    local uri = nil
-    if raw_uri ~= ffi.NULL then
-      uri = ffi.string(raw_uri)
-    end
-    user_callback(local_name, prefix, uri, attributes)
+    user_callback(to_string(raw_local_name),
+                  to_string(raw_prefix),
+                  to_string(raw_uri),
+                  namespaces,
+                  attributes)
   end
   c_callback = ffi.cast("startElementNsSAX2Func", callback)
   ffi.gc(c_callback, function() c_callback:free() end)
@@ -76,15 +69,11 @@ local function create_error_callback(user_callback)
     local error = {
       domain = raw_error.domain,
       code = raw_error.code,
-      message = ffi.string(raw_error.message),
+      message = to_string(raw_error.message),
       level  = tonumber(raw_error.level),
+      file = to_string(raw_error.file),
+      line = raw_error.line,
     }
-    if raw_error.file == ffi.NULL then
-      error.file = nil
-    else
-      error.file = ffi.string(raw_error.file)
-    end
-    error.line = raw_error.line
     user_callback(error)
   end
   c_callback = ffi.cast("xmlStructuredErrorFunc", callback)

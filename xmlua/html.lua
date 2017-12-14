@@ -24,7 +24,7 @@ end
 function HTML.parse(html, options)
   local context = libxml2.htmlNewParserCtxt()
   if not context then
-    error("failed to create context to parse HTML")
+    error("Failed to create context to parse HTML")
   end
 
   local errors = {}

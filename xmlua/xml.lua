@@ -8,7 +8,7 @@ local Document = require("xmlua.document")
 function XML.parse(xml, options)
   local context = libxml2.xmlNewParserCtxt()
   if not context then
-    error("failed to create context to parse XML")
+    error("Failed to create context to parse XML")
   end
   local document = libxml2.xmlCtxtReadMemory(context, xml)
   if context.lastError.message ~= ffi.NULL then

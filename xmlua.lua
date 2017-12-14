@@ -5,6 +5,7 @@ xmlua.VERSION = "1.0.3"
 xmlua.libxml2 = require("xmlua.libxml2")
 xmlua.XML = require("xmlua.xml")
 xmlua.HTML = require("xmlua.html")
+xmlua.HTMLSAXParser = require("xmlua.html-sax-parser")
 
 local Document = require("xmlua.document")
 Document.lazy_load()

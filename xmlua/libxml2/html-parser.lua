@@ -3,6 +3,9 @@ local ffi = require("ffi")
 ffi.cdef[[
 typedef xmlDocPtr htmlDocPtr;
 typedef xmlParserCtxt htmlParserCtxt;
+typedef xmlParserCtxtPtr htmlParserCtxtPtr;
+typedef xmlSAXHandler htmlSAXHandler;
+typedef xmlSAXHandlerPtr htmlSAXHandlerPtr;
 
 typedef enum {
     HTML_PARSE_RECOVER  = 1<<0, /* Relaxed parsing */
@@ -17,8 +20,14 @@ typedef enum {
     HTML_PARSE_IGNORE_ENC=1<<21 /* ignore internal document encoding hint */
 } htmlParserOption;
 
-htmlParserCtxt *htmlNewParserCtxt(void);
-void htmlFreeParserCtxt(htmlParserCtxt *context);
+htmlParserCtxtPtr htmlNewParserCtxt(void);
+htmlParserCtxtPtr htmlCreatePushParserCtxt(htmlSAXHandlerPtr sax,
+                                           void *user_data,
+                                           const char *chunk,
+                                           int size,
+                                           const char *filename,
+			                   xmlCharEncoding enc);
+void htmlFreeParserCtxt(htmlParserCtxtPtr context);
 
 htmlDocPtr htmlCtxtReadMemory(xmlParserCtxtPtr ctxt,
                               const char *buffer,
@@ -27,4 +36,3 @@ htmlDocPtr htmlCtxtReadMemory(xmlParserCtxtPtr ctxt,
                               const char *encoding,
                               int options);
 ]]
-

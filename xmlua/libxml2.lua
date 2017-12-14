@@ -8,6 +8,7 @@ require("xmlua.libxml2.dict")
 require("xmlua.libxml2.hash")
 require("xmlua.libxml2.tree")
 require("xmlua.libxml2.valid")
+require("xmlua.libxml2.encoding")
 require("xmlua.libxml2.parser")
 require("xmlua.libxml2.html-parser")
 require("xmlua.libxml2.xmlsave")
@@ -21,6 +22,19 @@ end
 
 libxml2.XML_SAX2_MAGIC = 0xDEEDBEAF
 
+local function __xmlMallocIsAvailable()
+  local success, err = pcall(function()
+      local func = xml2.__xmlMalloc
+  end)
+  return success
+end
+
+if __xmlMallocIsAvailable() then
+  libxml2.xmlMalloc = xml2.__xmlMalloc()
+else
+  libxml2.xmlMalloc = xml2.xmlMalloc
+end
+
 local function __xmlFreeIsAvailable()
   local success, err = pcall(function()
       local func = xml2.__xmlFree
@@ -28,11 +42,10 @@ local function __xmlFreeIsAvailable()
   return success
 end
 
-local xmlFree
 if __xmlFreeIsAvailable() then
-  xmlFree = xml2.__xmlFree()
+  libxml2.xmlFree = xml2.__xmlFree()
 else
-  xmlFree = xml2.xmlFree
+  libxml2.xmlFree = xml2.xmlFree
 end
 
 libxml2.xmlInitParser = xml2.xmlInitParser
@@ -40,6 +53,14 @@ libxml2.xmlCleanupParser = xml2.xmlCleanupParser
 
 function libxml2.htmlNewParserCtxt()
   local context = xml2.htmlNewParserCtxt()
+  if context == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(context, xml2.htmlFreeParserCtxt)
+end
+
+function libxml2.htmlCreatePushParserCtxt(filename, encoding)
+  local context = xml2.htmlCreatePushParserCtxt(nil, nil, nil, 0, filename, encoding)
   if context == ffi.NULL then
     return nil
   end
@@ -98,6 +119,14 @@ function libxml2.xmlCtxtReadMemory(context, xml, options)
     return nil
   end
   return ffi.gc(document, libxml2.xmlFreeDoc)
+end
+
+function libxml2.xmlParseChunk(context, chunk, is_terminated)
+  if chunk then
+    return xml2.xmlParseChunk(context, chunk, #chunk, is_terminated)
+  else
+    return xml2.xmlParseChunk(context, nil, 0, is_terminated)
+  end
 end
 
 libxml2.xmlFreeDoc = xml2.xmlFreeDoc
@@ -172,7 +201,7 @@ function libxml2.xmlGetNoNsProp(node, name)
     return nil
   end
   local lua_string = ffi.string(value)
-  xmlFree(value)
+  libxml2.xmlFree(value)
   return lua_string
 end
 
@@ -182,7 +211,7 @@ function libxml2.xmlGetNsProp(node, name, namespace_uri)
     return nil
   end
   local lua_string = ffi.string(value)
-  xmlFree(value)
+  libxml2.xmlFree(value)
   return lua_string
 end
 
@@ -192,7 +221,7 @@ function libxml2.xmlGetProp(node, name)
     return nil
   end
   local lua_string = ffi.string(value)
-  xmlFree(value)
+  libxml2.xmlFree(value)
   return lua_string
 end
 
@@ -202,7 +231,7 @@ function libxml2.xmlNodeGetContent(node)
     return nil
   end
   local lua_string = ffi.string(content)
-  xmlFree(content)
+  libxml2.xmlFree(content)
   return lua_string
 end
 

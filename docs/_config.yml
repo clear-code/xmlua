@@ -2,7 +2,7 @@ title: XMLua
 markdown: kramdown
 highlighter: rouge
 version: 1.0.3
-release_date: 2017-12-06
+release_date: 2017-12-14
 copyright_year: 2017
 exclude:
   - "Rakefile"

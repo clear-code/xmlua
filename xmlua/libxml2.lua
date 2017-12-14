@@ -100,6 +100,8 @@ function libxml2.xmlCtxtReadMemory(context, xml, options)
   return ffi.gc(document, libxml2.xmlFreeDoc)
 end
 
+libxml2.xmlFreeDoc = xml2.xmlFreeDoc
+
 function libxml2.xmlDocGetRootElement(document)
   local root = xml2.xmlDocGetRootElement(document)
   if root == ffi.NULL then

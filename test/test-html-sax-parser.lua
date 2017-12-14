@@ -127,6 +127,65 @@ function TestHTMLSAXParser.test_start_element_with_default_namespace()
                        expected)
 end
 
+
+local function collect_end_elements(chunk)
+  local parser = xmlua.HTMLSAXParser.new()
+  local elements = {}
+  parser.end_element = function(local_name,
+                                prefix,
+                                uri)
+    local element = {
+      local_name = local_name,
+      prefix = prefix,
+      uri = uri,
+    }
+    table.insert(elements, element)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return elements
+end
+
+function TestHTMLSAXParser.test_end_element_no_namespace()
+  local expected = {
+    {
+      local_name = "html",
+    },
+  }
+  luaunit.assertEquals(collect_end_elements("<html></html>"), expected)
+end
+
+function TestHTMLSAXParser.test_end_element_with_namespace()
+  local xhtml = [[
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+</xhtml:html>
+]]
+  local expected = {
+    {
+      local_name = "html",
+      prefix = "xhtml",
+      uri = "http://www.w3.org/1999/xhtml",
+    },
+  }
+  luaunit.assertEquals(collect_end_elements(xhtml),
+                       expected)
+end
+
+function TestHTMLSAXParser.test_end_element_with_default_namespace()
+  local xhtml = [[
+<html xmlns="http://www.w3.org/1999/xhtml">
+</html>
+]]
+  local expected = {
+    {
+      local_name = "html",
+      uri = "http://www.w3.org/1999/xhtml",
+    },
+  }
+  luaunit.assertEquals(collect_end_elements(xhtml),
+                       expected)
+end
+
+
 local function collect_errors(chunk)
   local parser = xmlua.HTMLSAXParser.new()
   local errors = {}

@@ -78,6 +78,15 @@ local function create_end_element_callback(user_callback)
   return c_callback
 end
 
+local function create_text_callback(user_callback)
+  local callback = function(user_data, raw_text, raw_length)
+    user_callback(to_string(raw_text, raw_length))
+  end
+  local c_callback = ffi.cast("charactersSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_error_callback(user_callback)
   local callback = function(user_data, raw_error)
     local error = {
@@ -102,6 +111,9 @@ function metatable.__newindex(parser, key, value)
   elseif key == "end_element" then
     value = create_end_element_callback(value)
     parser.context.sax.endElementNs = value
+  elseif key == "text" then
+    value = create_text_callback(value)
+    parser.context.sax.characters = value
   elseif key == "error" then
     value = create_error_callback(value)
     parser.context.sax.serror = value
@@ -133,6 +145,13 @@ function HTMLSAXParser.new()
   if parser.context.pushTab == ffi.NULL then
     parser.context.pushTab =
       libxml2.xmlMalloc(parser.context.nameMax * 3 * ffi.sizeof("xmlChar *"));
+  end
+  -- TODO: Workaround for htmlCreatePushParserCtxt().
+  -- It should allocate htmlParserCtxt::spaceTab.
+  if parser.context.spaceTab == ffi.NULL then
+    parser.context.spaceMax = 10
+    parser.context.spaceTab =
+      libxml2.xmlMalloc(parser.context.spaceMax * ffi.sizeof("int"));
   end
 
   parser.context.sax.initialized = libxml2.XML_SAX2_MAGIC

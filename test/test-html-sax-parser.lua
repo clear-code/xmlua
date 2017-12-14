@@ -186,6 +186,39 @@ function TestHTMLSAXParser.test_end_element_with_default_namespace()
 end
 
 
+local function collect_texts(chunk)
+  local parser = xmlua.HTMLSAXParser.new()
+  local texts = {}
+  parser.text = function(text)
+    table.insert(texts, text)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return texts
+end
+
+function TestHTMLSAXParser.test_text()
+  local html = [[
+<html>
+  <head>
+    <title>Hello World</title>
+  </head>
+  <body>
+    <div>
+      <p>Hello</p>
+      <p>World</p>
+    </div>
+  </body>
+</html>
+]]
+  local expected = {
+    "Hello World",
+    "Hello",
+    "World",
+  }
+  luaunit.assertEquals(collect_texts(html), expected)
+end
+
+
 local function collect_errors(chunk)
   local parser = xmlua.HTMLSAXParser.new()
   local errors = {}

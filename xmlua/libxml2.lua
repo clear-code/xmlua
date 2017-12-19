@@ -20,6 +20,21 @@ if not loaded then
   xml2 = ffi.load("libxml2.so.2")
 end
 
+local function __xmlParserVersionIsAvailable()
+  local success, err = pcall(function()
+      local func = xml2.__xmlParserVersion
+  end)
+  return success
+end
+
+local xmlParserVersion
+if __xmlParserVersionIsAvailable() then
+  xmlParserVersion = xml2.__xmlParserVersion()[0]
+else
+  xmlParserVersion = xml2.xmlParserVersion
+end
+
+libxml2.VERSION = ffi.string(xmlParserVersion)
 libxml2.XML_SAX2_MAGIC = 0xDEEDBEAF
 
 local function __xmlMallocIsAvailable()

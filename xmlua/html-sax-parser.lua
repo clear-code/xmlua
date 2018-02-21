@@ -96,6 +96,15 @@ local function create_text_callback(user_callback)
   return c_callback
 end
 
+local function create_end_document_callback(user_callback)
+  local callback = function(user_data)
+    user_callback()
+  end
+  local c_callback = ffi.cast("endDocumentSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_error_callback(user_callback)
   local callback = function(user_data, raw_error)
     local error = {
@@ -126,6 +135,9 @@ function metatable.__newindex(parser, key, value)
   elseif key == "text" then
     value = create_text_callback(value)
     parser.context.sax.characters = value
+  elseif key == "end_document" then
+    value = create_end_document_callback(value)
+    parser.context.sax.endDocument = value
   elseif key == "error" then
     value = create_error_callback(value)
     parser.context.sax.serror = value

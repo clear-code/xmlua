@@ -231,6 +231,20 @@ function TestHTMLSAXParser.test_text()
   luaunit.assertEquals(collect_texts(html), expected)
 end
 
+function TestHTMLSAXParser.test_end_document()
+  local html = [[
+<html></html>
+]]
+  local parser = xmlua.HTMLSAXParser.new()
+  local called = false
+  parser.end_document = function()
+    called = true
+  end
+  local succeeded = parser:parse(html)
+  luaunit.assertEquals({succeeded, called}, {true, false})
+  succeeded = parser:finish()
+  luaunit.assertEquals({succeeded, called}, {true, true})
+end
 
 local function collect_errors(chunk)
   local parser = xmlua.HTMLSAXParser.new()

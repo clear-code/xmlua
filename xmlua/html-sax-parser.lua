@@ -14,6 +14,15 @@ function metatable.__index(parser, key)
   return methods[key]
 end
 
+local function create_start_document_callback(user_callback)
+  local callback = function(user_data)
+    user_callback()
+  end
+  local c_callback = ffi.cast("startDocumentSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_start_element_callback(user_callback)
   local callback = function(user_data,
                             raw_local_name,
@@ -105,7 +114,10 @@ local function create_error_callback(user_callback)
 end
 
 function metatable.__newindex(parser, key, value)
-  if key == "start_element" then
+  if key == "start_document" then
+    value = create_start_document_callback(value)
+    parser.context.sax.startDocument = value
+  elseif key == "start_element" then
     value = create_start_element_callback(value)
     parser.context.sax.startElementNs = value
   elseif key == "end_element" then

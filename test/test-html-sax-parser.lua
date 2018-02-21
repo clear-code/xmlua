@@ -5,6 +5,19 @@ local ffi = require("ffi")
 
 TestHTMLSAXParser = {}
 
+function TestHTMLSAXParser.test_start_document()
+  local html = [[
+<html></html>
+]]
+  local parser = xmlua.HTMLSAXParser.new()
+  local called = false
+  parser.start_document = function()
+    called = true
+  end
+  local succeeded = parser:parse(html)
+  luaunit.assertEquals({succeeded, called}, {true, true})
+end
+
 local function collect_start_elements(chunk)
   local parser = xmlua.HTMLSAXParser.new()
   local elements = {}

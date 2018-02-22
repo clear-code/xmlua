@@ -18,6 +18,19 @@ function TestHTMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+function TestHTMLSAXParser.test_comment()
+  local html = [[
+<html><!--This is comment--></html>
+]]
+  local parser = xmlua.HTMLSAXParser.new()
+  local called = false
+  parser.comment = function()
+    called = true
+  end
+  local succeeded = parser:parse(html)
+  luaunit.assertEquals({succeeded, called}, {true, true})
+end
+
 local function collect_start_elements(chunk)
   local parser = xmlua.HTMLSAXParser.new()
   local elements = {}

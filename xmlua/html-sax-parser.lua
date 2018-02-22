@@ -33,8 +33,8 @@ local function create_ignorable_whitespace_callback(user_callback)
 end
 
 local function create_comment_callback(user_callback)
-  local callback = function(user_data)
-    user_callback()
+  local callback = function(user_data, raw_comment)
+    user_callback(to_string(raw_comment))
   end
   local c_callback = ffi.cast("commentSAXFunc", callback)
   ffi.gc(c_callback, function() c_callback:free() end)

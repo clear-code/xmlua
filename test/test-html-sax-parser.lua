@@ -20,15 +20,26 @@ end
 
 function TestHTMLSAXParser.test_ignorable_whitespace()
   local html = [[
-<html><span></span> </html>
+<html><span></span>  </html>
 ]]
   local parser = xmlua.HTMLSAXParser.new()
   local called = false
-  parser.ignorable_whitespace = function()
-    called = true
+  local expected = {
+    succeeded = true,
+    called = true,
+    ignorable_whitespaces = "  ",
+    ignorable_whitespaces_length = 2
+  }
+  local actual = {}
+
+  parser.ignorable_whitespace = function(ignorable_whitespaces,
+                                         ignorable_whitespaces_length)
+    actual["ignorable_whitespaces"] = ignorable_whitespaces
+    actual["ignorable_whitespaces_length"] = ignorable_whitespaces_length
+    actual["called"] = true
   end
-  local succeeded = parser:parse(html)
-  luaunit.assertEquals({succeeded, called}, {true, true})
+  actual["succeeded"] = parser:parse(html)
+  luaunit.assertEquals(actual, expected)
 end
 
 function TestHTMLSAXParser.test_comment()

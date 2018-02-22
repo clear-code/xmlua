@@ -24,8 +24,14 @@ local function create_start_document_callback(user_callback)
 end
 
 local function create_ignorable_whitespace_callback(user_callback)
-  local callback = function(user_data)
-    user_callback()
+  local callback = function(user_data, raw_ignorable_whitespaces, raw_length)
+    local ignorable_whitespaces = ""
+    for i = 1, raw_length do
+      local index = i - 1
+      ignorable_whitespaces =
+        ignorable_whitespaces..string.char(raw_ignorable_whitespaces[index])
+    end
+    user_callback(ignorable_whitespaces, raw_length)
   end
   local c_callback = ffi.cast("ignorableWhitespaceSAXFunc", callback)
   ffi.gc(c_callback, function() c_callback:free() end)

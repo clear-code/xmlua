@@ -23,6 +23,15 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_ignorable_whitespace_callback(user_callback)
+  local callback = function(user_data)
+    user_callback()
+  end
+  local c_callback = ffi.cast("ignorableWhitespaceSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_comment_callback(user_callback)
   local callback = function(user_data)
     user_callback()
@@ -135,6 +144,9 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "ignorable_whitespace" then
+    value = create_ignorable_whitespace_callback(value)
+    parser.context.sax.ignorableWhitespace = value
   elseif key == "comment" then
     value = create_comment_callback(value)
     parser.context.sax.comment = value

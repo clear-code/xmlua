@@ -18,6 +18,21 @@ function TestHTMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+function TestHTMLSAXParser.test_processing_instruction()
+  local html =
+    "<html><?target This is PI?></html>"
+  local parser = xmlua.HTMLSAXParser.new()
+  local targets = {}
+  local data_list = {}
+  parser.processing_instruction = function(target, data)
+    table.insert(targets, target)
+    table.insert(data_list, data)
+  end
+  local succeeded = parser:parse(html)
+  luaunit.assertEquals({succeeded, targets, data_list},
+                       {true, {"target"}, {"This is PI"}})
+end
+
 function TestHTMLSAXParser.test_cdata_block()
   local html =
     "<html><![CDATA[<script>alert(\"Hello world!\")</script>]]></html>"

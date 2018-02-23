@@ -18,6 +18,20 @@ function TestHTMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+function TestHTMLSAXParser.test_cdata_block()
+  local html =
+    "<html><![CDATA[<script>alert(\"Hello world!\")</script>]]></html>"
+  local parser = xmlua.HTMLSAXParser.new()
+  local cdata_blocks = {}
+
+  parser.cdata_block = function(cdata_block)
+    table.insert(cdata_blocks, cdata_block)
+  end
+  local succeeded = parser:parse(html)
+  luaunit.assertEquals({succeeded, cdata_blocks},
+                       {true, {"<script>alert(\"Hello world!\")</script>"}})
+end
+
 function TestHTMLSAXParser.test_ignorable_whitespace()
   local html = [[
 <html><span></span>  </html>

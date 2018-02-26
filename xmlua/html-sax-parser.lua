@@ -23,6 +23,18 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_reference_callback(user_callback)
+  local callback = function(user_data, raw_name)
+    print(raw_name)
+    local name = to_string(raw_name)
+    print(name)
+    user_callback(name)
+  end
+  local c_callback = ffi.cast("referenceSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_processing_instruction_callback(user_callback)
   local callback = function(user_data, raw_target, raw_data)
     local target = to_string(raw_target)
@@ -166,6 +178,9 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "reference" then
+    value = create_reference_callback(value)
+    parser.context.sax.reference = value
   elseif key == "processing_instruction" then
     value = create_processing_instruction_callback(value)
     parser.context.sax.processingInstruction = value

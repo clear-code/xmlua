@@ -20,7 +20,7 @@ end
 
 function TestHTMLSAXParser.test_processing_instruction()
   local html =
-    "<html><?target This is PI?></html>"
+    "<html><?target This is PI></html>"
   local parser = xmlua.HTMLSAXParser.new()
   local targets = {}
   local data_list = {}

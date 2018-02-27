@@ -27,6 +27,12 @@ htmlParserCtxtPtr htmlCreatePushParserCtxt(htmlSAXHandlerPtr sax,
                                            int size,
                                            const char *filename,
 			                   xmlCharEncoding enc);
+
+int htmlParseChunk(htmlParserCtxtPtr ctxt,
+		   const char *chunk,
+		   int size,
+		   int terminate);
+
 void htmlFreeParserCtxt(htmlParserCtxtPtr context);
 
 htmlDocPtr htmlCtxtReadMemory(xmlParserCtxtPtr ctxt,

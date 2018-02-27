@@ -198,12 +198,12 @@ function metatable.__newindex(parser, key, value)
 end
 
 function methods.parse(self, chunk)
-  local parser_error = libxml2.xmlParseChunk(self.context, chunk, false)
+  local parser_error = libxml2.htmlParseChunk(self.context, chunk, false)
   return parser_error == ffi.C.XML_ERR_OK
 end
 
 function methods.finish(self)
-  local parser_error = libxml2.xmlParseChunk(self.context, nil, true)
+  local parser_error = libxml2.htmlParseChunk(self.context, nil, true)
   return parser_error == ffi.C.XML_ERR_OK
 end
 

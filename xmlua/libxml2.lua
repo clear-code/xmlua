@@ -82,6 +82,14 @@ function libxml2.htmlCreatePushParserCtxt(filename, encoding)
   return ffi.gc(context, xml2.htmlFreeParserCtxt)
 end
 
+function libxml2.htmlParseChunk(context, chunk, is_terminated)
+  if chunk then
+    return xml2.htmlParseChunk(context, chunk, #chunk, is_terminated)
+  else
+    return xml2.htmlParseChunk(context, nil, 0, is_terminated)
+  end
+end
+
 function libxml2.htmlCtxtReadMemory(context, html, options)
   local url = nil
   local encoding = nil

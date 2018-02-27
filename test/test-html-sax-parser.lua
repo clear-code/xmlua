@@ -326,10 +326,10 @@ end
 function TestHTMLSAXParser.test_error()
   local expected = {
     {
-      domain = ffi.C.XML_FROM_PARSER,
-      code = ffi.C.XML_ERR_DOCUMENT_END,
-      message = "Extra content at the end of the document\n",
-      level = ffi.C.XML_ERR_FATAL,
+      domain = ffi.C.XML_FROM_HTML,
+      code = ffi.C.XML_ERR_NAME_REQUIRED,
+      message = "htmlParseStartTag: invalid element name\n",
+      level = ffi.C.XML_ERR_ERROR,
       line = 1,
     },
   }

@@ -35,7 +35,7 @@ end
 
 function TestHTMLSAXParser.test_cdata_block()
   local html =
-    "<html><![CDATA[<script>alert(\"Hello world!\")</script>]]></html>"
+    "<html><script>alert(\"Hello world!\")</script></html>"
   local parser = xmlua.HTMLSAXParser.new()
   local cdata_blocks = {}
 
@@ -44,7 +44,7 @@ function TestHTMLSAXParser.test_cdata_block()
   end
   local succeeded = parser:parse(html)
   luaunit.assertEquals({succeeded, cdata_blocks},
-                       {true, {"<script>alert(\"Hello world!\")</script>"}})
+                       {true, {"alert(\"Hello world!\")"}})
 end
 
 function TestHTMLSAXParser.test_ignorable_whitespace()

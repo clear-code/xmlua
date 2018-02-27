@@ -286,8 +286,13 @@ function TestHTMLSAXParser.test_text()
 ]]
   local expected = {
     "Hello World",
+    "\n    ",
+    "\n      ",
     "Hello",
+    "\n      ",
     "World",
+    "\n    ",
+    "\n  "
   }
   luaunit.assertEquals(collect_texts(html), expected)
 end

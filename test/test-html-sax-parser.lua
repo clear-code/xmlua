@@ -49,7 +49,9 @@ end
 
 function TestHTMLSAXParser.test_ignorable_whitespace()
   local html = [[
-<html><span></span>  </html>
+<html>
+  <span></span>
+</html>
 ]]
   local parser = xmlua.HTMLSAXParser.new()
   local ignorable_whitespaces_list = {}
@@ -59,7 +61,7 @@ function TestHTMLSAXParser.test_ignorable_whitespace()
   end
   local succeeded = parser:parse(html)
   luaunit.assertEquals({succeeded, ignorable_whitespaces_list},
-                       {true, {"  "}})
+                       {true, {"\n  ", "\n"}})
 end
 
 function TestHTMLSAXParser.test_comment()

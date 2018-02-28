@@ -18,6 +18,25 @@ function TestHTMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+function TestHTMLSAXParser.test_reference()
+  local html = [[
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+&quot;
+&laquo;
+&quot;
+</html>
+]]
+  local parser = xmlua.HTMLSAXParser.new()
+  local names = {}
+  parser.reference = function(name)
+    table.insert(names, name)
+  end
+  local succeeded = parser:parse(html)
+  luaunit.assertEquals({succeeded, names},
+                       {true, {"quot, laquo, quot"}})
+end
+
 function TestHTMLSAXParser.test_processing_instruction()
   local html = "<html><?target This is PI></html>"
   local parser = xmlua.HTMLSAXParser.new()

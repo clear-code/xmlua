@@ -19,8 +19,7 @@ function TestHTMLSAXParser.test_start_document()
 end
 
 function TestHTMLSAXParser.test_processing_instruction()
-  local html =
-    "<html><?target This is PI></html>"
+  local html = "<html><?target This is PI></html>"
   local parser = xmlua.HTMLSAXParser.new()
   local targets = {}
   local data_list = {}
@@ -34,8 +33,7 @@ function TestHTMLSAXParser.test_processing_instruction()
 end
 
 function TestHTMLSAXParser.test_cdata_block()
-  local html =
-    "<html><script>alert(\"Hello world!\")</script></html>"
+  local html = "<html><script>alert(\"Hello world!\")</script></html>"
   local parser = xmlua.HTMLSAXParser.new()
   local cdata_blocks = {}
 

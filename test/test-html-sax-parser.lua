@@ -225,6 +225,6 @@ function TestHTMLSAXParser.test_error()
       line = 1,
     },
   }
-  luaunit.assertEquals(collect_errors("<"),
+  luaunit.assertEquals(collect_errors("<&"),
                        expected)
 end

@@ -82,17 +82,10 @@ end
 local function collect_start_elements(chunk)
   local parser = xmlua.HTMLSAXParser.new()
   local elements = {}
-  parser.start_element = function(local_name,
-                                  prefix,
-                                  uri,
-                                  namespaces,
-                                  attributes)
+  parser.start_element = function(name, attributes)
     local element = {
-      local_name = local_name,
-      prefix = prefix,
-      uri = uri,
-      namespaces = namespaces,
-      attributes = attributes
+      name = name,
+      attributes = attributes,
     }
     table.insert(elements, element)
   end
@@ -100,104 +93,46 @@ local function collect_start_elements(chunk)
   return elements
 end
 
-function TestHTMLSAXParser.test_start_element_no_namespace()
+function TestHTMLSAXParser.test_start_element()
   local expected = {
     {
-      local_name = "html",
-      namespaces = {},
+      name = "html",
+      attributes = {},
+    },
+    -- An implicit event. We can disable it with HTML_PARSER_NOIMPLIED option.
+    {
+      name = "body",
+      attributes = {},
+    },
+    {
+      name = "p",
       attributes = {},
     },
   }
-  luaunit.assertEquals(collect_start_elements("<html>"), expected)
+  luaunit.assertEquals(collect_start_elements("<html><p>"),
+                       expected)
 end
 
-function TestHTMLSAXParser.test_start_element_attributes_no_namespace()
+function TestHTMLSAXParser.test_start_element_attributes()
   local html = [[
 <html id="top" class="top-level">
 ]]
   local expected = {
     {
-      local_name = "html",
-      namespaces = {},
+      name = "html",
       attributes = {
         {
-          local_name = "id",
+          name = "id",
           value = "top",
-          is_default = false,
         },
         {
-          local_name = "class",
+          name = "class",
           value = "top-level",
-          is_default = false,
         },
       },
     },
   }
   luaunit.assertEquals(collect_start_elements(html),
-                       expected)
-end
-
-function TestHTMLSAXParser.test_start_element_with_namespace()
-  local xhtml = [[
-<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"
-  id="top"
-  xhtml:class="top-level">
-]]
-  local expected = {
-    {
-      local_name = "html",
-      prefix = "xhtml",
-      uri = "http://www.w3.org/1999/xhtml",
-      namespaces = {
-        xhtml = "http://www.w3.org/1999/xhtml",
-      },
-      attributes = {
-        {
-          local_name = "id",
-          value = "top",
-          is_default = false,
-        },
-        {
-          local_name = "class",
-          prefix = "xhtml",
-          uri = "http://www.w3.org/1999/xhtml",
-          value = "top-level",
-          is_default = false,
-        },
-      },
-    },
-  }
-  luaunit.assertEquals(collect_start_elements(xhtml),
-                       expected)
-end
-
-function TestHTMLSAXParser.test_start_element_with_default_namespace()
-  local xhtml = [[
-<html xmlns="http://www.w3.org/1999/xhtml"
-  id="top"
-  class="top-level">
-]]
-  local expected = {
-    {
-      local_name = "html",
-      uri = "http://www.w3.org/1999/xhtml",
-      namespaces = {},
-      attributes = {
-        {
-          local_name = "id",
-          value = "top",
-          is_default = false,
-        },
-        {
-          local_name = "class",
-          value = "top-level",
-          is_default = false,
-        },
-      },
-    },
-  }
-  expected[1].namespaces[""] = "http://www.w3.org/1999/xhtml"
-  luaunit.assertEquals(collect_start_elements(xhtml),
                        expected)
 end
 

@@ -65,50 +65,29 @@ end
 
 local function create_start_element_callback(user_callback)
   local callback = function(user_data,
-                            raw_local_name,
-                            raw_prefix,
-                            raw_uri,
-                            n_namespaces,
-                            raw_namespaces,
-                            n_attributes,
-                            n_defaulted,
+                            raw_name,
                             raw_attributes)
-    local namespaces = {}
-    for i = 1, n_namespaces do
-      local base_index = (2 * (i - 1))
-      local prefix = to_string(raw_namespaces[base_index + 0])
-      local uri = to_string(raw_namespaces[base_index + 1])
-      if prefix then
-        namespaces[prefix] = uri
-      else
-        namespaces[""] = uri
+    local attributes = {}
+    if raw_attributes ~= ffi.NULL then
+      local i = 0;
+      while true do
+        local raw_attribute_name = raw_attributes[i];
+        if raw_attribute_name == ffi.NULL then
+          break
+        end
+        i = i + 1
+        local raw_attribute_value = raw_attributes[i]
+        i = i + 1
+        local attribute = {
+          name = to_string(raw_attribute_name),
+          value = to_string(raw_attribute_value),
+        }
+        table.insert(attributes, attribute)
       end
     end
-    local attributes = {}
-    for i = 1, n_attributes + n_defaulted do
-      local base_index = (5 * (i - 1))
-      local raw_attribute_local_name = raw_attributes[base_index + 0]
-      local raw_attribute_prefix = raw_attributes[base_index + 1]
-      local raw_attribute_uri = raw_attributes[base_index + 2]
-      local raw_attribute_value = raw_attributes[base_index + 3]
-      local raw_attribute_end = raw_attributes[base_index + 4]
-      local attribute = {
-        local_name = to_string(raw_attribute_local_name),
-        prefix = to_string(raw_attribute_prefix),
-        uri = to_string(raw_attribute_uri),
-        value = to_string(raw_attribute_value,
-                          raw_attribute_end - raw_attribute_value),
-        is_default = i > n_attributes,
-      }
-      table.insert(attributes, attribute)
-    end
-    user_callback(to_string(raw_local_name),
-                  to_string(raw_prefix),
-                  to_string(raw_uri),
-                  namespaces,
-                  attributes)
+    user_callback(to_string(raw_name), attributes)
   end
-  local c_callback = ffi.cast("startElementNsSAX2Func", callback)
+  local c_callback = ffi.cast("startElementSAXFunc", callback)
   ffi.gc(c_callback, function() c_callback:free() end)
   return c_callback
 end
@@ -175,7 +154,7 @@ function metatable.__newindex(parser, key, value)
     parser.context.sax.comment = value
   elseif key == "start_element" then
     value = create_start_element_callback(value)
-    parser.context.sax.startElementNs = value
+    parser.context.sax.startElement = value
   elseif key == "end_element" then
     value = create_end_element_callback(value)
     parser.context.sax.endElement = value

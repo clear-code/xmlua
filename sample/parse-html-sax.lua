@@ -11,6 +11,10 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.comment = function(comment)
+  print("Comment: ".. comment)
+end
+
 parser.cdata_block = function(cdata_block)
   print("CDATA block: ".. cdata_block)
 end

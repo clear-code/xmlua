@@ -49,6 +49,10 @@ parser.error = function(err)
   print("Error: " .. path .. ":" .. err.line .. ": " .. err.message)
 end
 
+parser.end_document = function()
+  print("End document")
+end
+
 while true do
   local line = file:read()
   if not line then

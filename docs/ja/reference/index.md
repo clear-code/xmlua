@@ -26,6 +26,8 @@ XMLuaは以下のクラスを提供します。
 
   * [`xmlua.HTML`][html]: HTMLをパースするクラスです。
 
+  * [`xmlua.HTMLSAXParser`][html-sax-parser]: HTML のSAXパーサークラスです。
+
   * [`xmlua.XML`][xml]: XMLをパースするクラスです。
 
   * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。
@@ -34,7 +36,7 @@ XMLuaは以下のクラスを提供します。
 
   * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。
 
-`xmlua.HTML`と`xmlua.XML`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XML`のメソッド経由でアクセスできます。
+`xmlua.HTML`と`xmlua.XML`、`xmlua.HTMLSAXParser`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XML`、`xmlua.HTMLSAXParser`のメソッド経由でアクセスできます。
 
 [tutorial]:../tutorial/
 
@@ -47,6 +49,8 @@ XMLuaは以下のクラスを提供します。
 [searchable]:searchable.html
 
 [html]:html.html
+
+[html-sax-func]:html-sax-func.html
 
 [xml]:xml.html
 

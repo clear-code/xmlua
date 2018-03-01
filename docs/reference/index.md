@@ -26,6 +26,8 @@ XMLua provides the following classes:
 
   * [`xmlua.HTML`][html]: The class for parsing HTML.
 
+  * [`xmlua.HTMLSAXParser`][html-sax-parser]: The class for HTML SAX parsing.
+
   * [`xmlua.XML`][xml]: The class for parsing XML.
 
   * [`xmlua.Document`][document]: The class for HTML document and XML document.
@@ -34,7 +36,7 @@ XMLua provides the following classes:
 
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
 
-You can access only `xmlua.HTML` and `xmlua.XML` directly. Other classes are accessible via methods of `xmlua.HTML` and `xmlua.XML.
+You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` directly. Other classes are accessible via methods of `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser`.
 
 [tutorial]:../tutorial/
 
@@ -47,6 +49,8 @@ You can access only `xmlua.HTML` and `xmlua.XML` directly. Other classes are acc
 [searchable]:searchable.html
 
 [html]:html.html
+
+[html-sax-func]:html-sax-func.html
 
 [xml]:xml.html
 

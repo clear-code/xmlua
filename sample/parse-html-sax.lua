@@ -11,6 +11,11 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.processing_instruction = function(target, data)
+  print("Processing instruction target: ".. target)
+  print("Processing instruction data: ".. data)
+end
+
 parser.comment = function(comment)
   print("Comment: ".. comment)
 end

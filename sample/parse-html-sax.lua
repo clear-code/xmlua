@@ -7,6 +7,10 @@ local file = assert(io.open(path))
 
 local parser = xmlua.HTMLSAXParser.new()
 
+parser.start_document = function()
+  print("Start document")
+end
+
 parser.start_element = function(local_name,
                                 attributes)
   print("Start element: " .. local_name)

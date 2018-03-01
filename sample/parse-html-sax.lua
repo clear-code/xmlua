@@ -11,6 +11,10 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.cdata_block = function(cdata_block)
+  print("CDATA block: ".. cdata_block)
+end
+
 parser.start_element = function(local_name,
                                 attributes)
   print("Start element: " .. local_name)

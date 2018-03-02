@@ -50,7 +50,7 @@ You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` directly
 
 [html]:html.html
 
-[html-sax-func]:html-sax-func.html
+[html-sax-parser]:html-sax-parser.html
 
 [xml]:xml.html
 

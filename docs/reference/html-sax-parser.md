@@ -633,3 +633,89 @@ Result of avobe example as blow.
 ```
 Text: Hello
 ```
+
+### `xmlua.HTMLSAXParser.error`
+
+It registers user call back function as below.
+
+You can get error information of parse HTML with SAX as argument of your call back.
+
+```lua
+local parser = xmlua.HTMLSAXParser.new()
+parser.error = function(error)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse failed.
+Error information structure as below.
+
+```
+{
+  domain
+  code
+  message
+  level
+  line
+}
+```
+
+`domain` has values as specific as below.
+[`Error domain list`][error-domain-list]
+
+`code` has values as specific as below.
+[`Error code list`][error-code-list]
+
+`level` has values as specific as below.
+[`Error level list`][error-level-list]
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- HTML to be parsed
+local html = [[
+<>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses HTML with SAX
+local parser = xmlua.HTMLSAXParser.new()
+parser.error = function(error)
+  print("Error domain : " .. error.domain)
+  print("Error code   : " .. error.code)
+  print("Error message: " .. error.message)
+  print("Error level  : " .. error.level)
+  print("Error line   : " .. error.line)
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse HTML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Error domain : 5
+Error code   : 68
+Error message: htmlParseStartTag: invalid element name
+
+Error level  : 2
+Error line   : 1
+Failed to parse HTML with SAX
+```
+
+[Error domain list]:error-domain-list.html
+[Error code list]:error-code-list.html
+[Error level list]:error-level-list.html
+

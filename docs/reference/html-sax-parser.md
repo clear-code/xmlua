@@ -395,3 +395,58 @@ Ignorable whitespace: " "
 Ignorable whitespace: "
 "
 ```
+
+### `xmlua.HTMLSAXParser.comment`
+
+It registers user call back function as below.
+
+You can get comment of HTML as argument of your call back. comment in HTML is `comment` in below example.
+
+```lua
+local parser = xmlua.HTMLSAXParser.new()
+parser.comment = function(comment)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse HTML's comment.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- HTML to be parsed
+local html = [[
+<html>
+<!--This is comment.-->
+  <body>
+    <p>Hello</p>
+  </body>
+</html>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses HTML with SAX
+local parser = xmlua.HTMLSAXParser.new()
+parser.comment = function(comment)
+  print("Comment: "..comment)
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse HTML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Comment:  This is comment.
+```

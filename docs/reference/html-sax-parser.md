@@ -285,3 +285,60 @@ Result of avobe example as blow.
 Processing instruction target: target
 Processing instruction data: This is PI
 ```
+
+### `xmlua.HTMLSAXParser.cdata_block`
+
+It registers user call back function as below.
+
+You can get attributes of script element as argument of your call back. Attributes of script element is `cdata_block`.
+
+```lua
+local parser = xmlua.HTMLSAXParser.new()
+parser.cdata_block = function(cdata_block)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse script element.
+
+Registered function is called, when parse `<script>alert(\"Hello world!\")</script>` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- HTML to be parsed
+local html = [[
+<html>
+  <body>
+    <p>Hello</p>
+  </body>
+  <script>alert(\"Hello world!\")</script>
+</html>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses HTML with SAX
+local parser = xmlua.HTMLSAXParser.new()
+parser.cdata_block = function(cdata_block)
+  print("CDATA block: "..cdata_block)
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse HTML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+CDATA block: alert(\"Hello world!\")
+```

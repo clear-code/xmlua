@@ -342,3 +342,56 @@ Result of avobe example as blow.
 ```
 CDATA block: alert(\"Hello world!\")
 ```
+
+### `xmlua.HTMLSAXParser.ignorable_whitespace`
+
+It registers user call back function as below.
+
+You can get ignorable whitespace in HTML as argument of your call back. ignorable whitespace in HTML is `ignorable_whitespace` in below example.
+
+```lua
+local parser = xmlua.HTMLSAXParser.new()
+parser.ignorable_whitespace = function(ignorable_whitespace)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse ignorable whitespace
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- HTML to be parsed
+local html = [[
+<html> <body><p>Hello</p></body> </html>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses HTML with SAX
+local parser = xmlua.HTMLSAXParser.new()
+parser.ignorable_whitespace = function(ignorable_whitespace)
+  print("Ignorable whitespace: ".."\""..ignorable_whitespace.."\"")
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse HTML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Ignorable whitespace: " "
+Ignorable whitespace: " "
+Ignorable whitespace: "
+"
+```

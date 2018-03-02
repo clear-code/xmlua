@@ -26,6 +26,12 @@ Call back event list:
   * EndDocument
   * Error
 
+## Instance methods
+
+### `xmlua.HTMLSAXParser.new() -> HTMLSAXParser` {#new}
+
+It makes HTMLSAXParser object.
+
 You can make object of `xmllua.HTMLSAXParser` class as below example.
 
 Example:
@@ -36,7 +42,8 @@ local xmlua = require("xmlua")
 local parser = xmlua.HTMLSAXParser.new()
 ```
 
-## Instance methods
+## Methods
+
 ### `xmlua.HTMLSAXParser.parse(html) -> boolean` {#parse}
 
 `html`: HTML string to be parsed.

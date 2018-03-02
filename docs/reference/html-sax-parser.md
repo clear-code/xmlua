@@ -715,7 +715,7 @@ Error line   : 1
 Failed to parse HTML with SAX
 ```
 
-[Error domain list]:error-domain-list.html
-[Error code list]:error-code-list.html
-[Error level list]:error-level-list.html
+[error-domain-list]:error-domain-list.html
+[error-code-list]:error-code-list.html
+[error-level-list]:error-level-list.html
 

@@ -450,3 +450,78 @@ Result of avobe example as blow.
 ```
 Comment:  This is comment.
 ```
+
+### `xmlua.HTMLSAXParser.start_element`
+
+It registers user call back function as below.
+
+You can get name and attributes of elements as argument of your call back.
+
+```lua
+local parser = xmlua.HTMLSAXParser.new()
+parser.start_element = function(local_name, attributes)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse element.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- HTML to be parsed
+local html = [[
+<html id="top" class="top-level">
+  <body>
+    <p>Hello</p>
+  </body>
+</html>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses HTML with SAX
+local parser = xmlua.HTMLSAXParser.new()
+parser.start_element = function(local_name, attributes)
+  print("Start element: " .. local_name)
+  if #attributes > 0 then
+    print("  Attributes:")
+    for i, attribute in pairs(attributes) do
+      local name
+      if attribute.prefix then
+        name = attribute.prefix .. ":" .. attribute.local_name
+      else
+        name = attribute.name
+      end
+      if attribute.uri then
+        name = name .. "{" .. attribute.uri .. "}"
+      end
+      print("    " .. name .. ": " .. attribute.value)
+    end
+  end
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse HTML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Start element: html
+  Attributes:
+    id: top
+    class: top-level
+Start element: body
+Start element: p
+```

@@ -71,7 +71,8 @@ local html = [[
 -- local html = io.open("example.html"):read("*all")
 
 -- Parses HTML with SAX
-local success = pcall(xmlua.HTMLSAXParser.parse, html)
+local parser = xmlua.HTMLSAXParser.new()
+local success = parser:parse(html)
 if not success then
   print("Failed to parse HTML with SAX")
   os.exit(1)

@@ -107,7 +107,7 @@ msgstr ""
 msgid "[html]:html.html"
 msgstr ""
 
-msgid "[html-sax-func]:html-sax-func.html"
+msgid "[html-sax-parser]:html-sax-parser.html"
 msgstr ""
 
 msgid "[xml]:xml.html"

@@ -121,6 +121,14 @@ function libxml2.xmlNewParserCtxt()
   return ffi.gc(context, xml2.xmlFreeParserCtxt)
 end
 
+function libxml2.xmlCreatePushParserCtxt(filename)
+  local context = xml2.xmlCreatePushParserCtxt(nil, nil, nil, 0, filename)
+  if context == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(context, xml2.xmlFreeParserCtxt)
+end
+
 function libxml2.xmlCtxtReadMemory(context, xml, options)
   local url = nil
   local encoding = nil

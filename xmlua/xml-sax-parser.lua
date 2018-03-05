@@ -45,20 +45,6 @@ function XMLSAXParser.new()
   if not parser.context then
     error("Failed to create context to parse XML")
   end
-  -- TODO: Workaround for xmlCreatePushParserCtxt().
-  -- It should allocate xmlParserCtxt::pushTab.
-  if parser.context.pushTab == ffi.NULL then
-    parser.context.pushTab =
-      libxml2.xmlMalloc(parser.context.nameMax * 3 * ffi.sizeof("xmlChar *"));
-  end
-  -- TODO: Workaround for xmlCreatePushParserCtxt().
-  -- It should allocate xmlParserCtxt::spaceTab.
-  if parser.context.spaceTab == ffi.NULL then
-    parser.context.spaceMax = 10
-    parser.context.spaceTab =
-      libxml2.xmlMalloc(parser.context.spaceMax * ffi.sizeof("int"));
-  end
-
   parser.context.sax.initialized = libxml2.XML_SAX2_MAGIC
 
   setmetatable(parser, metatable)

@@ -19,10 +19,22 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_end_document_callback(user_callback)
+  local callback = function(user_data)
+    user_callback()
+  end
+  local c_callback = ffi.cast("endDocumentSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "end_document" then
+    value = create_end_document_callback(value)
+    parser.context.sax.endDocument = value
   end
   rawset(parser, key, value)
 end

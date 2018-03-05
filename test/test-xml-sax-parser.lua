@@ -6,7 +6,7 @@ local ffi = require("ffi")
 TestXMLSAXParser = {}
 
 function TestXMLSAXParser.test_start_document()
-  local html = [[
+  local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 ]]
   local parser = xmlua.XMLSAXParser.new()
@@ -15,12 +15,12 @@ function TestXMLSAXParser.test_start_document()
     called = true
   end
 
-  local succeeded = parser:parse(html)
+  local succeeded = parser:parse(xml)
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
 function TestXMLSAXParser.test_end_document()
-  local html = [[
+  local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <xml></xml>
 ]]
@@ -30,7 +30,7 @@ function TestXMLSAXParser.test_end_document()
     called = true
   end
 
-  local succeeded = parser:parse(html)
+  local succeeded = parser:parse(xml)
   luaunit.assertEquals({succeeded, called}, {true, false})
   succeeded = parser:finish()
   luaunit.assertEquals({succeeded, called}, {true, true})

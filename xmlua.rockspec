@@ -56,7 +56,8 @@ build = {
     ["xmlua.searchable"] = "xmlua/searchable.lua",
     ["xmlua.serializable"] = "xmlua/serializable.lua",
     ["xmlua.text"] = "xmlua/text.lua",
-    ["xmlua.xml"] = "xmlua/xml.lua"
+    ["xmlua.xml"] = "xmlua/xml.lua",
+    ["xmlua.xml-sax-parser"] = "xmlua/xml-sax-parser.lua"
   },
   copy_directories = {
     "docs"

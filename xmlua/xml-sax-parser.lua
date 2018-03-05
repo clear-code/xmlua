@@ -1,0 +1,52 @@
+local XMLSAXParser = {}
+
+local libxml2 = require("xmlua.libxml2")
+local ffi = require("ffi")
+
+local methods = {}
+
+local metatable = {}
+function metatable.__index(parser, key)
+  return methods[key]
+end
+
+function methods.parse(self, chunk)
+  local parser_error = libxml2.xmlParseChunk(self.context, chunk, false)
+  return parser_error == ffi.C.XML_ERR_OK
+end
+
+function methods.finish(self)
+  local parser_error = libxml2.xmlParseChunk(self.context, nil, true)
+  return parser_error == ffi.C.XML_ERR_OK
+end
+
+function XMLSAXParser.new()
+  local parser = {}
+
+  local filename = nil
+  parser.context = libxml2.xmlCreatePushParserCtxt(filename)
+  if not parser.context then
+    error("Failed to create context to parse XML")
+  end
+  -- TODO: Workaround for xmlCreatePushParserCtxt().
+  -- It should allocate xmlParserCtxt::pushTab.
+  if parser.context.pushTab == ffi.NULL then
+    parser.context.pushTab =
+      libxml2.xmlMalloc(parser.context.nameMax * 3 * ffi.sizeof("xmlChar *"));
+  end
+  -- TODO: Workaround for xmlCreatePushParserCtxt().
+  -- It should allocate xmlParserCtxt::spaceTab.
+  if parser.context.spaceTab == ffi.NULL then
+    parser.context.spaceMax = 10
+    parser.context.spaceTab =
+      libxml2.xmlMalloc(parser.context.spaceMax * ffi.sizeof("int"));
+  end
+
+  parser.context.sax.initialized = libxml2.XML_SAX2_MAGIC
+
+  setmetatable(parser, metatable)
+
+  return parser
+end
+
+return XMLSAXParser

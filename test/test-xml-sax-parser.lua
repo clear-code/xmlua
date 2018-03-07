@@ -119,7 +119,7 @@ function TestXMLSAXParser.test_start_element_with_namespace()
                        expected)
 end
 
-function TestHTMLSAXParser.test_start_element_with_default_namespace()
+function TestXMLSAXParser.test_start_element_with_default_namespace()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml"

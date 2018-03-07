@@ -67,16 +67,13 @@ function TestHTMLSAXParser.test_comment()
 <html><!--This is comment--></html>
 ]]
   local parser = xmlua.HTMLSAXParser.new()
-  local called = false
   local comment = ""
-
   parser.comment = function(comment_content)
-    called = true
     comment = comment_content
   end
   local succeeded = parser:parse(html)
-  luaunit.assertEquals({succeeded, called, comment},
-                       {true, true, "This is comment"})
+  luaunit.assertEquals({succeeded, comment},
+                       {true, "This is comment"})
 end
 
 local function collect_start_elements(chunk)

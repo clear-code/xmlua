@@ -20,6 +20,22 @@ function TestXMLSAXParser.test_start_document()
 end
 
 
+function TestXMLSAXParser.test_comment()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml><!--This is comment--></xml>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local comments = {}
+  parser.comment = function(comment)
+    table.insert(comments, comment)
+  end
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, comments},
+                       {true, {"This is comment"}})
+end
+
+
 function TestXMLSAXParser.test_processing_instruction()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

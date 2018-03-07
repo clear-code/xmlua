@@ -19,6 +19,38 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+local function collect_external_subsets(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local external_subsets = {}
+  parser.external_subset = function(name,
+                                    external_id,
+                                    system_id)
+    local external_subset = {
+      name = name,
+      external_id = external_id,
+      system_id = system_id,
+    }
+    table.insert(external_subsets, external_subset)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return external_subsets
+end
+
+function TestXMLSAXParser.test_external_subset()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+]]
+  local expected = {
+    {
+      name = "html",
+      external_id = "-//W3C//DTD XHTML 1.0 Transitional//EN",
+      system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
+    },
+  }
+  luaunit.assertEquals(collect_external_subsets(xml), expected)
+end
+
 
 function TestXMLSAXParser.test_cdata_block()
   local xml = [=[

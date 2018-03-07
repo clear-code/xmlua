@@ -21,6 +21,21 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_external_subset_callback(user_callback)
+  local callback = function(user_data,
+                            raw_name,
+                            raw_external_id,
+                            raw_system_id)
+    local name = to_string(raw_name)
+    local external_id = to_string(raw_external_id)
+    local system_id = to_string(raw_system_id)
+    user_callback(name, external_id, system_id)
+  end
+  local c_callback = ffi.cast("externalSubsetSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_cdata_block_callback(user_callback)
   local callback = function(user_data, raw_cdata_block, raw_length)
     local cdata_block = to_string(raw_cdata_block, raw_length)
@@ -159,6 +174,9 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "external_subset" then
+    value = create_external_subset_callback(value)
+    parser.context.sax.externalSubset = value
   elseif key == "cdata_block" then
     value = create_cdata_block_callback(value)
     parser.context.sax.cdataBlock = value

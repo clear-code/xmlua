@@ -32,7 +32,6 @@ end
 
 local function create_processing_instruction_callback(user_callback)
   local callback = function(user_data, raw_target, raw_data)
-    print("in callback")
     local target = to_string(raw_target)
     local data = to_string(raw_data)
     user_callback(target, data)

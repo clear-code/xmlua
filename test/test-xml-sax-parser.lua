@@ -20,6 +20,31 @@ function TestXMLSAXParser.test_start_document()
 end
 
 
+local function collect_texts(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local texts = {}
+  parser.text = function(text)
+    table.insert(texts, text)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return texts
+end
+
+function TestXMLSAXParser.test_text()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <title>Hello World</title>
+</book>
+]]
+  local expected = {
+    "Hello World",
+    "\n",
+  }
+  luaunit.assertEquals(collect_texts(xml), expected)
+end
+
+
 function TestXMLSAXParser.test_reference()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8"?>

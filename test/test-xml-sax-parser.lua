@@ -20,6 +20,26 @@ function TestXMLSAXParser.test_start_document()
 end
 
 
+function TestXMLSAXParser.test_processing_instruction()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="www.test.com/test-style.xsl" type="text/xsl" ?>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local targets = {}
+  local data_list = {}
+  parser.processing_instruction = function(target, data)
+    table.insert(targets, target)
+    table.insert(data_list, data)
+  end
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, targets, data_list},
+                       {true,
+                       {"xml-stylesheet"},
+                       {"href=\"www.test.com/test-style.xsl\" type=\"text/xsl\" "}})
+end
+
+
 function TestXMLSAXParser.test_ignorable_whitespace()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

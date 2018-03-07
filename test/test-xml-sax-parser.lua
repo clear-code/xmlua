@@ -20,6 +20,24 @@ function TestXMLSAXParser.test_start_document()
 end
 
 
+function TestXMLSAXParser.test_cdata_block()
+  local xml = [=[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+<![CDATA[<p>Hello world!</p>]]>
+</xml>
+]=]
+  local parser = xmlua.XMLSAXParser.new()
+  local cdata_blocks = {}
+  parser.cdata_block = function(cdata_block)
+    table.insert(cdata_blocks, cdata_block)
+  end
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, cdata_blocks},
+                       {true, {"<p>Hello world!</p>"}})
+end
+
+
 function TestXMLSAXParser.test_comment()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

@@ -21,6 +21,16 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_cdata_block_callback(user_callback)
+  local callback = function(user_data, raw_cdata_block, raw_length)
+    local cdata_block = to_string(raw_cdata_block, raw_length)
+    user_callback(cdata_block)
+  end
+  local c_callback = ffi.cast("cdataBlockSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_comment_callback(user_callback)
   local callback = function(user_data, raw_comment)
     user_callback(to_string(raw_comment))
@@ -149,6 +159,9 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "cdata_block" then
+    value = create_cdata_block_callback(value)
+    parser.context.sax.cdataBlock = value
   elseif key == "comment" then
     value = create_comment_callback(value)
     parser.context.sax.comment = value

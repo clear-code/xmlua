@@ -20,6 +20,25 @@ function TestXMLSAXParser.test_start_document()
 end
 
 
+function TestXMLSAXParser.test_ignorable_whitespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+  <test></test>
+</xml>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local ignorable_whitespaces_list = {}
+
+  parser.ignorable_whitespace = function(ignorable_whitespaces)
+    table.insert(ignorable_whitespaces_list, ignorable_whitespaces)
+  end
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, ignorable_whitespaces_list},
+                       {true, {"\n  ", "\n"}})
+end
+
+
 local function collect_texts(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local texts = {}

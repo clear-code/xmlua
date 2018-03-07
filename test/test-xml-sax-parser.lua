@@ -20,6 +20,25 @@ function TestXMLSAXParser.test_start_document()
 end
 
 
+function TestXMLSAXParser.test_reference()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [
+  <!ENTITY ref "Reference">
+]>
+<test>&ref;</test>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local entity_names = {}
+  parser.reference = function(entity_name)
+    table.insert(entity_names, entity_name)
+  end
+
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, entity_names}, {true, {"ref"}})
+end
+
+
 local function collect_start_elements(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local elements = {}
@@ -41,6 +60,7 @@ local function collect_start_elements(chunk)
   luaunit.assertEquals(parser:parse(chunk), true)
   return elements
 end
+
 
 function TestXMLSAXParser.test_start_element_no_namespace()
   local xml = [[

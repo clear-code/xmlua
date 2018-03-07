@@ -19,6 +19,7 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+
 local function collect_start_elements(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local elements = {}
@@ -148,6 +149,73 @@ function TestHTMLSAXParser.test_start_element_with_default_namespace()
   luaunit.assertEquals(collect_start_elements(xml),
                        expected)
 end
+
+
+local function collect_end_elements(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local elements = {}
+  parser.end_element = function(local_name,
+                                prefix,
+                                uri)
+    local element = {
+      local_name = local_name,
+      prefix = prefix,
+      uri = uri,
+    }
+    table.insert(elements, element)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return elements
+end
+
+function TestXMLSAXParser.test_end_element_no_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml></xml>
+]]
+
+  local expected = {
+    {
+      local_name = "xml",
+    },
+  }
+  luaunit.assertEquals(collect_end_elements(xml), expected)
+end
+
+function TestXMLSAXParser.test_end_element_with_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+</xhtml:html>
+]]
+
+  local expected = {
+    {
+      local_name = "html",
+      prefix = "xhtml",
+      uri = "http://www.w3.org/1999/xhtml",
+    },
+  }
+  luaunit.assertEquals(collect_end_elements(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_end_element_with_default_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+</html>
+]]
+  local expected = {
+    {
+      local_name = "html",
+      uri = "http://www.w3.org/1999/xhtml",
+    },
+  }
+  luaunit.assertEquals(collect_end_elements(xml),
+                       expected)
+end
+
 
 function TestXMLSAXParser.test_end_document()
   local xml = [[

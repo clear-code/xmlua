@@ -71,6 +71,20 @@ local function create_start_element_callback(user_callback)
   return c_callback
 end
 
+local function create_end_element_callback(user_callback)
+  local callback = function(user_data,
+                            raw_local_name,
+                            raw_prefix,
+                            raw_uri)
+    user_callback(to_string(raw_local_name),
+                  to_string(raw_prefix),
+                  to_string(raw_uri))
+  end
+  local c_callback = ffi.cast("endElementNsSAX2Func", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_end_document_callback(user_callback)
   local callback = function(user_data)
     user_callback()
@@ -87,6 +101,9 @@ function metatable.__newindex(parser, key, value)
   elseif key == "start_element" then
     value = create_start_element_callback(value)
     parser.context.sax.startElementNs = value
+  elseif key == "end_element" then
+    value = create_end_element_callback(value)
+    parser.context.sax.endElementNs = value
   elseif key == "end_document" then
     value = create_end_document_callback(value)
     parser.context.sax.endDocument = value

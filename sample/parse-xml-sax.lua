@@ -14,27 +14,27 @@ end
 parser.external_subset = function(name,
                                   external_id,
                                   system_id)
-  print("External subset name: ".. name)
-  print("External subset external id: ".. external_id)
-  print("External subset system id: ".. system_id)
+  print("External subset name: " .. name)
+  print("External subset external id: " .. external_id)
+  print("External subset system id: " .. system_id)
 end
 
 parser.cdata_block = function(cdata_block)
-  print("CDATA block: ".. cdata_block)
+  print("CDATA block: " .. cdata_block)
 end
 
 parser.comment = function(comment)
-  print("Comment: ".. comment)
+  print("Comment: " .. comment)
 end
 
 parser.processing_instruction = function(target, data)
-  print("Processing instruction target: ".. target)
-  print("Processing instruction data: ".. data)
+  print("Processing instruction target: " .. target)
+  print("Processing instruction data: " .. data)
 end
 
 parser.ignorable_whitespace = function(ignorable_whitespaces)
-  print("Ignorable whitespaces: ".. "\""..ignorable_whitespaces.."\"")
-  print("Ignorable whitespaces length: ".. #ignorable_whitespaces)
+  print("Ignorable whitespaces: " .. "\"" .. ignorable_whitespaces .. "\"")
+  print("Ignorable whitespaces length: " .. #ignorable_whitespaces)
 end
 
 parser.text = function(text)
@@ -42,7 +42,7 @@ parser.text = function(text)
 end
 
 parser.reference = function(entity_name)
-  print("Reference entity name: "..entity_name)
+  print("Reference entity name: " .. entity_name)
 end
 
 parser.end_document = function()

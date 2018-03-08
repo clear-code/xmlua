@@ -37,6 +37,10 @@ parser.ignorable_whitespace = function(ignorable_whitespaces)
   print("Ignorable whitespaces length: ".. #ignorable_whitespaces)
 end
 
+parser.text = function(text)
+  print("Text: <" .. text .. ">")
+end
+
 parser.end_document = function()
   print("End document")
 end

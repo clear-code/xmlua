@@ -41,6 +41,10 @@ parser.text = function(text)
   print("Text: <" .. text .. ">")
 end
 
+parser.reference = function(entity_name)
+  print("Reference entity name: "..entity_name)
+end
+
 parser.end_document = function()
   print("End document")
 end

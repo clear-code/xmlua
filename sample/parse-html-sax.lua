@@ -12,21 +12,21 @@ parser.start_document = function()
 end
 
 parser.ignorable_whitespace = function(whitespaces)
-  print("Ignorable whitespaces: ".. "\""..whitespaces.."\"")
-  print("Ignorable whitespaces length: ".. #whitespaces)
+  print("Ignorable whitespaces: " .. "\"" .. whitespaces .. "\"")
+  print("Ignorable whitespaces length: " .. #whitespaces)
 end
 
 parser.processing_instruction = function(target, data)
-  print("Processing instruction target: ".. target)
-  print("Processing instruction data: ".. data)
+  print("Processing instruction target: " .. target)
+  print("Processing instruction data: " .. data)
 end
 
 parser.comment = function(comment)
-  print("Comment: ".. comment)
+  print("Comment: " .. comment)
 end
 
 parser.cdata_block = function(cdata_block)
-  print("CDATA block: ".. cdata_block)
+  print("CDATA block: " .. cdata_block)
 end
 
 parser.start_element = function(local_name,

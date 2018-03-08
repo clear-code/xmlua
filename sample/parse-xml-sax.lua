@@ -11,6 +11,14 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.external_subset = function(name,
+                                  external_id,
+                                  system_id)
+  print("External subset name: ".. name)
+  print("External subset external id: ".. external_id)
+  print("External subset system id: ".. system_id)
+end
+
 while true do
   local line = file:read()
   if not line then

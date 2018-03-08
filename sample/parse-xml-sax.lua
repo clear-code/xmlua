@@ -23,6 +23,10 @@ parser.cdata_block = function(cdata_block)
   print("CDATA block: ".. cdata_block)
 end
 
+parser.comment = function(comment)
+  print("Comment: ".. comment)
+end
+
 parser.end_document = function()
   print("End document")
 end

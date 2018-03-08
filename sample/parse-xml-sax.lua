@@ -15,8 +15,12 @@ parser.external_subset = function(name,
                                   external_id,
                                   system_id)
   print("External subset name: " .. name)
-  print("External subset external id: " .. external_id)
-  print("External subset system id: " .. system_id)
+  if external_id ~= nil then
+    print("External subset external id: " .. external_id)
+  end
+  if system_id ~= nil then
+    print("External subset system id: " .. system_id)
+  end
 end
 
 parser.cdata_block = function(cdata_block)

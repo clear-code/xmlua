@@ -19,6 +19,10 @@ parser.external_subset = function(name,
   print("External subset system id: ".. system_id)
 end
 
+parser.cdata_block = function(cdata_block)
+  print("CDATA block: ".. cdata_block)
+end
+
 parser.end_document = function()
   print("End document")
 end

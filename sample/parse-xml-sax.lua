@@ -32,6 +32,11 @@ parser.processing_instruction = function(target, data)
   print("Processing instruction data: ".. data)
 end
 
+parser.ignorable_whitespace = function(ignorable_whitespaces)
+  print("Ignorable whitespaces: ".. "\""..ignorable_whitespaces.."\"")
+  print("Ignorable whitespaces length: ".. #ignorable_whitespaces)
+end
+
 parser.end_document = function()
   print("End document")
 end

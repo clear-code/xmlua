@@ -54,11 +54,10 @@ end
 methods.text = methods.content
 
 function methods.paths(self)
-  local paths = {}
-  for i = 1, #self do
-    table.insert(paths, self[i]:path())
-  end
-  return paths
+  return map(self,
+             function(node)
+               return node:path()
+             end)
 end
 
 function NodeSet.new(nodes)

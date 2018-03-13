@@ -144,6 +144,6 @@ end
 function TestElement.test_path()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()
-  luaunit.assertEquals(root:path(root),
+  luaunit.assertEquals(root:path(),
                        "/root")
 end

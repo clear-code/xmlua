@@ -13,7 +13,7 @@ local document = xmlua.XML.parse([[
 -- All elements under <root> (<sub1>, <sub2> and <sub3>)
 local node_set = document:search("/root/*")
 -- Gets xpath of all elements under <root> (<sub1>, <sub2> and <sub3>)
-for i=1, #node_set do
+for i = 1, #node_set do
   print(node_set[i]:path())
   --/root/sub1
   --/root/sub2

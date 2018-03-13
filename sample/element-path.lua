@@ -14,8 +14,8 @@ local root = document:root()
 local children = root:children()
 
 -- Get xpath of <root>'s all child elements.
-for i = 1, #children do
-  print(children[i]:path())
+for _, child in ipairs(children) do
+  print(child:path())
   --/root/child1
   --/root/child2
 end

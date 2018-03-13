@@ -87,7 +87,7 @@ It's an alias of [`content`](#content).
 
 It return xpath of the element as `string`.
 
-Exsample:
+Example:
 
 ```lua
 local xmlua = require("xmlua")

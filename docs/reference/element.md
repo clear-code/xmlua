@@ -83,6 +83,34 @@ print(root:content())
 
 It's an alias of [`content`](#content).
 
+### `path() -> string` {#path}
+
+It return xpath of the element as `string`.
+
+Exsample:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <child1>child1 text</child1>
+  <child2>child2 text</child2>
+</root>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+-- Gets all child elements of <root> (<child1> and <child2>)
+local children = root:children()
+
+-- Get xpath of <root>'s all child elements.
+for i = 1, #children do
+  print(children[i]:path())
+  --/root/child1
+  --/root/child2
+end
+```
+
 ### `get_attribute(name) -> string` {#get-attribute}
 
 It gets attribute value of the given attribute name. If the attribute name doesn't exist, it returns `nil`.

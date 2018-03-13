@@ -83,6 +83,34 @@ print(root:content())
 
 [`content`](#content)のエイリアス。
 
+### `path() -> string` {#path}
+
+要素のパスを`string`で返します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <child1>child1 text</child1>
+  <child2>child2 text</child2>
+</root>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+-- <root>の全ての子要素を取得します。 (<child1> と <child2>)
+local children = root:children()
+
+-- <root>の全ての子要素のxpathを取得します。
+for i = 1, #children do
+  print(children[i]:path())
+  --/root/child1
+  --/root/child2
+end
+```
+
 ### `get_attribute(name) -> string` {#get-attribute}
 
 与えられた属性の属性値を取得します。属性が存在しない場合は`nil`を返します。

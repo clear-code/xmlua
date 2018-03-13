@@ -141,7 +141,7 @@ function TestElement.test_get_attribute_array_referece()
                        "A")
 end
 
-function TestElement.test_get_node_path()
+function TestElement.test_path()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()
   luaunit.assertEquals(root:path(root),

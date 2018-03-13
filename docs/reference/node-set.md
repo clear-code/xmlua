@@ -184,6 +184,34 @@ print(node_set:content())
 
 It's an alias of [`content`](#content).
 
+### `paths() -> {path1, path2, ...}` {#paths}
+
+It gets xpath of all nodes in the node set.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]])
+
+-- All elements under <root> (<sub1>, <sub2> and <sub3>)
+local node_set = document:search("/root/*")
+-- Gets xpath of all elements under <root> (<sub1>, <sub2> and <sub3>)
+for _, path in ipairs(node_set:paths()) do
+  print(path)
+  --/root/sub1
+  --/root/sub2
+  --/root/sub3
+end
+```
+
 ## See also
 
   * [`xmlua.Element`][element]: The class for element node.

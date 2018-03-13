@@ -184,6 +184,34 @@ print(node_set:content())
 
 [`content`](#content)のエイリアス。
 
+### `paths() -> {path1, path2, ...}` {#paths}
+
+このノードセット内の全てのノードのXPathを取得します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]])
+
+-- <root>配下の全ての要素 (<sub1>, <sub2> and <sub3>)
+local node_set = document:search("/root/*")
+-- <root>配下の全ての要素 (<sub1>, <sub2> and <sub3>)のXPathを取得します。
+for _, path in ipairs(node_set:paths()) do
+  print(path)
+  --/root/sub1
+  --/root/sub2
+  --/root/sub3
+end
+```
+
 ## 参照
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。

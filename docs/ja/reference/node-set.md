@@ -186,7 +186,7 @@ print(node_set:content())
 
 ### `paths() -> {path1, path2, ...}` {#paths}
 
-このノードセット内の全てのノードのXPathを取得します。
+このノードセット内の全てのノードのXPathを返します。
 
 例：
 
@@ -203,7 +203,7 @@ local document = xmlua.XML.parse([[
 
 -- <root>配下の全ての要素 (<sub1>, <sub2> and <sub3>)
 local node_set = document:search("/root/*")
--- <root>配下の全ての要素 (<sub1>, <sub2> and <sub3>)のXPathを取得します。
+-- <root>配下の全ての要素 (<sub1>, <sub2> and <sub3>)のXPathを返します。
 for _, path in ipairs(node_set:paths()) do
   print(path)
   --/root/sub1

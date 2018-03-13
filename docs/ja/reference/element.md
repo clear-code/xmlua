@@ -85,7 +85,7 @@ print(root:content())
 
 ### `path() -> string` {#path}
 
-要素のパスを`string`で返します。
+要素のXPathを`string`で返します。
 
 例：
 
@@ -103,7 +103,7 @@ local root = document:root()
 -- <root>の全ての子要素を取得します。 (<child1> と <child2>)
 local children = root:children()
 
--- <root>の全ての子要素のxpathを取得します。
+-- <root>の全ての子要素のXPathを取得します。
 for i = 1, #children do
   print(children[i]:path())
   --/root/child1

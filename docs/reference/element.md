@@ -85,7 +85,7 @@ It's an alias of [`content`](#content).
 
 ### `path() -> string` {#path}
 
-It return xpath of the element as `string`.
+It returns XPath of the element as `string`.
 
 Example:
 
@@ -103,7 +103,7 @@ local root = document:root()
 -- Gets all child elements of <root> (<child1> and <child2>)
 local children = root:children()
 
--- Get xpath of <root>'s all child elements.
+-- Returns XPath of <root>'s all child elements.
 for i = 1, #children do
   print(children[i]:path())
   --/root/child1

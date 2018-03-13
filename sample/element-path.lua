@@ -13,7 +13,7 @@ local root = document:root()
 -- Gets all child elements of <root> (<child1> and <child2>)
 local children = root:children()
 
--- Get xpath of <root>'s all child elements.
+-- Returns XPath of <root>'s all child elements.
 for _, child in ipairs(children) do
   print(child:path())
   --/root/child1

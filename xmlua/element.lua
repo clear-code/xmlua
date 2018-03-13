@@ -91,6 +91,10 @@ function methods.text(self)
   return self:content()
 end
 
+function methods.path(self)
+  return self:xpath()
+end
+
 function Element.new(document, node)
   local element = {
     document = document,

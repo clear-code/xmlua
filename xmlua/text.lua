@@ -15,7 +15,7 @@ function methods.text(self)
 end
 
 function methods.path(self)
-  return self:path()
+  return self:xpath()
 end
 
 function Text.new(document, node)

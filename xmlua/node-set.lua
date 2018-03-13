@@ -53,6 +53,14 @@ end
 
 methods.text = methods.content
 
+function methods.paths(self)
+  local paths = {}
+  for i = 1, #self do
+    table.insert(paths, self[i]:path())
+  end
+  return paths
+end
+
 function NodeSet.new(nodes)
   setmetatable(nodes, metatable)
   return nodes

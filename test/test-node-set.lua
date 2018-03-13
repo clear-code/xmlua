@@ -95,3 +95,20 @@ function TestNodeSet.test_text()
   luaunit.assertEquals(node_set:text(),
                        node_set:content())
 end
+
+function TestNodeSet.test_paths()
+  local document = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+  local node_set = document:search("//html/body/*")
+  luaunit.assertEquals(node_set:paths(),
+                       {"/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub3"})
+end

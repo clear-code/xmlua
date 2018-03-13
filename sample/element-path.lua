@@ -4,11 +4,8 @@ local xmlua = require("xmlua")
 
 local xml = [[
 <root>
-  text1
   <child1>child1 text</child1>
-  text2
   <child2>child2 text</child2>
-  text3
 </root>
 ]]
 local document = xmlua.XML.parse(xml)

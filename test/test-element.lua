@@ -140,3 +140,10 @@ function TestElement.test_get_attribute_array_referece()
   luaunit.assertEquals(node_set[1]["class"],
                        "A")
 end
+
+function TestElement.test_get_node_path()
+  local document = xmlua.XML.parse("<root class=\"A\"/>")
+  local root = document:root()
+  luaunit.assertEquals(root:path(root),
+                       "/root")
+end

@@ -281,3 +281,17 @@ end
 function TestLibxml2Node.test_get_content_none()
   luaunit.assertNil(libxml2.xmlNodeGetContent(nil))
 end
+
+function TestLibxml2Node.test_get_xpath_exist()
+  local xml = [[
+<root></root>
+]]
+  local document = parse_xml(xml)
+  local root = root_element(document)
+  luaunit.assertEquals(libxml2.xmlGetNodePath(root),
+                       "/root")
+end
+
+function TestLibxml2Node.test_get_xpath_none()
+  luaunit.assertNil(libxml2.xmlGetNodePath(nil))
+end

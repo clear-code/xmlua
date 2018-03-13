@@ -7,4 +7,8 @@ function Node.content(self)
   return libxml2.xmlNodeGetContent(self.node)
 end
 
+function Node.path(self)
+  return libxml2.xmlGetNodePath(self.node)
+end
+
 return Node

@@ -9,6 +9,7 @@ require("test.test-serialize")
 require("test.test-search")
 require("test.test-element")
 require("test.test-node-set")
+require("test.test-text")
 
 luaunit = require("luaunit")
 os.exit(luaunit.LuaUnit.run())

@@ -1,7 +1,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-29 09:12+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,6 +18,68 @@ msgstr ""
 
 msgid "# News"
 msgstr "# おしらせ"
+
+msgid "## 1.0.3: 2017-12-14 {#version-1-0-3}"
+msgstr ""
+
+msgid "### Improvements"
+msgstr ""
+
+msgid "  * `xmlua.HTMLSAXParser`: Added."
+msgstr ""
+
+msgid "### Fixes"
+msgstr ""
+
+msgid "  * Fixed a memory leak for parsing XML."
+msgstr ""
+
+msgid "  * Fixed a memory leak for parsed document."
+msgstr ""
+
+msgid "## 1.0.2: 2017-12-05 {#version-1-0-2}"
+msgstr ""
+
+msgid "  * Fixed package."
+msgstr ""
+
+msgid "## 1.0.1: 2017-12-04 {#version-1-0-2}"
+msgstr ""
+
+msgid "  * `xmlua.HTML.parse()`: Changed to parse HTML rough."
+msgstr ""
+
+msgid "  * `xmlua.HTML.parse()`: Added `url` option that specifies base URL."
+msgstr ""
+
+msgid ""
+"  * `xmlua.HTML.parse()`: Added `encoding` option that specifies HTML encoding"
+"."
+msgstr ""
+
+msgid "  * `xmlua.Node:content()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.NodeSet:content()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.Element:text()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.NodeSet:text()`: Added."
+msgstr ""
+
+msgid "  * Added `//text()` XPath support."
+msgstr ""
+
+msgid "  * `xmlua.HTML.parse()`: Added `prefer_meta_charset` option."
+msgstr ""
+
+msgid "  * `xmlua.Document:errors`: Added."
+msgstr ""
+
+msgid "  * Fixed a memory leak of parsed XML document."
+msgstr ""
 
 msgid "## 1.0.0: 2017-11-29 {#version-1-0-0}"
 msgstr ""

@@ -1,6 +1,5 @@
 local luaunit = require("luaunit")
 local xmlua = require("xmlua")
-local Text = require("xmlua.text")
 
 TestText = {}
 

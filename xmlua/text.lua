@@ -14,10 +14,6 @@ function methods.text(self)
   return self:content()
 end
 
-function methods.path(self)
-  return self:xpath()
-end
-
 function Text.new(document, node)
   local text = {
     document = document,

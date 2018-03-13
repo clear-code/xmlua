@@ -139,9 +139,6 @@ msgstr ""
 msgid "It return xpath of the element as `string`."
 msgstr "要素のパスを`string`で返します。"
 
-msgid "Exsample:"
-msgstr "例："
-
 msgid ""
 "local xml = [[\n"
 "<root>\n"

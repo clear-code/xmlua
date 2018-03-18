@@ -504,3 +504,36 @@ function TestCSSSelect.test_attribute_include_type_selector()
                          [[<sub1 class="xxx A"/>]],
                        })
 end
+
+function TestCSSSelect.test_attribute_dash_match()
+  local xml = [[
+<root>
+  <sub1 lang="ja"/>
+  <sub1 lang="ja-JP"/>
+  <sub2 lang="ja"/>
+  <sub2 lang="ja.JP"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "[lang|='ja']"),
+                       {
+                         [[<sub1 lang="ja"/>]],
+                         [[<sub1 lang="ja-JP"/>]],
+                         [[<sub2 lang="ja"/>]],
+                       })
+end
+
+function TestCSSSelect.test_attribute_dash_match_type_selector()
+  local xml = [[
+<root>
+  <sub1 lang="ja"/>
+  <sub1 lang="ja-JP"/>
+  <sub2 lang="ja"/>
+  <sub2 lang="ja.JP"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub1[lang|='ja']"),
+                       {
+                         [[<sub1 lang="ja"/>]],
+                         [[<sub1 lang="ja-JP"/>]],
+                       })
+end

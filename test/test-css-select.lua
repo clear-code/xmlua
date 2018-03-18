@@ -537,3 +537,31 @@ function TestCSSSelect.test_attribute_dash_match_type_selector()
                          [[<sub1 lang="ja-JP"/>]],
                        })
 end
+
+function TestCSSSelect.test_pseudo_class_root()
+  local xml = [[
+<root>
+  <sub/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, ":root"),
+                       {
+                         "<root>\n" ..
+                           "  <sub/>\n" ..
+                           "</root>",
+                       })
+end
+
+function TestCSSSelect.test_pseudo_class_root_type_selector()
+  local xml = [[
+<root>
+  <sub/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root:root"),
+                       {
+                         "<root>\n" ..
+                           "  <sub/>\n" ..
+                           "</root>",
+                       })
+end

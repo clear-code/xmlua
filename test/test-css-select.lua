@@ -174,3 +174,70 @@ function TestCSSSelect.test_type_selector_namespace_prefix_none()
                          [[<sub class="D"/>]],
                        })
 end
+
+function TestCSSSelect.test_universal()
+  local xml = [[
+<root xmlns:a="http://example.com/a/">
+  <sub class="A"/>
+  <a:sub class="B"/>
+  <sub class="C" xmlns="http://example.com/b/"/>
+  <sub class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root *"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<a:sub class="B"/>]],
+                         [[<sub xmlns="http://example.com/b/" class="C"/>]],
+                         [[<sub class="D"/>]],
+                       })
+end
+
+function TestCSSSelect.test_universal_namespace_prefix_name()
+  local xml = [[
+<root xmlns:a="http://example.com/a/">
+  <sub class="A"/>
+  <a:sub class="B"/>
+  <sub class="C" xmlns="http://example.com/b/"/>
+  <sub class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root a|*"),
+                       {
+                         [[<a:sub class="B"/>]],
+                       })
+end
+
+function TestCSSSelect.test_universal_namespace_prefix_star()
+  local xml = [[
+<root xmlns:a="http://example.com/a/">
+  <sub class="A"/>
+  <a:sub class="B"/>
+  <sub class="C" xmlns="http://example.com/b/"/>
+  <sub class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root *|*"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<a:sub class="B"/>]],
+                         [[<sub xmlns="http://example.com/b/" class="C"/>]],
+                         [[<sub class="D"/>]],
+                       })
+end
+
+function TestCSSSelect.test_universal_namespace_prefix_none()
+  local xml = [[
+<root xmlns:a="http://example.com/a/">
+  <sub class="A"/>
+  <a:sub class="B"/>
+  <sub class="C" xmlns="http://example.com/b/"/>
+  <sub class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root |*"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<sub class="D"/>]],
+                       })
+end

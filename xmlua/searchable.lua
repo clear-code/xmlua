@@ -3,6 +3,8 @@ local Searchable = {}
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
+local luacs = require("luacs")
+
 local Element
 local Text
 local NodeSet
@@ -83,6 +85,18 @@ function Searchable.search(self, xpath)
     end
     return NodeSet.new(raw_node_set)
   end
+end
+
+function Searchable.css_select(self, css_selector_groups)
+  local xpaths = luacs.to_xpaths(css_selector_groups)
+  local raw_node_set = {}
+  for _, xpath in ipairs(xpaths) do
+    for _, node in ipairs(self:search(xpath)) do
+      -- TODO: Remove duplicated
+      table.insert(raw_node_set, node)
+    end
+  end
+  return NodeSet.new(raw_node_set)
 end
 
 return Searchable

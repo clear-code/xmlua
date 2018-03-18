@@ -565,3 +565,59 @@ function TestCSSSelect.test_pseudo_class_root_type_selector()
                            "</root>",
                        })
 end
+
+function TestCSSSelect.test_pseudo_class_first_child()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub class="B"/>
+  <sub class="C"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :first-child"),
+                       {
+                         [[<sub class="A"/>]],
+                       })
+end
+
+function TestCSSSelect.test_pseudo_class_first_child_type_selector()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub class="B"/>
+  <sub class="C"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:first-child"),
+                       {
+                         [[<sub class="A"/>]],
+                       })
+end
+
+function TestCSSSelect.test_pseudo_class_last_child()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub class="B"/>
+  <sub class="C"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :last-child"),
+                       {
+                         [[<sub class="C"/>]],
+                       })
+end
+
+function TestCSSSelect.test_pseudo_class_last_child_type_selector()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub class="B"/>
+  <sub class="C"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:last-child"),
+                       {
+                         [[<sub class="C"/>]],
+                       })
+end

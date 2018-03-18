@@ -310,3 +310,36 @@ function TestCSSSelect.test_class_type_selector()
                          [[<sub1 class="B" id="CB"/>]],
                        })
 end
+
+function TestCSSSelect.test_attribute()
+  local xml = [[
+<root>
+  <sub1 class="A"/>
+  <sub1 class="B"/>
+  <sub2/>
+  <sub2 class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "[class]"),
+                       {
+                         [[<sub1 class="A"/>]],
+                         [[<sub1 class="B"/>]],
+                         [[<sub2 class="D"/>]],
+                       })
+end
+
+function TestCSSSelect.test_attribute_type_select()
+  local xml = [[
+<root>
+  <sub1 class="A"/>
+  <sub1 class="B"/>
+  <sub2/>
+  <sub2 class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub1[class]"),
+                       {
+                         [[<sub1 class="A"/>]],
+                         [[<sub1 class="B"/>]],
+                       })
+end

@@ -36,4 +36,5 @@ RUN \
 
 CMD \
   test/run-test.lua && \
-  sample/parse-html-cqueues-thread.lua sample/sample.html
+  luajit -e 'package.path = "../luacs/?.lua;" .. package.path' \
+    sample/parse-html-cqueues-thread.lua sample/sample.html

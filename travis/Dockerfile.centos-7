@@ -36,7 +36,7 @@ RUN rm -rf xmlua.lua xmlua
 
 USER xmlua
 
-CMD \
+RUN \
   git clone --depth 1 https://github.com/clear-code/luacs.git ../luacs
 
 CMD \

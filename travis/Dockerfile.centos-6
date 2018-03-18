@@ -30,10 +30,9 @@ RUN chown -R xmlua:xmlua ~xmlua/xmlua/*
 USER xmlua
 WORKDIR /home/xmlua/xmlua
 
-CMD \
+RUN \
   git clone --depth 1 https://github.com/clear-code/luacs.git ../luacs
 
 CMD \
-  ls -la ../luacs && \
   test/run-test.lua && \
   sample/parse-html-cqueues-thread.lua sample/sample.html

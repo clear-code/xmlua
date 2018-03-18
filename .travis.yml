@@ -32,7 +32,8 @@ matrix:
         - git clone --depth 1 https://github.com/clear-code/luacs.git ../luacs
       script:
         - test/run-test.lua
-        - sample/parse-html-cqueues-thread.lua sample/sample.html
+        - luajit -e 'package.path = "../luacs/?.lua;" .. package.path'
+            sample/parse-html-cqueues-thread.lua sample/sample.html
 
 install:
   - docker build

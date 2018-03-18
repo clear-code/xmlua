@@ -5,6 +5,7 @@ RUN \
 RUN \
   yum install -y  \
     gcc \
+    git \
     libxml2 \
     luajit \
     luajit-devel \

@@ -241,3 +241,72 @@ function TestCSSSelect.test_universal_namespace_prefix_none()
                          [[<sub class="D"/>]],
                        })
 end
+
+function TestCSSSelect.test_hash()
+  local xml = [[
+<root>
+  <sub id="A"/>
+  <sub id="B"/>
+  <sub id="C"/>
+  <sub id="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "#B"),
+                       {
+                         [[<sub id="B"/>]],
+                       })
+end
+
+function TestCSSSelect.test_hash_type_selector()
+  local xml = [[
+<root>
+  <sub id="A"/>
+  <sub id="B"/>
+  <sub id="C"/>
+  <sub id="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub#B, root#B"),
+                       {
+                         [[<sub id="B"/>]],
+                       })
+end
+
+function TestCSSSelect.test_class()
+  local xml = [[
+<root>
+  <sub1 class="A"/>
+  <sub1 class="B"/>
+  <sub1 class="C">
+    <sub1 class="B" id="CB"/>
+  </sub1>
+  <sub2 class="B"/>
+  <sub1 class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, ".B"),
+                       {
+                         [[<sub1 class="B"/>]],
+                         [[<sub1 class="B" id="CB"/>]],
+                         [[<sub2 class="B"/>]],
+                       })
+end
+
+function TestCSSSelect.test_class_type_selector()
+  local xml = [[
+<root>
+  <sub1 class="A"/>
+  <sub1 class="B"/>
+  <sub1 class="C">
+    <sub1 class="B" id="CB"/>
+  </sub1>
+  <sub2 class="B"/>
+  <sub1 class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub1.B"),
+                       {
+                         [[<sub1 class="B"/>]],
+                         [[<sub1 class="B" id="CB"/>]],
+                       })
+end

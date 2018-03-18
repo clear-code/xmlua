@@ -409,3 +409,36 @@ function TestCSSSelect.test_attribute_suffix_match_type_selector()
                          [[<sub1 class="B-xxx"/>]],
                        })
 end
+
+function TestCSSSelect.test_attribute_substring_match()
+  local xml = [[
+<root>
+  <sub1 class="A-xxx"/>
+  <sub1 class="B-xxx"/>
+  <sub2 class="C-x"/>
+  <sub2 class="A-xxx"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "[class*='-xx']"),
+                       {
+                         [[<sub1 class="A-xxx"/>]],
+                         [[<sub1 class="B-xxx"/>]],
+                         [[<sub2 class="A-xxx"/>]],
+                       })
+end
+
+function TestCSSSelect.test_attribute_substring_match_type_selector()
+  local xml = [[
+<root>
+  <sub1 class="A-xxx"/>
+  <sub1 class="B-xxx"/>
+  <sub2 class="C-x"/>
+  <sub2 class="A-xxx"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub1[class*='-xx']"),
+                       {
+                         [[<sub1 class="A-xxx"/>]],
+                         [[<sub1 class="B-xxx"/>]],
+                       })
+end

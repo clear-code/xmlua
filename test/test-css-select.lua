@@ -1290,3 +1290,296 @@ function TestCSSSelect.test_functional_pseudo_nth_last_child_type_selector()
                          [[<sub1 class="C"/>]],
                        })
 end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_number()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(3)"),
+                       {
+                         [[<sub class="C"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_odd()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(odd)"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<sub class="C"/>]],
+                         [[<sub class="E"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_even()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(even)"),
+                       {
+                         [[<sub class="B"/>]],
+                         [[<sub class="D"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_1n()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(1n)"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<sub class="B"/>]],
+                         [[<sub class="C"/>]],
+                         [[<sub class="D"/>]],
+                         [[<sub class="E"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_n_minus_2()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(n-2)"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<sub class="B"/>]],
+                         [[<sub class="C"/>]],
+                         [[<sub class="D"/>]],
+                         [[<sub class="E"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_minus_n()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(-n)"),
+                       {})
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_minus_n_2()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(-n+2)"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<sub class="B"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_minus_n_minus_2()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(-n-2)"),
+                       {})
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_3n()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+  <sub2/>
+  <sub class="F"/>
+  <sub2/>
+  <sub class="G"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(3n)"),
+                       {
+                         [[<sub class="C"/>]],
+                         [[<sub class="F"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_3n_1()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+  <sub2/>
+  <sub class="F"/>
+  <sub2/>
+  <sub class="G"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(3n+1)"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<sub class="D"/>]],
+                         [[<sub class="G"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_3n_2()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+  <sub2/>
+  <sub class="F"/>
+  <sub2/>
+  <sub class="G"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(3n+2)"),
+                       {
+                         [[<sub class="B"/>]],
+                         [[<sub class="E"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_3n_minus_2()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+  <sub2/>
+  <sub class="F"/>
+  <sub2/>
+  <sub class="G"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(3n-2)"),
+                       {
+                         [[<sub class="A"/>]],
+                         [[<sub class="D"/>]],
+                         [[<sub class="G"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_of_type_3n_4()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub class="B"/>
+  <sub2/>
+  <sub class="C"/>
+  <sub2/>
+  <sub class="D"/>
+  <sub2/>
+  <sub class="E"/>
+  <sub2/>
+  <sub class="F"/>
+  <sub2/>
+  <sub class="G"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:nth-of-type(3n+4)"),
+                       {
+                         [[<sub class="D"/>]],
+                         [[<sub class="G"/>]],
+                       })
+end

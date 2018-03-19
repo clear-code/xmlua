@@ -19,6 +19,9 @@ description = {
   -- Since 3.0
   -- labels = {"xml"},
 }
+dependencies = {
+  "luacs",
+}
 external_dependencies = {
   LIBXML2 = {
     library = "xml2"

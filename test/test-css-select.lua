@@ -1876,3 +1876,34 @@ function TestCSSSelect.test_functional_pseudo_nth_last_of_type_3n_4()
                          [[<sub class="D"/>]],
                        })
 end
+
+function TestCSSSelect.test_functional_pseudo_negation()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub/>
+  <sub2 class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :not([class])"),
+                       {
+                         [[<sub2/>]],
+                         [[<sub/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_negation_type_selector()
+  local xml = [[
+<root>
+  <sub class="A"/>
+  <sub2/>
+  <sub/>
+  <sub2 class="D"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub:not([class])"),
+                       {
+                         [[<sub/>]],
+                       })
+end

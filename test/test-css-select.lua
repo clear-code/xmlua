@@ -637,3 +637,60 @@ function TestCSSSelect.test_pseudo_class_first_of_type_type_selector()
                        })
 end
 
+function TestCSSSelect.test_pseudo_class_last_of_type_type_selector()
+  local xml = [[
+<root>
+  <sub1 class="A"/>
+  <sub2 class="A"/>
+  <sub1 class="B"/>
+  <sub2 class="B"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub2:last-of-type"),
+                       {
+                         [[<sub2 class="B"/>]],
+                       })
+end
+
+function TestCSSSelect.test_pseudo_class_only_child()
+  local xml = [[
+<root>
+  <sub1 class="A">
+    <sub2 class="AA"/>
+  </sub1>
+  <sub1 class="B">
+    <sub2 class="BA"/>
+    <sub2 class="BB"/>
+  </sub1>
+  <sub1 class="C">
+    <sub3 class="CA"/>
+  </sub1>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :only-child"),
+                       {
+                         [[<sub2 class="AA"/>]],
+                         [[<sub3 class="CA"/>]],
+                       })
+end
+
+function TestCSSSelect.test_pseudo_class_only_child_type_selector()
+  local xml = [[
+<root>
+  <sub1 class="A">
+    <sub2 class="AA"/>
+  </sub1>
+  <sub1 class="B">
+    <sub2 class="BA"/>
+    <sub2 class="BB"/>
+  </sub1>
+  <sub1 class="C">
+    <sub3 class="CB"/>
+  </sub1>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub2:only-child"),
+                       {
+                         [[<sub2 class="AA"/>]],
+                       })
+end

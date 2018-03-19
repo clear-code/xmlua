@@ -298,7 +298,7 @@ function libxml2.xmlSaveTree(context, node)
   return written ~= -1
 end
 
-function libxml2.xmlStructuredErrorFuncIgnore(user_data, err)
+local function error_ignore(user_data, err)
 end
 
 function libxml2.xmlXPathNewContext(document)
@@ -306,7 +306,7 @@ function libxml2.xmlXPathNewContext(document)
   if context == ffi.NULL then
     return nil
   end
-  context.error = libxml2.xmlStructuredErrorFuncIgnore
+  context.error = error_ignore
   return ffi.gc(context, xml2.xmlXPathFreeContext)
 end
 

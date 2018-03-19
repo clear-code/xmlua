@@ -298,17 +298,21 @@ function libxml2.xmlSaveTree(context, node)
   return written ~= -1
 end
 
-local suppress_error_callback = function(user_data, err)
+function libxml2.xmlStructuredErrorFuncIgnore(user_data, err)
 end
-local suppress_error = ffi.cast("xmlStructuredErrorFunc",
-                                suppress_error_callback)
+
+libxml2.xmlStructuredErrorFuncIgnoreC =
+  ffi.cast("xmlStructuredErrorFunc",
+           libxml2.xmlStructuredErrorFuncIgnore)
+ffi.gc(libxml2.xmlStructuredErrorFuncIgnoreC,
+       function() libxml2.xmlStructuredErrorFuncIgnoreC:free() end)
 
 function libxml2.xmlXPathNewContext(document)
   local context = xml2.xmlXPathNewContext(document)
   if context == ffi.NULL then
     return nil
   end
-  context.error = suppress_error
+  context.error = libxml2.xmlStructuredErrorFuncIgnoreC
   return ffi.gc(context, xml2.xmlXPathFreeContext)
 end
 

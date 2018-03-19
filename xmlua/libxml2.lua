@@ -301,18 +301,12 @@ end
 function libxml2.xmlStructuredErrorFuncIgnore(user_data, err)
 end
 
-libxml2.xmlStructuredErrorFuncIgnoreC =
-  ffi.cast("xmlStructuredErrorFunc",
-           libxml2.xmlStructuredErrorFuncIgnore)
-ffi.gc(libxml2.xmlStructuredErrorFuncIgnoreC,
-       function() libxml2.xmlStructuredErrorFuncIgnoreC:free() end)
-
 function libxml2.xmlXPathNewContext(document)
   local context = xml2.xmlXPathNewContext(document)
   if context == ffi.NULL then
     return nil
   end
-  context.error = libxml2.xmlStructuredErrorFuncIgnoreC
+  context.error = libxml2.xmlStructuredErrorFuncIgnore
   return ffi.gc(context, xml2.xmlXPathFreeContext)
 end
 

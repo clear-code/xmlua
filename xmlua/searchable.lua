@@ -92,7 +92,7 @@ function Searchable.css_select(self, css_selector_groups)
   local raw_node_set = {}
   for _, xpath in ipairs(xpaths) do
     if self.node then
-      xpath = "./" .. xpath
+      xpath = "." .. xpath
     end
     for _, node in ipairs(self:search(xpath)) do
       -- TODO: Remove duplicated

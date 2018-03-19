@@ -4,11 +4,45 @@ title: News
 
 # News
 
+## 1.0.4: 2018-03-19 {#version-1-0-4}
+
+### Improvements
+
+  * `xmlua.libxml2.VERSION`: Added.
+
+  * Experimental: `xmlua.HTMLSAXParser`: Added supported events:
+
+    * `start_document`
+
+    * `end_document`
+
+    * `comment`
+
+    * `ignorable_whitespace`
+
+    * `cdata_block`
+
+    * `processing_instruction`
+
+  * Experimental: `xmlua.HTMLSAXParser`: Removed needless namespace information from the following events.
+
+    * `start_element`
+
+    * `end_element`
+
+  * Experimental: `xmlua.XMLSAXParser`: Added.
+
+  * `xmlua.Node:path()`: Added.
+
+  * `xmlua.NodeSet:paths()`: Added.
+
+  * `xmlua.Searchable.css_select()`: Added.
+
 ## 1.0.3: 2017-12-14 {#version-1-0-3}
 
 ### Improvements
 
-  * `xmlua.HTMLSAXParser`: Added.
+  * Experimental: `xmlua.HTMLSAXParser`: Added.
 
 ### Fixes
 

@@ -761,3 +761,34 @@ function TestCSSSelect.test_pseudo_class_only_child_type_selector()
                        })
 end
 
+function TestCSSSelect.test_functional_pseudo_lang()
+  local xml = [[
+<root>
+  <sub1 xml:lang="ja"/>
+  <sub2 xml:lang="ja-JP"/>
+  <sub3 xml:lang="ja.JP"/>
+  <sub4 xml:lang="japanese"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :lang(ja)"),
+                       {
+                         [[<sub1 xml:lang="ja"/>]],
+                         [[<sub2 xml:lang="ja-JP"/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_lang_type_selector()
+  local xml = [[
+<root>
+  <sub1 xml:lang="ja"/>
+  <sub1 xml:lang="ja-JP"/>
+  <sub1 xml:lang="ja.JP"/>
+  <sub2 xml:lang="ja"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub1:lang(ja)"),
+                       {
+                         [[<sub1 xml:lang="ja"/>]],
+                         [[<sub1 xml:lang="ja-JP"/>]],
+                       })
+end

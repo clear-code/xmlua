@@ -37,7 +37,7 @@ local xml = [[
 
 local document = xmlua.XML.parse(xml)
 
--- <root>要素配下の要素を全て検索します。
+-- <root>要素配下の要素をすべて検索します。
 local all_subs = document:search("/root/*")
 
 -- "#"を使ってマッチしたノードの数を出力できます。
@@ -69,8 +69,79 @@ local document = xmlua.XML.parse(xml)
 -- ルート要素
 local root = document:root()
 
--- <root>要素配下の要素を全て検索します。
+-- <root>要素配下の要素をすべて検索します。
 local all_subs = root:search("*")
+
+-- "#"を使ってマッチしたノードの数を出力できます。
+print(#all_subs) -- -> 3
+
+-- "[]"を使って、N番目のノードにアクセスできます。
+print(all_subs[1]:to_xml()) -- -> <sub1>text1</sub1>
+print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
+print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
+```
+
+### `css_select(css_selectors) -> xmlua.NodeSet` {#css-select}
+
+[CSSセレクター][css-selectors]を使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェクトを返します。
+
+レシーバーが[`xmlua.Document`][document]の場合はCSSセレクターのコンテキストノードはルートノードになります。
+
+レシーバーが[`xmlua.Element`][element]の場合、CSSセレクターのコンテキストノードはレシーバーの要素になります。つまり、現在の要素がレシーバーの要素になります。
+
+`css_selectors`: ノードを検索するためのCSSセレクター文字列です。
+
+CSSセレクターが不正な場合はエラーが発生します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+-- <root>要素配下の要素をすべて検索します。
+local all_subs = document:css_select("root *")
+
+-- "#"を使ってマッチしたノードの数を出力できます。
+print(#all_subs) -- -> 3
+
+-- "[]"を使って、N番目のノードにアクセスできます。
+print(all_subs[1]:to_xml()) -- -> <sub1>text1</sub1>
+print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
+print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
+```
+
+ルート要素からでも検索できます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <sub1>text1</sub1>
+  <sub2>text2</sub2>
+  <sub3>text3</sub3>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+-- ルート要素
+local root = document:root()
+
+-- <root>要素配下の要素をすべて検索します。
+local all_subs = root:css_select("*")
 
 -- "#"を使ってマッチしたノードの数を出力できます。
 print(#all_subs) -- -> 3
@@ -93,6 +164,8 @@ print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 
 
 [xpath]:https://www.w3.org/TR/xpath/
+
+[css-selectors]:https://www.w3.org/TR/selectors-3/
 
 [document]:document.html
 

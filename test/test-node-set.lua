@@ -19,18 +19,47 @@ end
 function TestNodeSet.test_search()
   local document = xmlua.XML.parse([[
 <root>
+  <subsub>1</subsub>
   <sub>
-    <subsub>1</subsub>
     <subsub>2</subsub>
     <subsub>3</subsub>
   </sub>
+  <sub>
+    <subsub>4</subsub>
+    <subsub>5</subsub>
+  </sub>
+  <subsub>6</subsub>
 </root>
 ]])
   local sub_node_set = document:search("/root/sub")
   luaunit.assertEquals(sub_node_set:search("subsub"):to_xml(),
-                       "<subsub>1</subsub>" ..
                        "<subsub>2</subsub>" ..
-                       "<subsub>3</subsub>")
+                       "<subsub>3</subsub>" ..
+                       "<subsub>4</subsub>" ..
+                       "<subsub>5</subsub>")
+end
+
+function TestNodeSet.test_css_select()
+  local document = xmlua.XML.parse([[
+<root>
+  <subsub>1</subsub>
+  <sub>
+    <subsub>2</subsub>
+    <subsub>3</subsub>
+  </sub>
+  <sub>
+    <subsub>4</subsub>
+    <subsub>5</subsub>
+  </sub>
+  <subsub>6</subsub>
+</root>
+]])
+  local sub_node_set = document:css_select("sub")
+  luaunit.assertEquals(sub_node_set:css_select("subsub"):to_xml(),
+                       "<subsub>2</subsub>" ..
+                       "<subsub>3</subsub>" ..
+                       "<subsub>4</subsub>" ..
+                       "<subsub>5</subsub>")
 end
 
 function TestNodeSet.test_to_xml()

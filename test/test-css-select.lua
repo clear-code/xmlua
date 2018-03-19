@@ -792,3 +792,252 @@ function TestCSSSelect.test_functional_pseudo_lang_type_selector()
                          [[<sub1 xml:lang="ja-JP"/>]],
                        })
 end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_number()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(3)"),
+                       {
+                         [[<sub3/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_odd()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(odd)"),
+                       {
+                         [[<sub1/>]],
+                         [[<sub3/>]],
+                         [[<sub5/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_even()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(even)"),
+                       {
+                         [[<sub2/>]],
+                         [[<sub4/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_1n()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(1n)"),
+                       {
+                         [[<sub1/>]],
+                         [[<sub2/>]],
+                         [[<sub3/>]],
+                         [[<sub4/>]],
+                         [[<sub5/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_n_minus_2()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(n-2)"),
+                       {
+                         [[<sub1/>]],
+                         [[<sub2/>]],
+                         [[<sub3/>]],
+                         [[<sub4/>]],
+                         [[<sub5/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_minus_n()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(-n)"),
+                       {})
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_minus_n_2()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(-n+2)"),
+                       {
+                         [[<sub1/>]],
+                         [[<sub2/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_minus_n_minus_2()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(-n-2)"),
+                       {})
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_3n()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+  <sub6/>
+  <sub7/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(3n)"),
+                       {
+                         [[<sub3/>]],
+                         [[<sub6/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_3n_1()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+  <sub6/>
+  <sub7/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(3n+1)"),
+                       {
+                         [[<sub1/>]],
+                         [[<sub4/>]],
+                         [[<sub7/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_3n_2()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+  <sub6/>
+  <sub7/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(3n+2)"),
+                       {
+                         [[<sub2/>]],
+                         [[<sub5/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_3n_minus_2()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+  <sub6/>
+  <sub7/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(3n-2)"),
+                       {
+                         [[<sub1/>]],
+                         [[<sub4/>]],
+                         [[<sub7/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_3n_4()
+  local xml = [[
+<root>
+  <sub1/>
+  <sub2/>
+  <sub3/>
+  <sub4/>
+  <sub5/>
+  <sub6/>
+  <sub7/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "root :nth-child(3n+4)"),
+                       {
+                         [[<sub4/>]],
+                         [[<sub7/>]],
+                       })
+end
+
+function TestCSSSelect.test_functional_pseudo_nth_child_type_selector()
+  local xml = [[
+<root>
+  <sub1 class="A"/>
+  <sub2 class="A"/>
+  <sub1 class="B"/>
+  <sub2 class="B"/>
+  <sub1 class="C"/>
+  <sub2 class="C"/>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub2:nth-child(2)"),
+                       {
+                         [[<sub2 class="A"/>]],
+                       })
+end

@@ -12,6 +12,26 @@ local function css_select(xml, css_selector_groups)
   return matched_xmls
 end
 
+function TestCSSSelect.test_context_node()
+  local xml = [[
+<root>
+  <sub1 class="A"/>
+  <sub2 class="A"/>
+  <sub1 class="B"/>
+</root>
+]]
+  local document = xmlua.XML.parse(xml)
+  local node_set = document:css_select("root")
+  luaunit.assertEquals(node_set:to_xml(),
+                       document:root():to_xml())
+  local root = node_set[1]
+  node_set = root:css_select("*")
+  luaunit.assertEquals(node_set:to_xml(),
+                       [[<sub1 class="A"/>]] ..
+                         [[<sub2 class="A"/>]] ..
+                         [[<sub1 class="B"/>]])
+end
+
 function TestCSSSelect.test_selector_groups()
   local xml = [[
 <root>
@@ -1907,3 +1927,4 @@ function TestCSSSelect.test_functional_pseudo_negation_type_selector()
                          [[<sub/>]],
                        })
 end
+

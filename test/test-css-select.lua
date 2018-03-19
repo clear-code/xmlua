@@ -694,3 +694,26 @@ function TestCSSSelect.test_pseudo_class_only_child_type_selector()
                          [[<sub2 class="AA"/>]],
                        })
 end
+
+function TestCSSSelect.test_pseudo_class_only_of_type_type_selector()
+  local xml = [[
+<root>
+  <sub1 class="A">
+    <sub2 class="AA"/>
+  </sub1>
+  <sub1 class="B">
+    <sub2 class="BA"/>
+    <sub2 class="BB"/>
+  </sub1>
+  <sub1 class="C">
+    <sub2 class="CA"/>
+    <sub3 class="CB"/>
+  </sub1>
+</root>
+]]
+  luaunit.assertEquals(css_select(xml, "sub2:only-of-type"),
+                       {
+                         [[<sub2 class="AA"/>]],
+                         [[<sub2 class="CA"/>]],
+                       })
+end

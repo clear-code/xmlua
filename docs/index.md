@@ -31,7 +31,7 @@ XMLua provides user-friendly API instead of low-level libxml2 API. The user-frie
 
   * [Install](install/): It describes how to install XMLua.
 
-  * [Tutorial](tutorial/): It describes how to use XMlua step by step.
+  * [Tutorial](tutorial/): It describes how to use XMLua step by step.
 
   * [Reference](reference/): It describes details for each features such as classes and methods.
 

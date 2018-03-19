@@ -1,7 +1,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-11-30 16:32+0900\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,11 +52,11 @@ msgid "## About XMLua {#about}"
 msgstr "## XMLuaについて {#about}"
 
 msgid ""
-"XMLua is a Lua library for processing XML and HTML. It's based on [libxml2](ht"
-"tp://xmlsoft.org/). It uses LuaJIT's FFI module."
+"XMLua is a Lua library for processing XML and HTML. It's based on [libxml2][li"
+"bxml2]. It uses LuaJIT's FFI module."
 msgstr ""
-"XMLua（えっくすえむえるあ）はXML・HTMLを処理するLuaライブラリーです。[libxml2](http://xmlsoft.org/)を使っていま"
-"す。LuaJITのFFIモジュールを使って実装しています。"
+"XMLua（えっくすえむえるあ）はXML・HTMLを処理するLuaライブラリーです。[libxml2][libxml2]を使っています。LuaJITのFFI"
+"モジュールを使って実装しています。"
 
 msgid ""
 "XMLua provides user-friendly API instead of low-level libxml2 API. The user-fr"
@@ -67,31 +66,46 @@ msgstr "XMLuaはlibxml2の生のAPIではなく、使いやすいAPIを提供し
 msgid "## Documentations {#documentations}"
 msgstr "## ドキュメント {#documentations}"
 
-msgid "  * [News](news/): It lists release information."
-msgstr "  * [おしらせ](news/): リリース情報。"
+msgid "  * [News][news]: It lists release information."
+msgstr "  * [おしらせ][news]: リリース情報。"
 
-msgid "  * [Install](install/): It describes how to install XMLua."
-msgstr "  * [インストール](install/): XMLuaのインストール方法。"
+msgid "  * [Install][install]: It describes how to install XMLua."
+msgstr "  * [インストール][install]: XMLuaのインストール方法。"
 
-msgid "  * [Tutorial](tutorial/): It describes how to use XMlua step by step."
-msgstr "  * [チュートリアル](tutorial/): XMLuaの使い方を1つずつ説明。"
+msgid "  * [Tutorial][tutorial]: It describes how to use XMLua step by step."
+msgstr "  * [チュートリアル][tutorial]: XMLuaの使い方を1つずつ説明。"
 
 msgid ""
-"  * [Reference](reference/): It describes details for each features such as cl"
-"asses and methods."
-msgstr "  * [リファレンス](reference/): クラスやメソッドなど個別の機能の詳細な説明。"
+"  * [Reference][reference]: It describes details for each features such as cla"
+"sses and methods."
+msgstr "  * [リファレンス][reference]: クラスやメソッドなど個別の機能の詳細な説明。"
 
 msgid "## License {#license}"
 msgstr "## ライセンス {#license}"
 
-msgid ""
-"XMLua is released under [the MIT license](https://opensource.org/licenses/mit)"
-"."
-msgstr "XMLuaのライセンスは[MITライセンス](https://opensource.org/licenses/mit)です。"
+msgid "XMLua is released under [the MIT license][mit-license]."
+msgstr "XMLuaのライセンスは[MITライセンス][mit-license]です。"
 
-msgid ""
-"See [LICENSE](https://github.com/clear-code/xmlua/blob/master/LICENSE) file fo"
-"r details such as copyright holders."
+msgid "See [LICENSE][license] file for details such as copyright holders."
+msgstr "著作権保持者など詳細は[LICENSE][license]ファイルを見てください。"
+
+msgid "[libxml2]:http://xmlsoft.org/"
 msgstr ""
-"著作権保持者など詳細は[LICENSE](https://github.com/clear-code/xmlua/blob/master/LICENSE)フ"
-"ァイルを見てください。"
+
+msgid "[news]:news/"
+msgstr ""
+
+msgid "[install]:install/"
+msgstr ""
+
+msgid "[tutorial]:tutorial/"
+msgstr ""
+
+msgid "[reference]:reference/"
+msgstr ""
+
+msgid "[mit-license]:https://opensource.org/licenses/mit"
+msgstr ""
+
+msgid "[license]:https://github.com/clear-code/xmlua/blob/master/LICENSE"
+msgstr ""

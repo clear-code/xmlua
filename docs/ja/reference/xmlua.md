@@ -8,7 +8,7 @@ title: xmlua
 
 メインモジュールです。
 
-## Module functions
+## モジュール関数
 
 ### `init() -> nil` {#init}
 

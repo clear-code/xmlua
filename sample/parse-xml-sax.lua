@@ -87,6 +87,18 @@ parser.start_element = function(local_name,
   end
 end
 
+parser.end_element = function(local_name,
+                              prefix,
+                              uri)
+  print("End element: " .. local_name)
+  if prefix then
+    print("  prefix: " .. prefix)
+  end
+  if uri then
+    print("  URI: " .. uri)
+  end
+end
+
 parser.end_document = function()
   print("End document")
 end

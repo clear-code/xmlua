@@ -17,7 +17,6 @@ local xmlua = require("xmlua")
 
 local document = xmlua.HTML.parse("<html><body></body></html>")
 
-```lua
 -- xmlua.Document:rootメソッドを呼ぶ
 document:root() -- -> ルート要素
 ```

@@ -156,6 +156,9 @@ function TestNodeSet.test_remove_with_position()
   local node = node_set:remove(1)
   luaunit.assertEquals(node:path(),
                        "/html/body/sub1")
+  luaunit.assertEquals(node_set:paths(),
+                       {"/html/body/sub2",
+                        "/html/body/sub3"})
 end
 
 function TestNodeSet.test_remove_with_node()
@@ -172,6 +175,9 @@ function TestNodeSet.test_remove_with_node()
   local node = node_set:remove(node_set[1])
   luaunit.assertEquals(node:path(),
                        "/html/body/sub1")
+  luaunit.assertEquals(node_set:paths(),
+                       {"/html/body/sub2",
+                        "/html/body/sub3"})
 end
 
 function TestNodeSet.test_remove_node_with_specify_not_exist_position()
@@ -187,6 +193,10 @@ function TestNodeSet.test_remove_node_with_specify_not_exist_position()
   local node_set = document:search("//html/body/*")
   local node = node_set:remove(4)
   luaunit.assertEquals(node, nil)
+  luaunit.assertEquals(node_set:paths(),
+                       {"/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub3"})
 end
 
 function TestNodeSet.test_remove_node_with_specify_not_exist_node()
@@ -212,4 +222,8 @@ function TestNodeSet.test_remove_node_with_specify_not_exist_node()
   local node_set2 = document2:search("//html/body/*")
   local node = node_set1:remove(node_set2[1])
   luaunit.assertEquals(node, nil)
+  luaunit.assertEquals(node_set1:paths(),
+                       {"/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub3"})
 end

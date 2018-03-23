@@ -161,6 +161,83 @@ function TestNodeSet.test_remove_with_position()
                         "/html/body/sub3"})
 end
 
+function TestNodeSet.test_insert_with_node()
+  local document1 = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+
+  local document2 = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub4>sub1</sub4>
+  </body>
+</html>
+]])
+
+  local inserted_node_set = document1:search("//html/body/*")
+  local insert_node = document2:search("//html/body/*")[1]
+  inserted_node_set:insert(insert_node)
+  luaunit.assertEquals(inserted_node_set:paths(),
+                       {"/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub3",
+                        "/html/body/sub4"})
+end
+
+function TestNodeSet.test_insert_with_position()
+  local document1 = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+
+  local document2 = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub4>sub1</sub4>
+  </body>
+</html>
+]])
+
+  local inserted_node_set = document1:search("//html/body/*")
+  local insert_node = document2:search("//html/body/*")[1]
+  inserted_node_set:insert(3, insert_node)
+  luaunit.assertEquals(inserted_node_set:paths(),
+                       {"/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub4",
+                        "/html/body/sub3"})
+end
+
+function TestNodeSet.test_insert_same_node()
+  local document = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+
+  local node_set = document:search("//html/body/*")
+  node_set:insert(node_set[1])
+  luaunit.assertEquals(node_set:paths(),
+                       {"/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub3"})
+end
+
 function TestNodeSet.test_remove_with_node()
   local document = xmlua.HTML.parse([[
 <html>

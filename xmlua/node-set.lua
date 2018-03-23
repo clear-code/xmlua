@@ -71,6 +71,28 @@ function methods.paths(self)
              end)
 end
 
+function methods.insert(self, node_or_position, node)
+  local inserted_node = nil
+  local position = nil
+
+  if node == nil then
+    inserted_node = node_or_position
+  else
+    position = node_or_position
+    inserted_node = node
+  end
+  for i, self_node in ipairs(self) do
+    if self_node == inserted_node then
+      return nil
+    end
+  end
+  if position == nil then
+    return table.insert(self, inserted_node)
+  else
+    return table.insert(self, position, inserted_node)
+  end
+end
+
 function methods.remove(self, node_or_position)
   if type(node_or_position) == "number" then
     local position = node_or_position

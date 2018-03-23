@@ -82,7 +82,7 @@ function methods.insert(self, node_or_position, node)
     inserted_node = node
   end
   for i, self_node in ipairs(self) do
-    if self_node == inserted_node then
+    if self_node.node == inserted_node.node then
       return nil
     end
   end
@@ -100,7 +100,7 @@ function methods.remove(self, node_or_position)
   else
     local node = node_or_position
     for position, self_node in ipairs(self) do
-      if self_node:path() == node:path() then
+      if self_node.node == node.node then
         return table.remove(self, position)
       end
     end

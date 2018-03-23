@@ -72,24 +72,17 @@ function methods.paths(self)
 end
 
 function methods.remove(self, node_or_position)
-  local position = 0
-  local node = nil
-
   if type(node_or_position) == "number" then
-    position = node_or_position
+    local position = node_or_position
     return table.remove(self, position)
   else
-    node = node_or_position
-    for i, self_node in ipairs(self) do
+    local node = node_or_position
+    for position, self_node in ipairs(self) do
       if self_node:path() == node:path() then
-        position = i
+        return table.remove(self, position)
       end
     end
-    if position ~= 0 then
-      return table.remove(self, position)
-    else
-      return nil
-    end
+    return nil
   end
 end
 

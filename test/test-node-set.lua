@@ -141,3 +141,75 @@ function TestNodeSet.test_paths()
                         "/html/body/sub2",
                         "/html/body/sub3"})
 end
+
+function TestNodeSet.test_remove_with_position()
+  local document = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+  local node_set = document:search("//html/body/*")
+  local node = node_set:remove(1)
+  luaunit.assertEquals(node:path(),
+                       "/html/body/sub1")
+end
+
+function TestNodeSet.test_remove_with_node()
+  local document = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+  local node_set = document:search("//html/body/*")
+  local node = node_set:remove(node_set[1])
+  luaunit.assertEquals(node:path(),
+                       "/html/body/sub1")
+end
+
+function TestNodeSet.test_remove_node_with_specify_not_exist_position()
+  local document = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+  local node_set = document:search("//html/body/*")
+  local node = node_set:remove(4)
+  luaunit.assertEquals(node, nil)
+end
+
+function TestNodeSet.test_remove_node_with_specify_not_exist_node()
+  local document1 = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+
+  local document2 = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub4>sub1</sub1>
+  </body>
+</html>
+]])
+
+  local node_set1 = document1:search("//html/body/*")
+  local node_set2 = document2:search("//html/body/*")
+  local node = node_set1:remove(node_set2[1])
+  luaunit.assertEquals(node, nil)
+end

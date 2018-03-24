@@ -94,10 +94,7 @@ function Searchable.css_select(self, css_selector_groups)
     if self.node then
       xpath = "." .. xpath
     end
-    for _, node in ipairs(self:search(xpath)) do
-      -- TODO: Remove duplicated
-      table.insert(raw_node_set, node)
-    end
+    raw_node_set = raw_node_set + self:search(xpath)
   end
   return NodeSet.new(raw_node_set)
 end

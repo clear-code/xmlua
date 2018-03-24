@@ -6,6 +6,9 @@ local metatable = {}
 function metatable.__index(node_set, key)
   return methods[key]
 end
+function metatable.__add(added_node_set, add_node_set)
+  return methods.merge(added_node_set, add_node_set)
+end
 
 local function map(values, func)
   local converted_values = {}
@@ -106,6 +109,28 @@ function methods.remove(self, node_or_position)
     end
     return nil
   end
+end
+
+local function is_include(node_set, search_node)
+  for _, node in ipairs(node_set) do
+    if node.node == search_node.node then
+      return true
+    end
+  end
+  return false
+end
+
+function methods.merge(self, node_set)
+  local raw_node_set = {}
+  for _, node in ipairs(self) do
+    table.insert(raw_node_set, node)
+  end
+  for _, node in ipairs(node_set) do
+    if not is_include(self, node) then
+      table.insert(raw_node_set, node)
+    end
+  end
+  return NodeSet.new(raw_node_set)
 end
 
 function NodeSet.new(nodes)

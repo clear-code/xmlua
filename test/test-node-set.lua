@@ -292,3 +292,74 @@ function TestNodeSet.test_remove_node_with_specify_not_exist_node()
                         "/html/body/sub2",
                         "/html/body/sub3"})
 end
+
+function TestNodeSet.test_merge()
+  local document = xmlua.HTML.parse([[
+<html>
+  <head>
+    <title>This is test</title>
+  </head>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+
+  local node_set1 = document:search("//title")
+  local node_set2 = document:search("//html/body/*")
+  local merged_node_set = node_set1:merge(node_set2)
+  luaunit.assertEquals(merged_node_set:paths(),
+                       {"/html/head/title",
+                        "/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub3"})
+end
+
+function TestNodeSet.test_merge_same_node()
+  local document = xmlua.HTML.parse([[
+<html>
+  <head>
+    <title>This is test</title>
+  </head>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+
+  local node_set1 = document:search("//html/body/*")
+  local node_set2 = document:search("//html/body/sub1")
+  local merged_node_set = node_set1:merge(node_set2)
+  luaunit.assertEquals(merged_node_set:paths(),
+                       {"/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub3"})
+end
+
+function TestNodeSet.test_merge_alias()
+  local document = xmlua.HTML.parse([[
+<html>
+  <head>
+    <title>This is test</title>
+  </head>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+
+  local node_set1 = document:search("//title")
+  local node_set2 = document:search("//html/body/*")
+  local merged_node_set = node_set1 + node_set2
+  luaunit.assertEquals(merged_node_set:paths(),
+                       {"/html/head/title",
+                        "/html/body/sub1",
+                        "/html/body/sub2",
+                        "/html/body/sub3"})
+end

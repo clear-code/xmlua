@@ -168,6 +168,14 @@ xmlChar *xmlGetNsProp(const xmlNode *node,
                       const xmlChar *nameSpace);
 xmlChar *xmlGetProp(const xmlNode *node, const xmlChar *name);
 
+xmlAttrPtr xmlNewNsProp(xmlNodePtr node,
+			xmlNsPtr ns,
+			const xmlChar *name,
+			const xmlChar *value);
+xmlAttrPtr xmlNewProp(xmlNodePtr node,
+		      const xmlChar *name,
+		      const xmlChar *value);
+
 xmlChar *xmlNodeGetContent(const xmlNode *cur);
 xmlChar *xmlGetNodePath(const xmlNode *node);
 

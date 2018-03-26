@@ -147,3 +147,15 @@ function TestElement.test_path()
   luaunit.assertEquals(root:path(),
                        "/root")
 end
+
+function TestElement.test_unlink()
+  local document = xmlua.XML.parse([[<root><child/></root>]])
+  local root = document:root()
+  local child = root:children()[1]
+  child:unlink()
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]])
+end

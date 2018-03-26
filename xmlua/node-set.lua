@@ -36,25 +36,27 @@ function methods.to_html(self, options)
 end
 
 function methods.search(self, xpath)
-  local nodes = {}
-  for i, node in ipairs(self) do
-    local sub_nodes = node:search(xpath)
-    for j, sub_node in ipairs(sub_nodes) do
-      table.insert(nodes, sub_node)
+  local node_set = nil
+  for _, node in ipairs(self) do
+    if node_set == nil then
+      node_set = node:search(xpath)
+    else
+      node_set = node_set + node:search(xpath)
     end
   end
-  return NodeSet.new(nodes)
+  return node_set
 end
 
 function methods.css_select(self, css_selectors)
-  local nodes = {}
-  for i, node in ipairs(self) do
-    local sub_nodes = node:css_select(css_selectors)
-    for j, sub_node in ipairs(sub_nodes) do
-      table.insert(nodes, sub_node)
+  local node_set = nil
+  for _, node in ipairs(self) do
+    if node_set == nil then
+      node_set = node:css_select(css_selectors)
+    else
+      node_set = node_set + node:css_select(css_selectors)
     end
   end
-  return NodeSet.new(nodes)
+  return node_set
 end
 
 function methods.content(self, xpath)

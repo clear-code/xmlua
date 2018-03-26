@@ -170,4 +170,7 @@ xmlChar *xmlGetProp(const xmlNode *node, const xmlChar *name);
 
 xmlChar *xmlNodeGetContent(const xmlNode *cur);
 xmlChar *xmlGetNodePath(const xmlNode *node);
+
+void xmlFreeNode(xmlNodePtr cur);
+void xmlUnlinkNode(xmlNodePtr cur);
 ]]

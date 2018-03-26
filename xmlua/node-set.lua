@@ -111,6 +111,12 @@ function methods.remove(self, node_or_position)
   end
 end
 
+function methods.unlink(self)
+  for _, node in ipairs(self) do
+    node:unlink()
+  end
+end
+
 local function is_include(node_set, search_node)
   for _, node in ipairs(node_set) do
     if node.node == search_node.node then

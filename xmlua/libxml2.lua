@@ -276,6 +276,11 @@ function libxml2.xmlGetNodePath(node)
   return lua_string
 end
 
+function libxml2.xmlUnlinkNode(node)
+  xml2.xmlUnlinkNode(node)
+  return ffi.gc(node, xml2.xmlFreeNode)
+end
+
 
 function libxml2.xmlBufferCreate()
   return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)

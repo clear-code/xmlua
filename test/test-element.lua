@@ -141,10 +141,21 @@ function TestElement.test_get_attribute_array_referece()
                        "A")
 end
 
-function TestElement.test_set_attribute()
+function TestElement.test_set_attribute_raw()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()
   root:set_attribute("class", "A")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root class="A"/>
+]])
+end
+
+function TestElement.test_set_attribute_substitution()
+  local document = xmlua.XML.parse("<root/>")
+  local root = document:root()
+  root.class = "A"
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>

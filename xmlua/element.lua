@@ -25,6 +25,9 @@ function metatable.__index(element, key)
     Searchable[key] or
     methods.get_attribute(element, key)
 end
+function metatable.__newindex(element, key, value)
+  return methods.set_attribute(element, key, value)
+end
 
 function methods.get_attribute(self, name)
   local value = nil

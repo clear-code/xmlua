@@ -10,6 +10,7 @@ local Document = require("xmlua.document")
 local methods = {}
 
 local metatable = {}
+
 function metatable.__index(parser, key)
   return methods[key]
 end

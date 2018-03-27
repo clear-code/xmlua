@@ -15,6 +15,7 @@ end
 local methods = {}
 
 local metatable = {}
+
 function metatable.__index(document, key)
   return methods[key] or
     Serializable[key] or

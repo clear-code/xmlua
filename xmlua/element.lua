@@ -18,6 +18,7 @@ local NodeSet = require("xmlua.node-set")
 local methods = {}
 
 local metatable = {}
+
 function metatable.__index(element, key)
   return methods[key] or
     Node[key] or
@@ -25,6 +26,7 @@ function metatable.__index(element, key)
     Searchable[key] or
     methods.get_attribute(element, key)
 end
+
 function metatable.__newindex(element, key, value)
   return methods.set_attribute(element, key, value)
 end

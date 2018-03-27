@@ -8,6 +8,7 @@ local to_string = converter.to_string
 local methods = {}
 
 local metatable = {}
+
 function metatable.__index(parser, key)
   return methods[key]
 end

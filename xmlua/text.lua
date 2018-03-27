@@ -5,6 +5,7 @@ local Node = require("xmlua.node")
 local methods = {}
 
 local metatable = {}
+
 function metatable.__index(element, key)
   return methods[key] or
     Node[key]

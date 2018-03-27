@@ -3,9 +3,11 @@ local NodeSet = {}
 local methods = {}
 
 local metatable = {}
+
 function metatable.__index(node_set, key)
   return methods[key]
 end
+
 function metatable.__add(added_node_set, add_node_set)
   return methods.merge(added_node_set, add_node_set)
 end

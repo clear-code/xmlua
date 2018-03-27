@@ -112,10 +112,6 @@ function methods.text(self)
   return self:content()
 end
 
-function methods.unlink(self)
-  self:unlink_node()
-end
-
 function Element.new(document, node)
   local element = {
     document = document,

@@ -11,7 +11,7 @@ function Node.path(self)
   return libxml2.xmlGetNodePath(self.node)
 end
 
-function Node.unlink_node(self)
+function Node.unlink(self)
   return libxml2.xmlUnlinkNode(self.node)
 end
 return Node

@@ -117,7 +117,7 @@ end
 
 function methods.unlink(self)
   for _, node in ipairs(self) do
-    node:unlink_node()
+    node:unlink()
   end
 end
 

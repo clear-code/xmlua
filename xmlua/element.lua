@@ -67,6 +67,23 @@ function methods.set_attribute(self, name, value)
   libxml2.xmlNewProp(self.node, name, value)
 end
 
+function methods.remove_attribute(self, name)
+  local colon_start = name:find(":")
+  if colon_start then
+    local namespace_prefix = name:sub(0, colon_start - 1)
+    local local_name = name:sub(colon_start + 1)
+    local namespace = libxml2.xmlSearchNs(self.document,
+                                          self.node,
+                                          namespace_prefix)
+    if namespace then
+      libxml2.xmlUnsetNsProp(self.node, namespace, local_name)
+      return
+    end
+  end
+  libxml2.xmlUnsetProp(self.node, name)
+  return
+end
+
 function methods.name(self)
   return ffi.string(self.node.name)
 end

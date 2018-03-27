@@ -178,6 +178,32 @@ function TestElement.test_set_attribute_with_namespace()
 ]])
 end
 
+function TestElement.test_remove_attribute_raw()
+  local document = xmlua.XML.parse("<root class=\"A\"/>")
+  local node_set = document:search("/root")
+  node_set[1]:remove_attribute("class")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]])
+end
+
+function TestElement.test_remove_attribute_with_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level"/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  root:remove_attribute("xhtml:class")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]])
+end
+
 function TestElement.test_path()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()

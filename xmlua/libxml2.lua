@@ -264,6 +264,15 @@ function libxml2.xmlNewProp(node, name, value)
   xml2.xmlNewProp(node, name, value)
 end
 
+function libxml2.xmlUnsetNsProp(node, namespace, name)
+  xml2.xmlUnsetNsProp(node, namespace, name)
+end
+
+function libxml2.xmlUnsetProp(node, name)
+  xml2.xmlUnsetProp(node, name)
+end
+
+
 function libxml2.xmlNodeGetContent(node)
   local content = xml2.xmlNodeGetContent(node)
   if content == ffi.NULL then

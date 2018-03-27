@@ -175,6 +175,8 @@ xmlAttrPtr xmlNewNsProp(xmlNodePtr node,
 xmlAttrPtr xmlNewProp(xmlNodePtr node,
 		      const xmlChar *name,
 		      const xmlChar *value);
+int xmlUnsetNsProp(xmlNodePtr node, xmlNsPtr ns, const xmlChar *name);
+int xmlUnsetProp(xmlNodePtr node, const xmlChar *name);
 
 xmlChar *xmlNodeGetContent(const xmlNode *cur);
 xmlChar *xmlGetNodePath(const xmlNode *node);

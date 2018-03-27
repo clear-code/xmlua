@@ -218,6 +218,29 @@ function libxml2.xmlFirstElementChild(node)
   return element
 end
 
+function libxml2.xmlNewNs(node, uri, prefix)
+  local new_namespace = xml2.xmlNewNs(node, uri, prefix)
+  return new_namespace
+end
+
+function libxml2.xmlSetNs(node, namespace)
+  xml2.xmlSetNs(node, namespace)
+  return
+end
+
+function libxml2.xmlNewNode(namespace, name)
+  local new_element = xml2.xmlNewNode(namespace, name)
+  return new_element
+end
+
+function libxml2.xmlAddChild(parent, child)
+  local child_element = xml2.xmlAddChild(parent, child)
+  if child_element == ffi.NULL then
+    child_element = nil
+  end
+  return child_element
+end
+
 function libxml2.xmlSearchNs(document, node, namespace_prefix)
   local namespace = xml2.xmlSearchNs(document, node, namespace_prefix)
   if namespace == ffi.NULL then

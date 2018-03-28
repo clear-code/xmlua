@@ -233,6 +233,14 @@ function libxml2.xmlNewNode(namespace, name)
   return new_element
 end
 
+function libxml2.xmlAddPrevSibling(sibling, new_sibling)
+  local new_element = xml2.xmlAddPrevSibling(sibling, new_sibling)
+  if new_element == ffi.NULL then
+    new_element = nil
+  end
+  return new_element
+end
+
 function libxml2.xmlAddChild(parent, child)
   local child_element = xml2.xmlAddChild(parent, child)
   if child_element == ffi.NULL then

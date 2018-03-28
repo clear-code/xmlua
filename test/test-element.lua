@@ -197,6 +197,102 @@ function TestElement.test_append_element_with_new_namespace()
 ]],})
 end
 
+function TestElement.test_insert_element()
+  local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
+  local root = document:root()
+  local child = root:insert_element(2, "new-child")
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                       [[<new-child/>]],
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child1/>
+  <new-child/>
+  <child2/>
+</root>
+]],})
+end
+
+function TestElement.test_insert_element_with_attributes()
+  local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
+  local root = document:root()
+  local child = root:insert_element(2, "new-child", {id="1", class="A"})
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                       [[<new-child class="A" id="1"/>]],
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child1/>
+  <new-child class="A" id="1"/>
+  <child2/>
+</root>
+]],})
+end
+
+function TestElement.test_insert_element_with_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <xhtml:child1/>
+  <xhtml:child2/>
+</xhtml:html>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local child = root:insert_element(2,
+                                    "xhtml:new-child",
+                                    {id="1", class="A"})
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                       [[<xhtml:new-child class="A" id="1"/>]],
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <xhtml:child1/>
+  <xhtml:new-child class="A" id="1"/><xhtml:child2/>
+</xhtml:html>
+]],})
+end
+
+function TestElement.test_insert_element_with_new_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <xhtml:child1/>
+  <xhtml:child2/>
+</xhtml:html>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local child = root:insert_element(2,
+                                    "test:child",
+                                    {["xmlns:test"]="http://example.com"})
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                       [[<test:child xmlns:test="http://example.com"/>]],
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <xhtml:child1/>
+  <test:child xmlns:test="http://example.com"/><xhtml:child2/>
+</xhtml:html>
+]],})
+end
+
 function TestElement.test_get_attribute_raw()
   local document = xmlua.XML.parse("<root class=\"A\"/>")
   local node_set = document:search("/root")

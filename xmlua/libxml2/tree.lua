@@ -165,6 +165,7 @@ xmlNsPtr xmlNewNs(xmlNodePtr node,
 		  const xmlChar *prefix);
 void xmlSetNs(xmlNodePtr node, xmlNsPtr ns);
 xmlNodePtr xmlNewNode(xmlNsPtr ns, const xmlChar *name);
+xmlNodePtr xmlAddPrevSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);
 
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);

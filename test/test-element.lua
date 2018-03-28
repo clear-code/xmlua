@@ -120,6 +120,83 @@ function TestElement.test_text()
                        root:content())
 end
 
+function TestElement.test_append_element()
+  local document = xmlua.XML.parse("<root/>")
+  local root = document:root()
+  local child = root:append_element("child")
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                       [[<child/>]],
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child/>
+</root>
+]],})
+end
+
+function TestElement.test_append_element_with_attribute()
+  local document = xmlua.XML.parse("<root/>")
+  local root = document:root()
+  local child = root:append_element("child", {id="1", class="A"})
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                       [[<child class="A" id="1"/>]],
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child class="A" id="1"/>
+</root>
+]],})
+end
+
+function TestElement.test_append_element_with_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local child = root:append_element("xhtml:child", {id="1", class="A"})
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                       [[<xhtml:child class="A" id="1"/>]],
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <xhtml:child class="A" id="1"/>
+</xhtml:html>
+]],})
+end
+
+function TestElement.test_append_element_with_new_namespace()
+  local document = xmlua.XML.parse("<root/>")
+  local root = document:root()
+  local child = root:append_element("test:child",
+                                    {["xmlns:test"]="http://example.com"})
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                       [[<test:child xmlns:test="http://example.com"/>]],
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <test:child xmlns:test="http://example.com"/>
+</root>
+]],})
+end
+
 function TestElement.test_get_attribute_raw()
   local document = xmlua.XML.parse("<root class=\"A\"/>")
   local node_set = document:search("/root")

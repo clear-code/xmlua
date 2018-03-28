@@ -160,6 +160,13 @@ xmlNodePtr xmlNextElementSibling(xmlNodePtr node);
 xmlNodePtr xmlFirstElementChild(xmlNodePtr node);
 xmlNodePtr xmlLastElementChild(xmlNodePtr node);
 
+xmlNsPtr xmlNewNs(xmlNodePtr node,
+		  const xmlChar *href,
+		  const xmlChar *prefix);
+void xmlSetNs(xmlNodePtr node, xmlNsPtr ns);
+xmlNodePtr xmlNewNode(xmlNsPtr ns, const xmlChar *name);
+xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);
+
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);
 
 char *xmlGetNoNsProp(const xmlNode *node, const xmlChar *name);

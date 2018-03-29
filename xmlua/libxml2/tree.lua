@@ -164,7 +164,10 @@ xmlNsPtr xmlNewNs(xmlNodePtr node,
 		  const xmlChar *href,
 		  const xmlChar *prefix);
 void xmlSetNs(xmlNodePtr node, xmlNsPtr ns);
+xmlDocPtr xmlNewDoc(const xmlChar *version);
+xmlNodePtr xmlDocSetRootElement(xmlDocPtr doc, xmlNodePtr root);
 xmlNodePtr xmlNewNode(xmlNsPtr ns, const xmlChar *name);
+xmlNodePtr xmlNewText(const xmlChar *content);
 xmlNodePtr xmlAddPrevSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);
 

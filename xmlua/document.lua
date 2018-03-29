@@ -38,6 +38,24 @@ function methods.encoding(self)
   return ffi.string(self.document.encoding)
 end
 
+function Document.build(doc_tree)
+  local raw_document = libxml2.xmlNewDoc("1.0")
+  local raw_root_node = libxml2.xmlNewNode(nil, doc_tree[1])
+  libxml2.xmlDocSetRootElement(raw_document, raw_root_node)
+  local root = Element.new(raw_document, raw_root_node)
+  for name, value in pairs(doc_tree[2]) do
+    root:set_attribute(name, value)
+  end
+  for i=3, #doc_tree do
+    if type(doc_tree[i]) == "table" then
+      root:append_element(doc_tree[i][1], doc_tree[i][2])
+    else
+      root.text = doc_tree[i]
+    end
+  end
+  return Document.new(root.document)
+end
+
 function Document.new(raw_document, errors)
   if not errors then
     errors = {}

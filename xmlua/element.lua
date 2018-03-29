@@ -28,7 +28,22 @@ function metatable.__index(element, key)
 end
 
 function metatable.__newindex(element, key, value)
-  return methods.set_attribute(element, key, value)
+  if key == "text" then
+    return methods.append_text(element, value)
+  else
+    return methods.set_attribute(element, key, value)
+  end
+end
+
+function methods.append_text(self, value)
+  local raw_text = libxml2.xmlNewText(value)
+  local new_text = Element.new(self.document, raw_text)
+  if libxml2.xmlAddChild(self.node, new_text.node) then
+    return new_text
+  else
+    return
+  end
+
 end
 
 function methods.append_element(self, name, attributes)

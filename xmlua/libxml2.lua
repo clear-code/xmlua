@@ -228,9 +228,21 @@ function libxml2.xmlSetNs(node, namespace)
   return
 end
 
+function libxml2.xmlNewDoc(xml_version)
+  return xml2.xmlNewDoc(xml_version)
+end
+
+function libxml2.xmlDocSetRootElement(document, root)
+  return xml2.xmlDocSetRootElement(document, root)
+end
+
 function libxml2.xmlNewNode(namespace, name)
   local new_element = xml2.xmlNewNode(namespace, name)
   return new_element
+end
+
+function libxml2.xmlNewText(content)
+  return xml2.xmlNewText(content)
 end
 
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)

@@ -69,38 +69,6 @@ local function set_default_namespace(node, namespace)
   end
 end
 
-local function replace_namespace(node, prefix, namespace)
-  local is_target_namespace = function(ns)
-    if ns == ffi.NULL then
-      return false
-    end
-    if prefix then
-      if ns.prefix == ffi.NULL then
-        return false
-      end
-      return ffi.string(ns.prefix) == prefix
-    else
-      return ns.prefix == ffi.NULL
-    end
-  end
-
-  if is_target_namespace(node.ns) then
-    libxml2.xmlSetNs(node, namespace)
-  end
-  local attributes = node.properties
-  while attributes ~= ffi.NULL do
-    if is_target_namespace(node.ns) then
-      libxml2.xmlSetNs(ffi.cast("xmlNodePtr", attributes), namespace)
-    end
-    attributes = attributes.next
-  end
-  local children = node.children
-  while children ~= ffi.NULL do
-    replace_namespace(children, namespace)
-    children = children.next
-  end
-end
-
 local function unset_namespace(node, namespace)
   if node.ns == namespace then
     node.ns = ffi.NULL

@@ -90,13 +90,15 @@ function methods.insert(self, node_or_position, node)
   end
   for i, self_node in ipairs(self) do
     if self_node.node == inserted_node.node then
-      return nil
+      return
     end
   end
   if position == nil then
-    return table.insert(self, inserted_node)
+    table.insert(self, inserted_node)
+    return
   else
-    return table.insert(self, position, inserted_node)
+    table.insert(self, position, inserted_node)
+    return
   end
 end
 
@@ -119,6 +121,7 @@ function methods.unlink(self)
   for _, node in ipairs(self) do
     node:unlink()
   end
+  return
 end
 
 local function is_include(node_set, search_node)

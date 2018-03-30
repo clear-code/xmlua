@@ -170,10 +170,11 @@ function methods.set_attribute(self, name, value)
                                           namespace_prefix)
     if namespace then
       libxml2.xmlNewNsProp(self.node, namespace, local_name, value)
-      return nil
+      return
     end
   end
   libxml2.xmlNewProp(self.node, name, value)
+  return
 end
 
 function methods.remove_attribute(self, name)

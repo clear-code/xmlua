@@ -1,7 +1,12 @@
 local luaunit = require("luaunit")
 local xmlua = require("xmlua")
+local ffi = require("ffi")
 
 TestElement = {}
+
+local function get_ns_prop(node, local_name, namespace_uri)
+  return xmlua.libxml2.xmlGetNsProp(node, local_name, namespace_uri)
+end
 
 function TestElement.test_to_html()
   local document = xmlua.XML.parse([[
@@ -386,6 +391,64 @@ function TestElement.test_set_attribute_update_with_namespace()
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level-updated"/>
 ]])
+end
+
+function TestElement.test_set_attribute_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  root:set_attribute("xmlns:example", "http://example.com/")
+  root:set_attribute("example:attribute", "value")
+  local attribute_value = xmlua.libxml2.xmlGetNsProp(root.node,
+                                                     "attribute",
+                                                     "http://example.com/")
+  luaunit.assertEquals({
+                         attribute_value,
+                         document:to_xml(),
+                       },
+                       {
+                         "value",
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:example="http://example.com/" example:attribute="value"/>
+]],
+                       })
+end
+
+function TestElement.test_set_attribute_default_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root attribute="value">
+  <sub data="sub-data"/>
+</root>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local sub = root:css_select("sub")[1]
+  local uri = "http://example.com/"
+  root:set_attribute("xmlns", uri)
+  luaunit.assertEquals({
+                         ffi.string(root.node.ns.href),
+                         get_ns_prop(root.node, "attribute", uri),
+                         ffi.string(sub.node.ns.href),
+                         get_ns_prop(sub.node, "data", uri),
+                         document:to_xml(),
+                       },
+                       {
+                         uri,
+                         "value",
+                         uri,
+                         "sub-data",
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://example.com/" attribute="value">
+  <sub data="sub-data"/>
+</root>
+]],
+                       })
 end
 
 function TestElement.test_remove_attribute_raw()

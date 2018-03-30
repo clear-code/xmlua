@@ -57,6 +57,24 @@ local function parse_name(name)
   return namespace_prefix, local_name
 end
 
+local function set_default_namespace(node, namespace)
+  if node.ns == ffi.NULL then
+    libxml2.xmlSetNs(node, namespace)
+  end
+  local attributes = node.properties
+  while attributes ~= ffi.NULL do
+    if attributes.ns == ffi.NULL then
+      libxml2.xmlSetNs(ffi.cast("xmlNodePtr", attributes), namespace)
+    end
+    attributes = attributes.next
+  end
+  local children = node.children
+  while children ~= ffi.NULL do
+    set_default_namespace(children, namespace)
+    children = children.next
+  end
+end
+
 function methods.append_element(self, name, attributes)
   local raw_element = nil
   local colon_start = name:find(":")
@@ -170,18 +188,26 @@ end
 function methods.set_attribute(self, name, value)
   local namespace_prefix, local_name = parse_name(name)
   local namespace
-  if namespace_prefix then
-    local namespace = libxml2.xmlSearchNs(self.document,
-                                          self.node,
-                                          namespace_prefix)
+  if namespace_prefix == "xmlns" then
+    libxml2.xmlNewNs(self.node, value, local_name)
+  elseif namespace_prefix == nil and local_name == "xmlns" then
+    namespace = libxml2.xmlNewNs(self.node, value, nil)
+    set_default_namespace(self.node, namespace)
+  elseif namespace_prefix then
+    namespace = libxml2.xmlSearchNs(self.document,
+                                    self.node,
+                                    namespace_prefix)
     if namespace then
       libxml2.xmlUnsetNsProp(self.node, namespace, local_name)
       libxml2.xmlNewNsProp(self.node, namespace, local_name, value)
-      return
+    else
+      libxml2.xmlUnsetProp(self.node, name)
+      libxml2.xmlNewProp(self.node, name, value)
     end
+  else
+    libxml2.xmlUnsetProp(self.node, name)
+    libxml2.xmlNewProp(self.node, name, value)
   end
-  libxml2.xmlUnsetProp(self.node, name)
-  libxml2.xmlNewProp(self.node, name, value)
 end
 
 local function unset_namespace(node, namespace)

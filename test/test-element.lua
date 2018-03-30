@@ -386,7 +386,40 @@ function TestElement.test_remove_attribute_with_namespace()
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
-<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:example="http://example.com/" example:class="example-top-level"/>
+]])
+end
+
+function TestElement.test_remove_attribute_with_nonexistent_namespace()
+  local html = [[
+<html
+  class="html-top-level"
+  nonexistent:class="nonexistent-top-level"/>
+]]
+  local document = xmlua.HTML.parse(html)
+  local root = document:root()
+  root:remove_attribute("nonexistent:class")
+  luaunit.assertEquals(document:to_html(),
+                       [[
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html class="html-top-level"></html>
+]])
+end
+
+function TestElement.test_remove_attribute_in_default_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  class="top-level"/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  root:remove_attribute("class")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"/>
 ]])
 end
 

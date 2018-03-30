@@ -150,10 +150,8 @@ end
 
 local function create_sub_element(document, node, name, attributes)
   local raw_element = nil
-  local colon_start = name:find(":")
-  if colon_start then
-    local namespace_prefix = name:sub(0, colon_start - 1)
-    local local_name = name:sub(colon_start + 1)
+  local namespace_prefix, local_name = parse_name(name)
+  if namespace_prefix then
     local namespace = libxml2.xmlSearchNs(document, node, namespace_prefix)
     if namespace then
       raw_element = libxml2.xmlNewNode(namespace, local_name)

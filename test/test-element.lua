@@ -423,6 +423,21 @@ function TestElement.test_remove_attribute_in_default_namespace()
 ]])
 end
 
+function TestElement.test_remove_attribute_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:example="http://example.com/"/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  root:remove_attribute("xmlns:example")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:example="http://example.com/"/>
+]])
+end
+
 function TestElement.test_path()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()

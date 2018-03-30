@@ -402,7 +402,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `remove(node or position) -> xmlua.Node` {#insert}"
+msgid "### `remove(node or position) -> xmlua.Node` {#remove}"
 msgstr ""
 
 msgid ""

@@ -264,7 +264,7 @@ print(inserted_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
-### `remove(node or position) -> xmlua.Node` {#insert}
+### `remove(node or position) -> xmlua.Node` {#remove}
 
 It remove `Node` in [`xmlua.NodeSet`][node-set]. However,it does not remove from document tree.
 It returns removed node. If it fail remove, it returns nil.
@@ -314,6 +314,8 @@ print(removed_node_set:to_xml())
 -- <sub2>sub2</sub2>
 -- <sub3>sub3</sub3>
 ```
+
+
 
 ## See also
 

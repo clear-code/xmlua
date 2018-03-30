@@ -264,7 +264,7 @@ print(inserted_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
-### `remove(node or position) -> xmlua.Node` {#insert}
+### `remove(node or position) -> xmlua.Node` {#remove}
 
 `Node`を[`xmlua.NodeSet`][node-set]から削除します. ただし、ドキュメントツリーからは削除しません。
 削除した`Node`を返します。削除出来なかった場合は、`nil`を返します。
@@ -314,6 +314,8 @@ print(removed_node_set:to_xml())
 -- <sub2>sub2</sub2>
 -- <sub3>sub3</sub3>
 ```
+
+
 
 ## 参照
 

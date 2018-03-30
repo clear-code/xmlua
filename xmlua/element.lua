@@ -75,6 +75,34 @@ local function set_default_namespace(node, namespace)
   end
 end
 
+local function unset_namespace(node, namespace)
+  if node.ns == namespace then
+    node.ns = ffi.NULL
+  end
+  local attributes = node.properties
+  while attributes ~= ffi.NULL do
+    if attributes.ns == namespace then
+      attributes.ns = ffi.NULL
+    end
+    attributes = attributes.next
+  end
+  local children = node.children
+  while children ~= ffi.NULL do
+    unset_namespace(children, namespace)
+    children = children.next
+  end
+end
+
+local function remove_namespace(node, namespace, namespace_previous)
+  unset_namespace(node, namespace)
+  if namespace_previous then
+    namespace_previous.next = namespace.next
+  else
+    node.nsDef = namespace.next
+  end
+  libxml2.xmlFreeNs(namespace)
+end
+
 function methods.append_element(self, name, attributes)
   local raw_element = nil
   local colon_start = name:find(":")
@@ -208,34 +236,6 @@ function methods.set_attribute(self, name, value)
     libxml2.xmlUnsetProp(self.node, name)
     libxml2.xmlNewProp(self.node, name, value)
   end
-end
-
-local function unset_namespace(node, namespace)
-  if node.ns == namespace then
-    node.ns = ffi.NULL
-  end
-  local attributes = node.properties
-  while attributes ~= ffi.NULL do
-    if attributes.ns == namespace then
-      attributes.ns = ffi.NULL
-    end
-    attributes = attributes.next
-  end
-  local children = node.children
-  while children ~= ffi.NULL do
-    unset_namespace(children, namespace)
-    children = children.next
-  end
-end
-
-local function remove_namespace(node, namespace, namespace_previous)
-  unset_namespace(node, namespace)
-  if namespace_previous then
-    namespace_previous.next = namespace.next
-  else
-    node.nsDef = namespace.next
-  end
-  libxml2.xmlFreeNs(namespace)
 end
 
 function methods.remove_attribute(self, name)

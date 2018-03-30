@@ -401,13 +401,11 @@ function TestElement.test_set_attribute_namespace()
 ]]
   local document = xmlua.XML.parse(xml)
   local root = document:root()
-  root:set_attribute("xmlns:example", "http://example.com/")
+  local uri = "http://example.com/"
+  root:set_attribute("xmlns:example", uri)
   root:set_attribute("example:attribute", "value")
-  local attribute_value = xmlua.libxml2.xmlGetNsProp(root.node,
-                                                     "attribute",
-                                                     "http://example.com/")
   luaunit.assertEquals({
-                         attribute_value,
+                         get_ns_prop(root.node, "attribute", uri),
                          document:to_xml(),
                        },
                        {
@@ -415,6 +413,40 @@ function TestElement.test_set_attribute_namespace()
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns:example="http://example.com/" example:attribute="value"/>
+]],
+                       })
+end
+
+function TestElement.test_set_attribute_namespace_update()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<example:root
+  xmlns:example="http://example.com/"
+  data="no-namespace-data"
+  example:data="namespace-data">
+  <example:sub1 data="sub1-no-namespace-data"/>
+  <sub2 example:data="sub2-namespace-data"/>
+</example:root>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local uri = "http://example.org/"
+  root:set_attribute("xmlns:example", uri)
+  local sub2 = root:css_select("sub2")[1]
+  luaunit.assertEquals({
+                         get_ns_prop(root.node, "data", uri),
+                         get_ns_prop(sub2.node, "data", uri),
+                         document:to_xml(),
+                       },
+                       {
+                         "namespace-data",
+                         "sub2-namespace-data",
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<example:root xmlns:example="http://example.org/" data="no-namespace-data" example:data="namespace-data">
+  <example:sub1 data="sub1-no-namespace-data"/>
+  <sub2 example:data="sub2-namespace-data"/>
+</example:root>
 ]],
                        })
 end

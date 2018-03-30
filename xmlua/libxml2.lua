@@ -417,4 +417,8 @@ function libxml2.xmlXPathEvalExpression(expression, context)
   return ffi.gc(object, xml2.xmlXPathFreeObject)
 end
 
+function libxml2.xmlStrdup(string)
+  return xml2.xmlStrdup(string)
+end
+
 return libxml2

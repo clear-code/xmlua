@@ -148,37 +148,46 @@ local function remove_namespace(node, prefix)
   end
 end
 
+local function set_attributes(document, node, element, attributes)
+  local raw_element = element.node
+  local attributes_without_ns = {}
+  if attributes then
+    for name, value in pairs(attributes) do
+      local namespace
+      local namespace_prefix, local_name = parse_name(name)
+      if namespace_prefix == "xmlns" then
+        namespace = libxml2.xmlNewNs(raw_element, value, local_name)
+      else
+        attributes_without_ns[name] = value
+      end
+    end
+  end
+
+  for name, value in pairs(attributes_without_ns) do
+    element:set_attribute(name, value)
+  end
+end
+
 local function create_sub_element(document, node, name, attributes)
   local raw_element = nil
   local namespace_prefix, local_name = parse_name(name)
+  raw_element = libxml2.xmlNewNode(nil, local_name)
+  local element = Element.new(document, raw_element)
+  set_attributes(document, node, element, attributes)
   if namespace_prefix then
     local namespace = libxml2.xmlSearchNs(document, node, namespace_prefix)
     if namespace then
-      raw_element = libxml2.xmlNewNode(namespace, local_name)
+      libxml2.xmlSetNs(raw_element, namespace)
     else
-      raw_element = libxml2.xmlNewNode(nil, local_name)
-
-      local new_namespace = nil
-      for attribute_name, uri in pairs(attributes) do
-        local _, prefix_start = attribute_name:find("xmlns:")
-        if prefix_start then
-          local new_namespace_prefix = attribute_name:sub(prefix_start + 1)
-          new_namespace = libxml2.xmlNewNs(raw_element,
-                                           uri,
-                                           new_namespace_prefix)
-          libxml2.xmlSetNs(raw_element, new_namespace)
-          attributes[attribute_name] = nil
-          break
-        end
-      end
+      element:unlink()
+      raw_element = libxml2.xmlNewNode(nil, name)
+      element = Element.new(document, raw_element)
+      set_attributes(document, node, element, attributes)
     end
   else
-    raw_element = libxml2.xmlNewNode(nil, name)
-  end
-  local element = Element.new(document, raw_element)
-  if attributes then
-    for name, value in pairs(attributes) do
-      element:set_attribute(name, value)
+    local namespace = libxml2.xmlSearchNs(document, node, nil)
+    if namespace then
+      libxml2.xmlSetNs(raw_element, namespace)
     end
   end
   return element

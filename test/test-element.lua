@@ -158,11 +158,11 @@ function TestElement.test_append_element_with_attribute()
                          document:to_xml(),
                        },
                        {
-                         [[<child class="A" id="1"/>]],
+                         [[<child id="1" class="A"/>]],
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <child class="A" id="1"/>
+  <child id="1" class="A"/>
 </root>
 ]],
                        })
@@ -181,11 +181,11 @@ function TestElement.test_append_element_with_namespace()
                          document:to_xml(),
                        },
                        {
-                         [[<xhtml:child class="A" id="1"/>]],
+                         [[<xhtml:child id="1" class="A"/>]],
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <xhtml:child class="A" id="1"/>
+  <xhtml:child id="1" class="A"/>
 </xhtml:html>
 ]],
                        })
@@ -242,12 +242,12 @@ function TestElement.test_insert_element_with_attributes()
                          document:to_xml(),
                        },
                        {
-                         [[<new-child class="A" id="1"/>]],
+                         [[<new-child id="1" class="A"/>]],
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <child1/>
-  <new-child class="A" id="1"/>
+  <new-child id="1" class="A"/>
   <child2/>
 </root>
 ]],
@@ -272,12 +272,12 @@ function TestElement.test_insert_element_with_namespace()
                          document:to_xml(),
                        },
                        {
-                         [[<xhtml:new-child class="A" id="1"/>]],
+                         [[<xhtml:new-child id="1" class="A"/>]],
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <xhtml:child1/>
-  <xhtml:new-child class="A" id="1"/><xhtml:child2/>
+  <xhtml:new-child id="1" class="A"/><xhtml:child2/>
 </xhtml:html>
 ]],
                        })

@@ -374,7 +374,11 @@ end
 function TestElement.test_remove_attribute_with_namespace()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8"?>
-<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level"/>
+<xhtml:html
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xhtml:class="xhtml-top-level"
+  xmlns:example="http://example.com/"
+  example:class="example-top-level"/>
 ]]
   local document = xmlua.XML.parse(xml)
   local root = document:root()

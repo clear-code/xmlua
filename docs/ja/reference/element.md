@@ -111,6 +111,57 @@ for i = 1, #children do
 end
 ```
 
+### `append_element(name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.Element` {#append-element}
+
+指定された名前の要素を作成し、それをレシーバーの`xmlua.Element`の最後の子要素にします。属性が指定された場合は、追加する要素に属性を設定します。このメソッドは、追加した要素を返します。`name`が`namespace_prefix:local_name`の場合は追加した要素に名前空間を設定します。
+
+```lua
+local xmlua = require("xmlua")
+
+--要素の追加
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+local child = root:append_element("child")
+print(child:to_xml())
+-- <child/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <child/>
+-- </root>
+
+
+--属性を持った要素の追加
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+local child = root:append_element("child", {id="1", class="A"})
+
+print(child:to_xml())
+-- <child class="A" id="1"/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <child class="A" id="1"/>
+-- </root>
+
+
+-- 名前空間を持った要素の追加
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local child = root:append_element("xhtml:child", {id="1", class="A"})
+print(child:to_xml())
+-- <xhtml:child class="A" id="1"/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+--   <xhtml:child class="A" id="1"/>
+-- </xhtml:html>
+```
+
 ### `get_attribute(name) -> string` {#get-attribute}
 
 与えられた属性の属性値を取得します。属性が存在しない場合は`nil`を返します。

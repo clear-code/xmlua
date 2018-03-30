@@ -111,6 +111,60 @@ for i = 1, #children do
 end
 ```
 
+### `append_element(name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.Element` {#append-element}
+
+Make an element with the specified name and append it the last child element of `xmlua.Element` of the receiver.
+If you specify attributes, it set the attribute to the appended element.
+It returns appended element.
+If `name` is `namespace_prefix:local_name`, it set the namespace to the append element.
+
+```lua
+local xmlua = require("xmlua")
+
+--append node.
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+local child = root:append_element("child")
+print(child:to_xml())
+-- <child/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <child/>
+-- </root>
+
+
+-- appned node with attirbute
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+local child = root:append_element("child", {id="1", class="A"})
+
+print(child:to_xml())
+-- <child class="A" id="1"/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <child class="A" id="1"/>
+-- </root>
+
+
+-- appned node with namespace
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local child = root:append_element("xhtml:child", {id="1", class="A"})
+print(child:to_xml())
+-- <xhtml:child class="A" id="1"/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+--   <xhtml:child class="A" id="1"/>
+-- </xhtml:html>
+```
+
 ### `get_attribute(name) -> string` {#get-attribute}
 
 It gets attribute value of the given attribute name. If the attribute name doesn't exist, it returns `nil`.

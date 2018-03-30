@@ -61,13 +61,6 @@ local function set_default_namespace(node, namespace)
   if node.ns == ffi.NULL then
     libxml2.xmlSetNs(node, namespace)
   end
-  local attributes = node.properties
-  while attributes ~= ffi.NULL do
-    if attributes.ns == ffi.NULL then
-      libxml2.xmlSetNs(ffi.cast("xmlNodePtr", attributes), namespace)
-    end
-    attributes = attributes.next
-  end
   local children = node.children
   while children ~= ffi.NULL do
     set_default_namespace(children, namespace)
@@ -279,8 +272,14 @@ function methods.set_attribute(self, name, value)
       libxml2.xmlNewNs(self.node, value, local_name)
     end
   elseif namespace_prefix == nil and local_name == "xmlns" then
-    namespace = libxml2.xmlNewNs(self.node, value, nil)
-    set_default_namespace(self.node, namespace)
+    namespace = libxml2.xmlSearchNs(self.document, self.node, nil)
+    if namespace then
+      libxml2.xmlFree(ffi.cast("void *", namespace.href))
+      namespace.href = libxml2.xmlStrdup(value)
+    else
+      namespace = libxml2.xmlNewNs(self.node, value, nil)
+      set_default_namespace(self.node, namespace)
+    end
   elseif namespace_prefix then
     namespace = libxml2.xmlSearchNs(self.document,
                                     self.node,

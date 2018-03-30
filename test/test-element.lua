@@ -4,8 +4,12 @@ local ffi = require("ffi")
 
 TestElement = {}
 
-local function get_ns_prop(node, local_name, namespace_uri)
-  return xmlua.libxml2.xmlGetNsProp(node, local_name, namespace_uri)
+local function get_prop(node, name, namespace_uri)
+  if namespace_uri then
+    return xmlua.libxml2.xmlGetNsProp(node, name, namespace_uri)
+  else
+    return xmlua.libxml2.xmlGetProp(node, name)
+  end
 end
 
 function TestElement.test_to_html()
@@ -405,7 +409,7 @@ function TestElement.test_set_attribute_namespace()
   root:set_attribute("xmlns:example", uri)
   root:set_attribute("example:attribute", "value")
   luaunit.assertEquals({
-                         get_ns_prop(root.node, "attribute", uri),
+                         get_prop(root.node, "attribute", uri),
                          document:to_xml(),
                        },
                        {
@@ -434,8 +438,8 @@ function TestElement.test_set_attribute_namespace_update()
   root:set_attribute("xmlns:example", uri)
   local sub2 = root:css_select("sub2")[1]
   luaunit.assertEquals({
-                         get_ns_prop(root.node, "data", uri),
-                         get_ns_prop(sub2.node, "data", uri),
+                         get_prop(root.node, "data", uri),
+                         get_prop(sub2.node, "data", uri),
                          document:to_xml(),
                        },
                        {
@@ -465,19 +469,65 @@ function TestElement.test_set_attribute_default_namespace()
   root:set_attribute("xmlns", uri)
   luaunit.assertEquals({
                          ffi.string(root.node.ns.href),
-                         get_ns_prop(root.node, "attribute", uri),
+                         get_prop(root.node, "attribute", uri),
+                         get_prop(root.node, "attribute"),
                          ffi.string(sub.node.ns.href),
-                         get_ns_prop(sub.node, "data", uri),
+                         get_prop(sub.node, "data", uri),
+                         get_prop(sub.node, "data"),
                          document:to_xml(),
                        },
                        {
                          uri,
+                         nil,
                          "value",
                          uri,
+                         nil,
                          "sub-data",
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns="http://example.com/" attribute="value">
+  <sub data="sub-data"/>
+</root>
+]],
+                       })
+end
+
+function TestElement.test_set_attribute_default_namespace_update()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://example.com/" attribute="value">
+  <sub data="sub-data"/>
+</root>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local sub = root:css_select("sub")[1]
+  local old_uri = "http://example.com/"
+  local new_uri = "http://example.org/"
+  root:set_attribute("xmlns", new_uri)
+  luaunit.assertEquals({
+                         ffi.string(root.node.ns.href),
+                         get_prop(root.node, "attribute", old_uri),
+                         get_prop(root.node, "attribute", new_uri),
+                         get_prop(root.node, "attribute"),
+                         ffi.string(sub.node.ns.href),
+                         get_prop(sub.node, "data", old_uri),
+                         get_prop(sub.node, "data", new_uri),
+                         get_prop(sub.node, "data", uri),
+                         document:to_xml(),
+                       },
+                       {
+                         new_uri,
+                         nil,
+                         nil,
+                         "value",
+                         new_uri,
+                         nil,
+                         nil,
+                         "sub-data",
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://example.org/" attribute="value">
   <sub data="sub-data"/>
 </root>
 ]],

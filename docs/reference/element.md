@@ -379,6 +379,82 @@ print(document:to_xml())
 -- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level-updated"/>
 ```
 
+### `remove_attribute(name) -> void` {#remove-attribute}
+
+It removes attribute wiht specified name.
+If `name` is `xmlns:local_name`, it remove the namespace.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- Remove attribute
+local document = xmlua.XML.parse("<root class=\"A\"/>")
+local node_set = document:search("/root")
+node_set[1]:remove_attribute("class")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root/>
+
+
+--Remove attribute with namespace
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xhtml:class="xhtml-top-level"
+  xmlns:example="http://example.com/"
+  example:class="example-top-level"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:remove_attribute("xhtml:class")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:example="http://example.com/" example:class="example-top-level"/>
+
+
+-- Remove attribute with default namespace
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  class="top-level"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:remove_attribute("class")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <html xmlns="http://www.w3.org/1999/xhtml"/>
+
+
+-- Remove namespace
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:example="http://example.com/"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:remove_attribute("xmlns:example")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root/>
+
+-- Remove default namespace
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://example.com/"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:remove_attribute("xmlns")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root/>
+```
+
 ### `previous() -> xmlua.Element` {#previous}
 
 It returns the previous sibling element as `xmlua.Element`. If there is no previous sibling element, it returns `nil`.

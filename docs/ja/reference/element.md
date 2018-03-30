@@ -364,6 +364,82 @@ print(document:to_xml())
 -- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level-updated"/>
 ```
 
+### `remove_attribute(name) -> void` {#remove-attribute}
+
+指定した名前の属性を削除します。
+`name`が`xmlns:local_name`の場合は、名前空間を削除します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- 属性を削除します。
+local document = xmlua.XML.parse("<root class=\"A\"/>")
+local node_set = document:search("/root")
+node_set[1]:remove_attribute("class")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root/>
+
+
+-- 名前空間を持つ属性の削除
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xhtml:class="xhtml-top-level"
+  xmlns:example="http://example.com/"
+  example:class="example-top-level"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:remove_attribute("xhtml:class")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:example="http://example.com/" example:class="example-top-level"/>
+
+
+-- デフォルト名前空間の属性を削除
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  class="top-level"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:remove_attribute("class")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <html xmlns="http://www.w3.org/1999/xhtml"/>
+
+
+-- 名前空間を削除
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:example="http://example.com/"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:remove_attribute("xmlns:example")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root/>
+
+-- デフォルト名前空間の削除
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://example.com/"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:remove_attribute("xmlns")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root/>
+```
+
 ### `previous() -> xmlua.Element` {#previous}
 
 前の兄弟要素を`xmlua.Element`として返します。前の兄弟要素が存在しない場合は、`nil`を返します。

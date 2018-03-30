@@ -192,7 +192,7 @@ end
 function methods.previous(self)
   local element = libxml2.xmlPreviousElementSibling(self.node)
   if not element then
-    return
+    return nil
   end
   return Element.new(self.document, element)
 end
@@ -203,7 +203,7 @@ end
 function methods.next(self)
   local element = libxml2.xmlNextElementSibling(self.node)
   if not element then
-    return
+    return nil
   end
   return Element.new(self.document, element)
 end

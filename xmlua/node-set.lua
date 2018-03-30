@@ -111,6 +111,7 @@ function methods.remove(self, node_or_position)
         return table.remove(self, position)
       end
     end
+    return nil
   end
 end
 

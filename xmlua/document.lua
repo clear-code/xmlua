@@ -54,7 +54,7 @@ function Document.build(tree)
   for name, value in pairs(tree[2]) do
     root:set_attribute(name, value)
   end
-  for i=3, #tree do
+  for i = 3, #tree do
     if type(tree[i]) == "table" then
       root:append_element(tree[i][1], tree[i][2])
     else

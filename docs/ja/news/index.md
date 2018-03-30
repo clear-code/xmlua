@@ -4,11 +4,69 @@ title: おしらせ
 
 # おしらせ
 
+## 1.0.5: 2018-03-30 {#version-1-0-5}
+
+### Improvements
+
+  * `xmlua.NodeSet:insert()`: Added.
+
+  * `xmlua.NodeSet:remove()`: Added.
+
+  * `xmlua.NodeSet:merge()`: Added.
+
+  * `xmlua.NodeSet:unlink()`: Added.
+
+  * `xmlua.Element:append_element()`: Added.
+
+  * `xmlua.Element:insert_element()`: Added.
+
+  * `xmlua.Element:unlink()`: Added.
+
+  * `xmlua.Element:set_attribute()`: Added.
+
+  * `xmlua.Element:remove_attribute()`: Added.
+
+  * `xmlua.XML:build()`: Added.
+
+## 1.0.4: 2018-03-19 {#version-1-0-4}
+
+### Improvements
+
+  * `xmlua.libxml2.VERSION`: Added.
+
+  * Experimental: `xmlua.HTMLSAXParser`: Added supported events:
+
+    * `start_document`
+
+    * `end_document`
+
+    * `comment`
+
+    * `ignorable_whitespace`
+
+    * `cdata_block`
+
+    * `processing_instruction`
+
+  * Experimental: `xmlua.HTMLSAXParser`: Removed needless namespace information from the following events.
+
+    * `start_element`
+
+    * `end_element`
+
+  * Experimental: `xmlua.XMLSAXParser`: Added.
+
+  * `xmlua.Node:path()`: Added.
+
+  * `xmlua.NodeSet:paths()`: Added.
+
+  * `xmlua.Searchable.css_select()`: Added.
+
 ## 1.0.3: 2017-12-14 {#version-1-0-3}
 
 ### Improvements
 
-  * `xmlua.HTMLSAXParser`: Added.
+  * Experimental: `xmlua.HTMLSAXParser`: Added.
 
 ### Fixes
 

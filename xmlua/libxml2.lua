@@ -233,7 +233,11 @@ function libxml2.xmlSetNs(node, namespace)
 end
 
 function libxml2.xmlNewDoc(xml_version)
-  return xml2.xmlNewDoc(xml_version)
+  local document = xml2.xmlNewDoc(xml_version)
+  if document == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(document, libxml2.xmlFreeDoc)
 end
 
 function libxml2.xmlDocSetRootElement(document, root)

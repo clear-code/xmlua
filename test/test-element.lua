@@ -130,6 +130,27 @@ function TestElement.test_text()
                        root:content())
 end
 
+function TestElement.test_append_text()
+  local document = xmlua.XML.parse([[<root/>]])
+  local root = document:root()
+  local text1 = root:append_text("text1")
+  local text2 = root:append_text("text2")
+  root:append_element("child")
+  local text3 = root:append_text("text3")
+  luaunit.assertEquals({
+                         text1:text(),
+                         text2:text(),
+                         text3:text(),
+                         root:to_xml(),
+                       },
+                       {
+                         "text1text2",
+                         "text1text2",
+                         "text3",
+                         "<root>text1text2<child/>text3</root>",
+                       })
+end
+
 function TestElement.test_append_element()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()

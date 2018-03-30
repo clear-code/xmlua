@@ -34,10 +34,11 @@ end
 
 function methods.append_text(self, value)
   local raw_text = libxml2.xmlNewText(value)
-  local text = Text.new(self.document, raw_text)
-  if libxml2.xmlAddChild(self.node, raw_text) then
-    return text
+  local added_raw_text = libxml2.xmlAddChild(self.node, raw_text)
+  if added_raw_text then
+    return Text.new(self.document, added_raw_text)
   else
+    local text = Text.new(self.document, raw_text)
     text:unlink()
     return nil
   end

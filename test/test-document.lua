@@ -94,3 +94,22 @@ function TestDocument.test_build_nested()
 <root class="A" id="1">root text<child class="B" id="2">child text<grand-child/></child></root>
 ]])
 end
+
+function TestDocument.test_build_texts()
+  local tree = {
+    "root",
+    {},
+    "text1",
+    "text2",
+    {
+      "child",
+    },
+    "text3",
+  }
+  local document = Document.build(tree)
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>text1text2<child/>text3</root>
+]])
+end

@@ -5,6 +5,11 @@ local ffi = require("ffi")
 
 local Document = require("xmlua.document")
 
+function XML.build(tree)
+  local raw_document = libxml2.xmlNewDoc("1.0")
+  return Document.build(raw_document, tree)
+end
+
 function XML.parse(xml, options)
   local context = libxml2.xmlNewParserCtxt()
   if not context then

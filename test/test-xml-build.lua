@@ -1,19 +1,19 @@
 local luaunit = require("luaunit")
-local Document = require("xmlua.document")
+local XML = require("xmlua.xml")
 local ffi = require("ffi")
 
-TestDocument = {}
+TestXMLBuild = {}
 
-function TestDocument.test_build_empty()
-  local document = Document.build({})
+function TestXMLBuild.test_empty()
+  local document = XML.build({})
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
 ]])
 end
 
-function TestDocument.test_build_empty_root()
-  local document = Document.build({"root"})
+function TestXMLBuild.test_empty_root()
+  local document = XML.build({"root"})
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
@@ -21,7 +21,7 @@ function TestDocument.test_build_empty_root()
 ]])
 end
 
-function TestDocument.test_build_root_namespace()
+function TestXMLBuild.test_root_namespace()
   local uri = "http://example.com/"
   local tree = {
     "example:root",
@@ -29,7 +29,7 @@ function TestDocument.test_build_root_namespace()
       ["xmlns:example"] = uri,
     }
   }
-  local document = Document.build(tree)
+  local document = XML.build(tree)
   luaunit.assertEquals({
                          ffi.string(document:root().node.ns.href),
                          document:to_xml(),
@@ -43,7 +43,7 @@ function TestDocument.test_build_root_namespace()
                        })
 end
 
-function TestDocument.test_build_root_children()
+function TestXMLBuild.test_root_children()
   local tree = {
     "root",
     {
@@ -59,7 +59,7 @@ function TestDocument.test_build_root_children()
       }
     }
   }
-  local document = Document.build(tree)
+  local document = XML.build(tree)
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
@@ -67,7 +67,7 @@ function TestDocument.test_build_root_children()
 ]])
 end
 
-function TestDocument.test_build_nested()
+function TestXMLBuild.test_nested()
   local tree = {
     "root",
     {
@@ -87,7 +87,7 @@ function TestDocument.test_build_nested()
       },
     }
   }
-  local document = Document.build(tree)
+  local document = XML.build(tree)
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
@@ -95,7 +95,7 @@ function TestDocument.test_build_nested()
 ]])
 end
 
-function TestDocument.test_build_texts()
+function TestXMLBuild.test_texts()
   local tree = {
     "root",
     {},
@@ -106,7 +106,7 @@ function TestDocument.test_build_texts()
     },
     "text3",
   }
-  local document = Document.build(tree)
+  local document = XML.build(tree)
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>

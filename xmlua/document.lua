@@ -49,8 +49,7 @@ local function build_element(element, tree)
   end
 end
 
-function Document.build(tree)
-  local raw_document = libxml2.xmlNewDoc("1.0")
+function Document.build(raw_document, tree)
   local document = Document.new(raw_document)
   if #tree == 0 then
     return document

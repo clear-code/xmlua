@@ -38,6 +38,17 @@ function methods.encoding(self)
   return ffi.string(self.document.encoding)
 end
 
+local function build_element(element, tree)
+  local sub_element = element:append_element(tree[1], tree[2])
+  for i = 3, #tree do
+    if type(tree[i]) == "table" then
+      build_element(sub_element, tree[i])
+    else
+      sub_element.text = tree[i]
+    end
+  end
+end
+
 function Document.build(tree)
   local raw_document = libxml2.xmlNewDoc("1.0")
   local document = Document.new(raw_document)
@@ -53,12 +64,13 @@ function Document.build(tree)
 
   for i = 3, #tree do
     if type(tree[i]) == "table" then
-      root:append_element(tree[i][1], tree[i][2])
+      build_element(root, tree[i])
     else
       root.text = tree[i]
     end
   end
-  return Document.new(raw_document)
+
+  return document
 end
 
 function Document.new(raw_document, errors)

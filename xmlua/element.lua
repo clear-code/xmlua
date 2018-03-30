@@ -148,7 +148,7 @@ local function remove_namespace(node, prefix)
   end
 end
 
-local function set_attributes(document, node, element, attributes)
+local function set_attributes(element, attributes)
   local raw_element = element.node
   local attributes_without_ns = {}
   if attributes then
@@ -173,9 +173,9 @@ local function create_sub_element(document, node, name, attributes)
   local namespace_prefix, local_name = parse_name(name)
   local raw_element = libxml2.xmlNewNode(nil, local_name)
   local element = Element.new(document, raw_element)
-  set_attributes(document, node, element, attributes)
+  set_attributes(element, attributes)
   local namespace = libxml2.xmlSearchNs(document, raw_element, namespace_prefix)
-  if not namespace then
+  if not namespace and node then
     namespace = libxml2.xmlSearchNs(document, node, namespace_prefix)
   end
   if namespace then
@@ -184,7 +184,7 @@ local function create_sub_element(document, node, name, attributes)
     element:unlink()
     raw_element = libxml2.xmlNewNode(nil, name)
     element = Element.new(document, raw_element)
-    set_attributes(document, node, element, attributes)
+    set_attributes(element, attributes)
   end
   return element
 end
@@ -354,6 +354,11 @@ end
 
 function methods.text(self)
   return self:content()
+end
+
+-- For internal use
+function Element.build(document, name, attributes)
+  return create_sub_element(document.node, nil, name, attributes)
 end
 
 function Element.new(document, node)

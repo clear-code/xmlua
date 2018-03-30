@@ -40,20 +40,17 @@ end
 
 function Document.build(tree)
   local raw_document = libxml2.xmlNewDoc("1.0")
+  local document = Document.new(raw_document)
   if #tree == 0 then
-    return Document.new(raw_document)
+    return document
   end
 
-  local raw_root_node = libxml2.xmlNewNode(nil, tree[1])
-  libxml2.xmlDocSetRootElement(raw_document, raw_root_node)
-  if #tree == 1 then
-    return Document.new(raw_document)
+  local root = Element.build(document, tree[1], tree[2])
+  if not libxml2.xmlDocSetRootElement(raw_document, root.node) then
+    root:unlink()
+    return nil
   end
 
-  local root = Element.new(raw_document, raw_root_node)
-  for name, value in pairs(tree[2]) do
-    root:set_attribute(name, value)
-  end
   for i = 3, #tree do
     if type(tree[i]) == "table" then
       root:append_element(tree[i][1], tree[i][2])

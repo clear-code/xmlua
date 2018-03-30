@@ -1,5 +1,6 @@
 local luaunit = require("luaunit")
 local Document = require("xmlua.document")
+local ffi = require("ffi")
 
 TestDocument = {}
 
@@ -23,7 +24,7 @@ function TestDocument.test_build()
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
-<root id="1" class="A">This is text.<child class="B" id="2"/></root>
+<root class="A" id="1">This is text.<child class="B" id="2"/></root>
 ]])
 end
 
@@ -42,4 +43,26 @@ function TestDocument.test_build_empty_root()
 <?xml version="1.0" encoding="UTF-8"?>
 <root/>
 ]])
+end
+
+function TestDocument.test_build_root_namespace()
+  local uri = "http://example.com/"
+  local tree = {
+    "example:root",
+    {
+      ["xmlns:example"] = uri,
+    }
+  }
+  local document = Document.build(tree)
+  luaunit.assertEquals({
+                         ffi.string(document:root().node.ns.href),
+                         document:to_xml(),
+                       },
+                       {
+                         uri,
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<example:root xmlns:example="http://example.com/"/>
+]]
+                       })
 end

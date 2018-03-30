@@ -190,8 +190,9 @@ end
 function TestElement.test_append_element_with_new_namespace()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()
-  local child = root:append_element("test:child",
-                                    {["xmlns:test"]="http://example.com"})
+  local attributes = {}
+  attributes["xmlns:test"] = "http://example.com"
+  local child = root:append_element("test:child", attributes)
   luaunit.assertEquals({
                          child:to_xml(),
                          document:to_xml(),

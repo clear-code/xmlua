@@ -264,6 +264,57 @@ print(inserted_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
+### `remove(node or position) -> xmlua.Node` {#insert}
+
+`Node`を[`xmlua.NodeSet`][node-set]から削除します. ただし、ドキュメントツリーからは削除しません。
+削除した`Node`を返します。削除出来なかった場合は、`nil`を返します。
+
+削除するノードの位置を指定したい場合は、このメソッドの第一引数に削除する位置を指定してください。
+削除するノードを指定したい場合は、このメソッドの第一引数に削除するノードを指定して下さい。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<xml>
+  <header>
+    <title>This is test</title>
+  </header>
+  <contents>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </contents>
+</xml>
+]])
+
+-- ノードを削除する。
+local removed_node_set = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+local remove_node = removed_node_set:remove(removed_node_set[1])
+print(remove_node:to_xml())
+-- <sub1>sub1</sub1>
+print(removed_node_set:to_xml())
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+
+-- 位置を指定してノードを削除する。
+local removed_node_set = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+local remove_node = removed_node_set:remove(1)
+print(remove_node:to_xml())
+-- <sub1>sub1</sub1>
+print(removed_node_set:to_xml())
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+```
+
 ## 参照
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。

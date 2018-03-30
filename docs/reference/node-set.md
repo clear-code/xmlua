@@ -264,6 +264,57 @@ print(inserted_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
+### `remove(node or position) -> xmlua.Node` {#insert}
+
+It remove `Node` in [`xmlua.NodeSet`][node-set]. However,it does not remove from document tree.
+It returns removed node. If it fail remove, it returns nil.
+
+If you want to specify remove position, you specify the position in the first argument of this method.
+If you want to specify the node to be removed, you specify the `Node` in the first argument of this method.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<xml>
+  <header>
+    <title>This is test</title>
+  </header>
+  <contents>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </contents>
+</xml>
+]])
+
+-- Remove node
+local removed_node_set = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+local remove_node = removed_node_set:remove(removed_node_set[1])
+print(remove_node:to_xml())
+-- <sub1>sub1</sub1>
+print(removed_node_set:to_xml())
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+
+-- Remove node with position
+local removed_node_set = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+local remove_node = removed_node_set:remove(1)
+print(remove_node:to_xml())
+-- <sub1>sub1</sub1>
+print(removed_node_set:to_xml())
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+```
+
 ## See also
 
   * [`xmlua.Element`][element]: The class for element node.

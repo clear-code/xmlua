@@ -168,18 +168,19 @@ function methods.get_attribute(self, name)
 end
 
 function methods.set_attribute(self, name, value)
-  local colon_start = name:find(":")
-  if colon_start then
-    local namespace_prefix = name:sub(0, colon_start - 1)
-    local local_name = name:sub(colon_start + 1)
+  local namespace_prefix, local_name = parse_name(name)
+  local namespace
+  if namespace_prefix then
     local namespace = libxml2.xmlSearchNs(self.document,
                                           self.node,
                                           namespace_prefix)
     if namespace then
+      libxml2.xmlUnsetNsProp(self.node, namespace, local_name)
       libxml2.xmlNewNsProp(self.node, namespace, local_name, value)
       return
     end
   end
+  libxml2.xmlUnsetProp(self.node, name)
   libxml2.xmlNewProp(self.node, name, value)
 end
 

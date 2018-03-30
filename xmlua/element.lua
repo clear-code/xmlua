@@ -253,6 +253,10 @@ function methods.get_attribute(self, name)
 end
 
 function methods.set_attribute(self, name, value)
+  if value == nil then
+    return self:remove_attribute(name)
+  end
+
   local namespace_prefix, local_name = parse_name(name)
   local namespace
   if namespace_prefix == "xmlns" then

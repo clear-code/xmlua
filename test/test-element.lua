@@ -488,6 +488,17 @@ function TestElement.test_set_attribute_raw()
 ]])
 end
 
+function TestElement.test_set_attribute_nil()
+  local document = xmlua.XML.parse([[<root data="root-data"/>]])
+  local root = document:root()
+  root:set_attribute("data", nil)
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]])
+end
+
 function TestElement.test_set_attribute_substitution()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()

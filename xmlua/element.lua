@@ -193,6 +193,9 @@ function methods.append_element(self, name, attributes)
                                          attributes)
   if libxml2.xmlAddChild(self.node, sub_element.node) then
     return sub_element
+  else
+    sub_element:unlink()
+    return nil
   end
 end
 
@@ -204,6 +207,9 @@ function methods.insert_element(self, position, name, attributes)
   if libxml2.xmlAddPrevSibling(self:children()[position].node,
                                sub_element.node) then
     return sub_element
+  else
+    sub_element:unlink()
+    return nil
   end
 end
 

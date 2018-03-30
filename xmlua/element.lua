@@ -32,18 +32,6 @@ function metatable.__newindex(element, key, value)
   return methods.set_attribute(element, key, value)
 end
 
-function methods.append_text(self, value)
-  local raw_text = libxml2.xmlNewText(value)
-  local added_raw_text = libxml2.xmlAddChild(self.node, raw_text)
-  if added_raw_text then
-    return Text.new(self.document, added_raw_text)
-  else
-    local text = Text.new(self.document, raw_text)
-    text:unlink()
-    return nil
-  end
-end
-
 local function parse_name(name)
   local colon_start = name:find(":")
   local namespace_prefix
@@ -156,6 +144,18 @@ local function create_sub_element(document, node, name, attributes)
     set_attributes(element, attributes)
   end
   return element
+end
+
+function methods.append_text(self, value)
+  local raw_text = libxml2.xmlNewText(value)
+  local added_raw_text = libxml2.xmlAddChild(self.node, raw_text)
+  if added_raw_text then
+    return Text.new(self.document, added_raw_text)
+  else
+    local text = Text.new(self.document, raw_text)
+    text:unlink()
+    return nil
+  end
 end
 
 function methods.append_element(self, name, attributes)

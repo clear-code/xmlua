@@ -296,7 +296,7 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
-### `set_attribute(name, value) -> nil` {#set-attribute}
+### `set_attribute(name, value) -> void` {#set-attribute}
 
 指定した属性を要素へ設定します。
 既に存在する属性の場合は、値を上書きします属性が存在しない場合は、作成します。

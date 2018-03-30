@@ -311,7 +311,7 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
-### `set_attribute(name, value) -> nil` {#set-attribute}
+### `set_attribute(name, value) -> void` {#set-attribute}
 
 It set specify attribute to element.
 If attribute already exist, it overrides attribute.

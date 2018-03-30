@@ -518,7 +518,7 @@ msgstr ""
 "-- -> value-nonexistent-namespace\n"
 "```"
 
-msgid "### `set_attribute(name, value) -> nil` {#set-attribute}"
+msgid "### `set_attribute(name, value) -> void` {#set-attribute}"
 msgstr ""
 
 msgid ""

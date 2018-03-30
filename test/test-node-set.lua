@@ -207,25 +207,6 @@ function TestNodeSet.test_insert_same_node()
                         "/html/body/sub3"})
 end
 
-function TestNodeSet.test_remove_with_position()
-  local document = xmlua.HTML.parse([[
-<html>
-  <body>
-    <sub1>sub1</sub1>
-    <sub2>sub2</sub2>
-    <sub3>sub3</sub3>
-  </body>
-</html>
-]])
-  local node_set = document:search("//html/body/*")
-  local node = node_set:remove(1)
-  luaunit.assertEquals(node:path(),
-                       "/html/body/sub1")
-  luaunit.assertEquals(node_set:paths(),
-                       {"/html/body/sub2",
-                        "/html/body/sub3"})
-end
-
 function TestNodeSet.test_remove_with_node()
   local document = xmlua.HTML.parse([[
 <html>
@@ -238,11 +219,38 @@ function TestNodeSet.test_remove_with_node()
 ]])
   local node_set = document:search("//html/body/*")
   local node = node_set:remove(node_set[1])
-  luaunit.assertEquals(node:path(),
-                       "/html/body/sub1")
-  luaunit.assertEquals(node_set:paths(),
-                       {"/html/body/sub2",
-                        "/html/body/sub3"})
+  luaunit.assertEquals({
+                         node:path(),
+                         node_set:paths(),
+                       },
+                       {
+                         "/html/body/sub1",
+                         {"/html/body/sub2",
+                          "/html/body/sub3"},
+                       })
+end
+
+function TestNodeSet.test_remove_with_position()
+  local document = xmlua.HTML.parse([[
+<html>
+  <body>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </body>
+</html>
+]])
+  local node_set = document:search("//html/body/*")
+  local node = node_set:remove(1)
+  luaunit.assertEquals({
+                         node:path(),
+                         node_set:paths(),
+                       },
+                       {
+                         "/html/body/sub1",
+                         {"/html/body/sub2",
+                          "/html/body/sub3"},
+                       })
 end
 
 function TestNodeSet.test_remove_node_with_specify_not_exist_position()

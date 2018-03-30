@@ -95,10 +95,8 @@ function methods.insert(self, node_or_position, node)
   end
   if position == nil then
     table.insert(self, inserted_node)
-    return
   else
     table.insert(self, position, inserted_node)
-    return
   end
 end
 
@@ -113,7 +111,6 @@ function methods.remove(self, node_or_position)
         return table.remove(self, position)
       end
     end
-    return nil
   end
 end
 
@@ -121,7 +118,6 @@ function methods.unlink(self)
   for _, node in ipairs(self) do
     node:unlink()
   end
-  return
 end
 
 local function is_include(node_set, search_node)

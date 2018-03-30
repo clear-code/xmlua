@@ -40,10 +40,7 @@ function methods.append_text(self, value)
   local new_text = Element.new(self.document, raw_text)
   if libxml2.xmlAddChild(self.node, new_text.node) then
     return new_text
-  else
-    return
   end
-
 end
 
 function methods.append_element(self, name, attributes)
@@ -85,8 +82,6 @@ function methods.append_element(self, name, attributes)
   end
   if libxml2.xmlAddChild(self.node, new_element.node) then
     return new_element
-  else
-    return
   end
 end
 
@@ -130,8 +125,6 @@ function methods.insert_element(self, position, name, attributes)
   if libxml2.xmlAddPrevSibling(self:children()[position].node,
                                new_element.node) then
     return new_element
-  else
-    return
   end
 end
 
@@ -174,7 +167,6 @@ function methods.set_attribute(self, name, value)
     end
   end
   libxml2.xmlNewProp(self.node, name, value)
-  return
 end
 
 function methods.remove_attribute(self, name)
@@ -191,7 +183,6 @@ function methods.remove_attribute(self, name)
     end
   end
   libxml2.xmlUnsetProp(self.node, name)
-  return
 end
 
 function methods.name(self)
@@ -201,7 +192,7 @@ end
 function methods.previous(self)
   local element = libxml2.xmlPreviousElementSibling(self.node)
   if not element then
-    return nil
+    return
   end
   return Element.new(self.document, element)
 end
@@ -212,7 +203,7 @@ end
 function methods.next(self)
   local element = libxml2.xmlNextElementSibling(self.node)
   if not element then
-    return nil
+    return
   end
   return Element.new(self.document, element)
 end

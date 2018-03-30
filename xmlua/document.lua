@@ -53,7 +53,7 @@ function Document.build(doc_tree)
       root.text = doc_tree[i]
     end
   end
-  return Document.new(root.document)
+  return Document.new(raw_document)
 end
 
 function Document.new(raw_document, errors)

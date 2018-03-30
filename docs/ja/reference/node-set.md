@@ -212,6 +212,58 @@ for _, path in ipairs(node_set:paths()) do
 end
 ```
 
+### `insert([position,] node) -> void` {#insert}
+
+`Node`を[`xmlua.NodeSet`][node-set]に挿入します。ただし、ドキュメントツリーには追加しません。
+同じノードが挿入された場合は無視されます。
+[`xmlua.Element`][element]だけではなく、`Node`ならなんでも挿入できます。
+
+挿入位置を指定したい場合は、このメソッドの第一引数の挿入位置を指定してください。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<xml>
+  <header>
+    <title>This is test</title>
+  </header>
+  <contents>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </contents>
+</xml>
+]])
+
+--nodeの挿入
+local inserted_node_set = document:search("//title")
+-- <title>This is test</title>
+local insert_node = document:search("//xml/contents/sub1")[1]
+-- <sub1>sub1</sub1>
+inserted_node_set:insert(insert_node)
+
+print(inserted_node_set:to_xml())
+-- <title>This is test</title><sub1>sub1</sub1>
+
+-- 挿入位置を指定して挿入
+local inserted_node_set = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+local insert_node = document:search("//title")[1]
+-- <title>This is test</title>
+inserted_node_set:insert(1, insert_node)
+
+print(inserted_node_set:to_xml())
+-- <title>This is test</title>
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+```
+
 ## 参照
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。

@@ -212,6 +212,58 @@ for _, path in ipairs(node_set:paths()) do
 end
 ```
 
+### `insert([position,] node) -> void` {#insert}
+
+It inserts `Node` to [`xmlua.NodeSet`][node-set]. However,it does not insert to document tree.
+If you insert the same node, it's ignored.
+You can insert not only [`xmlua.Element`][element] but also anything for `Node`.
+
+If you want to specify insert position, you specify the position in the first argument of this method.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<xml>
+  <header>
+    <title>This is test</title>
+  </header>
+  <contents>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </contents>
+</xml>
+]])
+
+--Insert node
+local inserted_node_set = document:search("//title")
+-- <title>This is test</title>
+local insert_node = document:search("//xml/contents/sub1")[1]
+-- <sub1>sub1</sub1>
+inserted_node_set:insert(insert_node)
+
+print(inserted_node_set:to_xml())
+-- <title>This is test</title><sub1>sub1</sub1>
+
+-- Insert node with position
+local inserted_node_set = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+local insert_node = document:search("//title")[1]
+-- <title>This is test</title>
+inserted_node_set:insert(1, insert_node)
+
+print(inserted_node_set:to_xml())
+-- <title>This is test</title>
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+```
+
 ## See also
 
   * [`xmlua.Element`][element]: The class for element node.

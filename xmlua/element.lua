@@ -13,6 +13,7 @@ local Searchable = require("xmlua.searchable")
 
 local Node = require("xmlua.node")
 local Document = require("xmlua.document")
+local Text = require("xmlua.text")
 local NodeSet = require("xmlua.node-set")
 
 local methods = {}
@@ -28,18 +29,17 @@ function metatable.__index(element, key)
 end
 
 function metatable.__newindex(element, key, value)
-  if key == "text" then
-    return methods.append_text(element, value)
-  else
-    return methods.set_attribute(element, key, value)
-  end
+  return methods.set_attribute(element, key, value)
 end
 
 function methods.append_text(self, value)
   local raw_text = libxml2.xmlNewText(value)
-  local new_text = Element.new(self.document, raw_text)
-  if libxml2.xmlAddChild(self.node, new_text.node) then
-    return new_text
+  local text = Text.new(self.document, raw_text)
+  if libxml2.xmlAddChild(self.node, raw_text) then
+    return text
+  else
+    text:unlink()
+    return nil
   end
 end
 

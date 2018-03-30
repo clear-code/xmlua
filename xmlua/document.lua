@@ -44,7 +44,7 @@ local function build_element(element, tree)
     if type(tree[i]) == "table" then
       build_element(sub_element, tree[i])
     else
-      sub_element.text = tree[i]
+      sub_element:append_text(tree[i])
     end
   end
 end
@@ -66,7 +66,7 @@ function Document.build(tree)
     if type(tree[i]) == "table" then
       build_element(root, tree[i])
     else
-      root.text = tree[i]
+      root:append_text(tree[i])
     end
   end
 

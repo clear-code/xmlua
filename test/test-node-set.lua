@@ -302,27 +302,23 @@ function TestNodeSet.test_remove_node_with_specify_not_exist_node()
 end
 
 function TestNodeSet.test_unlink()
-  local document = xmlua.HTML.parse([[
-<html>
-  <body>
-    <sub1>sub1</sub1>
-    <sub2>sub2</sub2>
-    <sub3>sub3</sub3>
-  </body>
-</html>
+  local document = xmlua.XML.parse([[
+<root>
+  <sub1>sub1</sub1>
+  <sub2>sub2</sub2>
+  <sub3>sub3</sub3>
+</root>
 ]])
-  local node_set = document:search("//html/body/*")
+  local node_set = document:search("//root/*")
   node_set:unlink()
-  luaunit.assertEquals(document:to_html(),
+  luaunit.assertEquals(document:to_xml(),
                        [[
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html>
-  <body>
-    
-    
-    
-  </body>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  
+  
+  
+</root>
 ]])
 end
 

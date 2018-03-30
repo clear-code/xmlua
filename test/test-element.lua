@@ -333,6 +333,24 @@ function TestElement.test_get_attribute_array_referece()
                        "A")
 end
 
+function TestElement.test_get_attribute_namespace()
+  local document = xmlua.XML.parse([[
+<root xmlns:example="http://example.com/"/>
+]])
+  local root = document:root()
+  luaunit.assertEquals(root["xmlns:example"],
+                       "http://example.com/")
+end
+
+function TestElement.test_get_attribute_default_namespace()
+  local document = xmlua.XML.parse([[
+<root xmlns="http://example.com/"/>
+]])
+  local root = document:root()
+  luaunit.assertEquals(root["xmlns"],
+                       "http://example.com/")
+end
+
 function TestElement.test_set_attribute_raw()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()

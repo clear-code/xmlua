@@ -240,7 +240,21 @@ end
 
 function methods.get_attribute(self, name)
   local namespace_prefix, local_name = parse_name(name)
-  if namespace_prefix then
+  if namespace_prefix == "xmlns" then
+    local namespace = libxml2.xmlSearchNs(self.document, self.node, local_name)
+    if namespace then
+      return ffi.string(namespace.href)
+    else
+      return nil
+    end
+  elseif namespace_prefix == ffi.NULL and local_name == "xmlns" then
+    local namespace = libxml2.xmlSearchNs(self.document, self.node, nil)
+    if namespace then
+      return ffi.string(namespace.href)
+    else
+      return nil
+    end
+  elseif namespace_prefix then
     local namespace = libxml2.xmlSearchNs(self.document,
                                           self.node,
                                           namespace_prefix)

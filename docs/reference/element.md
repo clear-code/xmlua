@@ -311,6 +311,74 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
+### `set_attribute(name, value) -> nil` {#set-attribute}
+
+It set specify attribute to element.
+If attribute already exist, it overrides attribute.
+If attribute not exist, it makes attribute.
+If `name` is `namespace_prefix:local_name`, it set the namespace to the attribute.
+You can write not only `element:set_attribute(name, value)` but also `element.name = value`.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- set attribute
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+root:set_attribute("class", "A")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root class="A"/>
+
+
+-- set attribute another way write
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+root.class = "A"
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root class="A"/>
+
+
+-- set attribute update
+local document = xmlua.XML.parse("<root value='1'/>")
+local root = document:root()
+root.value = "2"
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root value="2"/>
+
+
+-- set attribute with namespace
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:set_attribute("xhtml:class", "top-level")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level"/>
+
+
+-- set attribute update with namespace
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xhtml:class="top-level"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:set_attribute("xhtml:class", "top-level-updated")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level-updated"/>
+```
+
 ### `previous() -> xmlua.Element` {#previous}
 
 It returns the previous sibling element as `xmlua.Element`. If there is no previous sibling element, it returns `nil`.

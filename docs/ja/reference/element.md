@@ -296,6 +296,74 @@ print(root["nonexistent-namespace:attribute"])
 -- -> value-nonexistent-namespace
 ```
 
+### `set_attribute(name, value) -> nil` {#set-attribute}
+
+指定した属性を要素へ設定します。
+既に存在する属性の場合は、値を上書きします属性が存在しない場合は、作成します。
+`name`が`namespace_prefix:local_name`の場合は、名前空間を設定します。
+`element:set_attribute(name, value)`という書き方だけではなく、`element.name = value`という書き方もできます。
+
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- 属性を設定します。
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+root:set_attribute("class", "A")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root class="A"/>
+
+
+-- 別の書き方で属性を設定します。
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+root.class = "A"
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root class="A"/>
+
+
+-- 属性を上書きします。
+local document = xmlua.XML.parse("<root value='1'/>")
+local root = document:root()
+root.value = "2"
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root value="2"/>
+
+
+-- 名前空間を持った属性を設定します。
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:set_attribute("xhtml:class", "top-level")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level"/>
+
+
+-- 名前空間を持つ属性を上書きします。
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xhtml:class="top-level"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+root:set_attribute("xhtml:class", "top-level-updated")
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xhtml:class="top-level-updated"/>
+```
+
 ### `previous() -> xmlua.Element` {#previous}
 
 前の兄弟要素を`xmlua.Element`として返します。前の兄弟要素が存在しない場合は、`nil`を返します。

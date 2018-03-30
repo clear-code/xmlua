@@ -315,7 +315,52 @@ print(removed_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
+### `merge(node set) -> xmlua.NodeSet` {#merge}
 
+It returns new "node set" which merged receiver's node and argument's node.
+You can write not only `node_set1:merge(node_set2) but also `node_set1 + node_set2`.
+Remove duplicate node.
+
+Example:
+
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<xml>
+  <header>
+    <title>This is test</title>
+  </header>
+  <contents>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </contents>
+</xml>
+]])
+-- Merge nodes
+local node_set1 = document:search("//title")
+-- <title>This is test</title>
+local node_set2 = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+local merged_node_set = node_set1:merge(node_set2)
+print(merged_node_set:to_xml())
+-- <title>This is test</title>
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+
+-- Merge nodes another way write.
+local merged_node_set = node_set1 + node_set2
+print(merged_node_set:to_xml())
+-- <title>This is test</title>
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+```
 
 ## See also
 

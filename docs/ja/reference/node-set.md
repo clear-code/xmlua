@@ -315,7 +315,50 @@ print(removed_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
+### `merge(node set) -> xmlua.NodeSet` {#merge}
 
+レシーバー内のノードと引数内のノードをマージして新しいノードセットをかえします。`node_set1:merge(node_set2) という書き方だけでなく、`node_set1 + node_set2`という書き方もできます。重複したノードは削除します。
+
+例：
+
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<xml>
+  <header>
+    <title>This is test</title>
+  </header>
+  <contents>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </contents>
+</xml>
+]])
+-- ノードをマージする
+local node_set1 = document:search("//title")
+-- <title>This is test</title>
+local node_set2 = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+local merged_node_set = node_set1:merge(node_set2)
+print(merged_node_set:to_xml())
+-- <title>This is test</title>
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+
+-- 別の書き方でノードをマージする
+local merged_node_set = node_set1 + node_set2
+print(merged_node_set:to_xml())
+-- <title>This is test</title>
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+```
 
 ## 参照
 

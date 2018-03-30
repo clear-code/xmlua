@@ -51,68 +51,6 @@ Each error has the following structure:
 
 `line` is the nth line where the error is occurred.
 
-## Instance methods
-
-### `build(document_tree={ELEMENT, {ATTRIBUTE1, ATTRIBUTE2, ...}, ...}) -> xmlua.Document`
-
-If you give tabel as below, it returns document tree.
-
-```lua
-{ -- Support only element and attribute, text.
-  "Element name", -- 1st element is element name.
-  {        -- 2nd element is attribute. If this element has not attribute, this table is empty.
-    ["Attribute name1"] = "Attribute value1",
-    ["Attribute name2"] = "Attribute value2",
-    ...,
-    ["Attribute name n"] = "Attribute value n",
-  },
-  -- 3rd element is child node
-  "Text node1", -- If this element is a string, this element is a text node.
-  {                 -- If this element is a table, this element is an element node.
-    "Child node name1",
-    {
-      ["Attribute name1"] = "Attribute value1",
-      ["Attribute name2"] = "Attribute value2",
-      ...,
-      ["Attribute name n"] = "Attribute value n",
-    },
-  }
-  "Text ndoe2",
-  ...
-}
-```
-
-This method makes new `xmlua.Document`.
-If you give empty table, it returns empty `xmlua.Document`(This document have not root element).
-
-Example:
-
-```lua
-local xmlua = require("xmlua")
-local Document = require("xmlua.document")
-
-local doc_tree = {
-  "root",
-  {
-    ["class"] = "A",
-    ["id"] = "1"
-  },
-  "This is text.",
-  {
-    "child",
-    {
-      ["class"] = "B",
-      ["id"] = "2"
-    }
-  }
-}
--- Make new document fro table.
-local document = Document.build(doc_tree)
-print(document:to_xml())
--- <?xml version="1.0" encoding="UTF-8"?>
--- <root id="1" class="A">This is text.<child class="B" id="2"/></root>
-```
-
 ## Methods
 
 ### `root() -> xmlua.Element` {#root}

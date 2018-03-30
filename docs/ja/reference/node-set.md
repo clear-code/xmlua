@@ -321,7 +321,6 @@ print(removed_node_set:to_xml())
 
 例：
 
-
 ```lua
 local xmlua = require("xmlua")
 
@@ -358,6 +357,48 @@ print(merged_node_set:to_xml())
 -- <sub1>sub1</sub1>
 -- <sub2>sub2</sub2>
 -- <sub3>sub3</sub3>
+```
+
+### `unlink() -> void` {#unlink}
+
+ノードセット内の全てのノードをドキュメントツリーから削除します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<xml>
+  <header>
+    <title>This is test</title>
+  </header>
+  <contents>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </contents>
+</xml>
+]])
+
+--  ノードセット内の全てのノードを削除する。
+local node_set = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+node_set:unlink()
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<xml>
+--  <header>
+--    <title>This is test</title>
+--  </header>
+--  <contents>
+--
+--
+--
+--  </contents>
+--</xml>
 ```
 
 ## 参照

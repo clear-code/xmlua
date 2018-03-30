@@ -323,7 +323,6 @@ Remove duplicate node.
 
 Example:
 
-
 ```lua
 local xmlua = require("xmlua")
 
@@ -360,6 +359,48 @@ print(merged_node_set:to_xml())
 -- <sub1>sub1</sub1>
 -- <sub2>sub2</sub2>
 -- <sub3>sub3</sub3>
+```
+
+### `unlink() -> void` {#unlink}
+
+It remove all node in node set from document tree.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[
+<xml>
+  <header>
+    <title>This is test</title>
+  </header>
+  <contents>
+    <sub1>sub1</sub1>
+    <sub2>sub2</sub2>
+    <sub3>sub3</sub3>
+  </contents>
+</xml>
+]])
+
+-- remove all nodes in node set
+local node_set = document:search("//xml/contents/*")
+-- <sub1>sub1</sub1>
+-- <sub2>sub2</sub2>
+-- <sub3>sub3</sub3>
+node_set:unlink()
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<xml>
+--  <header>
+--    <title>This is test</title>
+--  </header>
+--  <contents>
+--
+--
+--
+--  </contents>
+--</xml>
 ```
 
 ## See also

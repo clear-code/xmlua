@@ -115,6 +115,8 @@ end
 
 指定された名前の要素を作成し、それをレシーバーの`xmlua.Element`の最後の子要素にします。属性が指定された場合は、追加する要素に属性を設定します。このメソッドは、追加した要素を返します。`name`が`namespace_prefix:local_name`の場合は追加した要素に名前空間を設定します。
 
+例：
+
 ```lua
 local xmlua = require("xmlua")
 
@@ -146,6 +148,60 @@ print(document:to_xml())
 
 
 -- 名前空間を持った要素の追加
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local child = root:append_element("xhtml:child", {id="1", class="A"})
+print(child:to_xml())
+-- <xhtml:child class="A" id="1"/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+--   <xhtml:child class="A" id="1"/>
+-- </xhtml:html>
+```
+
+### `insert_element(position, name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.Element` {#insert-element}
+
+指定された名前の要素を作成し、それをレシーバーの`xmlua.Element`の`position`番目の子要素にします。属性が指定された場合は、追加する要素に属性を設定します。このメソッドは、追加した要素を返します。`name`が`namespace_prefix:local_name`の場合は追加した要素に名前空間を設定します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+--要素の挿入
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+local child = root:append_element("child")
+print(child:to_xml())
+-- <child/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <child/>
+-- </root>
+
+
+-- 属性を持つ要素の挿入
+local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
+local root = document:root()
+local child = root:insert_element(2, "new-child", {id="1", class="A"})
+print(child)
+-- <new-child class="A" id="1"/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <child1/>
+--   <new-child class="A" id="1"/>
+--   <child2/>
+-- </root>
+
+
+-- 名前空間を持った要素の挿入
 local xml = [[
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>

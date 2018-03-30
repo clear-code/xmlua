@@ -118,6 +118,8 @@ If you specify attributes, it set the attribute to the appended element.
 It returns appended element.
 If `name` is `namespace_prefix:local_name`, it set the namespace to the append element.
 
+Example:
+
 ```lua
 local xmlua = require("xmlua")
 
@@ -162,6 +164,72 @@ print(document:to_xml())
 -- <?xml version="1.0" encoding="UTF-8"?>
 -- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
 --   <xhtml:child class="A" id="1"/>
+-- </xhtml:html>
+```
+
+### `insert_element(position, name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.Element` {#insert-element}
+
+Make an element with the specified name and append it the `position`th child element of `xmlua.Element` of the receiver.
+`position` is 1 origin.
+If you specify attributes, it set the attribute to the appended element.
+It returns appended element.
+If `name` is `namespace_prefix:local_name`, it set the namespace to the append element.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- insert element
+local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
+local root = document:root()
+local child = root:insert_element(2, "new-child")
+print(child)
+-- <new-child/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <child1/>
+--   <new-child/>
+--   <child2/>
+-- </root>
+
+
+-- Insert element with attribute
+local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
+local root = document:root()
+local child = root:insert_element(2, "new-child", {id="1", class="A"})
+print(child)
+-- <new-child class="A" id="1"/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>
+--   <child1/>
+--   <new-child class="A" id="1"/>
+--   <child2/>
+-- </root>
+
+
+-- Insert element with namespace
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <xhtml:child1/>
+  <xhtml:child2/>
+</xhtml:html>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local child = root:insert_element(2,
+                                  "xhtml:new-child",
+                                  {id="1", class="A"})
+print(child)
+-- <xhtml:new-child class="A" id="1"/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+--   <xhtml:child1/>
+--   <xhtml:new-child class="A" id="1"/><xhtml:child2/>
 -- </xhtml:html>
 ```
 

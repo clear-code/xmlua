@@ -239,23 +239,19 @@ function methods.unlink(self)
 end
 
 function methods.get_attribute(self, name)
-  local value = nil
-  local colon_start = name:find(":")
-  if colon_start then
-    local namespace_prefix = name:sub(0, colon_start - 1)
-    local local_name = name:sub(colon_start + 1)
+  local namespace_prefix, local_name = parse_name(name)
+  if namespace_prefix then
     local namespace = libxml2.xmlSearchNs(self.document,
                                           self.node,
                                           namespace_prefix)
     if namespace then
-      value = libxml2.xmlGetNsProp(self.node, local_name, namespace.href)
+      return libxml2.xmlGetNsProp(self.node, local_name, namespace.href)
     else
-      value = libxml2.xmlGetProp(self.node, name)
+      return libxml2.xmlGetProp(self.node, name)
     end
   else
-    value = libxml2.xmlGetNoNsProp(self.node, name)
+    return libxml2.xmlGetNoNsProp(self.node, name)
   end
-  return value
 end
 
 function methods.set_attribute(self, name, value)

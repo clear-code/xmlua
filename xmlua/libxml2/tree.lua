@@ -163,6 +163,7 @@ xmlNodePtr xmlLastElementChild(xmlNodePtr node);
 xmlNsPtr xmlNewNs(xmlNodePtr node,
 		  const xmlChar *href,
 		  const xmlChar *prefix);
+void xmlFreeNs(xmlNsPtr cur);
 void xmlSetNs(xmlNodePtr node, xmlNsPtr ns);
 xmlDocPtr xmlNewDoc(const xmlChar *version);
 xmlNodePtr xmlDocSetRootElement(xmlDocPtr doc, xmlNodePtr root);
@@ -172,6 +173,7 @@ xmlNodePtr xmlAddPrevSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);
 
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);
+xmlNsPtr xmlSearchNsByHref(xmlDocPtr doc, xmlNodePtr node, const xmlChar *href);
 
 char *xmlGetNoNsProp(const xmlNode *node, const xmlChar *name);
 xmlChar *xmlGetNsProp(const xmlNode *node,

@@ -223,6 +223,10 @@ function libxml2.xmlNewNs(node, uri, prefix)
   return new_namespace
 end
 
+function libxml2.xmlFreeNs(namespace)
+  xml2.xmlFreeNs(namespace)
+end
+
 function libxml2.xmlSetNs(node, namespace)
   xml2.xmlSetNs(node, namespace)
   return
@@ -263,6 +267,14 @@ end
 
 function libxml2.xmlSearchNs(document, node, namespace_prefix)
   local namespace = xml2.xmlSearchNs(document, node, namespace_prefix)
+  if namespace == ffi.NULL then
+    return nil
+  end
+  return namespace
+end
+
+function libxml2.xmlSearchNsByHref(document, node, href)
+  local namespace = xml2.xmlSearchNsByHref(document, node, href)
   if namespace == ffi.NULL then
     return nil
   end

@@ -434,7 +434,22 @@ function TestElement.test_remove_attribute_namespace()
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
-<root xmlns:example="http://example.com/"/>
+<root/>
+]])
+end
+
+function TestElement.test_remove_attribute_default_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://example.com/"/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  root:remove_attribute("xmlns")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
 ]])
 end
 

@@ -43,6 +43,20 @@ function methods.append_text(self, value)
   end
 end
 
+local function parse_name(name)
+  local colon_start = name:find(":")
+  local namespace_prefix
+  local local_name
+  if colon_start then
+    namespace_prefix = name:sub(1, colon_start - 1)
+    local_name = name:sub(colon_start + 1)
+  else
+    namespace_prefix = nil
+    local_name = name
+  end
+  return namespace_prefix, local_name
+end
+
 function methods.append_element(self, name, attributes)
   local raw_element = nil
   local colon_start = name:find(":")
@@ -169,20 +183,56 @@ function methods.set_attribute(self, name, value)
   libxml2.xmlNewProp(self.node, name, value)
 end
 
+local function remove_namespace(node, namespace, namespace_previous)
+  if node.ns == namespace then
+    node.ns = ffi.NULL
+  end
+  -- TODO: Remove ns from all sub nodes
+  if namespace_previous then
+    namespace_previous.next = namespace.next
+  else
+    node.nsDef = namespace.next
+  end
+  libxml2.xmlFreeNs(namespace)
+end
+
 function methods.remove_attribute(self, name)
-  local colon_start = name:find(":")
-  if colon_start then
-    local namespace_prefix = name:sub(0, colon_start - 1)
-    local local_name = name:sub(colon_start + 1)
-    local namespace = libxml2.xmlSearchNs(self.document,
-                                          self.node,
-                                          namespace_prefix)
+  local namespace_prefix, local_name = parse_name(name)
+  local namespace
+  if namespace_prefix == "xmlns" then
+    namespace = self.node.nsDef
+    local namespace_previous = nil
+    while namespace ~= ffi.NULL do
+      if ffi.string(namespace.prefix) == local_name then
+        remove_namespace(self.node, namespace, namespace_previous)
+        return
+      end
+      namespace_previous = namespace
+      namespace = namespace.next
+    end
+  elseif namespace_prefix == nil and local_name == "xmlns" then
+    namespace = self.node.nsDef
+    local namespace_previous = nil
+    while namespace ~= ffi.NULL do
+      if namespace.prefix == ffi.NULL then
+        remove_namespace(self.node, namespace, namespace_previous)
+        return
+      end
+      namespace_previous = namespace
+      namespace = namespace.next
+    end
+  elseif namespace_prefix then
+    namespace = libxml2.xmlSearchNs(self.document,
+                                    self.node,
+                                    namespace_prefix)
     if namespace then
       libxml2.xmlUnsetNsProp(self.node, namespace, local_name)
-      return
+    else
+      libxml2.xmlUnsetProp(self.node, name)
     end
+  else
+    libxml2.xmlUnsetProp(self.node, name)
   end
-  libxml2.xmlUnsetProp(self.node, name)
 end
 
 function methods.name(self)

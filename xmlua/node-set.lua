@@ -121,7 +121,7 @@ function methods.unlink(self)
   end
 end
 
-local function is_include(node_set, search_node)
+local function is_included(node_set, search_node)
   for _, node in ipairs(node_set) do
     if node.node == search_node.node then
       return true
@@ -136,7 +136,7 @@ function methods.merge(self, node_set)
     table.insert(raw_node_set, node)
   end
   for _, node in ipairs(node_set) do
-    if not is_include(self, node) then
+    if not is_included(self, node) then
       table.insert(raw_node_set, node)
     end
   end

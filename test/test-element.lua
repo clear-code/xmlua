@@ -178,10 +178,12 @@ function TestElement.test_append_element_with_namespace()
   local child = root:append_element("xhtml:child", {id="1", class="A"})
   luaunit.assertEquals({
                          child:to_xml(),
+                         ffi.string(child.node.ns.href),
                          document:to_xml(),
                        },
                        {
                          [[<xhtml:child id="1" class="A"/>]],
+                         "http://www.w3.org/1999/xhtml",
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -191,22 +193,75 @@ function TestElement.test_append_element_with_namespace()
                        })
 end
 
-function TestElement.test_append_element_with_new_namespace()
+function TestElement.test_append_element_with_namespace_declration()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()
+  local uri = "http://example.com"
   local attributes = {}
-  attributes["xmlns:test"] = "http://example.com"
+  attributes["xmlns:test"] = uri
   local child = root:append_element("test:child", attributes)
   luaunit.assertEquals({
                          child:to_xml(),
+                         ffi.string(child.node.ns.href),
                          document:to_xml(),
                        },
                        {
                          [[<test:child xmlns:test="http://example.com"/>]],
+                         uri,
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <test:child xmlns:test="http://example.com"/>
+</root>
+]],
+                       })
+end
+
+function TestElement.test_append_element_with_nonexistent_namespace()
+  local document = xmlua.XML.parse("<root/>")
+  local root = document:root()
+  local attributes = {}
+  local child = root:append_element("nonexistent:child", {})
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         child.node.ns,
+                         document:to_xml(),
+                       },
+                       {
+                         [[<nonexistent:child/>]],
+                         ffi.cast("xmlNsPtr", nil),
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <nonexistent:child/>
+</root>
+]],
+                       })
+end
+
+function TestElement.test_append_element_with_namespace_attribute()
+  local document = xmlua.XML.parse("<root/>")
+  local root = document:root()
+  local uri = "http://example.com/"
+  local attributes = {}
+  attributes["xmlns:example"] = uri
+  attributes["example:data"] = "data-with-namespace"
+  local child = root:append_element("child", attributes)
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         child.node.ns,
+                         get_prop(child.node, "data", uri),
+                         document:to_xml(),
+                       },
+                       {
+                         [[
+<child xmlns:example="http://example.com/" example:data="data-with-namespace"/>]],
+                         ffi.cast("xmlNsPtr", nil),
+                         "data-with-namespace",
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child xmlns:example="http://example.com/" example:data="data-with-namespace"/>
 </root>
 ]],
                        })

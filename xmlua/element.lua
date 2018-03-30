@@ -175,7 +175,11 @@ local function create_sub_element(document, node, name, attributes)
   local element = Element.new(document, raw_element)
   set_attributes(document, node, element, attributes)
   if namespace_prefix then
-    local namespace = libxml2.xmlSearchNs(document, node, namespace_prefix)
+    local namespace
+    namespace = libxml2.xmlSearchNs(document, raw_element, namespace_prefix)
+    if not namespace then
+      namespace = libxml2.xmlSearchNs(document, node, namespace_prefix)
+    end
     if namespace then
       libxml2.xmlSetNs(raw_element, namespace)
     else

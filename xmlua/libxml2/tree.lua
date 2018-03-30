@@ -7,8 +7,6 @@ typedef xmlParserInputBuffer *xmlParserInputBufferPtr;
 typedef struct _xmlParserInput xmlParserInput;
 typedef xmlParserInput *xmlParserInputPtr;
 
-typedef void *xmlAttrPtr;
-
 typedef struct _xmlEntity xmlEntity;
 typedef xmlEntity *xmlEntityPtr;
 
@@ -150,6 +148,37 @@ struct _xmlDoc {
     int             properties;	/* set of xmlDocProperties for this document
 				   set at the end of parsing */
 };
+
+typedef enum {
+    XML_ATTRIBUTE_CDATA = 1,
+    XML_ATTRIBUTE_ID,
+    XML_ATTRIBUTE_IDREF	,
+    XML_ATTRIBUTE_IDREFS,
+    XML_ATTRIBUTE_ENTITY,
+    XML_ATTRIBUTE_ENTITIES,
+    XML_ATTRIBUTE_NMTOKEN,
+    XML_ATTRIBUTE_NMTOKENS,
+    XML_ATTRIBUTE_ENUMERATION,
+    XML_ATTRIBUTE_NOTATION
+} xmlAttributeType;
+
+typedef struct _xmlAttr xmlAttr;
+typedef xmlAttr *xmlAttrPtr;
+struct _xmlAttr {
+    void           *_private;	/* application data */
+    xmlElementType   type;      /* XML_ATTRIBUTE_NODE, must be second ! */
+    const xmlChar   *name;      /* the name of the property */
+    struct _xmlNode *children;	/* the value of the property */
+    struct _xmlNode *last;	/* NULL */
+    struct _xmlNode *parent;	/* child->parent link */
+    struct _xmlAttr *next;	/* next sibling link  */
+    struct _xmlAttr *prev;	/* previous sibling link  */
+    struct _xmlDoc  *doc;	/* the containing document */
+    xmlNs           *ns;        /* pointer to the associated namespace */
+    xmlAttributeType atype;     /* the attribute type if validating */
+    void            *psvi;	/* for type/PSVI informations */
+};
+
 
 void xmlFreeDoc(xmlDocPtr cur);
 xmlNodePtr xmlDocGetRootElement(const xmlDoc *doc);

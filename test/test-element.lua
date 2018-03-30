@@ -438,6 +438,30 @@ function TestElement.test_remove_attribute_namespace()
 ]])
 end
 
+function TestElement.test_remove_attribute_namespace_sub_nodes()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<example:root
+  xmlns:example="http://example.com/"
+  a="attribute1"
+  example:b="attribute2">
+  <example:sub1/>
+  <sub2 example:c="attribute-sub"/>
+</example:root>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  root:remove_attribute("xmlns:example")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root a="attribute1" b="attribute2">
+  <sub1/>
+  <sub2 c="attribute-sub"/>
+</root>
+]])
+end
+
 function TestElement.test_remove_attribute_default_namespace()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8"?>

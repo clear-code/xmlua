@@ -183,11 +183,26 @@ function methods.set_attribute(self, name, value)
   libxml2.xmlNewProp(self.node, name, value)
 end
 
-local function remove_namespace(node, namespace, namespace_previous)
+local function unset_namespace(node, namespace)
   if node.ns == namespace then
     node.ns = ffi.NULL
   end
-  -- TODO: Remove ns from all sub nodes
+  local attributes = node.properties
+  while attributes ~= ffi.NULL do
+    if attributes.ns == namespace then
+      attributes.ns = ffi.NULL
+    end
+    attributes = attributes.next
+  end
+  local children = node.children
+  while children ~= ffi.NULL do
+    unset_namespace(children, namespace)
+    children = children.next
+  end
+end
+
+local function remove_namespace(node, namespace, namespace_previous)
+  unset_namespace(node, namespace)
   if namespace_previous then
     namespace_previous.next = namespace.next
   else

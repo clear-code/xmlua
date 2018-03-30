@@ -233,6 +233,27 @@ print(document:to_xml())
 -- </xhtml:html>
 ```
 
+### `unlink() -> xmlua.Element` {#unlink}
+
+It remove reciver from document tree.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.parse([[<root><child/></root>]])
+local child = document:css_select("child")[1]
+-- unlink element from document tree
+local unlinked_node = child:unlink()
+
+print(unlinked_node:to_xml())
+-- <child/>
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root/>
+```
+
 ### `get_attribute(name) -> string` {#get-attribute}
 
 It gets attribute value of the given attribute name. If the attribute name doesn't exist, it returns `nil`.

@@ -391,6 +391,32 @@ msgstr ""
 "-- </xhtml:html>\n"
 "```"
 
+msgid "### `unlink() -> xmlua.Element` {#unlink}"
+msgstr ""
+
+msgid "It remove reciver from document tree."
+msgstr "レシーバーをドキュメントツリーから削除します。"
+
+msgid ""
+"local document = xmlua.XML.parse([[<root><child/></root>]])\n"
+"local child = document:css_select(\"child\")[1]\n"
+"-- unlink element from document tree\n"
+"local unlinked_node = child:unlink()"
+msgstr ""
+"local document = xmlua.XML.parse([[<root><child/></root>]])\n"
+"local child = document:css_select(\"child\")[1]\n"
+"-- ドキュメントツリーから要素を削除します。\n"
+"local unlinked_node = child:unlink()"
+
+msgid ""
+"print(unlinked_node:to_xml())\n"
+"-- <child/>\n"
+"print(document:to_xml())\n"
+"-- <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"-- <root/>\n"
+"```"
+msgstr ""
+
 msgid "### `get_attribute(name) -> string` {#get-attribute}"
 msgstr ""
 

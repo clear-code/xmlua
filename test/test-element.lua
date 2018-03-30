@@ -92,7 +92,8 @@ function TestElement.test_content()
   <child2>text2-1</child2>
   text3
 </root>
-]])
+]]
+  )
   local root = document:root()
   luaunit.assertEquals(root:content(),
                        [[
@@ -129,13 +130,14 @@ function TestElement.test_append_element()
                          document:to_xml(),
                        },
                        {
-                       [[<child/>]],
-                       [[
+                         [[<child/>]],
+                         [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <child/>
 </root>
-]],})
+]],
+                       })
 end
 
 function TestElement.test_append_element_with_attribute()
@@ -147,13 +149,14 @@ function TestElement.test_append_element_with_attribute()
                          document:to_xml(),
                        },
                        {
-                       [[<child class="A" id="1"/>]],
-                       [[
+                         [[<child class="A" id="1"/>]],
+                         [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <child class="A" id="1"/>
 </root>
-]],})
+]],
+                       })
 end
 
 function TestElement.test_append_element_with_namespace()
@@ -169,13 +172,14 @@ function TestElement.test_append_element_with_namespace()
                          document:to_xml(),
                        },
                        {
-                       [[<xhtml:child class="A" id="1"/>]],
-                       [[
+                         [[<xhtml:child class="A" id="1"/>]],
+                         [[
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <xhtml:child class="A" id="1"/>
 </xhtml:html>
-]],})
+]],
+                       })
 end
 
 function TestElement.test_append_element_with_new_namespace()
@@ -188,13 +192,14 @@ function TestElement.test_append_element_with_new_namespace()
                          document:to_xml(),
                        },
                        {
-                       [[<test:child xmlns:test="http://example.com"/>]],
-                       [[
+                         [[<test:child xmlns:test="http://example.com"/>]],
+                         [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <test:child xmlns:test="http://example.com"/>
 </root>
-]],})
+]],
+                       })
 end
 
 function TestElement.test_insert_element()
@@ -206,15 +211,16 @@ function TestElement.test_insert_element()
                          document:to_xml(),
                        },
                        {
-                       [[<new-child/>]],
-                       [[
+                         [[<new-child/>]],
+                         [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <child1/>
   <new-child/>
   <child2/>
 </root>
-]],})
+]],
+                       })
 end
 
 function TestElement.test_insert_element_with_attributes()
@@ -226,15 +232,16 @@ function TestElement.test_insert_element_with_attributes()
                          document:to_xml(),
                        },
                        {
-                       [[<new-child class="A" id="1"/>]],
-                       [[
+                         [[<new-child class="A" id="1"/>]],
+                         [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <child1/>
   <new-child class="A" id="1"/>
   <child2/>
 </root>
-]],})
+]],
+                       })
 end
 
 function TestElement.test_insert_element_with_namespace()
@@ -255,14 +262,15 @@ function TestElement.test_insert_element_with_namespace()
                          document:to_xml(),
                        },
                        {
-                       [[<xhtml:new-child class="A" id="1"/>]],
-                       [[
+                         [[<xhtml:new-child class="A" id="1"/>]],
+                         [[
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <xhtml:child1/>
   <xhtml:new-child class="A" id="1"/><xhtml:child2/>
 </xhtml:html>
-]],})
+]],
+                       })
 end
 
 function TestElement.test_insert_element_with_new_namespace()
@@ -283,14 +291,15 @@ function TestElement.test_insert_element_with_new_namespace()
                          document:to_xml(),
                        },
                        {
-                       [[<test:child xmlns:test="http://example.com"/>]],
-                       [[
+                         [[<test:child xmlns:test="http://example.com"/>]],
+                         [[
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <xhtml:child1/>
   <test:child xmlns:test="http://example.com"/><xhtml:child2/>
 </xhtml:html>
-]],})
+]],
+                       })
 end
 
 function TestElement.test_get_attribute_raw()
@@ -398,5 +407,6 @@ function TestElement.test_unlink()
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root/>
-]],})
+]],
+                       })
 end

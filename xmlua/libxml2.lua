@@ -250,19 +250,19 @@ function libxml2.xmlNewText(content)
 end
 
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)
-  local new_element = xml2.xmlAddPrevSibling(sibling, new_sibling)
-  if new_element == ffi.NULL then
-    new_element = nil
+  local new_node = xml2.xmlAddPrevSibling(sibling, new_sibling)
+  if new_node == ffi.NULL then
+    new_node = nil
   end
-  return new_element
+  return new_node
 end
 
 function libxml2.xmlAddChild(parent, child)
-  local child_element = xml2.xmlAddChild(parent, child)
-  if child_element == ffi.NULL then
-    child_element = nil
+  local child_node = xml2.xmlAddChild(parent, child)
+  if child_node == ffi.NULL then
+    child_node = nil
   end
-  return child_element
+  return child_node
 end
 
 function libxml2.xmlSearchNs(document, node, namespace_prefix)

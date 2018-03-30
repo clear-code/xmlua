@@ -395,15 +395,14 @@ end
 
 function TestElement.test_unlink()
   local document = xmlua.XML.parse([[<root><child/></root>]])
-  local root = document:root()
-  local child = root:children()[1]
+  local child = document:css_select("child")[1]
   local unlinked_node = child:unlink()
   luaunit.assertEquals({
-                         unlinked_node:name(),
+                         unlinked_node:to_xml(),
                          document:to_xml(),
                        },
                        {
-                         "child",
+                         "<child/>",
                          [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root/>

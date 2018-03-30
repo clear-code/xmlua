@@ -135,6 +135,11 @@ function methods.insert_element(self, position, name, attributes)
   end
 end
 
+function methods.unlink(self)
+  local unlinked_node = Node.unlink(self)
+  return Element.new(nil, unlinked_node)
+end
+
 function methods.get_attribute(self, name)
   local value = nil
   local colon_start = name:find(":")

@@ -172,12 +172,23 @@ function methods.append_element(self, name, attributes)
 end
 
 function methods.insert_element(self, position, name, attributes)
+  local base_element = libxml2.xmlFirstElementChild(self.node)
+  for i = 1, position - 1 do
+    if not base_element then
+      return nil
+    end
+    base_element = libxml2.xmlNextElementSibling(base_element)
+  end
+
+  if not base_element then
+    return self:append_element(name, attributes)
+  end
+
   local sub_element = create_sub_element(self.document,
                                          self.node,
                                          name,
                                          attributes)
-  if libxml2.xmlAddPrevSibling(self:children()[position].node,
-                               sub_element.node) then
+  if libxml2.xmlAddPrevSibling(base_element, sub_element.node) then
     return sub_element
   else
     sub_element:unlink()

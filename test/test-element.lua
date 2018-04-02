@@ -359,6 +359,42 @@ function TestElement.test_insert_element()
                        })
 end
 
+function TestElement.test_insert_element_first_element()
+  local document = xmlua.XML.parse([[<root/>]])
+  local root = document:root()
+  local child = root:insert_element(1, "child")
+  luaunit.assertEquals({
+                         child:to_xml(),
+                         document:to_xml(),
+                       },
+                       {
+                         [[<child/>]],
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child/>
+</root>
+]],
+                       })
+end
+
+function TestElement.test_insert_element_large_position()
+  local document = xmlua.XML.parse([[<root/>]])
+  local root = document:root()
+  local child = root:insert_element(100, "child")
+  luaunit.assertEquals({
+                         child,
+                         document:to_xml(),
+                       },
+                       {
+                         nil,
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]],
+                       })
+end
+
 function TestElement.test_insert_element_with_attributes()
   local document = xmlua.XML.parse([[<root><child1/><child2/></root>]])
   local root = document:root()

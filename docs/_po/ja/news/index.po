@@ -19,13 +19,96 @@ msgstr ""
 msgid "# News"
 msgstr "# おしらせ"
 
-msgid "## 1.0.3: 2017-12-14 {#version-1-0-3}"
+msgid "## 1.0.5: 2018-03-30 {#version-1-0-5}"
 msgstr ""
 
 msgid "### Improvements"
 msgstr ""
 
-msgid "  * `xmlua.HTMLSAXParser`: Added."
+msgid "  * `xmlua.NodeSet:insert()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.NodeSet:remove()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.NodeSet:merge()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.NodeSet:unlink()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.Element:append_element()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.Element:insert_element()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.Element:unlink()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.Element:set_attribute()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.Element:remove_attribute()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.XML.build()`: Added."
+msgstr ""
+
+msgid "## 1.0.4: 2018-03-19 {#version-1-0-4}"
+msgstr ""
+
+msgid "  * `xmlua.libxml2.VERSION`: Added."
+msgstr ""
+
+msgid "  * Experimental: `xmlua.HTMLSAXParser`: Added supported events:"
+msgstr ""
+
+msgid "    * `start_document`"
+msgstr ""
+
+msgid "    * `end_document`"
+msgstr ""
+
+msgid "    * `comment`"
+msgstr ""
+
+msgid "    * `ignorable_whitespace`"
+msgstr ""
+
+msgid "    * `cdata_block`"
+msgstr ""
+
+msgid "    * `processing_instruction`"
+msgstr ""
+
+msgid ""
+"  * Experimental: `xmlua.HTMLSAXParser`: Removed needless namespace informatio"
+"n from the following events."
+msgstr ""
+
+msgid "    * `start_element`"
+msgstr ""
+
+msgid "    * `end_element`"
+msgstr ""
+
+msgid "  * Experimental: `xmlua.XMLSAXParser`: Added."
+msgstr ""
+
+msgid "  * `xmlua.Node:path()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.NodeSet:paths()`: Added."
+msgstr ""
+
+msgid "  * `xmlua.Searchable.css_select()`: Added."
+msgstr ""
+
+msgid "## 1.0.3: 2017-12-14 {#version-1-0-3}"
+msgstr ""
+
+msgid "  * Experimental: `xmlua.HTMLSAXParser`: Added."
 msgstr ""
 
 msgid "### Fixes"

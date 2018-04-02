@@ -26,7 +26,7 @@ title: おしらせ
 
   * `xmlua.Element:remove_attribute()`: Added.
 
-  * `xmlua.XML:build()`: Added.
+  * `xmlua.XML.build()`: Added.
 
 ## 1.0.4: 2018-03-19 {#version-1-0-4}
 

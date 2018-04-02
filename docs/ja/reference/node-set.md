@@ -317,7 +317,7 @@ print(removed_node_set:to_xml())
 
 ### `merge(node_set) -> xmlua.NodeSet` {#merge}
 
-レシーバー内のノードと引数内のノードをマージして新しいノードセットをかえします。`node_set1:merge(node_set2) という書き方だけでなく、`node_set1 + node_set2`という書き方もできます。重複したノードは削除します。
+レシーバー内のノードと引数のノードセット内のノードをマージして新しいノードセットを返します。`node_set1:merge(node_set2)`という書き方だけでなく、`node_set1 + node_set2`という書き方もできます。重複したノードは削除します。
 
 例：
 

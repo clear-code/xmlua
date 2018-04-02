@@ -317,8 +317,8 @@ print(removed_node_set:to_xml())
 
 ### `merge(node_set) -> xmlua.NodeSet` {#merge}
 
-It returns new "node set" which merged receiver's node and argument's node.
-You can write not only `node_set1:merge(node_set2) but also `node_set1 + node_set2`.
+It returns a new node set which merged nodes in receiver and nodes in the argument node set.
+You can write not only `node_set1:merge(node_set2)` but also `node_set1 + node_set2`.
 Remove duplicate node.
 
 Example:

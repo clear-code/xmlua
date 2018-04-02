@@ -402,7 +402,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `remove(node or position) -> xmlua.Node` {#remove}"
+msgid "### `remove(node_or_position) -> xmlua.Node` {#remove}"
 msgstr ""
 
 msgid ""
@@ -474,7 +474,7 @@ msgstr ""
 "-- <sub3>sub3</sub3>\n"
 "```"
 
-msgid "### `merge(node set) -> xmlua.NodeSet` {#merge}"
+msgid "### `merge(node_set) -> xmlua.NodeSet` {#merge}"
 msgstr ""
 
 msgid ""

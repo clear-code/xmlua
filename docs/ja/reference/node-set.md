@@ -264,7 +264,7 @@ print(inserted_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
-### `remove(node or position) -> xmlua.Node` {#remove}
+### `remove(node_or_position) -> xmlua.Node` {#remove}
 
 `Node`を[`xmlua.NodeSet`][node-set]から削除します. ただし、ドキュメントツリーからは削除しません。
 削除した`Node`を返します。削除出来なかった場合は、`nil`を返します。
@@ -315,7 +315,7 @@ print(removed_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
-### `merge(node set) -> xmlua.NodeSet` {#merge}
+### `merge(node_set) -> xmlua.NodeSet` {#merge}
 
 レシーバー内のノードと引数内のノードをマージして新しいノードセットをかえします。`node_set1:merge(node_set2) という書き方だけでなく、`node_set1 + node_set2`という書き方もできます。重複したノードは削除します。
 

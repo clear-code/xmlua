@@ -264,7 +264,7 @@ print(inserted_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
-### `remove(node or position) -> xmlua.Node` {#remove}
+### `remove(node_or_position) -> xmlua.Node` {#remove}
 
 It remove `Node` in [`xmlua.NodeSet`][node-set]. However,it does not remove from document tree.
 It returns removed node. If it fail remove, it returns nil.
@@ -315,7 +315,7 @@ print(removed_node_set:to_xml())
 -- <sub3>sub3</sub3>
 ```
 
-### `merge(node set) -> xmlua.NodeSet` {#merge}
+### `merge(node_set) -> xmlua.NodeSet` {#merge}
 
 It returns new "node set" which merged receiver's node and argument's node.
 You can write not only `node_set1:merge(node_set2) but also `node_set1 + node_set2`.

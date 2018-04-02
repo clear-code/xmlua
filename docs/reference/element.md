@@ -111,7 +111,7 @@ for i = 1, #children do
 end
 ```
 
-### `append_element(name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.Element` {#append-element}
+### `append_element(name, attributes=nil) -> xmlua.Element` {#append-element}
 
 Make an element with the specified name and append it the last child element of `xmlua.Element` of the receiver.
 If you specify attributes, it set the attribute to the appended element.
@@ -167,7 +167,7 @@ print(document:to_xml())
 -- </xhtml:html>
 ```
 
-### `insert_element(position, name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.Element` {#insert-element}
+### `insert_element(position, name, attributes=nil) -> xmlua.Element` {#insert-element}
 
 Make an element with the specified name and append it the `position`th child element of `xmlua.Element` of the receiver.
 `position` is 1 origin.

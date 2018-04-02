@@ -111,7 +111,7 @@ for i = 1, #children do
 end
 ```
 
-### `append_element(name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.Element` {#append-element}
+### `append_element(name, attributes=nil) -> xmlua.Element` {#append-element}
 
 指定された名前の要素を作成し、それをレシーバーの`xmlua.Element`の最後の子要素にします。属性が指定された場合は、追加する要素に属性を設定します。このメソッドは、追加した要素を返します。`name`が`namespace_prefix:local_name`の場合は追加した要素に名前空間を設定します。
 
@@ -164,7 +164,7 @@ print(document:to_xml())
 -- </xhtml:html>
 ```
 
-### `insert_element(position, name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.Element` {#insert-element}
+### `insert_element(position, name, attributes=nil) -> xmlua.Element` {#insert-element}
 
 指定された名前の要素を作成し、それをレシーバーの`xmlua.Element`の`position`番目の子要素にします。属性が指定された場合は、追加する要素に属性を設定します。このメソッドは、追加した要素を返します。`name`が`namespace_prefix:local_name`の場合は追加した要素に名前空間を設定します。
 

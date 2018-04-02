@@ -178,9 +178,7 @@ msgstr ""
 "end\n"
 "```"
 
-msgid ""
-"### `append_element(name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) -> xmlua.E"
-"lement` {#append-element}"
+msgid "### `append_element(name, attributes=nil) -> xmlua.Element` {#append-element}"
 msgstr ""
 
 msgid ""
@@ -277,8 +275,8 @@ msgstr ""
 "```"
 
 msgid ""
-"### `insert_element(position, name, attributes={ATTRIBUTE1, ATTRIBUTE2, ...}) "
-"-> xmlua.Element` {#insert-element}"
+"### `insert_element(position, name, attributes=nil) -> xmlua.Element` {#insert"
+"-element}"
 msgstr ""
 
 msgid ""

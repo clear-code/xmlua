@@ -4,6 +4,12 @@ title: おしらせ
 
 # おしらせ
 
+## 1.0.8: 2018-04-03 {#version-1-0-8}
+
+### Fixes
+
+  * `rockspec`: Fix a bug that installation failed.
+
 ## 1.0.7: 2018-04-03 {#version-1-0-7}
 
 ### Improvements

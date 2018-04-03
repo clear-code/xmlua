@@ -22,6 +22,42 @@ function TestHTMLBuild.test_empty_root()
 ]])
 end
 
+function TestHTMLBuild.test_empty_root_dtd_systemid()
+  local uri = "file:///usr/local/share/test.dtd"
+  local document = HTML.build({"html"}, uri)
+  print()
+  luaunit.assertEquals({
+                          ffi.string(document.document.intSubset.SystemID),
+                          document:to_html()
+                       },
+                       {
+                         uri,
+                         [[
+<!DOCTYPE html SYSTEM "file:///usr/local/share/test.dtd">
+<html></html>
+]]
+                       })
+end
+
+function TestHTMLBuild.test_empty_root_dtd_publicid()
+  local uri = "http://www.w3.org/TR/html4/strict.dtd"
+  local public_id = "-//W3C//DTD HTML 4.01//EN"
+  local document = HTML.build({"html"}, uri, public_id)
+  luaunit.assertEquals({
+                         ffi.string(document.document.intSubset.SystemID),
+                         ffi.string(document.document.intSubset.ExternalID),
+                         document:to_html()
+                       },
+                       {
+                         uri,
+                         public_id,
+                         [[
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html></html>
+]]
+                       })
+end
+
 function TestHTMLBuild.test_root_children()
   local tree = {
     "html",

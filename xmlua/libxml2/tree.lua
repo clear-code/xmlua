@@ -149,6 +149,29 @@ struct _xmlDoc {
 				   set at the end of parsing */
 };
 
+typedef struct _xmlDtd xmlDtd;
+typedef xmlDtd *xmlDtdPtr;
+struct _xmlDtd {
+    void           *_private;	/* application data */
+    xmlElementType  type;       /* XML_DTD_NODE, must be second ! */
+    const xmlChar *name;	/* Name of the DTD */
+    struct _xmlNode *children;	/* the value of the property link */
+    struct _xmlNode *last;	/* last child link */
+    struct _xmlDoc  *parent;	/* child->parent link */
+    struct _xmlNode *next;	/* next sibling link  */
+    struct _xmlNode *prev;	/* previous sibling link  */
+    struct _xmlDoc  *doc;	/* the containing document */
+
+    /* End of common part */
+    void          *notations;   /* Hash table for notations if any */
+    void          *elements;    /* Hash table for elements if any */
+    void          *attributes;  /* Hash table for attributes if any */
+    void          *entities;    /* Hash table for entities if any */
+    const xmlChar *ExternalID;	/* External identifier for PUBLIC DTD */
+    const xmlChar *SystemID;	/* URI for a SYSTEM or PUBLIC DTD */
+    void          *pentities;   /* Hash table for param entities if any */
+};
+
 typedef enum {
     XML_ATTRIBUTE_CDATA = 1,
     XML_ATTRIBUTE_ID,

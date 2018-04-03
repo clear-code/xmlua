@@ -21,8 +21,8 @@ local function convert_xml_error(xml_error)
   return err
 end
 
-function HTML.build(tree)
-  local raw_document = libxml2.htmlNewDoc()
+function HTML.build(tree, uri, external_id)
+  local raw_document = libxml2.htmlNewDoc(uri, external_id)
   return Document.build(raw_document, tree)
 end
 

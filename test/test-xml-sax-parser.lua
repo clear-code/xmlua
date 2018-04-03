@@ -51,23 +51,6 @@ function TestXMLSAXParser.test_internal_subset()
   luaunit.assertEquals(collect_internal_subsets(xml), expected)
 end
 
-local function collect_external_subsets(chunk)
-  local parser = xmlua.XMLSAXParser.new()
-  local external_subsets = {}
-  parser.external_subset = function(name,
-                                    external_id,
-                                    system_id)
-    local external_subset = {
-      name = name,
-      external_id = external_id,
-      system_id = system_id,
-    }
-    table.insert(external_subsets, external_subset)
-  end
-  luaunit.assertEquals(parser:parse(chunk), true)
-  return external_subsets
-end
-
 function TestXMLSAXParser.test_internal_subset_with_systemid()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -106,6 +89,23 @@ function TestXMLSAXParser.test_internal_subset_with_externalid()
                      }
                    }
   luaunit.assertEquals(collect_internal_subsets(xml), expected)
+end
+
+local function collect_external_subsets(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local external_subsets = {}
+  parser.external_subset = function(name,
+                                    external_id,
+                                    system_id)
+    local external_subset = {
+      name = name,
+      external_id = external_id,
+      system_id = system_id,
+    }
+    table.insert(external_subsets, external_subset)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return external_subsets
 end
 
 function TestXMLSAXParser.test_external_subset()

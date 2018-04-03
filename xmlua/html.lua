@@ -21,6 +21,11 @@ local function convert_xml_error(xml_error)
   return err
 end
 
+function HTML.build(tree)
+  local raw_document = libxml2.htmlNewDoc()
+  return Document.build(raw_document, tree)
+end
+
 function HTML.parse(html, options)
   local context = libxml2.htmlNewParserCtxt()
   if not context then

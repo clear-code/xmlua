@@ -11,6 +11,7 @@ require("xmlua.libxml2.valid")
 require("xmlua.libxml2.encoding")
 require("xmlua.libxml2.parser")
 require("xmlua.libxml2.html-parser")
+require("xmlua.libxml2.html-tree")
 require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
 
@@ -107,6 +108,14 @@ function libxml2.htmlCtxtReadMemory(context, html, options)
                                            url,
                                            encoding,
                                            parse_options)
+  if document == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(document, libxml2.xmlFreeDoc)
+end
+
+function libxml2.htmlNewDoc(uri, externa_dtd)
+  local document = xml2.htmlNewDoc(uri, externa_dtd)
   if document == ffi.NULL then
     return nil
   end

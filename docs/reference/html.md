@@ -126,6 +126,102 @@ for i, err in ipairs(document.errors) do
 end
 ```
 
+### `xmlua.HTML.build(document_tree={ELEMENT, {ATTRIBUTE1, ATTRIBUTE2, ...}, ...}[, uri][, public_id]) -> xmlua.Document` {#build}
+
+If you give tabel as below, it returns document tree.
+
+```lua
+{ -- Support only element and attribute, text.
+  "Element name", -- 1st element is element name.
+  {        -- 2nd element is attribute. If this element has not attribute, this table is empty.
+    ["Attribute name1"] = "Attribute value1",
+    ["Attribute name2"] = "Attribute value2",
+    ...,
+    ["Attribute name n"] = "Attribute value n",
+  },
+  -- 3rd element is child node
+  "Text node1", -- If this element is a string, this element is a text node.
+  {                 -- If this element is a table, this element is an element node.
+    "Child node name1",
+    {
+      ["Attribute name1"] = "Attribute value1",
+      ["Attribute name2"] = "Attribute value2",
+      ...,
+      ["Attribute name n"] = "Attribute value n",
+    },
+  }
+  "Text ndoe2",
+  ...
+}
+```
+
+This method makes new `xmlua.Document`.
+If you give empty table, it returns empty `xmlua.Document`(This document have not root element).
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local doc_tree = {
+  "html",
+  {
+    ["class"] = "A",
+    ["id"] = "1"
+  },
+  "This is text.",
+  {
+    "child",
+    {
+      ["class"] = "B",
+      ["id"] = "2"
+    }
+  }
+}
+-- Make new document fro table.
+local document = xmlua.HTML.build(doc_tree)
+print(document:to_html())
+-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+-- <html></html>
+```
+
+You can also specify the external subset of DTD with system id or public id as below.
+
+Example:
+
+```lua
+-- Specify external subset with system id
+local uri = "file:///usr/local/share/test.dtd"
+tree = {"html"}
+document = xmlua.HTML.build(tree, uri)
+print(document:to_html())
+-- <!DOCTYPE html SYSTEM "file:///usr/local/share/test.dtd">
+-- <html></html>
+
+
+-- Specify external subset with public id
+local uri = "http://www.w3.org/TR/html4/strict.dtd"
+local public_id = "-//W3C//DTD HTML 4.01//EN"
+tree = {"html"}
+document = xmlua.HTML.build(tree, uri, public_id)
+print(document:to_html())
+-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+-- <html></html>
+```
+
+If you don't specify the external subset of DTD, DTD use default as below.
+
+Example:
+
+```lua
+-- Don't specify the external subset of DTD
+tree = {"html"}
+document = xmlua.HTML.build(tree)
+print(document:to_html())
+-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+-- <html></html>
+```
+
 ## See also
 
   * [`xmlua.Document`][document]: The class for HTML document and XML document.

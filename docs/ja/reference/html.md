@@ -126,6 +126,102 @@ for i, err in ipairs(document.errors) do
 end
 ```
 
+### `xmlua.HTML.build(document_tree={ELEMENT, {ATTRIBUTE1, ATTRIBUTE2, ...}, ...}[, uri][, public_id]) -> xmlua.Document` {#build}
+
+以下のようなテーブルを与えると、ドキュメントツリーを返します。
+
+```lua
+{ -- 要素と属性とテキストのみをサポートします。
+  "要素名", -- 1番目の要素は要素名です。
+  {        -- 2番目の要素は属性です。属性を持たない場合は、空のテーブルにします。
+    ["属性名1"] = "属性値1",
+    ["属性名2"] = "属性値2",
+    ...,
+    ["属性名n"] = "属性値n",
+  },
+  -- 3番目の要素は子要素です。
+  "テキストノード1", -- 文字列の場合は、テキストノードとなります。
+  {                 -- テーブルの場合は、要素ノードとなります。
+    "子要素名1",
+    {
+      ["属性名1"] = "属性値1",
+      ["属性名2"] = "属性値2",
+      ...,
+      ["属性名n"] = "属性値n",
+    },
+  }
+  "テキストノード2",
+  ...
+}
+```
+
+このメソッドは、新しく`xmlua.Document`を作成します。
+空のテーブルを与えると、ルート要素を持たない空の`xmlua.Document`を返します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local doc_tree = {
+  "html",
+  {
+    ["class"] = "A",
+    ["id"] = "1"
+  },
+  "This is text.",
+  {
+    "child",
+    {
+      ["class"] = "B",
+      ["id"] = "2"
+    }
+  }
+}
+-- テーブルから新規にドキュメントを作成
+local document = xmlua.HTML.build(doc_tree)
+print(document:to_html())
+-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+-- <html></html>
+```
+
+以下のように、システム識別子や公開識別子を使って、DTDの外部サブセットを指定することもできます。
+
+例：
+
+```lua
+-- システム識別子を使ったDTDの外部サブセットの指定
+local uri = "file:///usr/local/share/test.dtd"
+tree = {"html"}
+document = xmlua.HTML.build(tree, uri)
+print(document:to_html())
+-- <!DOCTYPE html SYSTEM "file:///usr/local/share/test.dtd">
+-- <html></html>
+
+
+-- 公開識別子を使ったDTDの外部サブセットの指定
+local uri = "http://www.w3.org/TR/html4/strict.dtd"
+local public_id = "-//W3C//DTD HTML 4.01//EN"
+tree = {"html"}
+document = xmlua.HTML.build(tree, uri, public_id)
+print(document:to_html())
+-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+-- <html></html>
+```
+
+DTDの外部サブセットを指定しない場合は、DTDは以下のようにデフォルトのDTDを使用します。
+
+例：
+
+```lua
+-- DTDの外部サブセットを指定しない。
+tree = {"html"}
+document = xmlua.HTML.build(tree)
+print(document:to_html())
+-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+-- <html></html>
+```
+
 ## 参照
 
   * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。

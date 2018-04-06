@@ -25,7 +25,6 @@ end
 function TestHTMLBuild.test_empty_root_dtd_systemid()
   local uri = "file:///usr/local/share/test.dtd"
   local document = HTML.build({"html"}, uri)
-  print()
   luaunit.assertEquals({
                           ffi.string(document.document.intSubset.SystemID),
                           document:to_html()

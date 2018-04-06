@@ -19,6 +19,82 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+local function collect_get_entities(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local get_entities = {}
+  parser.get_entity = function(name)
+    local get_entity = {
+      name = name,
+    }
+    table.insert(get_entities, get_entity)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return get_entities
+end
+
+function TestXMLSAXParser.test_get_entity_with_internal_subset()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE EXAMPLE[
+<!ELEMENT EXAMPLE (TEST)>
+<!ELEMENT TEST EMPTY>
+<!ENTITY Sample "This is Sample">
+]>
+
+<EXAMPLE>
+&Sample;
+</EXAMPLE>
+]]
+  local expected = {
+                     {name = "Sample"},
+                     {name = "Sample"}
+                   }
+  luaunit.assertEquals(collect_get_entities(xml), expected)
+end
+
+function TestXMLSAXParser.test_get_entity_with_internal_entity()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE EXAMPLE[
+<!ELEMENT EXAMPLE (TEST)>
+<!ELEMENT TEST EMPTY>
+<!ENTITY Sample "This is Sample">
+]>
+
+<EXAMPLE>
+&Sample;
+</EXAMPLE>
+]]
+  local expected = {
+                     {name = "Sample"},
+                     {name = "Sample"}
+                   }
+  luaunit.assertEquals(collect_get_entities(xml), expected)
+end
+
+function TestXMLSAXParser.test_get_entity_with_external_entity()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE EXAMPLE[
+<!ELEMENT EXAMPLE (TEST)>
+<!ELEMENT TEST EMPTY>
+<!ENTITY Sample1 SYSTEM "file:///usr/local/share/test.dtd">
+<!ENTITY Sample2 PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtdSYSTEM">
+]>
+
+<EXAMPLE>
+&Sample1;
+&Sample2;
+</EXAMPLE>
+]]
+  local expected = {
+                     {name = "Sample1"},
+                     {name = "Sample2"}
+                   }
+  luaunit.assertEquals(collect_get_entities(xml), expected)
+end
+
 local function collect_internal_subsets(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local internal_subsets = {}

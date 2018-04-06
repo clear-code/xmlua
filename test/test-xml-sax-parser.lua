@@ -19,6 +19,49 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+local function collect_entity_decls(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local entities = {}
+  parser.entity_decl = function(name,
+                                entity_type,
+                                public_id,
+                                system_id,
+                                content)
+    local entity = {
+      name = name,
+      entity_type = entity_type,
+      public_id = public_id,
+      system_id = system_id,
+      content = content
+    }
+    table.insert(entities, entity)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return entities
+end
+
+function TestXMLSAXParser.test_entity_decl_with_internal_entity()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [
+<!ENTITY test "This is test.">
+]>
+<root>
+	<data>&test;</data>
+</root>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       entity_type = 1,
+                       public_id = nil,
+                       system_id = nil,
+                       content = "This is test."
+                     }
+                   }
+  luaunit.assertEquals(collect_entity_decls(xml), expected)
+end
+
 local function collect_get_entities(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local entities = {}

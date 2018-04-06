@@ -22,6 +22,24 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_entity_decl_callback(user_callback)
+  local callback = function(user_data,
+                            raw_name,
+                            raw_type,
+                            raw_public_id,
+                            raw_system_id,
+                            raw_content)
+    user_callback(to_string(raw_name),
+                  raw_type,
+                  to_string(raw_public_id),
+                  to_string(raw_system_id),
+                  to_string(raw_content))
+  end
+  local c_callback = ffi.cast("entityDeclSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_get_entity_callback(user_callback)
   local callback = function(user_data,
                             raw_name)
@@ -201,6 +219,9 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "entity_decl" then
+    value = create_entity_decl_callback(value)
+    parser.context.sax.entityDecl = value
   elseif key == "get_entity" then
     value = create_get_entity_callback(value)
     parser.context.sax.getEntity = value

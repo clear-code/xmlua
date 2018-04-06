@@ -22,6 +22,17 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_get_parameter_entity_callback(user_callback)
+  local callback = function(user_data,
+                            raw_name)
+    local name = to_string(raw_name)
+    user_callback(name)
+  end
+  local c_callback = ffi.cast("getParameterEntitySAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_unparsed_entity_declaration_callback(user_callback)
   local callback = function(user_data,
                             raw_name,
@@ -249,6 +260,9 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "get_parameter_entity" then
+    value = create_get_parameter_entity_callback(value)
+    parser.context.sax.getParameterEntity = value
   elseif key == "unparsed_entity_declaration" then
     value = create_unparsed_entity_declaration_callback(value)
     parser.context.sax.unparsedEntityDecl = value

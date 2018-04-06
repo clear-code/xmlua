@@ -19,6 +19,32 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+local function collect_parameter_entities(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local parameter_entities = {}
+  parser.get_parameter_entity = function(name)
+    local parameter_entity = {
+      name = name,
+    }
+    table.insert(parameter_entities, parameter_entity)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return parameter_entities
+end
+
+function TestXMLSAXParser.test_get_parameter_entity()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE EXAMPLE[
+<!ENTITY % Sample "This is Sample">
+]>
+]]
+  local expected = {
+                     {name = "Sample"},
+                   }
+  luaunit.assertEquals(collect_parameter_entities(xml), expected)
+end
+
 local function collect_unparsed_entity_declarations(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local unparsed_entities = {}

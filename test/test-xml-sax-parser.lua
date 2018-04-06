@@ -19,6 +19,102 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+local function collect_unparsed_entity_declarations(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local unparsed_entities = {}
+  parser.unparsed_entity_declaration = function(name,
+                                                public_id,
+                                                system_id,
+                                                notation_name)
+    local unparsed_entity = {
+      name = name,
+      public_id = public_id,
+      system_id = system_id,
+      notation_name = notation_name
+    }
+    table.insert(unparsed_entities, unparsed_entity)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return unparsed_entities
+end
+
+function TestXMLSAXParser.test_unparsed_entity_declaration_with_system_id()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ELEMENT example EMPTY>
+  <!ENTITY test SYSTEM "file:///usr/local/share/test.gif" NDATA gif>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       public_id = nil,
+                       system_id = "file:///usr/local/share/test.gif",
+                       notation_name = "gif",
+                     }
+                   }
+  luaunit.assertEquals(collect_unparsed_entity_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_unparsed_entity_declaration_with_public_id()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ELEMENT example EMPTY>
+  <!ENTITY test PUBLIC "-//test//test test//EN"
+   "http://www.test.org/test.gif" NDATA gif>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       public_id = "-//test//test test//EN",
+                       system_id = "http://www.test.org/test.gif",
+                       notation_name = "gif",
+                     }
+                   }
+  luaunit.assertEquals(collect_unparsed_entity_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_notation_decl_with_system_id()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ELEMENT example EMPTY>
+  <!NOTATION test SYSTEM "Test">
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       public_id = nil,
+                       system_id = "Test",
+                     }
+                   }
+  luaunit.assertEquals(collect_notation_decls(xml), expected)
+end
+
+function TestXMLSAXParser.test_notation_decl_with_system_id()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ELEMENT example EMPTY>
+  <!NOTATION test SYSTEM "Test">
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       public_id = nil,
+                       system_id = "Test",
+                     }
+                   }
+  luaunit.assertEquals(collect_notation_decls(xml), expected)
+end
+
 local function collect_notation_decls(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local notations = {}

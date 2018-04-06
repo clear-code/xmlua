@@ -21,15 +21,15 @@ end
 
 local function collect_get_entities(chunk)
   local parser = xmlua.XMLSAXParser.new()
-  local get_entities = {}
+  local entities = {}
   parser.get_entity = function(name)
-    local get_entity = {
+    local entity = {
       name = name,
     }
-    table.insert(get_entities, get_entity)
+    table.insert(entities, entity)
   end
   luaunit.assertEquals(parser:parse(chunk), true)
-  return get_entities
+  return entities
 end
 
 function TestXMLSAXParser.test_get_entity_with_internal_entity()

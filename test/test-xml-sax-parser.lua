@@ -19,6 +19,59 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+local function collect_notation_decls(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local notations = {}
+  parser.notation_decl = function(name,
+                                  public_id,
+                                  system_id)
+    local notation = {
+      name = name,
+      public_id = public_id,
+      system_id = system_id,
+    }
+    table.insert(notations, notation)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return notations
+end
+
+function TestXMLSAXParser.test_notation_decl_with_system_id()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ELEMENT example EMPTY>
+  <!NOTATION test SYSTEM "Test">
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       public_id = nil,
+                       system_id = "Test",
+                     }
+                   }
+  luaunit.assertEquals(collect_notation_decls(xml), expected)
+end
+
+function TestXMLSAXParser.test_notation_decl_with_public_id()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ELEMENT example EMPTY>
+  <!NOTATION test PUBLIC "Test">
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       public_id = "Test",
+                       system_id = nil,
+                     }
+                   }
+  luaunit.assertEquals(collect_notation_decls(xml), expected)
+end
+
 local function collect_entity_decls(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local entities = {}
@@ -40,7 +93,7 @@ local function collect_entity_decls(chunk)
   return entities
 end
 
-function TestXMLSAXParser.test_entity_decl_with_internal_entity()
+function TestXMLSAXParser.test_entity_decl_with_external_entity()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [

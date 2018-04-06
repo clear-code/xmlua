@@ -293,7 +293,7 @@ function metatable.__newindex(parser, key, value)
   elseif key == "ignorable_whitespace" then
     value = create_ignorable_whitespace_callback(value)
     parser.context.sax.ignorableWhitespace = value
- elseif key == "text" then
+  elseif key == "text" then
     value = create_text_callback(value)
     parser.context.sax.characters = value
   elseif key == "reference" then

@@ -711,6 +711,34 @@ function TestXMLSAXParser.test_end_element_with_default_namespace()
                        expected)
 end
 
+local function collect_xml_errors(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local xml_errors = {}
+  parser.xml_structured_error = function(xml_error)
+    table.insert(xml_errors, xml_error)
+  end
+  luaunit.assertEquals(parser:parse(chunk), false)
+  return xml_errors
+end
+
+function TestXMLSAXParser.test_xml_structured_error()
+  local xml = [[
+<?xml version="1.0"?>
+<id>&aaa;</id>
+]>
+]]
+  local expected = {
+                     {
+                       domain = ffi.C.XML_FROM_PARSER,
+                       code = ffi.C.XML_ERR_UNDECLARED_ENTITY,
+                       message = "Entity 'aaa' not defined\n",
+                       level = ffi.C.XML_ERR_FATAL,
+                       file = nil,
+                       line = 2,
+                    },
+                   }
+  luaunit.assertEquals(collect_xml_errors(xml), expected)
+end
 
 function TestXMLSAXParser.test_end_document()
   local xml = [[

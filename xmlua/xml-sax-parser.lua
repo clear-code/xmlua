@@ -247,6 +247,24 @@ local function create_end_element_callback(user_callback)
   return c_callback
 end
 
+local function create_xml_structured_error_callback(user_callback)
+  local callback = function(user_data,
+                            raw_xml_error)
+    local xml_error = {
+      domain = raw_xml_error.domain,
+      code = raw_xml_error.code,
+      message = to_string(raw_xml_error.message),
+      level = tonumber(raw_xml_error.level),
+      file = to_string(raw_xml_error.file),
+      line = raw_xml_error.line,
+    }
+    user_callback(xml_error)
+  end
+  local c_callback = ffi.cast("xmlStructuredErrorFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_end_document_callback(user_callback)
   local callback = function(user_data)
     user_callback()
@@ -305,6 +323,9 @@ function metatable.__newindex(parser, key, value)
   elseif key == "end_element" then
     value = create_end_element_callback(value)
     parser.context.sax.endElementNs = value
+  elseif key == "xml_structured_error" then
+    value = create_xml_structured_error_callback(value)
+    parser.context.sax.serror = value
   elseif key == "end_document" then
     value = create_end_document_callback(value)
     parser.context.sax.endDocument = value

@@ -740,6 +740,17 @@ function TestXMLSAXParser.test_xml_structured_error()
   luaunit.assertEquals(collect_xml_errors(xml), expected)
 end
 
+function TestXMLSAXParser.test_set_pedantic()
+  local xml = [[
+<?xml version="1.0"?>
+<root/>
+]>
+]]
+  local options = {pedantic = 1}
+  local parser = xmlua.XMLSAXParser.new(options)
+  luaunit.assertEquals(parser.context.pedantic, 1)
+end
+
 function TestXMLSAXParser.test_end_document()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

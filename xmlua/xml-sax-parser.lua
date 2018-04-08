@@ -343,7 +343,7 @@ function methods.finish(self)
   return parser_error == ffi.C.XML_ERR_OK
 end
 
-function XMLSAXParser.new()
+function XMLSAXParser.new(options)
   local parser = {}
 
   local filename = nil
@@ -352,6 +352,9 @@ function XMLSAXParser.new()
     error("Failed to create context to parse XML")
   end
   parser.context.sax.initialized = libxml2.XML_SAX2_MAGIC
+  if options then
+    parser.context.pedantic = options["pedantic"]
+  end
 
   setmetatable(parser, metatable)
 

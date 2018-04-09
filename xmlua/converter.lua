@@ -10,14 +10,14 @@ function converter.to_string(c_string, length)
   end
 end
 
-function converter.convert_xml_error(xml_error)
+function converter.convert_xml_error(raw_xml_error)
   return {
-    domain = xml_error.domain,
-    code = xml_error.code,
-    message = converter.to_string(xml_error.message),
-    level  = tonumber(xml_error.level),
-    file = converter.to_string(xml_error.file),
-    line = xml_error.line,
+    domain = raw_xml_error.domain,
+    code = raw_xml_error.code,
+    message = converter.to_string(raw_xml_error.message),
+    level  = tonumber(raw_xml_error.level),
+    file = converter.to_string(raw_xml_error.file),
+    line = raw_xml_error.line,
   }
 end
 

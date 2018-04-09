@@ -49,7 +49,7 @@ local function create_unparsed_entity_declaration_callback(user_callback)
   return c_callback
 end
 
-local function create_notation_decl_callback(user_callback)
+local function create_notation_declaration_callback(user_callback)
   local callback = function(user_data,
                             raw_name,
                             raw_public_id,
@@ -63,7 +63,7 @@ local function create_notation_decl_callback(user_callback)
   return c_callback
 end
 
-local function create_entity_decl_callback(user_callback)
+local function create_entity_declaration_callback(user_callback)
   local callback = function(user_data,
                             raw_name,
                             raw_type,
@@ -275,11 +275,11 @@ function metatable.__newindex(parser, key, value)
   elseif key == "unparsed_entity_declaration" then
     value = create_unparsed_entity_declaration_callback(value)
     parser.context.sax.unparsedEntityDecl = value
-  elseif key == "notation_decl" then
-    value = create_notation_decl_callback(value)
+  elseif key == "notation_declaration" then
+    value = create_notation_declaration_callback(value)
     parser.context.sax.notationDecl = value
-  elseif key == "entity_decl" then
-    value = create_entity_decl_callback(value)
+  elseif key == "entity_declaration" then
+    value = create_entity_declaration_callback(value)
     parser.context.sax.entityDecl = value
   elseif key == "get_entity" then
     value = create_get_entity_callback(value)

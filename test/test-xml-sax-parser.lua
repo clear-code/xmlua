@@ -105,12 +105,12 @@ function TestXMLSAXParser.test_unparsed_entity_declaration_with_public_id()
                        expected)
 end
 
-local function collect_notation_decls(chunk)
+local function collect_notation_declarations(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local notations = {}
-  parser.notation_decl = function(name,
-                                  public_id,
-                                  system_id)
+  parser.notation_declaration = function(name,
+                                         public_id,
+                                         system_id)
     local notation = {
       name = name,
       public_id = public_id,
@@ -122,7 +122,7 @@ local function collect_notation_decls(chunk)
   return notations
 end
 
-function TestXMLSAXParser.test_notation_decl_with_system_id()
+function TestXMLSAXParser.test_notation_declaration_with_system_id()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE example [
@@ -137,10 +137,10 @@ function TestXMLSAXParser.test_notation_decl_with_system_id()
                        system_id = "Test",
                      }
                    }
-  luaunit.assertEquals(collect_notation_decls(xml), expected)
+  luaunit.assertEquals(collect_notation_declarations(xml), expected)
 end
 
-function TestXMLSAXParser.test_notation_decl_with_public_id()
+function TestXMLSAXParser.test_notation_declaration_with_public_id()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE example [
@@ -155,17 +155,17 @@ function TestXMLSAXParser.test_notation_decl_with_public_id()
                        system_id = nil,
                      }
                    }
-  luaunit.assertEquals(collect_notation_decls(xml), expected)
+  luaunit.assertEquals(collect_notation_declarations(xml), expected)
 end
 
-local function collect_entity_decls(chunk)
+local function collect_entity_declarations(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local entities = {}
-  parser.entity_decl = function(name,
-                                entity_type,
-                                public_id,
-                                system_id,
-                                content)
+  parser.entity_declaration = function(name,
+                                       entity_type,
+                                       public_id,
+                                       system_id,
+                                       content)
     local entity = {
       name = name,
       entity_type = entity_type,
@@ -179,7 +179,7 @@ local function collect_entity_decls(chunk)
   return entities
 end
 
-function TestXMLSAXParser.test_entity_decl_with_external_entity()
+function TestXMLSAXParser.test_entity_declaration_with_external_entity()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [
@@ -198,7 +198,7 @@ function TestXMLSAXParser.test_entity_decl_with_external_entity()
                        content = "This is test."
                      }
                    }
-  luaunit.assertEquals(collect_entity_decls(xml), expected)
+  luaunit.assertEquals(collect_entity_declarations(xml), expected)
 end
 
 local function collect_get_entities(chunk)

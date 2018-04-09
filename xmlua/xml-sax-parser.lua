@@ -10,7 +10,15 @@ local methods = {}
 local metatable = {}
 
 function metatable.__index(parser, key)
-  return methods[key]
+  if key == "pedantic" then
+    if parser.context.pedantic == 1 then
+      return true
+    else
+      return false
+    end
+  else
+    return methods[key]
+  end
 end
 
 local function create_start_document_callback(user_callback)
@@ -331,6 +339,12 @@ function metatable.__newindex(parser, key, value)
   elseif key == "warning" then
     value = create_warning_callback(value)
     parser.context.sax.warning = value
+  elseif key == "pedantic" then
+    if value then
+      parser.context.pedantic = 1
+    else
+      parser.context.pedantic = 0
+    end
   elseif key == "error" then
     value = create_xml_structured_error_callback(value)
     parser.context.sax.serror = value
@@ -361,9 +375,10 @@ function XMLSAXParser.new(options)
   end
   parser.context.sax.initialized = libxml2.XML_SAX2_MAGIC
   if options then
-    parser.context.pedantic = options["pedantic"]
+    if options["pedantic"] then
+      parser.context.pedantic = 1
+    end
   end
-
   setmetatable(parser, metatable)
 
   return parser

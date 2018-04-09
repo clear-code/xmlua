@@ -696,6 +696,64 @@ function TestXMLSAXParser.test_warning()
   luaunit.assertEquals(collect_warnings(xml), expected)
 end
 
+function TestXMLSAXParser.test_set_pedantic_as_option()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [
+<!ENTITY test "This is test.">
+<!ENTITY test "This is test.">
+]>
+<root>
+       <data>&test;</data>
+</root>
+]]
+  local options = {pedantic = true}
+  local parser = xmlua.XMLSAXParser.new(options)
+
+  local warnings = {}
+  parser.warning = function(message)
+    table.insert(warnings, message)
+  end
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, warnings},
+                       {
+                        true,
+                        {"Entity(test) already defined in the internal subset\n"}
+                       })
+end
+
+function TestXMLSAXParser.test_set_pedantic()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [
+<!ENTITY test "This is test.">
+<!ENTITY test "This is test.">
+]>
+<root>
+       <data>&test;</data>
+</root>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  parser.pedantic = true
+
+  local warnings = {}
+  parser.warning = function(message)
+    table.insert(warnings, message)
+  end
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, warnings},
+                       {
+                        true,
+                        {"Entity(test) already defined in the internal subset\n"}
+                       })
+end
+
+function TestXMLSAXParser.test_get_pedantic()
+  local parser = xmlua.XMLSAXParser.new()
+  parser.pedantic = true
+  luaunit.assertEquals(parser.pedantic, true)
+end
+
 local function collect_xml_errors(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local xml_errors = {}
@@ -723,17 +781,6 @@ function TestXMLSAXParser.test_xml_structured_error()
                     },
                    }
   luaunit.assertEquals(collect_xml_errors(xml), expected)
-end
-
-function TestXMLSAXParser.test_set_pedantic()
-  local xml = [[
-<?xml version="1.0"?>
-<root/>
-]>
-]]
-  local options = {pedantic = 1}
-  local parser = xmlua.XMLSAXParser.new(options)
-  luaunit.assertEquals(parser.context.pedantic, 1)
 end
 
 function TestXMLSAXParser.test_end_document()

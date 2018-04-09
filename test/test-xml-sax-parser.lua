@@ -105,42 +105,6 @@ function TestXMLSAXParser.test_unparsed_entity_declaration_with_public_id()
                        expected)
 end
 
-function TestXMLSAXParser.test_notation_decl_with_system_id()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE example [
-  <!ELEMENT example EMPTY>
-  <!NOTATION test SYSTEM "Test">
-]>
-]]
-  local expected = {
-                     {
-                       name = "test",
-                       public_id = nil,
-                       system_id = "Test",
-                     }
-                   }
-  luaunit.assertEquals(collect_notation_decls(xml), expected)
-end
-
-function TestXMLSAXParser.test_notation_decl_with_system_id()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE example [
-  <!ELEMENT example EMPTY>
-  <!NOTATION test SYSTEM "Test">
-]>
-]]
-  local expected = {
-                     {
-                       name = "test",
-                       public_id = nil,
-                       system_id = "Test",
-                     }
-                   }
-  luaunit.assertEquals(collect_notation_decls(xml), expected)
-end
-
 local function collect_notation_decls(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local notations = {}

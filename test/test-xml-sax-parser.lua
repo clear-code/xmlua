@@ -799,3 +799,39 @@ function TestXMLSAXParser.test_end_document()
   succeeded = parser:finish()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
+
+function TestXMLSAXParser.test_add_sax_func()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml></xml>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local called = false
+  parser:addSAXFunc("EndDocument",
+                    function() called = true end)
+
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, called}, {true, false})
+  succeeded = parser:finish()
+  luaunit.assertEquals({succeeded, called}, {true, true})
+end
+
+function TestXMLSAXParser.test_update_sax_func()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml></xml>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local called = false
+  local updated = false
+  parser:addSAXFunc("EndDocument",
+                    function() called = true end)
+  parser:updateSAXFunc("EndDocument",
+                    function() updated = true end)
+
+  local succeeded = parser:parse(xml)
+  luaunit.assertEquals({succeeded, called, updated}, {true, false, false})
+  succeeded = parser:finish()
+  luaunit.assertEquals({succeeded, called, updated}, {true, false, true})
+end
+

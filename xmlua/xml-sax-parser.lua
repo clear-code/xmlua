@@ -365,6 +365,56 @@ function methods.finish(self)
   return parser_error == ffi.C.XML_ERR_OK
 end
 
+function methods.addSAXFunc(self, key, callback)
+  if key == "StartDocument" then
+    self.start_document = callback
+  elseif key == "GetParameterEntity" then
+    self.get_parameter_entity = callback
+  elseif key == "UnparsedEntityDeclaration" then
+    self.unparsed_entity_declaration = callback
+  elseif key == "NotationDeclaration" then
+    self.notation_declaration = callback
+  elseif key == "EntityDeclaration" then
+    self.create_entity_declaration = callback
+  elseif key == "GetEntity" then
+    self.create_get_entity = callback
+  elseif key == "InternalSubset" then
+    self.create_internal_subset = callback
+  elseif key == "ExternalSubset" then
+    self.create_external_subset = callback
+  elseif key == "CDATABlock" then
+    self.create_cdata_block = callback
+  elseif key == "Comment" then
+    self.create_comment = callback
+  elseif key == "ProcessingInstruction" then
+    self.create_processing_instruction = callback
+  elseif key == "IgnorableWhitespace" then
+    self.create_ignorable_whitespace = callback
+  elseif key == "Text" then
+    self.create_text = callback
+  elseif key == "Reference" then
+    self.create_reference = callback
+  elseif key == "StartElement" then
+    self.create_start_element = callback
+  elseif key == "EndElement" then
+    self.create_end_element = callback
+  elseif key == "Warning" then
+    self.create_warning = callback
+  elseif key == "Error" then
+    self.create_xml_structured_error = callback
+  elseif key == "EndDocument" then
+    self.end_document = callback
+  end
+end
+
+function methods.updateSAXFunc(self, key, callback)
+  self:addSAXFunc(key, callback)
+end
+
+function methods.removeSAXFunc(self, key, callback)
+  self:updateSAXFunc(key, nil)
+end
+
 function XMLSAXParser.new(options)
   local parser = {}
 

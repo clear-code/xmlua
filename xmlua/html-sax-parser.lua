@@ -121,16 +121,8 @@ local function create_end_document_callback(user_callback)
 end
 
 local function create_error_callback(user_callback)
-  local callback = function(user_data, raw_error)
-    local error = {
-      domain = raw_error.domain,
-      code = raw_error.code,
-      message = to_string(raw_error.message),
-      level  = tonumber(raw_error.level),
-      file = to_string(raw_error.file),
-      line = raw_error.line,
-    }
-    user_callback(error)
+  local callback = function(user_data, xml_error)
+    user_callback(converter.convert_xml_error(xml_error))
   end
   local c_callback = ffi.cast("xmlStructuredErrorFunc", callback)
   ffi.gc(c_callback, function() c_callback:free() end)

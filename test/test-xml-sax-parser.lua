@@ -186,7 +186,6 @@ function TestXMLSAXParser.test_entity_declaration_with_external_entity()
 <!ENTITY test "This is test.">
 ]>
 <root>
-	<data>&test;</data>
 </root>
 ]]
   local expected = {

@@ -675,6 +675,27 @@ function TestXMLSAXParser.test_end_element_with_default_namespace()
                        expected)
 end
 
+local function collect_warnings(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local xml_warnings = {}
+  parser.warning = function(message)
+    table.insert(xml_warnings, message)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return xml_warnings
+end
+
+function TestXMLSAXParser.test_warning()
+  local xml = [[
+<?xml version="1.0"?>
+<?xmlo ?>
+]]
+  local expected = {
+                     "xmlParsePITarget: invalid name prefix 'xml'\n"
+                   }
+  luaunit.assertEquals(collect_warnings(xml), expected)
+end
+
 local function collect_xml_errors(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local xml_errors = {}

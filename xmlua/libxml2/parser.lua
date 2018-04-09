@@ -310,8 +310,21 @@ typedef void (*cdataBlockSAXFunc) (
 	                        void *ctx,
 				const xmlChar *value,
 				int len);
+/*
+ * NOTE: `warningSAXFunc` change arguments from the original
+ *       definition as follows.
+ *
+ *         `...` -> `char *value`
+ *
+ *       Because LuaJit's FFI can not handle with variable
+ *       length argument of C language.
+ *       `warningSAXFunc`'s variable length argument has only
+ *       used to save one string within "libxml2".
+ *       So, there is no problem even if we change the definition
+ *       of argument `...` to `char *`.
+ */
 typedef void (*warningSAXFunc) (void *ctx,
-				const char *msg, ...);
+				const char *msg, char *value);
 typedef void (*errorSAXFunc) (void *ctx,
 				const char *msg, ...);
 typedef void (*fatalErrorSAXFunc) (void *ctx,

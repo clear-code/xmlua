@@ -714,7 +714,7 @@ end
 local function collect_xml_errors(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local xml_errors = {}
-  parser.xml_structured_error = function(xml_error)
+  parser.error = function(xml_error)
     table.insert(xml_errors, xml_error)
   end
   luaunit.assertEquals(parser:parse(chunk), false)

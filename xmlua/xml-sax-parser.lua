@@ -314,7 +314,7 @@ function metatable.__newindex(parser, key, value)
   elseif key == "end_element" then
     value = create_end_element_callback(value)
     parser.context.sax.endElementNs = value
-  elseif key == "xml_structured_error" then
+  elseif key == "error" then
     value = create_xml_structured_error_callback(value)
     parser.context.sax.serror = value
   elseif key == "end_document" then

@@ -32,3 +32,19 @@ Call back event list:
   * Warning
   * Error
   * EndDocument
+
+## Instance methods
+
+### `xmlua.XMLSAXParser.new() -> XMLSAXParser` {#new}
+
+It makes XMLSAXParser object.
+
+You can make object of `xmllua.XMLSAXParser` class as below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local parser = xmlua.XMLSAXParser.new()
+```

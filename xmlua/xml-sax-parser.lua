@@ -10,7 +10,7 @@ local methods = {}
 local metatable = {}
 
 function metatable.__index(parser, key)
-  if key == "pedantic" then
+  if key == "is_pedantic" then
     if parser.context.pedantic == 1 then
       return true
     else
@@ -339,7 +339,7 @@ function metatable.__newindex(parser, key, value)
   elseif key == "warning" then
     value = create_warning_callback(value)
     parser.context.sax.warning = value
-  elseif key == "pedantic" then
+  elseif key == "is_pedantic" then
     if value then
       parser.context.pedantic = 1
     else

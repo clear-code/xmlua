@@ -733,7 +733,7 @@ function TestXMLSAXParser.test_set_pedantic()
 </root>
 ]]
   local parser = xmlua.XMLSAXParser.new()
-  parser.pedantic = true
+  parser.is_pedantic = true
 
   local warnings = {}
   parser.warning = function(message)
@@ -749,8 +749,8 @@ end
 
 function TestXMLSAXParser.test_get_pedantic()
   local parser = xmlua.XMLSAXParser.new()
-  parser.pedantic = true
-  luaunit.assertEquals(parser.pedantic, true)
+  parser.is_pedantic = true
+  luaunit.assertEquals(parser.is_pedantic, true)
 end
 
 local function collect_xml_errors(chunk)

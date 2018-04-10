@@ -153,6 +153,12 @@ parser.end_element = function(local_name,
   end
 end
 
+parser.is_pedantic = true
+parser.warning = function(message)
+  print("Warning message: " .. message)
+  print("Pedantic :", parser.is_pedantic)
+end
+
 parser.end_document = function()
   print("End document")
 end

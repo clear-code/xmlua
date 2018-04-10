@@ -11,6 +11,20 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.unparsed_entity_declaration = function(name,
+                                              public_id,
+                                              system_id,
+                                              notation_name)
+  print("Unparserd entity name: " .. name)
+  if public_id ~= nil then
+    print("Unparserd entity public id: " .. public_id)
+  end
+  if system_id ~= nil then
+    print("Unparserd entity system id: " .. system_id)
+  end
+  print("Unparserd entity notation_name: " .. notation_name)
+end
+
 parser.entity_declaration = function(name,
                                      entity_type,
                                      public_id,

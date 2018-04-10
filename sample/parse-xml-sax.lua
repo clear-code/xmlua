@@ -11,6 +11,22 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.entity_declaration = function(name,
+                                     entity_type,
+                                     public_id,
+                                     system_id,
+                                     content)
+  print("Entity name: " .. name)
+  print("Entity type: " .. entity_type)
+  if public_id ~= nil then
+    print("Entity public id: " .. public_id)
+  end
+  if system_id ~= nil then
+    print("Entity system id: " .. system_id)
+  end
+  print("Entity content: " .. content)
+end
+
 parser.internal_subset = function(name,
                                   external_id,
                                   system_id)

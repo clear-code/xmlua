@@ -11,11 +11,7 @@ local metatable = {}
 
 function metatable.__index(parser, key)
   if key == "is_pedantic" then
-    if parser.context.pedantic == 1 then
-      return true
-    else
-      return false
-    end
+    return parser.context.pedantic == 1
   else
     return methods[key]
   end

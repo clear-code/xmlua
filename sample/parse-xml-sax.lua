@@ -11,6 +11,18 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.notation_declaration = function(name,
+                                       public_id,
+                                       system_id)
+  print("Notation name: " .. name)
+  if public_id ~= nil then
+    print("Notation public id: " .. public_id)
+  end
+  if system_id ~= nil then
+    print("Notation system id: " .. system_id)
+  end
+end
+
 parser.unparsed_entity_declaration = function(name,
                                               public_id,
                                               system_id,

@@ -11,6 +11,18 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.internal_subset = function(name,
+                                  external_id,
+                                  system_id)
+  print("Internal subset name: " .. name)
+  if external_id ~= nil then
+    print("Internal subset external id: " .. external_id)
+  end
+  if system_id ~= nil then
+    print("Internal subset system id: " .. system_id)
+  end
+end
+
 parser.external_subset = function(name,
                                   external_id,
                                   system_id)

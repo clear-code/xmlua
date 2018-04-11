@@ -32,7 +32,7 @@ HTMLSAXParser オブジェクトを作成します。
 
 以下の例のように、`xmlua.HTMLSAXParser`クラスのオブジェクトを作成できます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -48,7 +48,7 @@ local parser = xmlua.HTMLSAXParser.new()
 
 与えられたHTMLをパースします。HTMLのパースが成功した場合は、このメソッドはtrueを返します。HTMLのパースに失敗した場合は、falseを返します。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -84,7 +84,7 @@ SAXを使ったHTMLのパースを終了します。
 
 このメソッドを呼ばないと、`EndDocument`のイベントは発生しません。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -127,11 +127,11 @@ parser.start_document = function()
 end
 ```
 
-document要素のパースを開始敷いたときに、登録した関数が呼び出されます。
+document要素のパースを開始したときに、登録した関数が呼び出されます。
 
 以下の例だと、`<html>`をパースしたときに、登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -185,7 +185,7 @@ end
 
 以下の例では、`parser:finish()`を実行したときに登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -241,7 +241,7 @@ Processing Instruction要素が解析されたときに、登録したコール�
 
 以下の例では、`<?target This is PI>`をパースした際に登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -300,7 +300,7 @@ script要素をパースしたときに、登録した関数が呼び出され�
 
 以下の例では、`<script>alert(\"Hello world!\")</script>`をパースしたときに、登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -355,7 +355,7 @@ end
 
 無視できる空白をパースしたときに、登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -408,7 +408,7 @@ end
 
 HTMLのコメントをパースしたときに、登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -463,7 +463,7 @@ end
 
 要素をパースしたときに、登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -538,7 +538,7 @@ end
 
 要素の終わりをパースしたときに、登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -595,7 +595,7 @@ end
 
 `text`要素をパースしたときに、登録した関数が呼び出されます。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")
@@ -662,7 +662,7 @@ end
 
 `level`の値は、[`Error level 一覧`][error-level-list]に定義されています。
 
-例：
+例:
 
 ```lua
 local xmlua = require("xmlua")

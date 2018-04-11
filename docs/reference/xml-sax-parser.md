@@ -48,3 +48,38 @@ local xmlua = require("xmlua")
 
 local parser = xmlua.XMLSAXParser.new()
 ```
+
+## Methods
+
+### `xmlua.XMLSAXParser.parse(xml) -> boolean` {#parse}
+
+`xml`: XML string to be parsed.
+
+It parses the given XML.
+If XML parsing is succeed, this method returns true. If XML parsing is failed, this method returns false.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>Hello </root>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+```
+

@@ -46,3 +46,37 @@ local xmlua = require("xmlua")
 
 local parser = xmlua.XMLSAXParser.new()
 ```
+
+## メソッド
+
+### `xmlua.XMLSAXParser.parse(xml) -> boolean` {#parse}
+
+`xml`: パース対象のXML文字列
+
+与えられたXMLをパースします。XMLのパースが成功した場合は、このメソッドはtrueを返します。XMLのパースに失敗した場合は、falseを返します。
+
+例:
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>Hello </root>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+```
+

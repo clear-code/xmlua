@@ -38,6 +38,32 @@ function methods.encoding(self)
   return ffi.string(self.document.encoding)
 end
 
+function methods.add_entity(self, entity_info)
+  return libxml2.xmlAddDocEntity(self.document,
+                                 entity_info["name"],
+                                 entity_info["entity_type"],
+                                 entity_info["external_id"],
+                                 entity_info["system_id"],
+                                 entity_info["content"])
+end
+
+function methods.get_entity(self, name)
+  return libxml2.xmlGetDocEntity(self.document, name)
+end
+
+function methods.add_dtd_entity(self, entity_info)
+  return libxml2.xmlAddDtdEntity(self.document,
+                                 entity_info["name"],
+                                 entity_info["entity_type"],
+                                 entity_info["external_id"],
+                                 entity_info["system_id"],
+                                 entity_info["content"])
+end
+
+function methods.get_dtd_entity(self, name)
+  return libxml2.xmlGetDtdEntity(self.document, name)
+end
+
 local function build_element(element, tree)
   local sub_element = element:append_element(tree[1], tree[2])
   for i = 3, #tree do

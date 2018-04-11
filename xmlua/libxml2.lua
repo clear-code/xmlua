@@ -14,6 +14,7 @@ require("xmlua.libxml2.html-parser")
 require("xmlua.libxml2.html-tree")
 require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
+require("xmlua.libxml2.entities")
 
 local ffi = require("ffi")
 local loaded, xml2 = pcall(ffi.load, "xml2")
@@ -432,6 +433,42 @@ end
 
 function libxml2.xmlStrdup(string)
   return xml2.xmlStrdup(string)
+end
+
+function libxml2.xmlAddDocEntity(document,
+                                 name,
+                                 entity_type,
+                                 external_id,
+                                 system_id,
+                                 content)
+  return xml2.xmlAddDocEntity(document,
+                              name,
+                              entity_type,
+                              external_id,
+                              system_id,
+                              content)
+end
+
+function libxml2.xmlAddDtdEntity(document,
+                                 name,
+                                 entity_type,
+                                 external_id,
+                                 system_id,
+                                 content)
+  return xml2.xmlAddDtdEntity(document,
+                              name,
+                              entity_type,
+                              external_id,
+                              system_id,
+                              content)
+end
+
+function libxml2.xmlGetDocEntity(document, name)
+  return xml2.xmlGetDocEntity(document, name)
+end
+
+function libxml2.xmlGetDtdEntity(document, name)
+ return xml2.xmlGetDtdEntity(document, name)
 end
 
 return libxml2

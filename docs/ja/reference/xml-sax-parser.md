@@ -93,19 +93,16 @@ SAXを使ったXMLのパースを終了します。
 ```lua
 local xmlua = require("xmlua")
 
--- XML to be parsed
-local html = [[
-<html>
-  <body>
-    <p>Hello</p>
-  </body>
-</html>
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>Hello </root>
 ]]
 
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
 local parser = xmlua.XMLSAXParser.new()

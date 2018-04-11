@@ -97,22 +97,19 @@ Example:
 local xmlua = require("xmlua")
 
 -- XML to be parsed
-local html = [[
-<html>
-  <body>
-    <p>Hello</p>
-  </body>
-</html>
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>Hello </root>
 ]]
 
 -- If you want to parse text in a file,
 -- you need to read file content by yourself.
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- Parses XML with SAX
 local parser = xmlua.XMLSAXParser.new()
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)

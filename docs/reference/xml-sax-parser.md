@@ -83,3 +83,41 @@ if not success then
 end
 ```
 
+### `xmlua.XMLSAXParser.finish() -> boolean` {#finish}
+
+It finishes parse XML with SAX.
+
+If you started parse with `xmlua.XMLSAXParser.parse`, you should call this method.
+
+If you don't call this method, `EndDocument` event isn't occure.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local html = [[
+<html>
+  <body>
+    <p>Hello</p>
+  </body>
+</html>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+

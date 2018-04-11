@@ -4,6 +4,7 @@ local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 local converter = require("xmlua.converter")
 local to_string = converter.to_string
+local Document = require("xmlua.document")
 
 local methods = {}
 
@@ -12,6 +13,8 @@ local metatable = {}
 function metatable.__index(parser, key)
   if key == "is_pedantic" then
     return parser.context.pedantic == 1
+  elseif key == "document" then
+    return Document.new(parser.context.myDoc)
   else
     return methods[key]
   end
@@ -22,17 +25,6 @@ local function create_start_document_callback(user_callback)
     user_callback()
   end
   local c_callback = ffi.cast("startDocumentSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
-end
-
-local function create_get_parameter_entity_callback(user_callback)
-  local callback = function(user_data,
-                            raw_name)
-    local name = to_string(raw_name)
-    user_callback(name)
-  end
-  local c_callback = ffi.cast("getParameterEntitySAXFunc", callback)
   ffi.gc(c_callback, function() c_callback:free() end)
   return c_callback
 end
@@ -81,17 +73,6 @@ local function create_entity_declaration_callback(user_callback)
                   to_string(raw_content))
   end
   local c_callback = ffi.cast("entityDeclSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
-end
-
-local function create_get_entity_callback(user_callback)
-  local callback = function(user_data,
-                            raw_name)
-    local name = to_string(raw_name)
-    user_callback(name)
-  end
-  local c_callback = ffi.cast("getEntitySAXFunc", callback)
   ffi.gc(c_callback, function() c_callback:free() end)
   return c_callback
 end
@@ -287,9 +268,6 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
-  elseif key == "get_parameter_entity" then
-    value = create_get_parameter_entity_callback(value)
-    parser.context.sax.getParameterEntity = value
   elseif key == "unparsed_entity_declaration" then
     value = create_unparsed_entity_declaration_callback(value)
     parser.context.sax.unparsedEntityDecl = value
@@ -299,9 +277,6 @@ function metatable.__newindex(parser, key, value)
   elseif key == "entity_declaration" then
     value = create_entity_declaration_callback(value)
     parser.context.sax.entityDecl = value
-  elseif key == "get_entity" then
-    value = create_get_entity_callback(value)
-    parser.context.sax.getEntity = value
   elseif key == "internal_subset" then
     value = create_internal_subset_callback(value)
     parser.context.sax.internalSubset = value
@@ -373,6 +348,8 @@ function XMLSAXParser.new(options)
   if options then
     if options["pedantic"] then
       parser.context.pedantic = 1
+    elseif options["parser_dtd_load"] then
+      parser.context.loadsubset = ffi.C.XML_DETECT_IDS
     end
   end
   setmetatable(parser, metatable)

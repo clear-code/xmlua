@@ -106,6 +106,31 @@ typedef enum {
     XML_PARSE_READER = 5
 } xmlParserMode;
 
+typedef enum {
+/**
+ * XML_DETECT_IDS:
+ *
+ * Bit in the loadsubset context field to tell to do ID/REFs lookups.
+ * Use it to initialize xmlLoadExtDtdDefaultValue.
+ */
+    XML_DETECT_IDS = 2,
+/**
+ * XML_COMPLETE_ATTRS:
+ *
+ * Bit in the loadsubset context field to tell to do complete the
+ * elements attributes lists with the ones defaulted from the DTDs.
+ * Use it to initialize xmlLoadExtDtdDefaultValue.
+ */
+    XML_COMPLETE_ATTRS = 4,
+/**
+ * XML_SKIP_IDS:
+ *
+ * Bit in the loadsubset context field to tell to not do ID/REFs registration.
+ * Used to initialize xmlLoadExtDtdDefaultValue in some special cases.
+ */
+    XML_SKIP_IDS = 8
+} xmlLoadSubsetOption;
+
 typedef struct _xmlParserCtxt xmlParserCtxt;
 struct _xmlParserCtxt {
     struct _xmlSAXHandler *sax;       /* The SAX handler */

@@ -19,32 +19,6 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
-local function collect_parameter_entities(chunk)
-  local parser = xmlua.XMLSAXParser.new()
-  local parameter_entities = {}
-  parser.get_parameter_entity = function(name)
-    local parameter_entity = {
-      name = name,
-    }
-    table.insert(parameter_entities, parameter_entity)
-  end
-  luaunit.assertEquals(parser:parse(chunk), true)
-  return parameter_entities
-end
-
-function TestXMLSAXParser.test_get_parameter_entity()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE EXAMPLE[
-<!ENTITY % Sample "This is Sample">
-]>
-]]
-  local expected = {
-                     {name = "Sample"},
-                   }
-  luaunit.assertEquals(collect_parameter_entities(xml), expected)
-end
-
 local function collect_unparsed_entity_declarations(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local unparsed_entities = {}
@@ -198,62 +172,6 @@ function TestXMLSAXParser.test_entity_declaration_with_external_entity()
                      }
                    }
   luaunit.assertEquals(collect_entity_declarations(xml), expected)
-end
-
-local function collect_get_entities(chunk)
-  local parser = xmlua.XMLSAXParser.new()
-  local entities = {}
-  parser.get_entity = function(name)
-    local entity = {
-      name = name,
-    }
-    table.insert(entities, entity)
-  end
-  luaunit.assertEquals(parser:parse(chunk), true)
-  return entities
-end
-
-function TestXMLSAXParser.test_get_entity_with_internal_entity()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE EXAMPLE[
-<!ELEMENT EXAMPLE (TEST)>
-<!ELEMENT TEST EMPTY>
-<!ENTITY Sample "This is Sample">
-]>
-
-<EXAMPLE>
-&Sample;
-</EXAMPLE>
-]]
-  local expected = {
-                     {name = "Sample"},
-                     {name = "Sample"}
-                   }
-  luaunit.assertEquals(collect_get_entities(xml), expected)
-end
-
-function TestXMLSAXParser.test_get_entity_with_external_entity()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE EXAMPLE[
-<!ELEMENT EXAMPLE (TEST)>
-<!ELEMENT TEST EMPTY>
-<!ENTITY Sample1 SYSTEM "file:///usr/local/share/test.dtd">
-<!ENTITY Sample2 PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtdSYSTEM">
-]>
-
-<EXAMPLE>
-&Sample1;
-&Sample2;
-</EXAMPLE>
-]]
-  local expected = {
-                     {name = "Sample1"},
-                     {name = "Sample2"}
-                   }
-  luaunit.assertEquals(collect_get_entities(xml), expected)
 end
 
 local function collect_internal_subsets(chunk)

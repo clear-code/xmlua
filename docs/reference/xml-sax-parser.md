@@ -121,3 +121,54 @@ end
 parser:finish()
 ```
 
+## Property
+
+### `xmlua.XMLSAXParser.start_document`
+
+It registers user call back function as below.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.start_document = function()
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse start document element.
+
+Registered function is called, when parse `<root>` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<xml>Hello</xml>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.start_document = function()
+  print("Start document")
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Start document
+```

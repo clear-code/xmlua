@@ -114,8 +114,59 @@ if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
 end
-```
+
 
 parser:finish()
 ```
 
+## プロパティ
+
+### `xmlua.XMLSAXParser.start_document`
+
+以下のようにコールバック関数を登録できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.start_document = function()
+  -- 実行したいコード
+end
+```
+
+document要素のパースを開始したときに、登録した関数が呼び出されます。
+
+以下の例だと、`<root>`をパースしたときに、登録した関数が呼び出されます。
+
+例:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<xml>Hello</xml>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.start_document = function()
+  print("Start document")
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Start document
+```

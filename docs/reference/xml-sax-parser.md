@@ -171,3 +171,53 @@ Result of avobe example as blow.
 ```
 Start document
 ```
+
+### `end_document`
+
+It registers user call back function as below.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.end_document = function()
+  -- You want to execute code
+end
+```
+
+Registered function is called, when call `xmlua.XMLSAXParser.parser.finish`.
+
+Registered function is called, when parse `parser:finish()` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<xml>Hello</xml>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.end_document = function()
+  print("End document")
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+End document
+```

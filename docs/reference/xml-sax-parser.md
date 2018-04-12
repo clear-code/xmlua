@@ -277,3 +277,57 @@ Processing instruction target: target
 Processing instruction data: This is PI
 ```
 
+### `cdata_block`
+
+It registers user call back function as below.
+
+You can get string in CDATA section as argument of your call back. String in CDATA section is `cdata_block`.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.cdata_block = function(cdata_block)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse CDATA section.
+
+Registered function is called, when parse `<![CDATA[<p>Hello world!</p>]]>` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [=[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+<![CDATA[<p>Hello world!</p>]]>
+</xml>
+]=]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.cdata_block = function(cdata_block)
+  print("CDATA block: "..cdata_block)
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+CDATA block: <p>Hello world!</p>
+```

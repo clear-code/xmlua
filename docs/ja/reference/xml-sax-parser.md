@@ -275,3 +275,57 @@ Processing instruction target: target
 Processing instruction data: This is PI
 ```
 
+### `cdata_block`
+
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、CDATAセクション内の文字列を取得できます。以下の例では、CDATAセクション内の文字列は、`cdata_block`です。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.cdata_block = function(cdata_block)
+  -- 実行したいコード
+end
+```
+
+CDATAセクションをパースしたときに、登録した関数が呼び出されます。
+
+以下の例だと、`<![CDATA[<p>Hello world!</p>]]>`をパースしたときに、登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [=[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+<![CDATA[<p>Hello world!</p>]]>
+</xml>
+]=]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.cdata_block = function(cdata_block)
+  print("CDATA block: "..cdata_block)
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+CDATA block: <p>Hello world!</p>
+```

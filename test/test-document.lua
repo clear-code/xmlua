@@ -24,11 +24,11 @@ function TestDocument.test_add_entity()
   document:add_entity(entity_info)
   local entity = document:get_entity("Sample")
   luaunit.assertEquals({
-                         ffi.string(entity.name),
-                         tonumber(entity.etype),
-                         ffi.string(entity.ExternalID),
-                         ffi.string(entity.SystemID),
-                         ffi.string(entity.content),
+                         entity["name"],
+                         entity["entity_type"],
+                         entity["external_id"],
+                         entity["system_id"],
+                         entity["content"],
                        },
                        {
                          "Sample",
@@ -62,11 +62,11 @@ function TestDocument.test_add_dtd_entity()
   document:add_dtd_entity(entity_info)
   local entity = document:get_dtd_entity("Sample")
   luaunit.assertEquals({
-                         ffi.string(entity.name),
-                         tonumber(entity.etype),
-                         ffi.string(entity.ExternalID),
-                         ffi.string(entity.SystemID),
-                         ffi.string(entity.content),
+                         entity["name"],
+                         entity["entity_type"],
+                         entity["external_id"],
+                         entity["system_id"],
+                         entity["content"],
                        },
                        {
                          "Sample",

@@ -2,9 +2,12 @@ local Document = {}
 
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
+local converter = require("xmlua.converter")
+local to_string = converter.to_string
 
 local Serializable = require("xmlua.serializable")
 local Searchable = require("xmlua.searchable")
+
 
 local Element
 
@@ -48,7 +51,8 @@ function methods.add_entity(self, entity_info)
 end
 
 function methods.get_entity(self, name)
-  return libxml2.xmlGetDocEntity(self.document, name)
+  local raw_entity = libxml2.xmlGetDocEntity(self.document, name)
+  return converter.convert_xml_entity(raw_entity)
 end
 
 function methods.add_dtd_entity(self, entity_info)
@@ -61,7 +65,8 @@ function methods.add_dtd_entity(self, entity_info)
 end
 
 function methods.get_dtd_entity(self, name)
-  return libxml2.xmlGetDtdEntity(self.document, name)
+  local raw_dtd_entity = libxml2.xmlGetDtdEntity(self.document, name)
+  return converter.convert_xml_entity(raw_dtd_entity)
 end
 
 local function build_element(element, tree)

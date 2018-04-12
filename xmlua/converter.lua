@@ -21,4 +21,19 @@ function converter.convert_xml_error(raw_xml_error)
   }
 end
 
+function converter.convert_xml_entity(raw_xml_entity)
+  return {
+    entity_type = tonumber(raw_xml_entity.type),
+    name = converter.to_string(raw_xml_entity.name),
+    orig = converter.to_string(raw_xml_entity.orig),
+    content = converter.to_string(raw_xml_entity.content),
+    entity_type = tonumber(raw_xml_entity.etype),
+    external_id = converter.to_string(raw_xml_entity.ExternalID),
+    system_id = converter.to_string(raw_xml_entity.SystemID),
+    uri = converter.to_string(raw_xml_entity.URI),
+    owner = tonumber(raw_xml_entity.owner),
+    checked = tonumber(raw_xml_entity.checked),
+  }
+end
+
 return converter

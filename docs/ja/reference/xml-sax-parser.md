@@ -436,3 +436,102 @@ parser:finish()
 ```
 Comment:  This is comment.
 ```
+
+### `start_element`
+
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、要素の名前と属性を取得できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.start_element = function(local_name,
+                                prefix,
+                                uri,
+                                namespaces,
+                                attributes)
+  -- You want to execute code
+end
+```
+
+要素をパースしたときに、登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  id="top"
+  xhtml:class="top-level">
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.start_element = function(local_name,
+                                prefix,
+                                uri,
+                                namespaces,
+                                attributes)
+  print("Start element: " .. local_name)
+  if prefix then
+    print("  prefix: " .. prefix)
+  end
+  if uri then
+    print("  URI: " .. uri)
+  end
+  for namespace_prefix, namespace_uri in pairs(namespaces) do
+    if namespace_prefix  == "" then
+      print("  Default namespace: " .. namespace_uri)
+    else
+      print("  Namespace: " .. namespace_prefix .. ": " .. namespace_uri)
+    end
+  end
+  if attributes then
+    if #attributes > 0 then
+      print("  Attributes:")
+      for i, attribute in pairs(attributes) do
+        local name
+        if attribute.prefix then
+          name = attribute.prefix .. ":" .. attribute.local_name
+        else
+          name = attribute.local_name
+        end
+        if attribute.uri then
+          name = name .. "{" .. attribute.uri .. "}"
+        end
+        print("    " .. name .. ": " .. attribute.value)
+      end
+    end
+  end
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Start element: html
+  prefix: xhtml
+  URI: http://www.w3.org/1999/xhtml
+  Namespace: xhtml: http://www.w3.org/1999/xhtml
+  Attributes:
+    id: top
+    xhtml:class{http://www.w3.org/1999/xhtml}: top-level
+```
+

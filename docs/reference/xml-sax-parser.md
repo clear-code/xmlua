@@ -438,3 +438,102 @@ Result of avobe example as blow.
 ```
 Comment:  This is comment.
 ```
+
+### `start_element`
+
+It registers user call back function as below.
+
+You can get name and attributes of elements as argument of your call back.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.start_element = function(local_name,
+                                prefix,
+                                uri,
+                                namespaces,
+                                attributes)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse element.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  id="top"
+  xhtml:class="top-level">
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.start_element = function(local_name,
+                                prefix,
+                                uri,
+                                namespaces,
+                                attributes)
+  print("Start element: " .. local_name)
+  if prefix then
+    print("  prefix: " .. prefix)
+  end
+  if uri then
+    print("  URI: " .. uri)
+  end
+  for namespace_prefix, namespace_uri in pairs(namespaces) do
+    if namespace_prefix  == "" then
+      print("  Default namespace: " .. namespace_uri)
+    else
+      print("  Namespace: " .. namespace_prefix .. ": " .. namespace_uri)
+    end
+  end
+  if attributes then
+    if #attributes > 0 then
+      print("  Attributes:")
+      for i, attribute in pairs(attributes) do
+        local name
+        if attribute.prefix then
+          name = attribute.prefix .. ":" .. attribute.local_name
+        else
+          name = attribute.local_name
+        end
+        if attribute.uri then
+          name = name .. "{" .. attribute.uri .. "}"
+        end
+        print("    " .. name .. ": " .. attribute.value)
+      end
+    end
+  end
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Start element: html
+  prefix: xhtml
+  URI: http://www.w3.org/1999/xhtml
+  Namespace: xhtml: http://www.w3.org/1999/xhtml
+  Attributes:
+    id: top
+    xhtml:class{http://www.w3.org/1999/xhtml}: top-level
+```
+

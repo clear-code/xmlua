@@ -329,3 +329,59 @@ parser:finish()
 ```
 CDATA block: <p>Hello world!</p>
 ```
+
+### `ignorable_whitespace`
+
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、XML内の無視できる空白を取得することができます。以下の例では、無視できる空白は、`ignorable_whitespace`です。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.ignorable_whitespace = function(ignorable_whitespace)
+  -- 実行したいコード
+end
+```
+
+無視できる空白をパースしたときに、登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+  <test></test>
+</xml>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.ignorable_whitespace = function(ignorable_whitespace)
+  print("Ignorable whitespace: ".."\""..ignorable_whitespace.."\"")
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Ignorable whitespace: "
+  "
+Ignorable whitespace: "
+"
+```

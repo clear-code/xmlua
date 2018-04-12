@@ -385,3 +385,54 @@ Ignorable whitespace: "
 Ignorable whitespace: "
 "
 ```
+
+### `comment`
+
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、XML内のコメントを取得できます。以下の例では、`comment`がXML内のコメントです。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.comment = function(comment)
+  -- 実行したいコード
+end
+```
+
+XMLのコメントをパースしたときに、登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml><!--This is comment--></xml>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.comment = function(comment)
+  print("Comment: "..comment)
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Comment:  This is comment.
+```

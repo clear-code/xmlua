@@ -387,3 +387,54 @@ Ignorable whitespace: "
 Ignorable whitespace: "
 "
 ```
+
+### `comment`
+
+It registers user call back function as below.
+
+You can get comment of XML as argument of your call back. comment in XML is `comment` in below example.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.comment = function(comment)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse XML's comment.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml><!--This is comment--></xml>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.comment = function(comment)
+  print("Comment: "..comment)
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Comment:  This is comment.
+```

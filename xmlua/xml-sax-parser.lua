@@ -29,6 +29,21 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_element_declaration_callback(user_callback)
+  local callback = function(user_data,
+                            raw_element_name,
+                            raw_element_type,
+                            raw_content)
+    local content = converter.convert_element_content(raw_content)
+    user_callback(to_string(raw_element_name),
+                  tonumber(raw_element_type),
+                  content)
+  end
+  local c_callback = ffi.cast("elementDeclSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_attribute_declaration_callback(user_callback)
   local callback = function(user_data,
                             raw_element_name,
@@ -297,6 +312,9 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "element_declaration" then
+    value = create_element_declaration_callback(value)
+    parser.context.sax.elementDecl = value
   elseif key == "attribute_declaration" then
     value = create_attribute_declaration_callback(value)
     parser.context.sax.attributeDecl = value

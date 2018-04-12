@@ -29,8 +29,41 @@ typedef enum {
     XML_ATTRIBUTE_FIXED
 } xmlAttributeDefault;
 
+/**
+ * xmlElementContentType:
+ *
+ * Possible definitions of element content types.
+ */
+typedef enum {
+    XML_ELEMENT_CONTENT_PCDATA = 1,
+    XML_ELEMENT_CONTENT_ELEMENT,
+    XML_ELEMENT_CONTENT_SEQ,
+    XML_ELEMENT_CONTENT_OR
+} xmlElementContentType;
+
+/**
+ * xmlElementContentOccur:
+ *
+ * Possible definitions of element content occurrences.
+ */
+typedef enum {
+    XML_ELEMENT_CONTENT_ONCE = 1,
+    XML_ELEMENT_CONTENT_OPT,
+    XML_ELEMENT_CONTENT_MULT,
+    XML_ELEMENT_CONTENT_PLUS
+} xmlElementContentOccur;
+
 typedef struct _xmlElementContent xmlElementContent;
 typedef xmlElementContent *xmlElementContentPtr;
+struct _xmlElementContent {
+    xmlElementContentType     type;	/* PCDATA, ELEMENT, SEQ or OR */
+    xmlElementContentOccur    ocur;	/* ONCE, OPT, MULT or PLUS */
+    const xmlChar             *name;	/* Element name */
+    struct _xmlElementContent *c1;	/* first child */
+    struct _xmlElementContent *c2;	/* second child */
+    struct _xmlElementContent *parent;	/* parent */
+    const xmlChar             *prefix;	/* Namespace prefix */
+};
 
 typedef struct _xmlSAXLocator xmlSAXLocator;
 typedef xmlSAXLocator *xmlSAXLocatorPtr;

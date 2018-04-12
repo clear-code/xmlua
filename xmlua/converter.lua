@@ -36,4 +36,21 @@ function converter.convert_xml_entity(raw_xml_entity)
   }
 end
 
+function converter.convert_element_content(raw_content)
+  local content = {}
+  content["content_type"] = tonumber(raw_content.type)
+  content["content_ocur"] = tonumber(raw_content.ocur)
+  content["name"] = converter.to_string(raw_content.name)
+  content["prefix"] = converter.to_string(raw_content.prefix)
+  if raw_content.c1 ~= ffi.NULL then
+    content["first_child"] =
+      converter.convert_element_content(raw_content.c1)
+  end
+  if raw_content.c2 ~= ffi.NULL then
+    content["second_child"] =
+      converter.convert_element_content(raw_content.c2)
+  end
+  return content
+end
+
 return converter

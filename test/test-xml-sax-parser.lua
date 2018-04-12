@@ -19,6 +19,61 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+local function collect_element_declarations(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local elements = {}
+  parser.element_declaration = function(name,
+                                        element_type,
+                                        content)
+    local element = {
+      name = name,
+      element_type = element_type,
+      content = content
+    }
+    table.insert(elements, element)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return elements
+end
+
+function TestXMLSAXParser.test_element_declaration()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ELEMENT test (A,B)>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       element_type = ffi.C.XML_CDATA_SECTION_NODE,
+                       content = {
+                                   name = nil,
+                                   content_type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                                   content_ocur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                                   first_child = {
+                                                   name = "A",
+                                                   content_type =
+                                                     ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                                   content_ocur =
+                                                     ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                                                 },
+                                   second_child = {
+                                                    name = "B",
+                                                    content_type =
+                                                      ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                                    content_ocur =
+                                                      ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                                                  },
+                                   parent = nil,
+                                   prefix = nil,
+                                 }
+                     }
+                   }
+  luaunit.assertEquals(collect_element_declarations(xml),
+                       expected)
+end
+
 local function collect_attribute_declarations(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local attributes = {}

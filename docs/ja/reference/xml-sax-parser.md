@@ -653,4 +653,83 @@ Text:
 Text: Hello World
 ```
 
+### `error`
 
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、エラー情報を取得できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.error = function(error)
+  -- 実行したいコード
+end
+```
+
+パースが失敗したときに、登録した関数が呼び出されます。エラー情報の構造は以下の通りです。
+
+```
+{
+  domain
+  code
+  message
+  level
+  line
+}
+```
+
+`domain`の値は、[`Error domain 一覧`][error-domain-list]に定義されています。
+
+`code`の値は、[`Error code 一覧`][error-code-list]に定義されています。
+
+`level`の値は、[`Error level 一覧`][error-level-list]に定義されています。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local html = [[
+<>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.error = function(error)
+  print("Error domain : " .. error.domain)
+  print("Error code   : " .. error.code)
+  print("Error message: " .. error.message)
+  print("Error level  : " .. error.level)
+  print("Error line   : " .. error.line)
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Error domain :	1
+Error code :	5
+Error message :Extra content at the end of the document
+
+Error level :	3
+Error line :	1
+Failed to parse XML with SAX
+```
+
+[error-domain-list]:error-domain-list.html
+[error-code-list]:error-code-list.html
+[error-level-list]:error-level-list.html

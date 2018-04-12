@@ -600,3 +600,59 @@ End element: html
   URI: http://www.w3.org/1999/xhtml
 ```
 
+### `text`
+
+It registers user call back function as below.
+
+You can get text of text element as argument of your call back.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.text = function(text)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse text element.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local html = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <title>Hello World</title>
+</book>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.text = function(text)
+  print("Text: " .. text)
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Text:   
+Text: Hello World
+```
+
+

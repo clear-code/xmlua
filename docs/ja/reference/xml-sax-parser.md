@@ -598,3 +598,59 @@ End element: html
   URI: http://www.w3.org/1999/xhtml
 ```
 
+### `text`
+
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、`text`要素の値を取得できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.text = function(text)
+  -- 実行したいコード
+end
+```
+
+`text`要素をパースしたときに、登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <title>Hello World</title>
+</book>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.text = function(text)
+  print("Text: " .. text)
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Text:   
+Text: Hello World
+```
+
+

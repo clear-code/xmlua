@@ -31,7 +31,7 @@ SAXは、DOMと異なりドキュメントを一行ずつパースし、DOMは�
   * Error
   * EndDocument
 
-## インスタンスメソッド
+## クラスメソッド
 
 ### `xmlua.XMLSAXParser.new() -> XMLSAXParser` {#new}
 
@@ -39,7 +39,7 @@ XMLSAXParser オブジェクトを作成します。
 
 以下の例のように、`xmlua.HTMLSAXParser`クラスのオブジェクトを作成できます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -47,15 +47,15 @@ local xmlua = require("xmlua")
 local parser = xmlua.XMLSAXParser.new()
 ```
 
-## メソッド
+## インスタンスメソッド
 
-### `xmlua.XMLSAXParser.parse(xml) -> boolean` {#parse}
+### `parse(xml) -> boolean` {#parse}
 
 `xml`: パース対象のXML文字列
 
 与えられたXMLをパースします。XMLのパースが成功した場合は、このメソッドはtrueを返します。XMLのパースに失敗した場合は、falseを返します。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -80,7 +80,7 @@ if not success then
 end
 ```
 
-### `xmlua.XMLSAXParser.finish() -> boolean` {#finish}
+### `finish() -> boolean` {#finish}
 
 SAXを使ったXMLのパースを終了します。
 
@@ -88,7 +88,7 @@ SAXを使ったXMLのパースを終了します。
 
 このメソッドを呼ばないと、`EndDocument`のイベントは発生しません。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -118,7 +118,7 @@ parser:finish()
 
 ## プロパティ
 
-### `xmlua.XMLSAXParser.start_document`
+### `start_document`
 
 以下のようにコールバック関数を登録できます。
 
@@ -133,7 +133,7 @@ document要素のパースを開始したときに、登録した関数が呼び
 
 以下の例だと、`<root>`をパースしたときに、登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")

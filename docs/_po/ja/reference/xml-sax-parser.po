@@ -72,8 +72,8 @@ msgstr ""
 "  * Error\n"
 "  * EndDocument"
 
-msgid "## Instance methods"
-msgstr "## インスタンスメソッド"
+msgid "## Class methods"
+msgstr ""
 
 msgid "### `xmlua.XMLSAXParser.new() -> XMLSAXParser` {#new}"
 msgstr ""
@@ -97,10 +97,10 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "## Methods"
-msgstr "## メソッド"
+msgid "## Instance methods"
+msgstr "## インスタンスメソッド"
 
-msgid "### `xmlua.XMLSAXParser.parse(xml) -> boolean` {#parse}"
+msgid "### `parse(xml) -> boolean` {#parse}"
 msgstr ""
 
 msgid "`xml`: XML string to be parsed."
@@ -154,7 +154,7 @@ msgstr ""
 "end\n"
 "```"
 
-msgid "### `xmlua.XMLSAXParser.finish() -> boolean` {#finish}"
+msgid "### `finish() -> boolean` {#finish}"
 msgstr ""
 
 msgid "It finishes parse XML with SAX."
@@ -193,7 +193,7 @@ msgstr ""
 msgid "## Property"
 msgstr "## プロパティ"
 
-msgid "### `xmlua.XMLSAXParser.start_document`"
+msgid "### `start_document`"
 msgstr ""
 
 msgid "It registers user call back function as below."

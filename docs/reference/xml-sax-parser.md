@@ -33,7 +33,7 @@ Call back event list:
   * Error
   * EndDocument
 
-## Instance methods
+## Class methods
 
 ### `xmlua.XMLSAXParser.new() -> XMLSAXParser` {#new}
 
@@ -49,9 +49,9 @@ local xmlua = require("xmlua")
 local parser = xmlua.XMLSAXParser.new()
 ```
 
-## Methods
+## Instance methods
 
-### `xmlua.XMLSAXParser.parse(xml) -> boolean` {#parse}
+### `parse(xml) -> boolean` {#parse}
 
 `xml`: XML string to be parsed.
 
@@ -83,7 +83,7 @@ if not success then
 end
 ```
 
-### `xmlua.XMLSAXParser.finish() -> boolean` {#finish}
+### `finish() -> boolean` {#finish}
 
 It finishes parse XML with SAX.
 
@@ -120,7 +120,7 @@ parser:finish()
 
 ## Property
 
-### `xmlua.XMLSAXParser.start_document`
+### `start_document`
 
 It registers user call back function as below.
 

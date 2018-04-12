@@ -11,6 +11,23 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.element_declaration = function(name,
+                                      element_type,
+                                      content)
+  print("Element name: " .. name)
+  print("Element type: " .. element_type)
+  print("Content:")
+  for k, v in pairs(content) do
+    if k == "first_child" or k == "second_child" then
+      for key, value in pairs(v) do
+        print("    " .. key, value)
+      end
+    else
+      print("  " .. k, v)
+    end
+  end
+end
+
 parser.attribute_declaration = function(name,
                                         attribute_name,
                                         attribute_type,

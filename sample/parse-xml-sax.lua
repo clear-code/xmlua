@@ -11,6 +11,25 @@ parser.start_document = function()
   print("Start document")
 end
 
+parser.attribute_declaration = function(name,
+                                        attribute_name,
+                                        attribute_type,
+                                        default_value_type,
+                                        default_value,
+                                        enumrated_values)
+  print("Element name: " .. name)
+  print("Attribute name: " .. attribute_name)
+  print("Attribute type: " .. attribute_type)
+  if default_value then
+    print("Default value type: " .. default_value_type)
+    print("Default value: " .. default_value)
+  end
+  if enumrated_values then
+    for _, v in pairs(enumrated_values) do
+      print("Enumrated value: " .. v)
+    end
+  end
+end
 parser.notation_declaration = function(name,
                                        public_id,
                                        system_id)

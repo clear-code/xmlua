@@ -19,6 +19,71 @@ function TestXMLSAXParser.test_start_document()
   luaunit.assertEquals({succeeded, called}, {true, true})
 end
 
+local function collect_attribute_declarations(chunk)
+  local parser = xmlua.XMLSAXParser.new()
+  local attributes = {}
+  parser.attribute_declaration = function(name,
+                                          attribute_name,
+                                          attribute_type,
+                                          default_value_type,
+                                          default_value,
+                                          enumrated_values)
+    local attribute = {
+      name = name,
+      attribute_name = attribute_name,
+      attribute_type = attribute_type,
+      default_value_type = default_value_type,
+      default_value = default_value,
+      enumrated_values = enumrated_values
+    }
+    table.insert(attributes, attribute)
+  end
+  luaunit.assertEquals(parser:parse(chunk), true)
+  return attributes
+end
+
+function TestXMLSAXParser.test_attribute_declaration()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ATTLIST A B CDATA #REQUIRED>
+]>
+]]
+  local expected = {
+                     {
+                       name = "A",
+                       attribute_name = "B",
+                       attribute_type = ffi.C.XML_ATTRIBUTE_CDATA,
+                       default_value_type = ffi.C.XML_ATTRIBUTE_REQUIRED,
+                       default_value = nil,
+                       enumrated_values = {}
+                     }
+                   }
+  luaunit.assertEquals(collect_attribute_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_attribute_declaration_with_enum_value()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ATTLIST A B (yes|no) "no">
+]>
+]]
+  local expected = {
+                     {
+                       name = "A",
+                       attribute_name = "B",
+                       attribute_type = ffi.C.XML_ATTRIBUTE_ENUMERATION,
+                       default_value_type = ffi.C.XML_ATTRIBUTE_NONE,
+                       default_value = "no",
+                       enumrated_values = {"yes", "no"}
+                     }
+                   }
+  luaunit.assertEquals(collect_attribute_declarations(xml),
+                       expected)
+end
+
 local function collect_unparsed_entity_declarations(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local unparsed_entities = {}

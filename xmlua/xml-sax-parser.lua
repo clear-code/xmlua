@@ -29,6 +29,35 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
+local function create_attribute_declaration_callback(user_callback)
+  local callback = function(user_data,
+                            raw_element_name,
+                            raw_attribute_name,
+                            raw_attribute_type,
+                            raw_default_value_type,
+                            raw_default_value,
+                            raw_enumrated_value)
+    local enumrated_value = {}
+
+    while raw_enumrated_value ~= ffi.NULL do
+      table.insert(enumrated_value, to_string(raw_enumrated_value.name))
+      if raw_enumrated_value.next then
+        raw_enumrated_value = raw_enumrated_value.next
+      end
+    end
+
+    user_callback(to_string(raw_element_name),
+                  to_string(raw_attribute_name),
+                  tonumber(raw_attribute_type),
+                  tonumber(raw_default_value_type),
+                  to_string(raw_default_value),
+                  enumrated_value)
+  end
+  local c_callback = ffi.cast("attributeDeclSAXFunc", callback)
+  ffi.gc(c_callback, function() c_callback:free() end)
+  return c_callback
+end
+
 local function create_unparsed_entity_declaration_callback(user_callback)
   local callback = function(user_data,
                             raw_name,
@@ -268,6 +297,9 @@ function metatable.__newindex(parser, key, value)
   if key == "start_document" then
     value = create_start_document_callback(value)
     parser.context.sax.startDocument = value
+  elseif key == "attribute_declaration" then
+    value = create_attribute_declaration_callback(value)
+    parser.context.sax.attributeDecl = value
   elseif key == "unparsed_entity_declaration" then
     value = create_unparsed_entity_declaration_callback(value)
     parser.context.sax.unparsedEntityDecl = value

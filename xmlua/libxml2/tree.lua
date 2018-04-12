@@ -12,6 +12,22 @@ typedef xmlEntity *xmlEntityPtr;
 
 typedef struct _xmlEnumeration xmlEnumeration;
 typedef xmlEnumeration *xmlEnumerationPtr;
+struct _xmlEnumeration {
+    struct _xmlEnumeration    *next;	/* next one */
+    const xmlChar            *name;	/* Enumeration name */
+};
+
+/**
+ * xmlAttributeDefault:
+ *
+ * A DTD Attribute default definition.
+ */
+typedef enum {
+    XML_ATTRIBUTE_NONE = 1,
+    XML_ATTRIBUTE_REQUIRED,
+    XML_ATTRIBUTE_IMPLIED,
+    XML_ATTRIBUTE_FIXED
+} xmlAttributeDefault;
 
 typedef struct _xmlElementContent xmlElementContent;
 typedef xmlElementContent *xmlElementContentPtr;

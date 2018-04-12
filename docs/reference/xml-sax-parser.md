@@ -221,3 +221,59 @@ Result of avobe example as blow.
 ```
 End document
 ```
+
+### `processing_instruction`
+
+It registers user call back function as below.
+
+You can get attributes of processing instruction as argument of your call back. Attributes of processing instruction are `target` and `data_list` in below example.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.processing_instruction = function(target, data_list)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse processing instruction element.
+
+Registered function is called, when parse `<?target This is PI>` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="www.test.com/test-style.xsl" type="text/xsl" ?>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.processing_instruction = function(target, data_list)
+  print("Processing instruction target: "..target)
+  print("Processing instruction data: "..data_list)
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Processing instruction target: target
+Processing instruction data: This is PI
+```
+

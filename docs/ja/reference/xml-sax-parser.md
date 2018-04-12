@@ -219,3 +219,59 @@ parser:finish()
 ```
 End document
 ```
+
+### `processing_instruction`
+
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、Processing instruction要素の属性を取得することができます。Processing Instruction要素の属性は、以下の例では、`target`と`data_list`です。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.processing_instruction = function(target, data_list)
+  -- 実行したいコード
+end
+```
+
+Processing Instruction要素が解析されたときに、登録したコールバック関数が呼び出されます。
+
+以下の例では、`<?target This is PI>`をパースした際に登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="www.test.com/test-style.xsl" type="text/xsl" ?>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.processing_instruction = function(target, data_list)
+  print("Processing instruction target: "..target)
+  print("Processing instruction data: "..data_list)
+end
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Processing instruction target: target
+Processing instruction data: This is PI
+```
+

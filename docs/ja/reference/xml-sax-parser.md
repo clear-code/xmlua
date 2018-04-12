@@ -535,3 +535,66 @@ Start element: html
     xhtml:class{http://www.w3.org/1999/xhtml}: top-level
 ```
 
+### `end_element`
+
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、要素の名前を取得できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.end_element = function(local_name,
+                              prefix,
+                              uri)
+  -- You want to execute code
+end
+```
+
+要素の終わりをパースしたときに、登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+</xhtml:html>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.end_element = function(name)
+  print("End element: " .. local_name)
+  if prefix then
+    print("  prefix: " .. prefix)
+  end
+  if uri then
+    print("  URI: " .. uri)
+  end
+end
+
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+End element: html
+  prefix: xhtml
+  URI: http://www.w3.org/1999/xhtml
+```
+

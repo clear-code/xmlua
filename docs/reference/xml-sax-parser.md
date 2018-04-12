@@ -537,3 +537,66 @@ Start element: html
     xhtml:class{http://www.w3.org/1999/xhtml}: top-level
 ```
 
+### `end_element`
+
+It registers user call back function as below.
+
+You can get name of elements as argument of your call back.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.end_element = function(local_name,
+                              prefix,
+                              uri)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse end element.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml">
+</xhtml:html>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.end_element = function(name)
+  print("End element: " .. local_name)
+  if prefix then
+    print("  prefix: " .. prefix)
+  end
+  if uri then
+    print("  URI: " .. uri)
+  end
+end
+
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+End element: html
+  prefix: xhtml
+  URI: http://www.w3.org/1999/xhtml
+```
+

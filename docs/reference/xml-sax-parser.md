@@ -16,6 +16,8 @@ You can register your callback method which call when occured events below.
 
 Call back event list:
   * StartDocument
+  * ElementDeclaration
+  * AttributeDeclaration
   * UnparsedEntityDeclaration
   * NotationDeclaration
   * EntityDeclaration

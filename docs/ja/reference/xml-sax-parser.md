@@ -14,6 +14,8 @@ SAXは、DOMと異なりドキュメントを一行ずつパースし、DOMは�
 
 コールバックイベント一覧:
   * StartDocument
+  * ElementDeclaration
+  * AttributeDeclaration
   * UnparsedEntityDeclaration
   * NotationDeclaration
   * EntityDeclaration

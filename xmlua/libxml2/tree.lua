@@ -251,6 +251,20 @@ struct _xmlAttr {
     void            *psvi;	/* for type/PSVI informations */
 };
 
+/**
+ * xmlElementTypeVal:
+ *
+ * The different possibilities for an element content type.
+ */
+
+typedef enum {
+    XML_ELEMENT_TYPE_UNDEFINED = 0,
+    XML_ELEMENT_TYPE_EMPTY = 1,
+    XML_ELEMENT_TYPE_ANY,
+    XML_ELEMENT_TYPE_MIXED,
+    XML_ELEMENT_TYPE_ELEMENT
+} xmlElementTypeVal;
+
 
 void xmlFreeDoc(xmlDocPtr cur);
 xmlNodePtr xmlDocGetRootElement(const xmlDoc *doc);

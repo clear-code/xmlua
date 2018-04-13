@@ -58,21 +58,65 @@ function converter.convert_entity_type_number_to_name(number)
   end
 end
 
+local function convert_element_content_pcdata(raw_content)
+  return {
+    type = tonumber(raw_content.type),
+  }
+end
+
+local function convert_element_content_element(raw_content)
+  return {
+    type = tonumber(raw_content.type),
+    occur = tonumber(raw_content.ocur),
+    name = converter.to_string(raw_content.name),
+    prefix = converter.to_string(raw_content.prefix),
+  }
+end
+
+local function convert_element_content_container(raw_content, raw_type)
+  local children = {}
+  table.insert(children, converter.convert_element_content(raw_content.c1))
+
+  local raw_child = raw_content.c2
+  while raw_child.type == raw_type and
+        raw_child.ocur == ffi.C.XML_ELEMENT_CONTENT_ONCE do
+    table.insert(children, converter.convert_element_content(raw_child.c1))
+    raw_child = raw_child.c2
+  end
+  if raw_child ~= ffi.NULL then
+    table.insert(children, converter.convert_element_content(raw_child))
+  end
+  return {
+    type = tonumber(raw_content.type),
+    occur = tonumber(raw_content.ocur),
+    children = children,
+  }
+end
+
+local function convert_element_content_seq(raw_content)
+  return convert_element_content_container(raw_content,
+                                           ffi.C.XML_ELEMENT_CONTENT_SEQ)
+end
+
+local function convert_element_content_or(raw_content)
+  return convert_element_content_container(raw_content,
+                                           ffi.C.XML_ELEMENT_CONTENT_OR)
+end
+
 function converter.convert_element_content(raw_content)
-  local content = {}
-  content["content_type"] = tonumber(raw_content.type)
-  content["content_ocur"] = tonumber(raw_content.ocur)
-  content["name"] = converter.to_string(raw_content.name)
-  content["prefix"] = converter.to_string(raw_content.prefix)
-  if raw_content.c1 ~= ffi.NULL then
-    content["first_child"] =
-      converter.convert_element_content(raw_content.c1)
+  if raw_content == ffi.NULL then
+    return nil
   end
-  if raw_content.c2 ~= ffi.NULL then
-    content["second_child"] =
-      converter.convert_element_content(raw_content.c2)
+
+  if raw_content.type == ffi.C.XML_ELEMENT_CONTENT_PCDATA then
+    return convert_element_content_pcdata(raw_content)
+  elseif raw_content.type == ffi.C.XML_ELEMENT_CONTENT_ELEMENT then
+    return convert_element_content_element(raw_content)
+  elseif raw_content.type == ffi.C.XML_ELEMENT_CONTENT_SEQ then
+    return convert_element_content_seq(raw_content)
+  elseif raw_content.type == ffi.C.XML_ELEMENT_CONTENT_OR then
+    return convert_element_content_or(raw_content)
   end
-  return content
 end
 
 return converter

@@ -22,12 +22,10 @@ end
 local function collect_element_declarations(chunk)
   local parser = xmlua.XMLSAXParser.new()
   local elements = {}
-  parser.element_declaration = function(name,
-                                        element_type,
-                                        content)
+  parser.element_declaration = function(name, type, content)
     local element = {
       name = name,
-      element_type = element_type,
+      type = type,
       content = content
     }
     table.insert(elements, element)
@@ -36,38 +34,253 @@ local function collect_element_declarations(chunk)
   return elements
 end
 
-function TestXMLSAXParser.test_element_declaration()
+function TestXMLSAXParser.test_element_declaration_empty()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE example [
-<!ELEMENT test (A,B)>
+<!ELEMENT test EMPTY>
 ]>
 ]]
   local expected = {
                      {
                        name = "test",
-                       element_type = ffi.C.XML_CDATA_SECTION_NODE,
+                       type = ffi.C.XML_ELEMENT_TYPE_EMPTY,
+                     }
+                   }
+  luaunit.assertEquals(collect_element_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_element_declaration_any()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ELEMENT test ANY>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       type = ffi.C.XML_ELEMENT_TYPE_ANY,
+                     }
+                   }
+  luaunit.assertEquals(collect_element_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_element_declaration_pcdata()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ELEMENT test (#PCDATA)>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       type = ffi.C.XML_ELEMENT_TYPE_MIXED,
                        content = {
-                                   name = nil,
-                                   content_type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
-                                   content_ocur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
-                                   first_child = {
-                                                   name = "A",
-                                                   content_type =
-                                                     ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
-                                                   content_ocur =
-                                                     ffi.C.XML_ELEMENT_CONTENT_ONCE,
-                                                 },
-                                   second_child = {
-                                                    name = "B",
-                                                    content_type =
-                                                      ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
-                                                    content_ocur =
-                                                      ffi.C.XML_ELEMENT_CONTENT_ONCE,
-                                                  },
-                                   parent = nil,
-                                   prefix = nil,
-                                 }
+                         type = ffi.C.XML_ELEMENT_CONTENT_PCDATA,
+                       }
+                     }
+                   }
+  luaunit.assertEquals(collect_element_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_element_declaration_element_prefix()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ELEMENT test (x:A)>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       type = ffi.C.XML_ELEMENT_TYPE_ELEMENT,
+                       content = {
+                         prefix = "x",
+                         name = "A",
+                         type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                         occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                       },
+                     }
+                   }
+  luaunit.assertEquals(collect_element_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_element_declaration_seq()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ELEMENT test (A,B*,C+)>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       type = ffi.C.XML_ELEMENT_TYPE_ELEMENT,
+                       content = {
+                         type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                         occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                         children = {
+                           {
+                             name = "A",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                           },
+                           {
+                             name = "B",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                           },
+                           {
+                             name = "C",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
+                           },
+                         }
+                       }
+                     }
+                   }
+  luaunit.assertEquals(collect_element_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_element_declaration_seq_in_seq()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ELEMENT test (A,x:B*,(y:C,D*)+)+>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       type = ffi.C.XML_ELEMENT_TYPE_ELEMENT,
+                       content = {
+                         type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                         occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
+                         children = {
+                           {
+                             name = "A",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                           },
+                           {
+                             prefix = "x",
+                             name = "B",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                           },
+                           {
+                             type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
+                             children = {
+                               {
+                                 prefix = "y",
+                                 name = "C",
+                                 type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                 occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                               },
+                               {
+                                 name = "D",
+                                 type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                 occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                               },
+                             },
+                           },
+                         }
+                       }
+                     }
+                   }
+  luaunit.assertEquals(collect_element_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_element_declaration_seq_in_or()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ELEMENT test (A|x:B?|(y:C,D*)+)>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       type = ffi.C.XML_ELEMENT_TYPE_ELEMENT,
+                       content = {
+                         type = ffi.C.XML_ELEMENT_CONTENT_OR,
+                         occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                         children = {
+                           {
+                             name = "A",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                           },
+                           {
+                             prefix = "x",
+                             name = "B",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_OPT,
+                           },
+                           {
+                             type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
+                             children = {
+                               {
+                                 prefix = "y",
+                                 name = "C",
+                                 type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                 occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                               },
+                               {
+                                 name = "D",
+                                 type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                 occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                               },
+                             },
+                           },
+                         }
+                       }
+                     }
+                   }
+  luaunit.assertEquals(collect_element_declarations(xml),
+                       expected)
+end
+
+function TestXMLSAXParser.test_element_declaration_mixed()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+<!ELEMENT test (#PCDATA|A|B)*>
+]>
+]]
+  local expected = {
+                     {
+                       name = "test",
+                       type = ffi.C.XML_ELEMENT_TYPE_MIXED,
+                       content = {
+                         type = ffi.C.XML_ELEMENT_CONTENT_OR,
+                         occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                         children = {
+                           {
+                             type = ffi.C.XML_ELEMENT_CONTENT_PCDATA,
+                           },
+                           {
+                             name = "A",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                           },
+                           {
+                             name = "B",
+                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                           },
+                         }
+                       }
                      }
                    }
   luaunit.assertEquals(collect_element_declarations(xml),

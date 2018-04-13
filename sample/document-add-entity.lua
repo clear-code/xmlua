@@ -18,13 +18,13 @@ parser.start_element = function()
   -- Setting information for add a entity
   local entity = {
     name = "Sample",
-  -- Entity type list
-  --   INTERNAL_ENTITY
-  --   EXTERNAL_PARSED_ENTITY
-  --   EXTERNAL_UNPARSED_ENTITY
-  --   INTERNAL_PARAMETER_ENTITY
-  --   EXTERNAL_PARAMETER_ENTITY
-  --   INTERNAL_PREDEFINED_ENTITY
+    -- Entity type list
+    --   INTERNAL_ENTITY
+    --   EXTERNAL_PARSED_ENTITY
+    --   EXTERNAL_UNPARSED_ENTITY
+    --   INTERNAL_PARAMETER_ENTITY
+    --   EXTERNAL_PARAMETER_ENTITY
+    --   INTERNAL_PREDEFINED_ENTITY
     entity_type = "INTERNAL_ENTITY",
     content = "This is test."
   }
@@ -54,13 +54,13 @@ parser.start_element = function()
   -- Setting information for add entity
   local entity = {
     name = "Sample",
-  -- Entity type list
-  --   INTERNAL_ENTITY
-  --   EXTERNAL_PARSED_ENTITY
-  --   EXTERNAL_UNPARSED_ENTITY
-  --   INTERNAL_PARAMETER_ENTITY
-  --   EXTERNAL_PARAMETER_ENTITY
-  --   INTERNAL_PREDEFINED_ENTITY
+    -- Entity type list
+    --   INTERNAL_ENTITY
+    --   EXTERNAL_PARSED_ENTITY
+    --   EXTERNAL_UNPARSED_ENTITY
+    --   INTERNAL_PARAMETER_ENTITY
+    --   EXTERNAL_PARAMETER_ENTITY
+    --   INTERNAL_PREDEFINED_ENTITY
     entity_type = "INTERNAL_ENTITY",
     content = "This is test."
   }

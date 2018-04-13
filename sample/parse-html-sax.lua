@@ -29,34 +29,18 @@ parser.cdata_block = function(cdata_block)
   print("CDATA block: " .. cdata_block)
 end
 
-parser.start_element = function(local_name,
-                                attributes)
-  print("Start element: " .. local_name)
+parser.start_element = function(name, attributes)
+  print("Start element: " .. name)
   if #attributes > 0 then
     print("  Attributes:")
     for i, attribute in pairs(attributes) do
-      local name
-      if attribute.prefix then
-        name = attribute.prefix .. ":" .. attribute.local_name
-      else
-        name = attribute.local_name
-      end
-      if attribute.uri then
-        name = name .. "{" .. attribute.uri .. "}"
-      end
-      print("    " .. name .. ": " .. attribute.value)
+      print("    " .. attribute.name .. ": " .. (attribute.value or ""))
     end
   end
 end
 
-parser.end_element = function(local_name, prefix, uri)
-  print("End element: " .. local_name)
-  if prefix then
-    print("  prefix: " .. prefix)
-  end
-  if uri then
-    print("  URI: " .. uri)
-  end
+parser.end_element = function(name)
+  print("End element: " .. name)
 end
 
 parser.text = function(text)

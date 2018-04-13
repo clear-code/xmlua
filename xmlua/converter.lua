@@ -79,6 +79,7 @@ end
 local function convert_element_content_pcdata(raw_content)
   return {
     type = convert_element_content_type(raw_content.type),
+    occur = convert_element_content_occur(raw_content.ocur),
   }
 end
 

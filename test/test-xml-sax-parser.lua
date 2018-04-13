@@ -81,6 +81,7 @@ function TestXMLSAXParser.test_element_declaration_pcdata()
                        type = "MIXED",
                        content = {
                          type = "PCDATA",
+                         occur = "ONCE",
                        }
                      }
                    }
@@ -268,6 +269,7 @@ function TestXMLSAXParser.test_element_declaration_mixed()
                          children = {
                            {
                              type = "PCDATA",
+                             occur = "ONCE",
                            },
                            {
                              name = "A",

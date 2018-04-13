@@ -44,7 +44,7 @@ function TestXMLSAXParser.test_element_declaration_empty()
   local expected = {
                      {
                        name = "test",
-                       type = ffi.C.XML_ELEMENT_TYPE_EMPTY,
+                       type = "EMPTY",
                      }
                    }
   luaunit.assertEquals(collect_element_declarations(xml),
@@ -61,7 +61,7 @@ function TestXMLSAXParser.test_element_declaration_any()
   local expected = {
                      {
                        name = "test",
-                       type = ffi.C.XML_ELEMENT_TYPE_ANY,
+                       type = "ANY",
                      }
                    }
   luaunit.assertEquals(collect_element_declarations(xml),
@@ -78,7 +78,7 @@ function TestXMLSAXParser.test_element_declaration_pcdata()
   local expected = {
                      {
                        name = "test",
-                       type = ffi.C.XML_ELEMENT_TYPE_MIXED,
+                       type = "MIXED",
                        content = {
                          type = ffi.C.XML_ELEMENT_CONTENT_PCDATA,
                        }
@@ -98,7 +98,7 @@ function TestXMLSAXParser.test_element_declaration_element_prefix()
   local expected = {
                      {
                        name = "test",
-                       type = ffi.C.XML_ELEMENT_TYPE_ELEMENT,
+                       type = "ELEMENT",
                        content = {
                          prefix = "x",
                          name = "A",
@@ -121,7 +121,7 @@ function TestXMLSAXParser.test_element_declaration_seq()
   local expected = {
                      {
                        name = "test",
-                       type = ffi.C.XML_ELEMENT_TYPE_ELEMENT,
+                       type = "ELEMENT",
                        content = {
                          type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
                          occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
@@ -159,7 +159,7 @@ function TestXMLSAXParser.test_element_declaration_seq_in_seq()
   local expected = {
                      {
                        name = "test",
-                       type = ffi.C.XML_ELEMENT_TYPE_ELEMENT,
+                       type = "ELEMENT",
                        content = {
                          type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
                          occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
@@ -210,7 +210,7 @@ function TestXMLSAXParser.test_element_declaration_seq_in_or()
   local expected = {
                      {
                        name = "test",
-                       type = ffi.C.XML_ELEMENT_TYPE_ELEMENT,
+                       type = "ELEMENT",
                        content = {
                          type = ffi.C.XML_ELEMENT_CONTENT_OR,
                          occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
@@ -261,7 +261,7 @@ function TestXMLSAXParser.test_element_declaration_mixed()
   local expected = {
                      {
                        name = "test",
-                       type = ffi.C.XML_ELEMENT_TYPE_MIXED,
+                       type = "MIXED",
                        content = {
                          type = ffi.C.XML_ELEMENT_CONTENT_OR,
                          occur = ffi.C.XML_ELEMENT_CONTENT_MULT,

@@ -21,23 +21,7 @@ function converter.convert_xml_error(raw_xml_error)
   }
 end
 
-function converter.convert_xml_entity(raw_xml_entity)
-  return {
-    entity_type = tonumber(raw_xml_entity.type),
-    name = converter.to_string(raw_xml_entity.name),
-    orig = converter.to_string(raw_xml_entity.orig),
-    content = converter.to_string(raw_xml_entity.content),
-    entity_type =
-      converter.convert_entity_type_number_to_name(tonumber(raw_xml_entity.etype)),
-    external_id = converter.to_string(raw_xml_entity.ExternalID),
-    system_id = converter.to_string(raw_xml_entity.SystemID),
-    uri = converter.to_string(raw_xml_entity.URI),
-    owner = tonumber(raw_xml_entity.owner),
-    checked = tonumber(raw_xml_entity.checked),
-  }
-end
-
-local entity_types = {
+local entity_type_names = {
   INTERNAL_ENTITY            = ffi.C.XML_INTERNAL_GENERAL_ENTITY,
   EXTERNAL_PARSED_ENTITY     = ffi.C.XML_EXTERNAL_GENERAL_PARSED_ENTITY,
   EXTERNAL_UNPARSED_ENTITY   = ffi.C.XML_EXTERNAL_GENERAL_UNPARSED_ENTITY,
@@ -46,16 +30,28 @@ local entity_types = {
   INTERNAL_PREDEFINED_ENTITY = ffi.C.XML_INTERNAL_PREDEFINED_ENTITY,
 }
 
-function converter.convert_entity_type_name_to_number(name)
-  return entity_types[name]
+local entity_type_numbers = {}
+for name, number in pairs(entity_type_names) do
+  entity_type_numbers[number] = name
 end
 
-function converter.convert_entity_type_number_to_name(number)
-  for key, value in pairs(entity_types) do
-    if value == number then
-      return key
-    end
-  end
+function converter.convert_entity_type_name(name)
+  return entity_type_names[name]
+end
+
+function converter.convert_xml_entity(raw_xml_entity)
+  return {
+    entity_type = tonumber(raw_xml_entity.type),
+    name = converter.to_string(raw_xml_entity.name),
+    orig = converter.to_string(raw_xml_entity.orig),
+    content = converter.to_string(raw_xml_entity.content),
+    entity_type = entity_type_numbers[tonumber(raw_xml_entity.etype)],
+    external_id = converter.to_string(raw_xml_entity.ExternalID),
+    system_id = converter.to_string(raw_xml_entity.SystemID),
+    uri = converter.to_string(raw_xml_entity.URI),
+    owner = tonumber(raw_xml_entity.owner),
+    checked = tonumber(raw_xml_entity.checked),
+  }
 end
 
 local function convert_element_content_pcdata(raw_content)

@@ -222,6 +222,86 @@ Result of avobe example as blow.
 End document
 ```
 
+### `element_declaration`
+
+It registers user call back function as below.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.element_declaration = function(name, type, content)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse element declaration in DTD.
+
+Registered function is called, when parse `<!ELEMENT test (A,B*,C+)>` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ELEMENT test (A,B*,C+)>
+]>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.element_declaration = function(name,
+                                      element_type,
+                                      content)
+  print("Element name: " .. name)
+  print("Element type: " .. element_type)
+  if element_type == "EMPTY" then
+    return
+  end
+  print("Content:")
+  print_element_content(content, "  ")
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Element name: test
+Element type: ELEMENT
+Content:
+  type: SEQUENCE
+  occur: ONCE
+  child[1]:
+    type: ELEMENT
+    occur: ONCE
+    prefix: 
+    name: A
+  child[2]:
+    type: ELEMENT
+    occur: MULTIPLE
+    prefix: 
+    name: B
+  child[3]:
+    type: ELEMENT
+    occur: PLUS
+    prefix: 
+    name: C
+```
+
 ### `processing_instruction`
 
 It registers user call back function as below.

@@ -220,6 +220,86 @@ parser:finish()
 End document
 ```
 
+### `element_declaration`
+
+以下のようにコールバック関数を登録できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.element_declaration = function(name, type, content)
+  -- 実行したいコード
+end
+```
+
+DTD内のelement宣言をパースしたときに、登録した関数が呼び出されます。
+
+以下の例では、`<!ELEMENT test (A,B*,C+)>`をパースした際に登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ELEMENT test (A,B*,C+)>
+]>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.element_declaration = function(name,
+                                      element_type,
+                                      content)
+  print("Element name: " .. name)
+  print("Element type: " .. element_type)
+  if element_type == "EMPTY" then
+    return
+  end
+  print("Content:")
+  print_element_content(content, "  ")
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Element name: test
+Element type: ELEMENT
+Content:
+  type: SEQUENCE
+  occur: ONCE
+  child[1]:
+    type: ELEMENT
+    occur: ONCE
+    prefix: 
+    name: A
+  child[2]:
+    type: ELEMENT
+    occur: MULTIPLE
+    prefix: 
+    name: B
+  child[3]:
+    type: ELEMENT
+    occur: PLUS
+    prefix: 
+    name: C
+```
+
 ### `processing_instruction`
 
 以下のようにコールバック関数を登録できます。

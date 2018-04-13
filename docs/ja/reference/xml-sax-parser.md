@@ -509,6 +509,77 @@ Unparserd entity system id: file:///usr/local/share/test.gif
 Unparserd entity notation_name: gif
 ```
 
+### `entity_declaration`
+
+以下のようにコールバック関数を登録できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.entity_declaration = function(name,
+                                     entity_type,
+                                     public_id,
+                                     system_id,
+                                     content)
+  -- 実行したいコード
+end
+```
+
+DTD内のentity宣言をパースしたときに、登録した関数が呼び出されます。
+
+以下の例では、`<!ENTITY test "This is test.">`をパースした際に登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ENTITY test "This is test.">
+]>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.entity_declaration = function(name,
+                                     entity_type,
+                                     public_id,
+                                     system_id,
+                                     content)
+  print("Entity name: " .. name)
+  print("Entity type: " .. entity_type)
+  if public_id ~= nil then
+    print("Entity public id: " .. public_id)
+  end
+  if system_id ~= nil then
+    print("Entity system id: " .. system_id)
+  end
+  print("Entity content: " .. content)
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Entity name: test
+Entity type: 1
+Entity content: This is test.
+```
+
 ### `processing_instruction`
 
 以下のようにコールバック関数を登録できます。

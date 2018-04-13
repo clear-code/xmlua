@@ -511,6 +511,77 @@ Unparserd entity system id: file:///usr/local/share/test.gif
 Unparserd entity notation_name: gif
 ```
 
+### `entity_declaration`
+
+It registers user call back function as below.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.entity_declaration = function(name,
+                                     entity_type,
+                                     public_id,
+                                     system_id,
+                                     content)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse entity declaration in DTD.
+
+Registered function is called, when parse `<!ENTITY test "This is test.">` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ENTITY test "This is test.">
+]>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.entity_declaration = function(name,
+                                     entity_type,
+                                     public_id,
+                                     system_id,
+                                     content)
+  print("Entity name: " .. name)
+  print("Entity type: " .. entity_type)
+  if public_id ~= nil then
+    print("Entity public id: " .. public_id)
+  end
+  if system_id ~= nil then
+    print("Entity system id: " .. system_id)
+  end
+  print("Entity content: " .. content)
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Entity name: test
+Entity type: 1
+Entity content: This is test.
+```
+
 ### `processing_instruction`
 
 It registers user call back function as below.

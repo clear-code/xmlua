@@ -377,6 +377,70 @@ Enumrated value: yes
 Enumrated value: no
 ```
 
+### `notation_declaration`
+
+以下のようにコールバック関数を登録できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.notation_declaration = function(name,
+                                       public_id,
+                                       system_id)
+  -- 実行したいコード
+end
+```
+
+DTD内のnotation宣言をパースしたときに、登録した関数が呼び出されます。
+
+以下の例では、`<!NOTATION test SYSTEM "Test">`をパースした際に登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!NOTATION test SYSTEM "Test">
+]>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.notation_declaration = function(name,
+                                       public_id,
+                                       system_id)
+  print("Notation name: " .. name)
+  if public_id ~= nil then
+    print("Notation public id: " .. public_id)
+  end
+  if system_id ~= nil then
+    print("Notation system id: " .. system_id)
+  end
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Notation name: test
+Notation system id: Test
+```
+
 ### `processing_instruction`
 
 以下のようにコールバック関数を登録できます。

@@ -379,6 +379,70 @@ Enumrated value: yes
 Enumrated value: no
 ```
 
+### `notation_declaration`
+
+It registers user call back function as below.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.notation_declaration = function(name,
+                                       public_id,
+                                       system_id)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse notation declaration in DTD.
+
+Registered function is called, when parse `<!NOTATION test SYSTEM "Test">` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!NOTATION test SYSTEM "Test">
+]>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.notation_declaration = function(name,
+                                       public_id,
+                                       system_id)
+  print("Notation name: " .. name)
+  if public_id ~= nil then
+    print("Notation public id: " .. public_id)
+  end
+  if system_id ~= nil then
+    print("Notation system id: " .. system_id)
+  end
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Notation name: test
+Notation system id: Test
+```
+
 ### `processing_instruction`
 
 It registers user call back function as below.

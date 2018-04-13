@@ -4,6 +4,71 @@ title: News
 
 # News
 
+## 1.0.9: 2018-04-13 {#version-1-0-9}
+
+### Improvements
+
+  * `xmlua.XMLSAXParser`: Added supported events:
+
+    * `start_document`
+
+    * `end_document`
+
+    * `start_element`
+
+    * `end_element`
+
+    * `element declaration`
+
+    * `attribute declaration`
+
+    * `unparsed entity declaration`
+
+    * `notation declaration`
+
+    * `entity declaration`
+
+    * `internal subset`
+
+    * `external subset`
+
+    * `comment`
+
+    * `text`
+
+    * `reference`
+
+    * `ignorable_whitespace`
+
+    * `cdata_block`
+
+    * `processing_instruction`
+
+    * `warning`
+
+    * `error`
+
+  * `xmlua.HTMLSAXParser`: Added supported events:
+
+    * `start_document`
+
+    * `end_document`
+
+    * `start_element`
+
+    * `end_element`
+
+    * `comment`
+
+    * `ignorable_whitespace`
+
+    * `cdata_block`
+
+    * `processing_instruction`
+
+    * `error`
+
+
 ## 1.0.8: 2018-04-03 {#version-1-0-8}
 
 ### Fixes

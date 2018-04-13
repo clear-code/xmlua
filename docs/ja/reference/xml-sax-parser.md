@@ -643,6 +643,70 @@ parser:finish()
 Internal subset name: example
 ```
 
+### `external_subset`
+
+以下のようにコールバック関数を登録できます。
+
+```lua
+local listener = {}
+function listener:external_subset(name, external_id, system_id)
+  -- 実行したいコード
+end
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+```
+
+外部サブセットをパースしたときに、登録した関数が呼び出されます。
+
+以下の例では、`<!DOCTYPE example[...]>`をパースした際に登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html></html>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local listener = {}
+function listener:external_subset(name, external_id, system_id)
+  print("External subset name: " .. name)
+  if external_id ~= nil then
+    print("External subset external id: " .. external_id)
+  end
+  if system_id ~= nil then
+    print("External subset system id: " .. system_id)
+  end
+end
+
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+External subset name: html
+External subset external id: -//W3C//DTD XHTML 1.0 Transitional//EN
+External subset system id: http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
+```
+
 ### `processing_instruction`
 
 以下のようにコールバック関数を登録できます。

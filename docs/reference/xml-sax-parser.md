@@ -645,6 +645,70 @@ Result of avobe example as blow.
 Internal subset name: example
 ```
 
+### `external_subset`
+
+It registers user call back function as below.
+
+```lua
+local listener = {}
+function listener:external_subset(name, external_id, system_id)
+  -- You want to execute code
+end
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+```
+
+Registered function is called, when parse external subset.
+
+Registered function is called, when parse `<!DOCTYPE example[...]>` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html></html>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local listener = {}
+function listener:external_subset(name, external_id, system_id)
+  print("External subset name: " .. name)
+  if external_id ~= nil then
+    print("External subset external id: " .. external_id)
+  end
+  if system_id ~= nil then
+    print("External subset system id: " .. system_id)
+  end
+end
+
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+External subset name: html
+External subset external id: -//W3C//DTD XHTML 1.0 Transitional//EN
+External subset system id: http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
+```
+
 ### `processing_instruction`
 
 It registers user call back function as below.

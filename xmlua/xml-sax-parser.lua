@@ -402,7 +402,7 @@ function XMLSAXParser.new(options)
   end
   parser.context.sax.initialized = libxml2.XML_SAX2_MAGIC
   if options then
-    if options["pedantic"] then
+    if options["is_pedantic"] then
       parser.context.pedantic = 1
     end
     if options["parser_dtd_load"] then

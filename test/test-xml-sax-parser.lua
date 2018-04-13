@@ -959,7 +959,7 @@ function TestXMLSAXParser.test_set_pedantic_as_option()
        <data>&test;</data>
 </root>
 ]]
-  local options = {pedantic = true}
+  local options = {is_pedantic = true}
   local parser = xmlua.XMLSAXParser.new(options)
 
   local warnings = {}

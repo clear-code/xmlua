@@ -67,7 +67,7 @@ msgstr ""
 msgid "It makes HTMLSAXParser object."
 msgstr "HTMLSAXParser オブジェクトを作成します。"
 
-msgid "You can make object of `xmllua.HTMLSAXParser` class as below example."
+msgid "You can make object of `xmlua.HTMLSAXParser` class as below example."
 msgstr "以下の例のように、`xmlua.HTMLSAXParser`クラスのオブジェクトを作成できます。"
 
 msgid "Example:"

@@ -41,7 +41,7 @@ Call back event list:
 
 It makes XMLSAXParser object.
 
-You can make object of `xmllua.XMLSAXParser` class as below example.
+You can make object of `xmlua.XMLSAXParser` class as below example.
 
 Example:
 

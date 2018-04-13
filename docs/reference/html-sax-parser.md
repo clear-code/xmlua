@@ -32,7 +32,7 @@ Call back event list:
 
 It makes HTMLSAXParser object.
 
-You can make object of `xmllua.HTMLSAXParser` class as below example.
+You can make object of `xmlua.HTMLSAXParser` class as below example.
 
 Example:
 

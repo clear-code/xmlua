@@ -709,6 +709,63 @@ External subset external id: -//W3C//DTD XHTML 1.0 Transitional//EN
 External subset system id: http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
 ```
 
+### `reference`
+
+It registers user call back function as below.
+
+```lua
+local listener = {}
+function listener:reference(entity_name)
+  -- You want to execute code
+end
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+```
+
+Registered function is called, when parse reference.
+
+Registered function is called, when parse `&ref;` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [
+  <!ENTITY ref "Reference">
+]>
+<test>&ref;</test>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local listener = {}
+function listener:reference(entity_name)
+  print("Reference entity name: " .. entity_name)
+end
+
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Reference entity name: ref
+```
+
 ### `processing_instruction`
 
 It registers user call back function as below.

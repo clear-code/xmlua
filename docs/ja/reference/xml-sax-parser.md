@@ -707,6 +707,63 @@ External subset external id: -//W3C//DTD XHTML 1.0 Transitional//EN
 External subset system id: http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
 ```
 
+### `reference`
+
+以下のようにコールバック関数を登録できます。
+
+```lua
+local listener = {}
+function listener:reference(entity_name)
+  -- 実行したいコード
+end
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+```
+
+参照をパースしたときに、登録した関数が呼び出されます。
+
+以下の例だと、`&ref;`をパースしたときに、登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [
+  <!ENTITY ref "Reference">
+]>
+<test>&ref;</test>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local listener = {}
+function listener:reference(entity_name)
+  print("Reference entity name: " .. entity_name)
+end
+
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Reference entity name: ref
+```
+
 ### `processing_instruction`
 
 以下のようにコールバック関数を登録できます。

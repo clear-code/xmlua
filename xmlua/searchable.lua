@@ -15,31 +15,32 @@ function Searchable.lazy_load()
   NodeSet = require("xmlua.node-set")
 end
 
-local ERROR_MESSAGES = {}
-ERROR_MESSAGES[ffi.C.XPATH_NUMBER_ERROR]             = "Number encoding\n"
-ERROR_MESSAGES[ffi.C.XPATH_UNFINISHED_LITERAL_ERROR] = "Unfinished literal\n"
-ERROR_MESSAGES[ffi.C.XPATH_START_LITERAL_ERROR]      = "Start of literal\n"
-ERROR_MESSAGES[ffi.C.XPATH_VARIABLE_REF_ERROR]       = "Expected $ for variable reference\n"
-ERROR_MESSAGES[ffi.C.XPATH_UNDEF_VARIABLE_ERROR]     = "Undefined variable\n"
-ERROR_MESSAGES[ffi.C.XPATH_INVALID_PREDICATE_ERROR]  = "Invalid predicate\n"
-ERROR_MESSAGES[ffi.C.XPATH_EXPR_ERROR]               = "Invalid expression\n"
-ERROR_MESSAGES[ffi.C.XPATH_UNCLOSED_ERROR]           = "Missing closing curly brace\n"
-ERROR_MESSAGES[ffi.C.XPATH_UNKNOWN_FUNC_ERROR]       = "Unregistered function\n"
-ERROR_MESSAGES[ffi.C.XPATH_INVALID_OPERAND]          = "Invalid operand\n"
-ERROR_MESSAGES[ffi.C.XPATH_INVALID_TYPE]             = "Invalid type\n"
-ERROR_MESSAGES[ffi.C.XPATH_INVALID_ARITY]            = "Invalid number of arguments\n"
-ERROR_MESSAGES[ffi.C.XPATH_INVALID_CTXT_SIZE]        = "Invalid context size\n"
-ERROR_MESSAGES[ffi.C.XPATH_INVALID_CTXT_POSITION]    = "Invalid context position\n"
-ERROR_MESSAGES[ffi.C.XPATH_MEMORY_ERROR]             = "Memory allocation error\n"
-ERROR_MESSAGES[ffi.C.XPTR_SYNTAX_ERROR]              = "Syntax error\n"
-ERROR_MESSAGES[ffi.C.XPTR_RESOURCE_ERROR]            = "Resource error\n"
-ERROR_MESSAGES[ffi.C.XPTR_SUB_RESOURCE_ERROR]        = "Sub resource error\n"
-ERROR_MESSAGES[ffi.C.XPATH_UNDEF_PREFIX_ERROR]       = "Undefined namespace prefix\n"
-ERROR_MESSAGES[ffi.C.XPATH_ENCODING_ERROR]           = "Encoding error\n"
-ERROR_MESSAGES[ffi.C.XPATH_INVALID_CHAR_ERROR]       = "Char out of XML range\n"
-ERROR_MESSAGES[ffi.C.XPATH_INVALID_CTXT]             = "Invalid or incomplete context\n"
-ERROR_MESSAGES[ffi.C.XPATH_STACK_ERROR]              = "Stack usage error\n"
-ERROR_MESSAGES[ffi.C.XPATH_FORBID_VARIABLE_ERROR]    = "Forbidden variable\n"
+local ERROR_MESSAGES = {
+  [ffi.C.XPATH_NUMBER_ERROR]             = "Number encoding\n",
+  [ffi.C.XPATH_UNFINISHED_LITERAL_ERROR] = "Unfinished literal\n",
+  [ffi.C.XPATH_START_LITERAL_ERROR]      = "Start of literal\n",
+  [ffi.C.XPATH_VARIABLE_REF_ERROR]       = "Expected $ for variable reference\n",
+  [ffi.C.XPATH_UNDEF_VARIABLE_ERROR]     = "Undefined variable\n",
+  [ffi.C.XPATH_INVALID_PREDICATE_ERROR]  = "Invalid predicate\n",
+  [ffi.C.XPATH_EXPR_ERROR]               = "Invalid expression\n",
+  [ffi.C.XPATH_UNCLOSED_ERROR]           = "Missing closing curly brace\n",
+  [ffi.C.XPATH_UNKNOWN_FUNC_ERROR]       = "Unregistered function\n",
+  [ffi.C.XPATH_INVALID_OPERAND]          = "Invalid operand\n",
+  [ffi.C.XPATH_INVALID_TYPE]             = "Invalid type\n",
+  [ffi.C.XPATH_INVALID_ARITY]            = "Invalid number of arguments\n",
+  [ffi.C.XPATH_INVALID_CTXT_SIZE]        = "Invalid context size\n",
+  [ffi.C.XPATH_INVALID_CTXT_POSITION]    = "Invalid context position\n",
+  [ffi.C.XPATH_MEMORY_ERROR]             = "Memory allocation error\n",
+  [ffi.C.XPTR_SYNTAX_ERROR]              = "Syntax error\n",
+  [ffi.C.XPTR_RESOURCE_ERROR]            = "Resource error\n",
+  [ffi.C.XPTR_SUB_RESOURCE_ERROR]        = "Sub resource error\n",
+  [ffi.C.XPATH_UNDEF_PREFIX_ERROR]       = "Undefined namespace prefix\n",
+  [ffi.C.XPATH_ENCODING_ERROR]           = "Encoding error\n",
+  [ffi.C.XPATH_INVALID_CHAR_ERROR]       = "Char out of XML range\n",
+  [ffi.C.XPATH_INVALID_CTXT]             = "Invalid or incomplete context\n",
+  [ffi.C.XPATH_STACK_ERROR]              = "Stack usage error\n",
+  [ffi.C.XPATH_FORBID_VARIABLE_ERROR]    = "Forbidden variable\n",
+}
 
 function Searchable.search(self, xpath)
   local document = self.document

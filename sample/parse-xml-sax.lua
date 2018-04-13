@@ -59,6 +59,7 @@ parser.attribute_declaration = function(name,
     print("Enumrated value: " .. v)
   end
 end
+
 parser.notation_declaration = function(name,
                                        public_id,
                                        system_id)

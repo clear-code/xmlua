@@ -11,21 +11,35 @@ parser.start_document = function()
   print("Start document")
 end
 
+local function print_element_content(content, indent)
+  if content.type == "PCDATA" then
+    print(indent .. "type: " .. content.type)
+    print(indent .. "occur: " .. content.occur)
+  elseif content.type == "ELEMENT" then
+    print(indent .. "type: " .. content.type)
+    print(indent .. "occur: " .. content.occur)
+    print(indent .. "prefix: " .. (content.prefix or ""))
+    print(indent .. "name: " .. content.name)
+  else
+    print(indent .. "type: " .. content.type)
+    print(indent .. "occur: " .. content.occur)
+    for i, child in pairs(content.children) do
+      print(indent .. "child[" .. i .. "]:")
+      print_element_content(child, indent .. "  ")
+    end
+  end
+end
+
 parser.element_declaration = function(name,
                                       element_type,
                                       content)
   print("Element name: " .. name)
   print("Element type: " .. element_type)
-  print("Content:")
-  for k, v in pairs(content) do
-    if k == "first_child" or k == "second_child" then
-      for key, value in pairs(v) do
-        print("    " .. key, value)
-      end
-    else
-      print("  " .. k, v)
-    end
+  if element_type == "EMPTY" then
+    return
   end
+  print("Content:")
+  print_element_content(content, "  ")
 end
 
 parser.attribute_declaration = function(name,

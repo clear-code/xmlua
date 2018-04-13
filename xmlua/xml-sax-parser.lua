@@ -59,12 +59,12 @@ local function create_attribute_declaration_callback(user_callback)
                             raw_attribute_type,
                             raw_default_value_type,
                             raw_default_value,
-                            raw_enumrated_value)
-    local enumrated_value = {}
+                            raw_enumerated_value)
+    local enumerated_value = {}
 
-    while raw_enumrated_value ~= ffi.NULL do
-      table.insert(enumrated_value, to_string(raw_enumrated_value.name))
-      raw_enumrated_value = raw_enumrated_value.next
+    while raw_enumerated_value ~= ffi.NULL do
+      table.insert(enumerated_value, to_string(raw_enumerated_value.name))
+      raw_enumerated_value = raw_enumerated_value.next
     end
 
     user_callback(to_string(raw_element_name),
@@ -72,7 +72,7 @@ local function create_attribute_declaration_callback(user_callback)
                   tonumber(raw_attribute_type),
                   tonumber(raw_default_value_type),
                   to_string(raw_default_value),
-                  enumrated_value)
+                  enumerated_value)
   end
   local c_callback = ffi.cast("attributeDeclSAXFunc", callback)
   ffi.gc(c_callback, function() c_callback:free() end)

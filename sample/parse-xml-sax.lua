@@ -33,7 +33,7 @@ parser.attribute_declaration = function(name,
                                         attribute_type,
                                         default_value_type,
                                         default_value,
-                                        enumrated_values)
+                                        enumerated_values)
   print("Element name: " .. name)
   print("Attribute name: " .. attribute_name)
   print("Attribute type: " .. attribute_type)
@@ -41,7 +41,7 @@ parser.attribute_declaration = function(name,
     print("Default value type: " .. default_value_type)
     print("Default value: " .. default_value)
   end
-  for _, v in pairs(enumrated_values) do
+  for _, v in pairs(enumerated_values) do
     print("Enumrated value: " .. v)
   end
 end

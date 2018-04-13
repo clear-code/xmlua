@@ -297,14 +297,14 @@ local function collect_attribute_declarations(chunk)
                                           attribute_type,
                                           default_value_type,
                                           default_value,
-                                          enumrated_values)
+                                          enumerated_values)
     local attribute = {
       name = name,
       attribute_name = attribute_name,
       attribute_type = attribute_type,
       default_value_type = default_value_type,
       default_value = default_value,
-      enumrated_values = enumrated_values
+      enumerated_values = enumerated_values
     }
     table.insert(attributes, attribute)
   end
@@ -326,7 +326,7 @@ function TestXMLSAXParser.test_attribute_declaration()
                        attribute_type = ffi.C.XML_ATTRIBUTE_CDATA,
                        default_value_type = ffi.C.XML_ATTRIBUTE_REQUIRED,
                        default_value = nil,
-                       enumrated_values = {}
+                       enumerated_values = {}
                      }
                    }
   luaunit.assertEquals(collect_attribute_declarations(xml),
@@ -347,7 +347,7 @@ function TestXMLSAXParser.test_attribute_declaration_with_enum_value()
                        attribute_type = ffi.C.XML_ATTRIBUTE_ENUMERATION,
                        default_value_type = ffi.C.XML_ATTRIBUTE_NONE,
                        default_value = "no",
-                       enumrated_values = {"yes", "no"}
+                       enumerated_values = {"yes", "no"}
                      }
                    }
   luaunit.assertEquals(collect_attribute_declarations(xml),

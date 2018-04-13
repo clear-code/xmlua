@@ -65,6 +65,17 @@ local function convert_element_content_type(raw_type)
   return ELEMENT_CONTENT_TYPES[tonumber(raw_type)]
 end
 
+local ELEMENT_CONTENT_OCCURS = {
+  [ffi.C.XML_ELEMENT_CONTENT_ONCE] = "ONCE",
+  [ffi.C.XML_ELEMENT_CONTENT_OPT]  = "OPTIONAL",
+  [ffi.C.XML_ELEMENT_CONTENT_MULT] = "MULTIPLE",
+  [ffi.C.XML_ELEMENT_CONTENT_PLUS] = "PLUS",
+}
+
+local function convert_element_content_occur(raw_occur)
+  return ELEMENT_CONTENT_OCCURS[tonumber(raw_occur)]
+end
+
 local function convert_element_content_pcdata(raw_content)
   return {
     type = convert_element_content_type(raw_content.type),
@@ -74,7 +85,7 @@ end
 local function convert_element_content_element(raw_content)
   return {
     type = convert_element_content_type(raw_content.type),
-    occur = tonumber(raw_content.ocur),
+    occur = convert_element_content_occur(raw_content.ocur),
     name = converter.to_string(raw_content.name),
     prefix = converter.to_string(raw_content.prefix),
   }
@@ -95,7 +106,7 @@ local function convert_element_content_container(raw_content, raw_type)
   end
   return {
     type = convert_element_content_type(raw_content.type),
-    occur = tonumber(raw_content.ocur),
+    occur = convert_element_content_occur(raw_content.ocur),
     children = children,
   }
 end

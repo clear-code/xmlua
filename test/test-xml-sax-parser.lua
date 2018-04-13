@@ -103,7 +103,7 @@ function TestXMLSAXParser.test_element_declaration_element_prefix()
                          prefix = "x",
                          name = "A",
                          type = "ELEMENT",
-                         occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                         occur = "ONCE",
                        },
                      }
                    }
@@ -124,22 +124,22 @@ function TestXMLSAXParser.test_element_declaration_seq()
                        type = "ELEMENT",
                        content = {
                          type = "SEQUENCE",
-                         occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                         occur = "ONCE",
                          children = {
                            {
                              name = "A",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                             occur = "ONCE",
                            },
                            {
                              name = "B",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                             occur = "MULTIPLE",
                            },
                            {
                              name = "C",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
+                             occur = "PLUS",
                            },
                          }
                        }
@@ -162,33 +162,33 @@ function TestXMLSAXParser.test_element_declaration_seq_in_seq()
                        type = "ELEMENT",
                        content = {
                          type = "SEQUENCE",
-                         occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
+                         occur = "PLUS",
                          children = {
                            {
                              name = "A",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                             occur = "ONCE",
                            },
                            {
                              prefix = "x",
                              name = "B",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                             occur = "MULTIPLE",
                            },
                            {
                              type = "SEQUENCE",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
+                             occur = "PLUS",
                              children = {
                                {
                                  prefix = "y",
                                  name = "C",
                                  type = "ELEMENT",
-                                 occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                                 occur = "ONCE",
                                },
                                {
                                  name = "D",
                                  type = "ELEMENT",
-                                 occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                                 occur = "MULTIPLE",
                                },
                              },
                            },
@@ -213,33 +213,33 @@ function TestXMLSAXParser.test_element_declaration_seq_in_or()
                        type = "ELEMENT",
                        content = {
                          type = "OR",
-                         occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                         occur = "ONCE",
                          children = {
                            {
                              name = "A",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                             occur = "ONCE",
                            },
                            {
                              prefix = "x",
                              name = "B",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_OPT,
+                             occur = "OPTIONAL",
                            },
                            {
                              type = "SEQUENCE",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
+                             occur = "PLUS",
                              children = {
                                {
                                  prefix = "y",
                                  name = "C",
                                  type = "ELEMENT",
-                                 occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                                 occur = "ONCE",
                                },
                                {
                                  name = "D",
                                  type = "ELEMENT",
-                                 occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                                 occur = "MULTIPLE",
                                },
                              },
                            },
@@ -264,7 +264,7 @@ function TestXMLSAXParser.test_element_declaration_mixed()
                        type = "MIXED",
                        content = {
                          type = "OR",
-                         occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
+                         occur = "MULTIPLE",
                          children = {
                            {
                              type = "PCDATA",
@@ -272,12 +272,12 @@ function TestXMLSAXParser.test_element_declaration_mixed()
                            {
                              name = "A",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                             occur = "ONCE",
                            },
                            {
                              name = "B",
                              type = "ELEMENT",
-                             occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
+                             occur = "ONCE",
                            },
                          }
                        }

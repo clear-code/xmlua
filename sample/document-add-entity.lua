@@ -7,6 +7,8 @@ local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE root [
 ]>
+<root>
+  &Sample;
 <root/>
 ]]
 
@@ -24,12 +26,14 @@ parser.start_element = function()
   --   EXTERNAL_PARAMETER_ENTITY
   --   INTERNAL_PREDEFINED_ENTITY
     entity_type = "INTERNAL_ENTITY",
-    external_id = "-//W3C//DTD XHTML 1.0 Transitional//EN",
-    system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
     content = "This is test."
   }
   document:add_entity(entity)
 end
+parser.text = function(text)
+  print(text) -- This is test.
+end
+
 parser:parse(xml)
 
 
@@ -38,7 +42,7 @@ local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE root SYSTEM "./sample/sample.dtd">
 <root>
-<A></A>
+  &Sample;
 </root>
 ]]
 
@@ -58,10 +62,12 @@ parser.start_element = function()
   --   EXTERNAL_PARAMETER_ENTITY
   --   INTERNAL_PREDEFINED_ENTITY
     entity_type = "INTERNAL_ENTITY",
-    external_id = "-//W3C//DTD XHTML 1.0 Transitional//EN",
-    system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
     content = "This is test."
   }
   document:add_dtd_entity(entity)
 end
+parser.text = function(text)
+  print(text) -- This is test.
+end
 parser:parse(xml)
+

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [
+<!ENTITY test "This is test.">
+<!ENTITY test "This is test.">
+]>

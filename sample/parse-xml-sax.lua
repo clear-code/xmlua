@@ -139,11 +139,6 @@ parser.processing_instruction = function(target, data)
   print("Processing instruction data: " .. data)
 end
 
-parser.ignorable_whitespace = function(ignorable_whitespaces)
-  print("Ignorable whitespaces: " .. "\"" .. ignorable_whitespaces .. "\"")
-  print("Ignorable whitespaces length: " .. #ignorable_whitespaces)
-end
-
 parser.text = function(text)
   print("Text: <" .. text .. ">")
 end
@@ -200,12 +195,6 @@ parser.end_element = function(local_name,
   if uri then
     print("  URI: " .. uri)
   end
-end
-
-parser.is_pedantic = true
-parser.warning = function(message)
-  print("Warning message:", message)
-  print("Pedantic:", parser.is_pedantic)
 end
 
 parser.error = function(xml_error)

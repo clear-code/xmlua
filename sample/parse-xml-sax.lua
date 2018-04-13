@@ -203,16 +203,16 @@ end
 
 parser.is_pedantic = true
 parser.warning = function(message)
-  print("Warning message: " .. message)
-  print("Pedantic :", parser.is_pedantic)
+  print("Warning message:", message)
+  print("Pedantic:", parser.is_pedantic)
 end
 
 parser.error = function(xml_error)
-  print("Error domain :", xml_error["domain"])
-  print("Error code :", xml_error["code"])
-  print("Error message :" .. xml_error["message"])
-  print("Error level :", xml_error["level"])
-  print("Error line :", xml_error["line"])
+  print("Error domain:", xml_error["domain"])
+  print("Error code:", xml_error["code"])
+  print("Error message:", xml_error["message"])
+  print("Error level:", xml_error["level"])
+  print("Error line:", xml_error["line"])
 end
 
 parser.end_document = function()

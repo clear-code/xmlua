@@ -300,6 +300,83 @@ Content:
     name: C
 ```
 
+### `attribute_declaration`
+
+以下のようにコールバック関数を登録できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.attribute_declaration = function(name,
+                                        attribute_name,
+                                        attribute_type,
+                                        default_value_type,
+                                        default_value,
+                                        enumerated_values)
+  -- 実行したいコード
+end
+```
+
+DTD内のattribute宣言をパースしたときに、登録した関数が呼び出されます。
+
+以下の例では、`<!ATTLIST A B (yes|no) "no">`をパースした際に登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ATTLIST A B (yes|no) "no">
+]>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.attribute_declaration = function(name,
+                                        attribute_name,
+                                        attribute_type,
+                                        default_value_type,
+                                        default_value,
+                                        enumerated_values)
+  print("Element name: " .. name)
+  print("Attribute name: " .. attribute_name)
+  print("Attribute type: " .. attribute_type)
+  if default_value then
+    print("Default value type: " .. default_value_type)
+    print("Default value: " .. default_value)
+  end
+  for _, v in pairs(enumerated_values) do
+    print("Enumrated value: " .. v)
+  end
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Attribute name: B
+Attribute type: 9
+Default value type: 1
+Default value: no
+Enumrated value: yes
+Enumrated value: no
+```
+
 ### `processing_instruction`
 
 以下のようにコールバック関数を登録できます。

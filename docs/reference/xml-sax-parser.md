@@ -302,6 +302,83 @@ Content:
     name: C
 ```
 
+### `attribute_declaration`
+
+It registers user call back function as below.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.attribute_declaration = function(name,
+                                        attribute_name,
+                                        attribute_type,
+                                        default_value_type,
+                                        default_value,
+                                        enumerated_values)
+  -- You want to execute code
+end
+```
+
+Registered function is called, when parse attribute declaration in DTD.
+
+Registered function is called, when parse `<!ATTLIST A B (yes|no) "no">` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ATTLIST A B (yes|no) "no">
+]>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.attribute_declaration = function(name,
+                                        attribute_name,
+                                        attribute_type,
+                                        default_value_type,
+                                        default_value,
+                                        enumerated_values)
+  print("Element name: " .. name)
+  print("Attribute name: " .. attribute_name)
+  print("Attribute type: " .. attribute_type)
+  if default_value then
+    print("Default value type: " .. default_value_type)
+    print("Default value: " .. default_value)
+  end
+  for _, v in pairs(enumerated_values) do
+    print("Enumrated value: " .. v)
+  end
+end
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Attribute name: B
+Attribute type: 9
+Default value type: 1
+Default value: no
+Enumrated value: yes
+Enumrated value: no
+```
+
 ### `processing_instruction`
 
 It registers user call back function as below.

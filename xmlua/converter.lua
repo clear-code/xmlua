@@ -54,15 +54,26 @@ function converter.convert_xml_entity(raw_xml_entity)
   }
 end
 
+local ELEMENT_CONTENT_TYPES = {
+  [ffi.C.XML_ELEMENT_CONTENT_PCDATA]  = "PCDATA",
+  [ffi.C.XML_ELEMENT_CONTENT_ELEMENT] = "ELEMENT",
+  [ffi.C.XML_ELEMENT_CONTENT_SEQ]     = "SEQUENCE",
+  [ffi.C.XML_ELEMENT_CONTENT_OR]      = "OR",
+}
+
+local function convert_element_content_type(raw_type)
+  return ELEMENT_CONTENT_TYPES[tonumber(raw_type)]
+end
+
 local function convert_element_content_pcdata(raw_content)
   return {
-    type = tonumber(raw_content.type),
+    type = convert_element_content_type(raw_content.type),
   }
 end
 
 local function convert_element_content_element(raw_content)
   return {
-    type = tonumber(raw_content.type),
+    type = convert_element_content_type(raw_content.type),
     occur = tonumber(raw_content.ocur),
     name = converter.to_string(raw_content.name),
     prefix = converter.to_string(raw_content.prefix),
@@ -83,7 +94,7 @@ local function convert_element_content_container(raw_content, raw_type)
     table.insert(children, converter.convert_element_content(raw_child))
   end
   return {
-    type = tonumber(raw_content.type),
+    type = convert_element_content_type(raw_content.type),
     occur = tonumber(raw_content.ocur),
     children = children,
   }

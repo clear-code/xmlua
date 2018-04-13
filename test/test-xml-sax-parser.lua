@@ -80,7 +80,7 @@ function TestXMLSAXParser.test_element_declaration_pcdata()
                        name = "test",
                        type = "MIXED",
                        content = {
-                         type = ffi.C.XML_ELEMENT_CONTENT_PCDATA,
+                         type = "PCDATA",
                        }
                      }
                    }
@@ -102,7 +102,7 @@ function TestXMLSAXParser.test_element_declaration_element_prefix()
                        content = {
                          prefix = "x",
                          name = "A",
-                         type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                         type = "ELEMENT",
                          occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                        },
                      }
@@ -123,22 +123,22 @@ function TestXMLSAXParser.test_element_declaration_seq()
                        name = "test",
                        type = "ELEMENT",
                        content = {
-                         type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                         type = "SEQUENCE",
                          occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                          children = {
                            {
                              name = "A",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                            },
                            {
                              name = "B",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
                            },
                            {
                              name = "C",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
                            },
                          }
@@ -161,33 +161,33 @@ function TestXMLSAXParser.test_element_declaration_seq_in_seq()
                        name = "test",
                        type = "ELEMENT",
                        content = {
-                         type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                         type = "SEQUENCE",
                          occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
                          children = {
                            {
                              name = "A",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                            },
                            {
                              prefix = "x",
                              name = "B",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
                            },
                            {
-                             type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                             type = "SEQUENCE",
                              occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
                              children = {
                                {
                                  prefix = "y",
                                  name = "C",
-                                 type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                 type = "ELEMENT",
                                  occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                                },
                                {
                                  name = "D",
-                                 type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                 type = "ELEMENT",
                                  occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
                                },
                              },
@@ -212,33 +212,33 @@ function TestXMLSAXParser.test_element_declaration_seq_in_or()
                        name = "test",
                        type = "ELEMENT",
                        content = {
-                         type = ffi.C.XML_ELEMENT_CONTENT_OR,
+                         type = "OR",
                          occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                          children = {
                            {
                              name = "A",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                            },
                            {
                              prefix = "x",
                              name = "B",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_OPT,
                            },
                            {
-                             type = ffi.C.XML_ELEMENT_CONTENT_SEQ,
+                             type = "SEQUENCE",
                              occur = ffi.C.XML_ELEMENT_CONTENT_PLUS,
                              children = {
                                {
                                  prefix = "y",
                                  name = "C",
-                                 type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                 type = "ELEMENT",
                                  occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                                },
                                {
                                  name = "D",
-                                 type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                                 type = "ELEMENT",
                                  occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
                                },
                              },
@@ -263,20 +263,20 @@ function TestXMLSAXParser.test_element_declaration_mixed()
                        name = "test",
                        type = "MIXED",
                        content = {
-                         type = ffi.C.XML_ELEMENT_CONTENT_OR,
+                         type = "OR",
                          occur = ffi.C.XML_ELEMENT_CONTENT_MULT,
                          children = {
                            {
-                             type = ffi.C.XML_ELEMENT_CONTENT_PCDATA,
+                             type = "PCDATA",
                            },
                            {
                              name = "A",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                            },
                            {
                              name = "B",
-                             type = ffi.C.XML_ELEMENT_CONTENT_ELEMENT,
+                             type = "ELEMENT",
                              occur = ffi.C.XML_ELEMENT_CONTENT_ONCE,
                            },
                          }

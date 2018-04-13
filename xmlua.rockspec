@@ -43,6 +43,7 @@ build = {
     ["xmlua.libxml2"] = "xmlua/libxml2.lua",
     ["xmlua.libxml2.dict"] = "xmlua/libxml2/dict.lua",
     ["xmlua.libxml2.encoding"] = "xmlua/libxml2/encoding.lua",
+    ["xmlua.libxml2.entities"] = "xmlua/libxml2/entities.lua",
     ["xmlua.libxml2.global"] = "xmlua/libxml2/global.lua",
     ["xmlua.libxml2.hash"] = "xmlua/libxml2/hash.lua",
     ["xmlua.libxml2.html-parser"] = "xmlua/libxml2/html-parser.lua",
@@ -61,6 +62,7 @@ build = {
     ["xmlua.serializable"] = "xmlua/serializable.lua",
     ["xmlua.text"] = "xmlua/text.lua",
     ["xmlua.xml"] = "xmlua/xml.lua",
+    ["xmlua.xml-stream-sax-parser"] = "xmlua/xml-stream-sax-parser.lua",
     ["xmlua.xml-sax-parser"] = "xmlua/xml-sax-parser.lua"
   },
   copy_directories = {

@@ -21,7 +21,7 @@ function converter.convert_xml_error(raw_xml_error)
   }
 end
 
-local entity_type_names = {
+local ENTITY_TYPE_NAMES = {
   INTERNAL_ENTITY            = ffi.C.XML_INTERNAL_GENERAL_ENTITY,
   EXTERNAL_PARSED_ENTITY     = ffi.C.XML_EXTERNAL_GENERAL_PARSED_ENTITY,
   EXTERNAL_UNPARSED_ENTITY   = ffi.C.XML_EXTERNAL_GENERAL_UNPARSED_ENTITY,
@@ -30,13 +30,13 @@ local entity_type_names = {
   INTERNAL_PREDEFINED_ENTITY = ffi.C.XML_INTERNAL_PREDEFINED_ENTITY,
 }
 
-local entity_type_numbers = {}
-for name, number in pairs(entity_type_names) do
-  entity_type_numbers[number] = name
+local ENTITY_TYPE_NUMBERS = {}
+for name, number in pairs(ENTITY_TYPE_NAMES) do
+  ENTITY_TYPE_NUMBERS[number] = name
 end
 
 function converter.convert_entity_type_name(name)
-  return entity_type_names[name]
+  return ENTITY_TYPE_NAMES[name]
 end
 
 function converter.convert_xml_entity(raw_xml_entity)
@@ -45,7 +45,7 @@ function converter.convert_xml_entity(raw_xml_entity)
     name = converter.to_string(raw_xml_entity.name),
     original = converter.to_string(raw_xml_entity.orig),
     content = converter.to_string(raw_xml_entity.content),
-    entity_type = entity_type_numbers[tonumber(raw_xml_entity.etype)],
+    entity_type = ENTITY_TYPE_NUMBERS[tonumber(raw_xml_entity.etype)],
     external_id = converter.to_string(raw_xml_entity.ExternalID),
     system_id = converter.to_string(raw_xml_entity.SystemID),
     uri = converter.to_string(raw_xml_entity.URI),

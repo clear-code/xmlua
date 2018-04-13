@@ -29,7 +29,7 @@ local function create_start_document_callback(user_callback)
   return c_callback
 end
 
-local element_types = {
+local ELEMENT_TYPES = {
   [ffi.C.XML_ELEMENT_TYPE_UNDEFINED] = "UNDEFINED",
   [ffi.C.XML_ELEMENT_TYPE_EMPTY]     = "EMPTY",
   [ffi.C.XML_ELEMENT_TYPE_ANY]       = "ANY",
@@ -44,7 +44,7 @@ local function create_element_declaration_callback(user_callback)
                             raw_content)
     local content = converter.convert_element_content(raw_content)
     user_callback(to_string(raw_element_name),
-                  element_types[tonumber(raw_element_type)],
+                  ELEMENT_TYPES[tonumber(raw_element_type)],
                   content)
   end
   local c_callback = ffi.cast("elementDeclSAXFunc", callback)

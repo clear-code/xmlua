@@ -27,7 +27,7 @@ function listener:print_element_content(content, indent)
   end
 end
 
-function listener:element_declaration(name, elemetn_type, content)
+function listener:element_declaration(name, element_type, content)
   print("Element name: " .. name)
   print("Element type: " .. element_type)
   if element_type == "EMPTY" then
@@ -95,7 +95,7 @@ function listener:entity_declaration(name,
   print("Entity content: " .. content)
 end
 
-function listenerinternal_subset(name, external_id, system_id)
+function listener:internal_subset(name, external_id, system_id)
   print("Internal subset name: " .. name)
   if external_id ~= nil then
     print("Internal subset external id: " .. external_id)

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="www.test.com/test-style.xsl" type="text/xsl" ?>
+<!DOCTYPE example [
+  <!ELEMENT test (A,B*,C+)>
+  <!ATTLIST A B (yes|no) "no">
+  <!NOTATION test SYSTEM "Test">
+  <!ENTITY test SYSTEM "file:///usr/local/share/test.gif" NDATA gif>
+  <!ENTITY test "This is test.">
+  <!ENTITY test "This is test.">
+  <!ENTITY ref "Reference">
+]>
+<!--This is comment-->
+<example>
+  <![CDATA[<p>Hello world!</p>]]>
+  <text>This is Text</text>
+  <text>&ref;</text>
+</example>

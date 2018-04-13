@@ -4,6 +4,12 @@ title: News
 
 # News
 
+## 1.1.0: 2018-04-13 {#version-1-1-0}
+
+### Fixes
+
+  * `rockspec`: Fix a bug that installation failed.
+
 ## 1.0.9: 2018-04-13 {#version-1-0-9}
 
 ### Improvements

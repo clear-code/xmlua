@@ -38,13 +38,13 @@ function converter.convert_xml_entity(raw_xml_entity)
 end
 
 local entity_types = {
-                       INTERNAL_ENTITY = 1,
-                       EXTERNAL_PARSED_ENTITY = 2,
-                       EXTERNAL_UNPARSED_ENTITY = 3,
-                       INTERNAL_PARAMETER_ENTITY = 4,
-                       EXTERNAL_PARAMETER_ENTITY = 5,
-                       INTERNAL_PREDEFINED_ENTITY = 6
-                     }
+  INTERNAL_ENTITY            = ffi.C.XML_INTERNAL_GENERAL_ENTITY,
+  EXTERNAL_PARSED_ENTITY     = ffi.C.XML_EXTERNAL_GENERAL_PARSED_ENTITY,
+  EXTERNAL_UNPARSED_ENTITY   = ffi.C.XML_EXTERNAL_GENERAL_UNPARSED_ENTITY,
+  INTERNAL_PARAMETER_ENTITY  = ffi.C.XML_INTERNAL_PARAMETER_ENTITY,
+  EXTERNAL_PARAMETER_ENTITY  = ffi.C.XML_EXTERNAL_PARAMETER_ENTITY,
+  INTERNAL_PREDEFINED_ENTITY = ffi.C.XML_INTERNAL_PREDEFINED_ENTITY,
+}
 
 function converter.convert_entity_type_name_to_number(name)
   return entity_types[name]

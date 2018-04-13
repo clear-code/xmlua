@@ -7,6 +7,7 @@ xmlua.XML = require("xmlua.xml")
 xmlua.HTML = require("xmlua.html")
 xmlua.HTMLSAXParser = require("xmlua.html-sax-parser")
 xmlua.XMLSAXParser = require("xmlua.xml-sax-parser")
+xmlua.XMLStreamSAXParser = require("xmlua.xml-stream-sax-parser")
 
 local Document = require("xmlua.document")
 Document.lazy_load()

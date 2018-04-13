@@ -47,7 +47,7 @@ function TestDocument.test_add_dtd_entity()
 <A></A>
 </root>
 ]]
-  local options = {parser_dtd_load = true}
+  local options = {load_dtd = true}
   local parser = xmlua.XMLSAXParser.new(options)
   local succeeded = parser:parse(xml)
   local document = parser.document

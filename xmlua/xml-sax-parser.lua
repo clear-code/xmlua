@@ -405,7 +405,7 @@ function XMLSAXParser.new(options)
     if options["is_pedantic"] then
       parser.context.pedantic = 1
     end
-    if options["parser_dtd_load"] then
+    if options["load_dtd"] then
       parser.context.loadsubset = ffi.C.XML_DETECT_IDS
     end
   end

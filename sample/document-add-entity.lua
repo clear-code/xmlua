@@ -46,7 +46,7 @@ local xml = [[
 </root>
 ]]
 
-local options = {parser_dtd_load = true}
+local options = {load_dtd = true}
 local parser = xmlua.XMLSAXParser.new(options)
 
 parser.start_element = function()

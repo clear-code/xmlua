@@ -41,10 +41,8 @@ parser.attribute_declaration = function(name,
     print("Default value type: " .. default_value_type)
     print("Default value: " .. default_value)
   end
-  if enumrated_values then
-    for _, v in pairs(enumrated_values) do
-      print("Enumrated value: " .. v)
-    end
+  for _, v in pairs(enumrated_values) do
+    print("Enumrated value: " .. v)
   end
 end
 parser.notation_declaration = function(name,

@@ -56,9 +56,7 @@ local function create_attribute_declaration_callback(user_callback)
 
     while raw_enumrated_value ~= ffi.NULL do
       table.insert(enumrated_value, to_string(raw_enumrated_value.name))
-      if raw_enumrated_value.next then
-        raw_enumrated_value = raw_enumrated_value.next
-      end
+      raw_enumrated_value = raw_enumrated_value.next
     end
 
     user_callback(to_string(raw_element_name),

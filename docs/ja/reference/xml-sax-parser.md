@@ -580,6 +580,69 @@ Entity type: 1
 Entity content: This is test.
 ```
 
+### `internal_subset`
+
+以下のようにコールバック関数を登録できます。
+
+```lua
+local listener = {}
+function listener:internal_subset(name, external_id, system_id)
+  -- 実行したいコード
+end
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+```
+
+内部サブセットをパースしたときに、登録した関数が呼び出されます。
+
+以下の例では、`<!DOCTYPE example[...]>`をパースした際に登録した関数が呼び出されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ENTITY test "This is test.">
+]>
+<example/>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local listener = {}
+function listener:internal_subset(name, external_id, system_id)
+  print("Internal subset name: " .. name)
+  if external_id ~= nil then
+    print("Internal subset external id: " .. external_id)
+  end
+  if system_id ~= nil then
+    print("Internal subset system id: " .. system_id)
+  end
+end
+
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Internal subset name: example
+```
+
 ### `processing_instruction`
 
 以下のようにコールバック関数を登録できます。

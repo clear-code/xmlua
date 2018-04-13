@@ -582,6 +582,69 @@ Entity type: 1
 Entity content: This is test.
 ```
 
+### `internal_subset`
+
+It registers user call back function as below.
+
+```lua
+local listener = {}
+function listener:internal_subset(name, external_id, system_id)
+  -- You want to execute code
+end
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+```
+
+Registered function is called, when parse internal subset.
+
+Registered function is called, when parse `<!DOCTYPE example[...]>` in below example.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE example [
+  <!ENTITY test "This is test.">
+]>
+<example/>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local xml = io.open("example.xml"):read("*all")
+
+-- Parses XML with SAX
+local listener = {}
+function listener:internal_subset(name, external_id, system_id)
+  print("Internal subset name: " .. name)
+  if external_id ~= nil then
+    print("Internal subset external id: " .. external_id)
+  end
+  if system_id ~= nil then
+    print("Internal subset system id: " .. system_id)
+  end
+end
+
+local parser = xmlua.XMLStreamSAXParser.new(listener)
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Internal subset name: example
+```
+
 ### `processing_instruction`
 
 It registers user call back function as below.

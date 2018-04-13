@@ -27,13 +27,35 @@ function converter.convert_xml_entity(raw_xml_entity)
     name = converter.to_string(raw_xml_entity.name),
     orig = converter.to_string(raw_xml_entity.orig),
     content = converter.to_string(raw_xml_entity.content),
-    entity_type = tonumber(raw_xml_entity.etype),
+    entity_type =
+      converter.convert_entity_type_number_to_name(tonumber(raw_xml_entity.etype)),
     external_id = converter.to_string(raw_xml_entity.ExternalID),
     system_id = converter.to_string(raw_xml_entity.SystemID),
     uri = converter.to_string(raw_xml_entity.URI),
     owner = tonumber(raw_xml_entity.owner),
     checked = tonumber(raw_xml_entity.checked),
   }
+end
+
+local entity_types = {
+                       INTERNAL_ENTITY = 1,
+                       EXTERNAL_PARSED_ENTITY = 2,
+                       EXTERNAL_UNPARSED_ENTITY = 3,
+                       INTERNAL_PARAMETER_ENTITY = 4,
+                       EXTERNAL_PARAMETER_ENTITY = 5,
+                       INTERNAL_PREDEFINED_ENTITY = 6
+                     }
+
+function converter.convert_entity_type_name_to_number(name)
+  return entity_types[name]
+end
+
+function converter.convert_entity_type_number_to_name(number)
+  for key, value in pairs(entity_types) do
+    if value == number then
+      return key
+    end
+  end
 end
 
 function converter.convert_element_content(raw_content)

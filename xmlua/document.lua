@@ -42,9 +42,11 @@ function methods.encoding(self)
 end
 
 function methods.add_entity(self, entity_info)
+  local entity_type =
+    converter.convert_entity_type_name_to_number(entity_info["entity_type"])
   return libxml2.xmlAddDocEntity(self.document,
                                  entity_info["name"],
-                                 entity_info["entity_type"],
+                                 entity_type,
                                  entity_info["external_id"],
                                  entity_info["system_id"],
                                  entity_info["content"])
@@ -56,9 +58,11 @@ function methods.get_entity(self, name)
 end
 
 function methods.add_dtd_entity(self, entity_info)
+  local entity_type =
+    converter.convert_entity_type_name_to_number(entity_info["entity_type"])
   return libxml2.xmlAddDtdEntity(self.document,
                                  entity_info["name"],
-                                 entity_info["entity_type"],
+                                 entity_type,
                                  entity_info["external_id"],
                                  entity_info["system_id"],
                                  entity_info["content"])

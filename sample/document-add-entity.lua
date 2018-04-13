@@ -17,13 +17,13 @@ parser.start_element = function()
   local entity = {
     name = "Sample",
   -- Entity type list
-  --   XML_INTERNAL_GENERAL_ENTITY = 1
-  --   XML_EXTERNAL_GENERAL_PARSED_ENTITY = 2
-  --   XML_EXTERNAL_GENERAL_UNPARSED_ENTITY = 3
-  --   XML_INTERNAL_PARAMETER_ENTITY = 4
-  --   XML_EXTERNAL_PARAMETER_ENTITY = 5
-  --   XML_INTERNAL_PREDEFINED_ENTITY = 6
-    entity_type = 1,
+  --   INTERNAL_ENTITY
+  --   EXTERNAL_PARSED_ENTITY
+  --   EXTERNAL_UNPARSED_ENTITY
+  --   INTERNAL_PARAMETER_ENTITY
+  --   EXTERNAL_PARAMETER_ENTITY
+  --   INTERNAL_PREDEFINED_ENTITY
+    entity_type = "INTERNAL_ENTITY",
     external_id = "-//W3C//DTD XHTML 1.0 Transitional//EN",
     system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
     content = "This is test."
@@ -51,13 +51,13 @@ parser.start_element = function()
   local entity = {
     name = "Sample",
   -- Entity type list
-  --   XML_INTERNAL_GENERAL_ENTITY = 1
-  --   XML_EXTERNAL_GENERAL_PARSED_ENTITY = 2
-  --   XML_EXTERNAL_GENERAL_UNPARSED_ENTITY = 3
-  --   XML_INTERNAL_PARAMETER_ENTITY = 4
-  --   XML_EXTERNAL_PARAMETER_ENTITY = 5
-  --   XML_INTERNAL_PREDEFINED_ENTITY = 6
-    entity_type = 1,
+  --   INTERNAL_ENTITY
+  --   EXTERNAL_PARSED_ENTITY
+  --   EXTERNAL_UNPARSED_ENTITY
+  --   INTERNAL_PARAMETER_ENTITY
+  --   EXTERNAL_PARAMETER_ENTITY
+  --   INTERNAL_PREDEFINED_ENTITY
+    entity_type = "INTERNAL_ENTITY",
     external_id = "-//W3C//DTD XHTML 1.0 Transitional//EN",
     system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
     content = "This is test."

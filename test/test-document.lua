@@ -16,7 +16,7 @@ function TestDocument.test_add_entity()
 
   local entity_info = {
     name = "Sample",
-    entity_type = ffi.C.XML_INTERNAL_GENERAL_ENTITY,
+    entity_type = "INTERNAL_ENTITY",
     external_id = "-//W3C//DTD XHTML 1.0 Transitional//EN",
     system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
     content = "This is test."
@@ -32,7 +32,7 @@ function TestDocument.test_add_entity()
                        },
                        {
                          "Sample",
-                         ffi.C.XML_INTERNAL_GENERAL_ENTITY,
+                         "INTERNAL_ENTITY",
                          "-//W3C//DTD XHTML 1.0 Transitional//EN",
                          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
                          "This is test."
@@ -54,7 +54,7 @@ function TestDocument.test_add_dtd_entity()
 
   local entity_info = {
     name = "Sample",
-    entity_type = ffi.C.XML_INTERNAL_GENERAL_ENTITY,
+    entity_type = "INTERNAL_ENTITY",
     external_id = "-//W3C//DTD XHTML 1.0 Transitional//EN",
     system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
     content = "This is test."
@@ -70,7 +70,7 @@ function TestDocument.test_add_dtd_entity()
                        },
                        {
                          "Sample",
-                         ffi.C.XML_INTERNAL_GENERAL_ENTITY,
+                         "INTERNAL_ENTITY",
                          "-//W3C//DTD XHTML 1.0 Transitional//EN",
                          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
                          "This is test."

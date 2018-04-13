@@ -146,7 +146,7 @@ local function create_sub_element(document, node, name, attributes)
   return element
 end
 
-function methods.append_text(self, value)
+function methods:append_text(value)
   local raw_text = libxml2.xmlNewText(value)
   local added_raw_text = libxml2.xmlAddChild(self.node, raw_text)
   if added_raw_text then
@@ -158,7 +158,7 @@ function methods.append_text(self, value)
   end
 end
 
-function methods.append_element(self, name, attributes)
+function methods:append_element(name, attributes)
   local sub_element = create_sub_element(self.document,
                                          self.node,
                                          name,
@@ -171,7 +171,7 @@ function methods.append_element(self, name, attributes)
   end
 end
 
-function methods.insert_element(self, position, name, attributes)
+function methods:insert_element(position, name, attributes)
   local base_element = libxml2.xmlFirstElementChild(self.node)
   for i = 1, position - 1 do
     if not base_element then
@@ -196,12 +196,12 @@ function methods.insert_element(self, position, name, attributes)
   end
 end
 
-function methods.unlink(self)
+function methods:unlink()
   local unlinked_node = Node.unlink(self)
   return Element.new(nil, unlinked_node)
 end
 
-function methods.get_attribute(self, name)
+function methods:get_attribute(name)
   local namespace_prefix, local_name = parse_name(name)
   if namespace_prefix == "xmlns" then
     local namespace = libxml2.xmlSearchNs(self.document, self.node, local_name)
@@ -231,7 +231,7 @@ function methods.get_attribute(self, name)
   end
 end
 
-function methods.set_attribute(self, name, value)
+function methods:set_attribute(name, value)
   if value == nil then
     return self:remove_attribute(name)
   end
@@ -274,7 +274,7 @@ function methods.set_attribute(self, name, value)
   end
 end
 
-function methods.remove_attribute(self, name)
+function methods:remove_attribute(name)
   local namespace_prefix, local_name = parse_name(name)
   local namespace
   if namespace_prefix == "xmlns" then
@@ -295,11 +295,11 @@ function methods.remove_attribute(self, name)
   end
 end
 
-function methods.name(self)
+function methods:name()
   return ffi.string(self.node.name)
 end
 
-function methods.previous(self)
+function methods:previous()
   local element = libxml2.xmlPreviousElementSibling(self.node)
   if not element then
     return nil
@@ -310,7 +310,7 @@ end
 --- Gets the next sibling element.
 -- @function next
 -- @return xmlua.Element: The next sibling element.
-function methods.next(self)
+function methods:next()
   local element = libxml2.xmlNextElementSibling(self.node)
   if not element then
     return nil
@@ -318,7 +318,7 @@ function methods.next(self)
   return Element.new(self.document, element)
 end
 
-function methods.parent(self)
+function methods:parent()
   if tonumber(self.node.parent.type) == ffi.C.XML_DOCUMENT_NODE then
     return Document.new(self.document)
   else
@@ -326,7 +326,7 @@ function methods.parent(self)
   end
 end
 
-function methods.children(self)
+function methods:children()
   local children = {}
   local child = libxml2.xmlFirstElementChild(self.node)
   while child do
@@ -336,7 +336,7 @@ function methods.children(self)
   return NodeSet.new(children)
 end
 
-function methods.text(self)
+function methods:text()
   return self:content()
 end
 

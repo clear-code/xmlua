@@ -23,7 +23,7 @@ local function save(target, flags, failure_message, options)
   return libxml2.xmlBufferGetContent(buffer)
 end
 
-function Serializable.to_html(self, options)
+function Serializable:to_html(options)
   return save(self,
               bit.bor(ffi.C.XML_SAVE_FORMAT,
                       ffi.C.XML_SAVE_NO_DECL,
@@ -33,7 +33,7 @@ function Serializable.to_html(self, options)
               options)
 end
 
-function Serializable.to_xml(self, options)
+function Serializable:to_xml(options)
   return save(self,
               bit.bor(ffi.C.XML_SAVE_FORMAT,
                       ffi.C.XML_SAVE_AS_XML),

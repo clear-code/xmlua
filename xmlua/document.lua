@@ -25,7 +25,7 @@ function metatable.__index(document, key)
     Searchable[key]
 end
 
-function methods.root(self)
+function methods:root()
   local root_element = libxml2.xmlDocGetRootElement(self.document)
   if not root_element then
     return nil
@@ -33,15 +33,15 @@ function methods.root(self)
   return Element.new(self.document, root_element)
 end
 
-function methods.parent(self)
+function methods:parent()
   return nil
 end
 
-function methods.encoding(self)
+function methods:encoding()
   return ffi.string(self.document.encoding)
 end
 
-function methods.add_entity(self, entity_info)
+function methods:add_entity(entity_info)
   local entity_type_name = entity_info["entity_type"]
   local entity_type = converter.convert_entity_type_name(entity_type_name)
   return libxml2.xmlAddDocEntity(self.document,
@@ -52,12 +52,12 @@ function methods.add_entity(self, entity_info)
                                  entity_info["content"])
 end
 
-function methods.get_entity(self, name)
+function methods:get_entity(name)
   local raw_entity = libxml2.xmlGetDocEntity(self.document, name)
   return converter.convert_xml_entity(raw_entity)
 end
 
-function methods.add_dtd_entity(self, entity_info)
+function methods:add_dtd_entity(entity_info)
   local entity_type_name = entity_info["entity_type"]
   local entity_type = converter.convert_entity_type_name(entity_type_name)
   return libxml2.xmlAddDtdEntity(self.document,
@@ -68,7 +68,7 @@ function methods.add_dtd_entity(self, entity_info)
                                  entity_info["content"])
 end
 
-function methods.get_dtd_entity(self, name)
+function methods:get_dtd_entity(name)
   local raw_dtd_entity = libxml2.xmlGetDtdEntity(self.document, name)
   return converter.convert_xml_entity(raw_dtd_entity)
 end

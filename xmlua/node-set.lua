@@ -21,7 +21,7 @@ local function map(values, func)
   return converted_values
 end
 
-function methods.to_xml(self, options)
+function methods:to_xml(options)
   return table.concat(map(self,
                           function(node)
                             return node:to_xml(options)
@@ -29,7 +29,7 @@ function methods.to_xml(self, options)
                       "")
 end
 
-function methods.to_html(self, options)
+function methods:to_html(options)
   return table.concat(map(self,
                           function(node)
                             return node:to_html(options)
@@ -37,7 +37,7 @@ function methods.to_html(self, options)
                       "")
 end
 
-function methods.search(self, xpath)
+function methods:search(xpath)
   local node_set = nil
   for _, node in ipairs(self) do
     if node_set == nil then
@@ -49,7 +49,7 @@ function methods.search(self, xpath)
   return node_set
 end
 
-function methods.css_select(self, css_selectors)
+function methods:css_select(css_selectors)
   local node_set = nil
   for _, node in ipairs(self) do
     if node_set == nil then
@@ -61,7 +61,7 @@ function methods.css_select(self, css_selectors)
   return node_set
 end
 
-function methods.content(self, xpath)
+function methods:content(xpath)
   return table.concat(map(self,
                           function(node)
                             return node:content() or ""
@@ -71,14 +71,14 @@ end
 
 methods.text = methods.content
 
-function methods.paths(self)
+function methods:paths()
   return map(self,
              function(node)
                return node:path()
              end)
 end
 
-function methods.insert(self, node_or_position, node)
+function methods:insert(node_or_position, node)
   local inserted_node = nil
   local position = nil
 
@@ -100,7 +100,7 @@ function methods.insert(self, node_or_position, node)
   end
 end
 
-function methods.remove(self, node_or_position)
+function methods:remove(node_or_position)
   if type(node_or_position) == "number" then
     local position = node_or_position
     return table.remove(self, position)
@@ -115,7 +115,7 @@ function methods.remove(self, node_or_position)
   end
 end
 
-function methods.unlink(self)
+function methods:unlink()
   for _, node in ipairs(self) do
     node:unlink()
   end
@@ -130,7 +130,7 @@ local function is_included(node_set, search_node)
   return false
 end
 
-function methods.merge(self, node_set)
+function methods:merge(node_set)
   local raw_node_set = {}
   for _, node in ipairs(self) do
     table.insert(raw_node_set, node)

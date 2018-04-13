@@ -42,7 +42,7 @@ local ERROR_MESSAGES = {
   [ffi.C.XPATH_FORBID_VARIABLE_ERROR]    = "Forbidden variable\n",
 }
 
-function Searchable.search(self, xpath)
+function Searchable:search(xpath)
   local document = self.document
   local context = libxml2.xmlXPathNewContext(document)
   if not context then
@@ -88,7 +88,7 @@ function Searchable.search(self, xpath)
   end
 end
 
-function Searchable.css_select(self, css_selector_groups)
+function Searchable:css_select(css_selector_groups)
   local xpaths = luacs.to_xpaths(css_selector_groups)
   local node_set = nil
   for _, xpath in ipairs(xpaths) do

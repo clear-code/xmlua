@@ -13,7 +13,12 @@ local xml = [[
 ]]
 
 local parser = xmlua.XMLSAXParser.new()
+local is_root = true
 parser.start_element = function()
+  if not is_root then
+    return
+  end
+
   local document = parser.document
   -- Setting information for add a entity
   local entity = {
@@ -29,6 +34,7 @@ parser.start_element = function()
     content = "This is test."
   }
   document:add_entity(entity)
+  is_root = false
 end
 parser.text = function(text)
   print(text) -- This is test.
@@ -48,8 +54,12 @@ local xml = [[
 
 local options = {load_dtd = true}
 local parser = xmlua.XMLSAXParser.new(options)
-
+local is_root = true
 parser.start_element = function()
+  if not is_root then
+    return
+  end
+
   local document = parser.document
   -- Setting information for add entity
   local entity = {
@@ -65,6 +75,7 @@ parser.start_element = function()
     content = "This is test."
   }
   document:add_dtd_entity(entity)
+  is_root = false
 end
 parser.text = function(text)
   print(text) -- This is test.

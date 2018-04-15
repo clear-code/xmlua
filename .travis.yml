@@ -28,6 +28,7 @@ matrix:
         - sudo luarocks install cqueues
             CRYPTO_DIR=$(brew --prefix openssl)
             OPENSSL_DIR=$(brew --prefix openssl)
+        - sudo luarocks install luautf8
         - sudo luarocks install luaunit
         - git clone --depth 1 https://github.com/clear-code/luacs.git ../luacs
       script:

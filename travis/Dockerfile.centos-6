@@ -7,6 +7,7 @@ RUN \
     gcc \
     git \
     libxml2 \
+    lua-devel \
     luajit \
     luajit-devel \
     luarocks \
@@ -18,6 +19,7 @@ RUN \
   luarocks install cqueues \
     CRYPTO_LIBDIR=/usr/lib64 \
     OPENSSL_LIBDIR=/usr/lib64 && \
+  luarocks install luautf8 && \
   mv /usr/lib/lua/5.1/* \
      /usr/lib64/lua/5.1/ && \
   luarocks install luaunit

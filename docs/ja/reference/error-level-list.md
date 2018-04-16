@@ -1,10 +1,10 @@
 ---
-title: xmlua.HTMLSAXParser.error.level
+title: SAXParser error level
 ---
 
-# `xmlua.HTMLSAXParser.error.level`値一覧
+# `xmlua.HTMLSAXParser.error.level`と`xmlua.XMLSAXParser.error.level`の値一覧
 
-`xmlua.HTMLSAXParser.error.level`は以下の値をとります。
+`xmlua.HTMLSAXParser.error.level`と`xmlua.XMLSAXParser.error.level`の値は以下の通りです。
 
 ```
 XML_ERR_NONE = 0

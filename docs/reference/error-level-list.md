@@ -1,10 +1,10 @@
 ---
-title: xmlua.HTMLSAXParser.error.level
+title: SAXParser error level
 ---
 
-# `xmlua.HTMLSAXParser.error.level` value list
+# `xmlua.HTMLSAXParser.error.level` and  `xmlua.XMLSAXParser.error.level` value list
 
-`xmlua.HTMLSAXParser.error.level` has values as below.
+`xmlua.HTMLSAXParser.error.level` and `xmlua.XMLSAXParser.error.level` have values as below.
 
 ```
 XML_ERR_NONE = 0

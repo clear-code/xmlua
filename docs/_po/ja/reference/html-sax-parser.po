@@ -58,8 +58,8 @@ msgstr ""
 "  * EndDocument\n"
 "  * Error"
 
-msgid "## Instance methods"
-msgstr ""
+msgid "## Class methods"
+msgstr "## クラスメソッド"
 
 msgid "### `xmlua.HTMLSAXParser.new() -> HTMLSAXParser` {#new}"
 msgstr ""
@@ -71,7 +71,7 @@ msgid "You can make object of `xmlua.HTMLSAXParser` class as below example."
 msgstr "以下の例のように、`xmlua.HTMLSAXParser`クラスのオブジェクトを作成できます。"
 
 msgid "Example:"
-msgstr ""
+msgstr "例："
 
 msgid ""
 "```lua\n"
@@ -83,14 +83,14 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "## Methods"
-msgstr ""
+msgid "## Instance methods"
+msgstr "## インスタンスメソッド"
 
-msgid "### `xmlua.HTMLSAXParser.parse(html) -> boolean` {#parse}"
+msgid "### `parse(html) -> boolean` {#parse}"
 msgstr ""
 
 msgid "`html`: HTML string to be parsed."
-msgstr ""
+msgstr "`html`: パース対象のHTML文字列。"
 
 msgid ""
 "It parses the given HTML.\n"
@@ -110,11 +110,21 @@ msgid ""
 "</html>\n"
 "]]"
 msgstr ""
+"-- パース対象のHTML\n"
+"local html = [[\n"
+"<html>\n"
+"  <body>\n"
+"    <p>Hello</p>\n"
+"  </body>\n"
+"</html>\n"
+"]]"
 
 msgid ""
 "-- If you want to parse text in a file,\n"
 "-- you need to read file content by yourself."
 msgstr ""
+"-- ファイル内のテキストをパースしたい場合は\n"
+"-- 自分でファイルの内容を読み込む必要があります。"
 
 msgid "-- local html = io.open(\"example.html\"):read(\"*all\")"
 msgstr ""
@@ -138,7 +148,7 @@ msgstr ""
 "end\n"
 "```"
 
-msgid "### `xmlua.HTMLSAXParser.finish() -> boolean` {#finish}"
+msgid "### `finish() -> boolean` {#finish}"
 msgstr ""
 
 msgid "It finishes parse HTML with SAX."
@@ -177,7 +187,7 @@ msgstr ""
 msgid "## Property"
 msgstr "## プロパティ"
 
-msgid "### `xmlua.HTMLSAXParser.start_document`"
+msgid "### `start_document`"
 msgstr ""
 
 msgid "It registers user call back function as below."
@@ -236,7 +246,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.end_document`"
+msgid "### `end_document`"
 msgstr ""
 
 msgid ""
@@ -273,7 +283,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.processing_instruction`"
+msgid "### `processing_instruction`"
 msgstr ""
 
 msgid ""
@@ -334,7 +344,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.cdata_block`"
+msgid "### `cdata_block`"
 msgstr ""
 
 msgid ""
@@ -390,7 +400,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.ignorable_whitespace`"
+msgid "### `ignorable_whitespace`"
 msgstr ""
 
 msgid ""
@@ -441,7 +451,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.comment`"
+msgid "### `comment`"
 msgstr ""
 
 msgid ""
@@ -492,7 +502,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.start_element`"
+msgid "### `start_element`"
 msgstr ""
 
 msgid "You can get name and attributes of elements as argument of your call back."
@@ -563,7 +573,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.end_element`"
+msgid "### `end_element`"
 msgstr ""
 
 msgid "You can get name of elements as argument of your call back."
@@ -597,7 +607,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.text`"
+msgid "### `text`"
 msgstr ""
 
 msgid "You can get text of text element as argument of your call back."
@@ -636,7 +646,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `xmlua.HTMLSAXParser.error`"
+msgid "### `error`"
 msgstr ""
 
 msgid ""

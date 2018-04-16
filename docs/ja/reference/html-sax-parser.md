@@ -24,7 +24,7 @@ SAXは、DOMと異なりドキュメントを一行ずつパースし、DOMは�
   * EndDocument
   * Error
 
-## インスタンスメソッド
+## クラスメソッド
 
 ### `xmlua.HTMLSAXParser.new() -> HTMLSAXParser` {#new}
 
@@ -32,7 +32,7 @@ HTMLSAXParser オブジェクトを作成します。
 
 以下の例のように、`xmlua.HTMLSAXParser`クラスのオブジェクトを作成できます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -40,15 +40,15 @@ local xmlua = require("xmlua")
 local parser = xmlua.HTMLSAXParser.new()
 ```
 
-## メソッド
+## インスタンスメソッド
 
-### `xmlua.HTMLSAXParser.parse(html) -> boolean` {#parse}
+### `parse(html) -> boolean` {#parse}
 
 `html`: パース対象のHTML文字列。
 
 与えられたHTMLをパースします。HTMLのパースが成功した場合は、このメソッドはtrueを返します。HTMLのパースに失敗した場合は、falseを返します。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -76,7 +76,7 @@ if not success then
 end
 ```
 
-### `xmlua.HTMLSAXParser.finish() -> boolean` {#finish}
+### `finish() -> boolean` {#finish}
 
 SAXを使ったHTMLのパースを終了します。
 
@@ -84,7 +84,7 @@ SAXを使ったHTMLのパースを終了します。
 
 このメソッドを呼ばないと、`EndDocument`のイベントは発生しません。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -116,7 +116,7 @@ parser:finish()
 
 ## プロパティ
 
-### `xmlua.HTMLSAXParser.start_document`
+### `start_document`
 
 以下のようにコールバック関数を登録できます。
 
@@ -131,7 +131,7 @@ document要素のパースを開始したときに、登録した関数が呼び
 
 以下の例だと、`<html>`をパースしたときに、登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -170,7 +170,7 @@ parser:finish()
 Start document
 ```
 
-### `xmlua.HTMLSAXParser.end_document`
+### `end_document`
 
 以下のようにコールバック関数を登録できます。
 
@@ -185,7 +185,7 @@ end
 
 以下の例では、`parser:finish()`を実行したときに登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -224,7 +224,7 @@ parser:finish()
 End document
 ```
 
-### `xmlua.HTMLSAXParser.processing_instruction`
+### `processing_instruction`
 
 以下のようにコールバック関数を登録できます。
 
@@ -241,7 +241,7 @@ Processing Instruction要素が解析されたときに、登録したコール�
 
 以下の例では、`<?target This is PI>`をパースした際に登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -283,7 +283,7 @@ Processing instruction target: target
 Processing instruction data: This is PI
 ```
 
-### `xmlua.HTMLSAXParser.cdata_block`
+### `cdata_block`
 
 以下のようにコールバック関数を登録できます。
 
@@ -300,7 +300,7 @@ script要素をパースしたときに、登録した関数が呼び出され�
 
 以下の例では、`<script>alert(\"Hello world!\")</script>`をパースしたときに、登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -340,7 +340,7 @@ parser:finish()
 CDATA block: alert(\"Hello world!\")
 ```
 
-### `xmlua.HTMLSAXParser.ignorable_whitespace`
+### `ignorable_whitespace`
 
 以下のようにコールバック関数を登録できます。
 
@@ -355,7 +355,7 @@ end
 
 無視できる空白をパースしたときに、登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -393,7 +393,7 @@ Ignorable whitespace: "
 "
 ```
 
-### `xmlua.HTMLSAXParser.comment`
+### `comment`
 
 以下のようにコールバック関数を登録できます。
 
@@ -408,7 +408,7 @@ end
 
 HTMLのコメントをパースしたときに、登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -448,7 +448,7 @@ parser:finish()
 Comment:  This is comment.
 ```
 
-### `xmlua.HTMLSAXParser.start_element`
+### `start_element`
 
 以下のようにコールバック関数を登録できます。
 
@@ -463,7 +463,7 @@ end
 
 要素をパースしたときに、登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -523,7 +523,7 @@ Start element: body
 Start element: p
 ```
 
-### `xmlua.HTMLSAXParser.end_element`
+### `end_element`
 
 以下のようにコールバック関数を登録できます。
 
@@ -538,7 +538,7 @@ end
 
 要素の終わりをパースしたときに、登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -580,7 +580,7 @@ End element: body
 End element: html
 ```
 
-### `xmlua.HTMLSAXParser.text`
+### `text`
 
 以下のようにコールバック関数を登録できます。
 
@@ -595,7 +595,7 @@ end
 
 `text`要素をパースしたときに、登録した関数が呼び出されます。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")
@@ -631,7 +631,7 @@ parser:finish()
 Text: Hello
 ```
 
-### `xmlua.HTMLSAXParser.error`
+### `error`
 
 以下のようにコールバック関数を登録できます。
 
@@ -662,7 +662,7 @@ end
 
 `level`の値は、[`Error level 一覧`][error-level-list]に定義されています。
 
-例:
+例：
 
 ```lua
 local xmlua = require("xmlua")

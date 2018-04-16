@@ -26,7 +26,7 @@ Call back event list:
   * EndDocument
   * Error
 
-## Instance methods
+## Class methods
 
 ### `xmlua.HTMLSAXParser.new() -> HTMLSAXParser` {#new}
 
@@ -42,9 +42,9 @@ local xmlua = require("xmlua")
 local parser = xmlua.HTMLSAXParser.new()
 ```
 
-## Methods
+## Instance methods
 
-### `xmlua.HTMLSAXParser.parse(html) -> boolean` {#parse}
+### `parse(html) -> boolean` {#parse}
 
 `html`: HTML string to be parsed.
 
@@ -79,7 +79,7 @@ if not success then
 end
 ```
 
-### `xmlua.HTMLSAXParser.finish() -> boolean` {#finish}
+### `finish() -> boolean` {#finish}
 
 It finishes parse HTML with SAX.
 
@@ -119,7 +119,7 @@ parser:finish()
 
 ## Property
 
-### `xmlua.HTMLSAXParser.start_document`
+### `start_document`
 
 It registers user call back function as below.
 
@@ -173,7 +173,7 @@ Result of avobe example as blow.
 Start document
 ```
 
-### `xmlua.HTMLSAXParser.end_document`
+### `end_document`
 
 It registers user call back function as below.
 
@@ -227,7 +227,7 @@ Result of avobe example as blow.
 End document
 ```
 
-### `xmlua.HTMLSAXParser.processing_instruction`
+### `processing_instruction`
 
 It registers user call back function as below.
 
@@ -286,7 +286,7 @@ Processing instruction target: target
 Processing instruction data: This is PI
 ```
 
-### `xmlua.HTMLSAXParser.cdata_block`
+### `cdata_block`
 
 It registers user call back function as below.
 
@@ -343,7 +343,7 @@ Result of avobe example as blow.
 CDATA block: alert(\"Hello world!\")
 ```
 
-### `xmlua.HTMLSAXParser.ignorable_whitespace`
+### `ignorable_whitespace`
 
 It registers user call back function as below.
 
@@ -396,7 +396,7 @@ Ignorable whitespace: "
 "
 ```
 
-### `xmlua.HTMLSAXParser.comment`
+### `comment`
 
 It registers user call back function as below.
 
@@ -451,7 +451,7 @@ Result of avobe example as blow.
 Comment:  This is comment.
 ```
 
-### `xmlua.HTMLSAXParser.start_element`
+### `start_element`
 
 It registers user call back function as below.
 
@@ -526,7 +526,7 @@ Start element: body
 Start element: p
 ```
 
-### `xmlua.HTMLSAXParser.end_element`
+### `end_element`
 
 It registers user call back function as below.
 
@@ -583,7 +583,7 @@ End element: body
 End element: html
 ```
 
-### `xmlua.HTMLSAXParser.text`
+### `text`
 
 It registers user call back function as below.
 
@@ -634,7 +634,7 @@ Result of avobe example as blow.
 Text: Hello
 ```
 
-### `xmlua.HTMLSAXParser.error`
+### `error`
 
 It registers user call back function as below.
 

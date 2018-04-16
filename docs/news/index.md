@@ -4,6 +4,14 @@ title: News
 
 # News
 
+## 1.1.1: 2018-04-16 {#version-1-1-1}
+
+### Fixes
+
+  * `xmlua.Document`: Fix bug that `add_entity` returns `xmlEntity` of libxml2.
+
+  * `xmlua.Document`: Fix bug that `add_dtd_entity` returns `xmlEntity` of libxml2.
+
 ## 1.1.0: 2018-04-13 {#version-1-1-0}
 
 ### Fixes

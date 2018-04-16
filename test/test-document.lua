@@ -21,21 +21,39 @@ function TestDocument.test_add_entity()
     system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
     content = "This is test."
   }
-  document:add_entity(entity_info)
+  local added_entity = document:add_entity(entity_info)
   local entity = document:get_entity("Sample")
   luaunit.assertEquals({
-                         entity["name"],
-                         entity["entity_type"],
-                         entity["external_id"],
-                         entity["system_id"],
-                         entity["content"],
+                         {
+                           entity["name"],
+                           entity["entity_type"],
+                           entity["external_id"],
+                           entity["system_id"],
+                           entity["content"],
+                         },
+                         {
+                           added_entity["name"],
+                           added_entity["entity_type"],
+                           added_entity["external_id"],
+                           added_entity["system_id"],
+                           added_entity["content"],
+                         }
                        },
                        {
-                         "Sample",
-                         "INTERNAL_ENTITY",
-                         "-//W3C//DTD XHTML 1.0 Transitional//EN",
-                         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
-                         "This is test."
+                         {
+                           "Sample",
+                           "INTERNAL_ENTITY",
+                           "-//W3C//DTD XHTML 1.0 Transitional//EN",
+                           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
+                           "This is test."
+                         },
+                         {
+                           "Sample",
+                           "INTERNAL_ENTITY",
+                           "-//W3C//DTD XHTML 1.0 Transitional//EN",
+                           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
+                           "This is test."
+                         }
                        })
 end
 
@@ -59,21 +77,39 @@ function TestDocument.test_add_dtd_entity()
     system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
     content = "This is test."
   }
-  document:add_dtd_entity(entity_info)
-  local entity = document:get_dtd_entity("Sample")
+  local added_entity = document:add_entity(entity_info)
+  local entity = document:get_entity("Sample")
   luaunit.assertEquals({
-                         entity["name"],
-                         entity["entity_type"],
-                         entity["external_id"],
-                         entity["system_id"],
-                         entity["content"],
+                         {
+                           entity["name"],
+                           entity["entity_type"],
+                           entity["external_id"],
+                           entity["system_id"],
+                           entity["content"],
+                         },
+                         {
+                           added_entity["name"],
+                           added_entity["entity_type"],
+                           added_entity["external_id"],
+                           added_entity["system_id"],
+                           added_entity["content"],
+                         }
                        },
                        {
-                         "Sample",
-                         "INTERNAL_ENTITY",
-                         "-//W3C//DTD XHTML 1.0 Transitional//EN",
-                         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
-                         "This is test."
+                         {
+                           "Sample",
+                           "INTERNAL_ENTITY",
+                           "-//W3C//DTD XHTML 1.0 Transitional//EN",
+                           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
+                           "This is test."
+                         },
+                         {
+                           "Sample",
+                           "INTERNAL_ENTITY",
+                           "-//W3C//DTD XHTML 1.0 Transitional//EN",
+                           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
+                           "This is test."
+                         }
                        })
 end
 

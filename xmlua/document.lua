@@ -44,12 +44,13 @@ end
 function methods:add_entity(entity_info)
   local entity_type_name = entity_info["entity_type"]
   local entity_type = converter.convert_entity_type_name(entity_type_name)
-  return libxml2.xmlAddDocEntity(self.document,
-                                 entity_info["name"],
-                                 entity_type,
-                                 entity_info["external_id"],
-                                 entity_info["system_id"],
-                                 entity_info["content"])
+  local raw_entity = libxml2.xmlAddDocEntity(self.document,
+                                             entity_info["name"],
+                                             entity_type,
+                                             entity_info["external_id"],
+                                             entity_info["system_id"],
+                                             entity_info["content"])
+  return converter.convert_xml_entity(raw_entity)
 end
 
 function methods:get_entity(name)
@@ -60,12 +61,13 @@ end
 function methods:add_dtd_entity(entity_info)
   local entity_type_name = entity_info["entity_type"]
   local entity_type = converter.convert_entity_type_name(entity_type_name)
-  return libxml2.xmlAddDtdEntity(self.document,
-                                 entity_info["name"],
-                                 entity_type,
-                                 entity_info["external_id"],
-                                 entity_info["system_id"],
-                                 entity_info["content"])
+  local raw_dtd_entity =  libxml2.xmlAddDtdEntity(self.document,
+                                              entity_info["name"],
+                                              entity_type,
+                                              entity_info["external_id"],
+                                              entity_info["system_id"],
+                                              entity_info["content"])
+  return converter.convert_xml_entity(raw_dtd_entity)
 end
 
 function methods:get_dtd_entity(name)

@@ -41,7 +41,6 @@ end
 
 function converter.convert_xml_entity(raw_xml_entity)
   return {
-    entity_type = tonumber(raw_xml_entity.type),
     name = converter.to_string(raw_xml_entity.name),
     original = converter.to_string(raw_xml_entity.orig),
     content = converter.to_string(raw_xml_entity.content),

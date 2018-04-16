@@ -39,7 +39,7 @@ SAXは、DOMと異なりドキュメントを一行ずつパースし、DOMは�
 
 XMLSAXParser オブジェクトを作成します。
 
-以下の例のように、`xmlua.HTMLSAXParser`クラスのオブジェクトを作成できます。
+以下の例のように、`xmlua.XMLSAXParser`クラスのオブジェクトを作成できます。
 
 例：
 
@@ -181,7 +181,7 @@ parser.end_document = function()
 end
 ```
 
-`xmlua.HTMLSAXParser.parser.finish`が呼ばれたときに、登録したコールバック関数が呼び出されます。
+`xmlua.XMLSAXParser.parser.finish`が呼ばれたときに、登録したコールバック関数が呼び出されます。
 
 以下の例では、`parser:finish()`を実行したときに登録した関数が呼び出されます。
 
@@ -198,14 +198,14 @@ local xml = [[
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
 local parser = xmlua.XMLSAXParser.new()
 parser.end_document = function()
   print("End document")
 end
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
@@ -794,7 +794,7 @@ local xml = [[
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
 local parser = xmlua.XMLSAXParser.new()
@@ -802,7 +802,7 @@ parser.processing_instruction = function(target, data_list)
   print("Processing instruction target: "..target)
   print("Processing instruction data: "..data_list)
 end
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
@@ -851,14 +851,14 @@ local xml = [=[
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
 local parser = xmlua.XMLSAXParser.new()
 parser.cdata_block = function(cdata_block)
   print("CDATA block: "..cdata_block)
 end
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
@@ -904,14 +904,14 @@ local xml = [[
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
 local parser = xmlua.XMLSAXParser.new()
 parser.ignorable_whitespace = function(ignorable_whitespace)
   print("Ignorable whitespace: ".."\""..ignorable_whitespace.."\"")
 end
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
@@ -958,14 +958,14 @@ local xml = [[
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
 local parser = xmlua.XMLSAXParser.new()
 parser.comment = function(comment)
   print("Comment: "..comment)
 end
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
@@ -1015,7 +1015,7 @@ local xml = [[
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- Parses XML with SAX
 local parser = xmlua.XMLSAXParser.new()
@@ -1057,7 +1057,7 @@ parser.start_element = function(local_name,
   end
 end
 
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
@@ -1172,7 +1172,7 @@ local xml = [[
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- Parses XML with SAX
 local parser = xmlua.XMLSAXParser.new()
@@ -1180,7 +1180,7 @@ parser.text = function(text)
   print("Text: " .. text)
 end
 
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
@@ -1225,7 +1225,7 @@ local xmlua = require("xmlua")
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
 local parser = xmlua.XMLSAXParser.new()
@@ -1233,7 +1233,7 @@ parser.warning = function(message)
   print("Warning message: " .. message)
 end
 
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)
@@ -1274,7 +1274,7 @@ local xmlua = require("xmlua")
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
 local parser = xmlua.XMLSAXParser.new()
@@ -1337,14 +1337,14 @@ end
 local xmlua = require("xmlua")
 
 -- XML to be parsed
-local html = [[
+local xml = [[
 <>
 ]]
 
 -- ファイル内のテキストをパースしたい場合は
 -- 自分でファイルの内容を読み込む必要があります。
 
--- local html = io.open("example.html"):read("*all")
+-- local xml = io.open("example.xml"):read("*all")
 
 -- Parses XML with SAX
 local parser = xmlua.XMLSAXParser.new()
@@ -1356,7 +1356,7 @@ parser.error = function(error)
   print("Error line   : " .. error.line)
 end
 
-local success = parser:parse(html)
+local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
   os.exit(1)

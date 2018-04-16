@@ -30,6 +30,10 @@ XMLuaは以下のクラスを提供します。
 
   * [`xmlua.XML`][xml]: XMLをパースするクラスです。
 
+  * [`xmlua.XMLSAXParser`][xml-sax-parser]: XMLのSAXパーサークラスです。
+
+  * [`xmlua.XMLStreamSAXParser`][xml-stream-sax-parser]: 同じファイル内に複数のルート要素を持つXML用のSAXパーサークラスです。
+
   * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。
@@ -53,6 +57,10 @@ XMLuaは以下のクラスを提供します。
 [html-sax-parser]:html-sax-parser.html
 
 [xml]:xml.html
+
+[xml-sax-parser]:xml-sax-parser.html
+
+[xml-stream-sax-parser]:xml-stream-sax-parser.html
 
 [element]:element.html
 

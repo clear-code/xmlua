@@ -69,6 +69,16 @@ msgstr "  * [`xmlua.HTMLSAXParser`][html-sax-parser]: HTML のSAXパーサーク
 msgid "  * [`xmlua.XML`][xml]: The class for parsing XML."
 msgstr "  * [`xmlua.XML`][xml]: XMLをパースするクラスです。"
 
+msgid "  * [`xmlua.XMLSAXParser`][xml-sax-parser]: The class for XML SAX parsing."
+msgstr "  * [`xmlua.XMLSAXParser`][xml-sax-parser]: XMLのSAXパーサークラスです。"
+
+msgid ""
+"  * [`xmlua.XMLStreamSAXParser`][xml-stream-sax-parser]: The class for XML SAX"
+" parsing with multiple root elements in same file."
+msgstr ""
+"  * [`xmlua.XMLStreamSAXParser`][xml-stream-sax-parser]: 同じファイル内に複数のルート要素を持つXM"
+"L用のSAXパーサークラスです。"
+
 msgid ""
 "  * [`xmlua.Document`][document]: The class for HTML document and XML document"
 "."
@@ -110,6 +120,12 @@ msgid "[html-sax-parser]:html-sax-parser.html"
 msgstr ""
 
 msgid "[xml]:xml.html"
+msgstr ""
+
+msgid "[xml-sax-parser]:xml-sax-parser.html"
+msgstr ""
+
+msgid "[xml-stream-sax-parser]:xml-stream-sax-parser.html"
 msgstr ""
 
 msgid "[element]:element.html"

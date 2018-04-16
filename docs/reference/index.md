@@ -30,6 +30,10 @@ XMLua provides the following classes:
 
   * [`xmlua.XML`][xml]: The class for parsing XML.
 
+  * [`xmlua.XMLSAXParser`][xml-sax-parser]: The class for XML SAX parsing.
+
+  * [`xmlua.XMLStreamSAXParser`][xml-stream-sax-parser]: The class for XML SAX parsing with multiple root elements in same file.
+
   * [`xmlua.Document`][document]: The class for HTML document and XML document.
 
   * [`xmlua.Element`][element]: The class for element node.
@@ -53,6 +57,10 @@ You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` directly
 [html-sax-parser]:html-sax-parser.html
 
 [xml]:xml.html
+
+[xml-sax-parser]:xml-sax-parser.html
+
+[xml-stream-sax-parser]:xml-stream-sax-parser.html
 
 [element]:element.html
 

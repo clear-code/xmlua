@@ -587,11 +587,12 @@ Entity content: This is test.
 It registers user call back function as below.
 
 ```lua
-local listener = {}
-function listener:internal_subset(name, external_id, system_id)
+local parser = xmlua.XMLSAXParser.new()
+parser.internal_subset = function(name,
+                                  external_id,
+                                  system_id)
   -- You want to execute code
 end
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 ```
 
 Registered function is called, when parse internal subset.
@@ -618,8 +619,10 @@ local xml = [[
 -- local xml = io.open("example.xml"):read("*all")
 
 -- Parses XML with SAX
-local listener = {}
-function listener:internal_subset(name, external_id, system_id)
+local parser = xmlua.XMLSAXParser.new()
+parser.internal_subset = function(name,
+                                  external_id,
+                                  system_id)
   print("Internal subset name: " .. name)
   if external_id ~= nil then
     print("Internal subset external id: " .. external_id)
@@ -628,8 +631,6 @@ function listener:internal_subset(name, external_id, system_id)
     print("Internal subset system id: " .. system_id)
   end
 end
-
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
@@ -650,11 +651,12 @@ Internal subset name: example
 It registers user call back function as below.
 
 ```lua
-local listener = {}
-function listener:external_subset(name, external_id, system_id)
+local parser = xmlua.XMLSAXParser.new()
+parser.external_subset = function(name,
+                                  external_id,
+                                  system_id)
   -- You want to execute code
 end
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 ```
 
 Registered function is called, when parse external subset.
@@ -680,8 +682,10 @@ local xml = [[
 -- local xml = io.open("example.xml"):read("*all")
 
 -- Parses XML with SAX
-local listener = {}
-function listener:external_subset(name, external_id, system_id)
+local parser = xmlua.XMLSAXParser.new()
+parser.external_subset = function(name,
+                                  external_id,
+                                  system_id)
   print("External subset name: " .. name)
   if external_id ~= nil then
     print("External subset external id: " .. external_id)
@@ -690,8 +694,6 @@ function listener:external_subset(name, external_id, system_id)
     print("External subset system id: " .. system_id)
   end
 end
-
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
@@ -714,11 +716,10 @@ External subset system id: http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.d
 It registers user call back function as below.
 
 ```lua
-local listener = {}
-function listener:reference(entity_name)
+local parser = xmlua.XMLSAXParser.new()
+parser.reference = function(entity_name)
   -- You want to execute code
 end
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 ```
 
 Registered function is called, when parse reference.
@@ -745,12 +746,10 @@ local xml = [[
 -- local xml = io.open("example.xml"):read("*all")
 
 -- Parses XML with SAX
-local listener = {}
-function listener:reference(entity_name)
+local parser = xmlua.XMLSAXParser.new()
+parser.reference = function(entity_name)
   print("Reference entity name: " .. entity_name)
 end
-
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")

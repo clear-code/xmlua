@@ -585,11 +585,12 @@ Entity content: This is test.
 以下のようにコールバック関数を登録できます。
 
 ```lua
-local listener = {}
-function listener:internal_subset(name, external_id, system_id)
+local parser = xmlua.XMLSAXParser.new()
+parser.internal_subset = function(name,
+                                  external_id,
+                                  system_id)
   -- 実行したいコード
 end
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 ```
 
 内部サブセットをパースしたときに、登録した関数が呼び出されます。
@@ -616,8 +617,10 @@ local xml = [[
 -- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
-local listener = {}
-function listener:internal_subset(name, external_id, system_id)
+local parser = xmlua.XMLSAXParser.new()
+parser.internal_subset = function(name,
+                                  external_id,
+                                  system_id)
   print("Internal subset name: " .. name)
   if external_id ~= nil then
     print("Internal subset external id: " .. external_id)
@@ -626,8 +629,6 @@ function listener:internal_subset(name, external_id, system_id)
     print("Internal subset system id: " .. system_id)
   end
 end
-
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
@@ -648,11 +649,12 @@ Internal subset name: example
 以下のようにコールバック関数を登録できます。
 
 ```lua
-local listener = {}
-function listener:external_subset(name, external_id, system_id)
+local parser = xmlua.XMLSAXParser.new()
+parser.external_subset = function(name,
+                                  external_id,
+                                  system_id)
   -- 実行したいコード
 end
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 ```
 
 外部サブセットをパースしたときに、登録した関数が呼び出されます。
@@ -678,8 +680,10 @@ local xml = [[
 -- local xml = io.open("example.xml"):read("*all")
 
 -- SAXを使ってXMLをパースする。
-local listener = {}
-function listener:external_subset(name, external_id, system_id)
+local parser = xmlua.XMLSAXParser.new()
+parser.external_subset = function(name,
+                                  external_id,
+                                  system_id)
   print("External subset name: " .. name)
   if external_id ~= nil then
     print("External subset external id: " .. external_id)
@@ -688,8 +692,6 @@ function listener:external_subset(name, external_id, system_id)
     print("External subset system id: " .. system_id)
   end
 end
-
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")
@@ -712,11 +714,10 @@ External subset system id: http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.d
 以下のようにコールバック関数を登録できます。
 
 ```lua
-local listener = {}
-function listener:reference(entity_name)
+local parser = xmlua.XMLSAXParser.new()
+parser.reference = function(entity_name)
   -- 実行したいコード
 end
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 ```
 
 参照をパースしたときに、登録した関数が呼び出されます。
@@ -742,13 +743,11 @@ local xml = [[
 
 -- local xml = io.open("example.xml"):read("*all")
 
--- Parses XML with SAX
-local listener = {}
-function listener:reference(entity_name)
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.reference = function(entity_name)
   print("Reference entity name: " .. entity_name)
 end
-
-local parser = xmlua.XMLStreamSAXParser.new(listener)
 local success = parser:parse(xml)
 if not success then
   print("Failed to parse XML with SAX")

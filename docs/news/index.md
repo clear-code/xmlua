@@ -178,7 +178,7 @@ title: News
 
   * Fixed package.
 
-## 1.0.1: 2017-12-04 {#version-1-0-2}
+## 1.0.1: 2017-12-04 {#version-1-0-1}
 
 ### Improvements
 

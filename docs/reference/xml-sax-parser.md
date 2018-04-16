@@ -1199,6 +1199,111 @@ Text:
 Text: Hello World
 ```
 
+### `warning`
+
+It registers user call back function as below.
+
+You can get warning messages of parse XML with SAX as argument of your call back.
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.warning = function(message)
+  -- You want to execute code
+end
+```
+
+Registered function is called when occurring warning by parsing xml.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+  local xml = [[
+<?xml version="1.0"?>
+<?xmlo ?>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.warning = function(message)
+  print("Warning message: " .. message)
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+"xmlParsePITarget: invalid name prefix 'xml'\n"
+```
+
+Some warning are output only when `xmlParserCtxt.pedantic` is enable.
+To output, those warnings, use `is_pedantic` as follows.
+
+```lua
+parser.is_pedantic = true
+```
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [
+<!ENTITY test "This is test.">
+<!ENTITY test "This is test.">
+]>
+<root>
+       <data>&test;</data>
+</root>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+-- Parses XML with SAX
+local parser = xmlua.XMLSAXParser.new()
+parser.is_pedantic = true
+parser.warning = function(message)
+  print("Warning message: " .. message)
+  print("Pedantic :", parser.is_pedantic)
+end
+
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+Warning message: Entity(test) already defined in the internal subset
+Pedantic :	true
+```
+
 ### `error`
 
 It registers user call back function as below.

@@ -1197,6 +1197,110 @@ Text:
 Text: Hello World
 ```
 
+### `warning`
+
+以下のようにコールバック関数を登録できます。
+
+コールバック関数の引数として、警告メッセージを取得できます。
+
+```lua
+local parser = xmlua.XMLSAXParser.new()
+parser.warning = function(message)
+  -- 実行したいコード
+end
+```
+
+登録した関数は、xmlの解析中に警告が発生した時に呼ばれます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+  local xml = [[
+<?xml version="1.0"?>
+<?xmlo ?>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.warning = function(message)
+  print("Warning message: " .. message)
+end
+
+local success = parser:parse(html)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+"xmlParsePITarget: invalid name prefix 'xml'\n"
+```
+
+いくつかの警告は、`xmlParserCtxt.pedantic`が有効なときのみ出力されます。これらの警告を出力するためには、`is_pedantic`を以下のように使用します。
+
+```lua
+parser.is_pedantic = true
+```
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [
+<!ENTITY test "This is test.">
+<!ENTITY test "This is test.">
+]>
+<root>
+       <data>&test;</data>
+</root>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+-- SAXを使ってXMLをパースする。
+local parser = xmlua.XMLSAXParser.new()
+parser.is_pedantic = true
+parser.warning = function(message)
+  print("Warning message: " .. message)
+  print("Pedantic :", parser.is_pedantic)
+end
+
+local success = parser:parse(xml)
+if not success then
+  print("Failed to parse XML with SAX")
+  os.exit(1)
+end
+
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+Warning message: Entity(test) already defined in the internal subset
+Pedantic :	true
+```
+
 ### `error`
 
 以下のようにコールバック関数を登録できます。

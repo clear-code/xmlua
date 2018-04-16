@@ -1,10 +1,10 @@
 ---
-title: xmlua.HTMLSAXParser.error.domain
+title: SAXParser error domain
 ---
 
-# `xmlua.HTMLSAXParser.error.domain`値一覧
+# `xmlua.HTMLSAXParser.error.domain`と`xmlua.XMLSAXParser.error.domain`の値一覧
 
-`xmlua.HTMLSAXParser.error.domain`は以下の値をとります。
+`xmlua.HTMLSAXParser.error.domain`と`xmlua.XMLSAXParser`の値は以下の通りです。
 
 ```
 XML_FROM_NONE = 0

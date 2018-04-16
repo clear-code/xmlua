@@ -79,6 +79,80 @@ local document = xmlua.XML.parse("<root><sub/></root>")
 document:parent() -- -> nil
 ```
 
+### `add_entity(entity) -> {name, original, content, entity_type, external_id, system_id, uri, owner, checked}` {#add_entity}
+
+ドキュメントに追加したエンティティを返します。`add_entity`の引数は以下のようなLuaのテーブルです。名前、エンティティタイプ、公開識別子、外部ファイル名、エンティティの内容を指定できます。
+
+```lua
+local entity_info = {
+  name = "Sample",
+  entity_type = "INTERNAL_ENTITY",
+  external_id = "-//W3C//DTD XHTML 1.0 Transitional//EN",
+  system_id = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
+  content = "This is test."
+}
+```
+
+以下の例のように、XML解析前にエンティティを登録することができます。これにより、既にあるエンティティを置き換える事ができます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+-- パースするXML
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root [
+]>
+<root>
+  &Sample;
+<root/>
+]]
+
+-- ファイル内のテキストをパースしたい場合は
+-- 自分でファイルの内容を読み込む必要があります。
+
+-- local html = io.open("example.html"):read("*all")
+
+local parser = xmlua.XMLSAXParser.new()
+local is_root = true
+parser.start_element = function()
+  if not is_root then
+    return
+  end
+
+  local document = parser.document
+  -- Setting information for add a entity
+  local entity = {
+    name = "Sample",
+    -- Entity type list
+    --   INTERNAL_ENTITY
+    --   EXTERNAL_PARSED_ENTITY
+    --   EXTERNAL_UNPARSED_ENTITY
+    --   INTERNAL_PARAMETER_ENTITY
+    --   EXTERNAL_PARAMETER_ENTITY
+    --   INTERNAL_PREDEFINED_ENTITY
+    entity_type = "INTERNAL_ENTITY",
+    content = "This is test."
+  }
+  document:add_entity(entity)
+  is_root = false
+end
+parser.text = function(text)
+  print(text) -- This is test.
+end
+
+parser:parse(xml)
+parser:finish()
+```
+
+上記の例の結果は以下のようになります。
+
+```
+This is test.
+```
+
 ## 参照
 
   * [`xmlua.HTML`][html]: HTMLをパースするクラスです。

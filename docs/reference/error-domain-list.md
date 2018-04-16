@@ -4,7 +4,7 @@ title: SAXParser error domain
 
 # `xmlua.HTMLSAXParser.error.domain` and `xmlua.XMLSAXParser.error.domain` value list
 
-`xmlua.HTMLSAXParser.error.domain` and  `xmlua.XMLSAXParser` have values as below.
+`xmlua.HTMLSAXParser.error.domain` and  `xmlua.XMLSAXParser.error.domain` have values as below.
 
 ```
 XML_FROM_NONE = 0

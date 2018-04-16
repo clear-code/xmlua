@@ -19,9 +19,9 @@ msgid ""
 msgstr "# `xmlua.HTMLSAXParser.error.code`と`xmlua.XMLSAXParser.error.code`の値一覧"
 
 msgid ""
-"`xmlua.HTMLSAXParser.error.code` and `xmlua.XMLSAXParser` have values as below"
-"."
-msgstr "`xmlua.HTMLSAXParser.error.code`と`xmlua.XMLSAXParser`の値は以下の通りです。"
+"`xmlua.HTMLSAXParser.error.code` and `xmlua.XMLSAXParser.error.code` have valu"
+"es as below."
+msgstr "`xmlua.HTMLSAXParser.error.code`と`xmlua.XMLSAXParser.error.code`の値は以下の通りです。"
 
 msgid ""
 "```\n"

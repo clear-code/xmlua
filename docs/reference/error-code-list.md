@@ -4,7 +4,7 @@ title: SAXParser error codes
 
 # `xmlua.HTMLSAXParser.error.code` and `xmlua.XMLSAXParser.error.code` value list
 
-`xmlua.HTMLSAXParser.error.code` and `xmlua.XMLSAXParser` have values as below.
+`xmlua.HTMLSAXParser.error.code` and `xmlua.XMLSAXParser.error.code` have values as below.
 
 ```
 XML_ERR_OK = 0

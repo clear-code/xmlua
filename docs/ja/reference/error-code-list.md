@@ -4,7 +4,7 @@ title: SAXParser error codes
 
 # `xmlua.HTMLSAXParser.error.code`と`xmlua.XMLSAXParser.error.code`の値一覧
 
-`xmlua.HTMLSAXParser.error.code`と`xmlua.XMLSAXParser`の値は以下の通りです。
+`xmlua.HTMLSAXParser.error.code`と`xmlua.XMLSAXParser.error.code`の値は以下の通りです。
 
 ```
 XML_ERR_OK = 0

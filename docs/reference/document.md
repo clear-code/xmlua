@@ -156,6 +156,89 @@ Result of avobe example as blow.
 This is test.
 ```
 
+### `add_dtd_entity(entity) -> {name, original, content, entity_type, external_id, system_id, uri, owner, checked}` {#add_dtd_entity}
+
+It returns the entity added to a external subset of document.
+Argument of `add_dtd_entity` is Lua's table as below.
+You can specify the name and the entity_type, the external_id, the system_id, content of an entity you want to add.
+
+```lua
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "./sample/sample.dtd">
+<root>
+  &Sample;
+</root>
+]]
+```
+
+You can register an entity before XML parsing as the below example.
+Thereby you can replace the existing reference entity, add reference.
+Also, you need to setting option of `XMLSAXParser` as below, to you register an entity to external subset.
+
+```lua
+local options = {load_dtd = true}
+local parser = xmlua.XMLSAXParser.new(options)
+```
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+-- XML to be parsed
+local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root [
+]>
+<root>
+  &Sample;
+<root/>
+]]
+
+-- If you want to parse text in a file,
+-- you need to read file content by yourself.
+
+-- local html = io.open("example.html"):read("*all")
+
+local options = {load_dtd = true}
+local parser = xmlua.XMLSAXParser.new(options)
+local is_root = true
+parser.start_element = function()
+  if not is_root then
+    return
+  end
+
+  local document = parser.document
+  -- Setting information for add entity
+  local entity = {
+    name = "Sample",
+    -- Entity type list
+    --   INTERNAL_ENTITY
+    --   EXTERNAL_PARSED_ENTITY
+    --   EXTERNAL_UNPARSED_ENTITY
+    --   INTERNAL_PARAMETER_ENTITY
+    --   EXTERNAL_PARAMETER_ENTITY
+    --   INTERNAL_PREDEFINED_ENTITY
+    entity_type = "INTERNAL_ENTITY",
+    content = "This is test."
+  }
+  document:add_dtd_entity(entity)
+  is_root = false
+end
+parser.text = function(text)
+  print(text) -- This is test.
+end
+parser:parse(xml)
+parser:finish()
+```
+
+Result of avobe example as blow.
+
+```
+This is test.
+```
+
 ## See also
 
   * [`xmlua.HTML`][html]: The class for parsing HTML.

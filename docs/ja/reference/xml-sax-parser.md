@@ -105,9 +105,9 @@ end
 
 SAXを使ったXMLのパースを終了します。
 
-`xmlua.XMLSAXParser.parse`を使ってパースを開始した場合は、パース完了後にこのメソッドを呼ぶ必要があります。
+[`parse`][parse]を使ってパースを開始した場合は、パース完了後にこのメソッドを呼ぶ必要があります。
 
-このメソッドを呼ばないと、`EndDocument`のイベントは発生しません。
+このメソッドを呼ばないと、[`end_document`][xml-sax-parser-end-document]イベントは発生しません。
 
 例：
 
@@ -200,7 +200,7 @@ parser.end_document = function()
 end
 ```
 
-`xmlua.XMLSAXParser.parser.finish`が呼ばれたときに、登録したコールバック関数が呼び出されます。
+Registered function is called, when call `xmlua.XMLSAXParser.finish`.
 
 以下の例では、`parser:finish()`を実行したときに登録した関数が呼び出されます。
 
@@ -1415,6 +1415,8 @@ Failed to parse XML with SAX
 [xml-sax-parser-text]:#text
 [xml-sax-parser-warning]:#warning
 [xml-sax-parser-error]:#error
+
+[parse]:#parse
 
 [error-domain-list]:error-domain-list.html
 [error-code-list]:error-code-list.html

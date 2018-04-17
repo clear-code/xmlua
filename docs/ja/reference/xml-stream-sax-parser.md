@@ -12,26 +12,45 @@ title: xmlua.XMLStreamSAXParser
 
 `XMLSAXParser`と同じように、以下のイベント発生時に呼び出されるコールバックメソッドを登録できます。
 
-コールバックイベント一覧:
-  * StartDocument
-  * ElementDeclaration
-  * AttributeDeclaration
-  * UnparsedEntityDeclaration
-  * NotationDeclaration
-  * EntityDeclaration
-  * InternalSubset
-  * ExternalSubset
-  * CdataBlock
-  * Comment
-  * ProcessingInstruction
-  * IgnorableWhitespace
-  * Text
-  * Reference
-  * StartElement
-  * EndElement
-  * Warning
-  * Error
-  * EndDocument
+コールバックイベント一覧：
+
+  * [`start_document`][xml-sax-parser-start-document]
+
+  * [`end_document`][xml-sax-parser-end-document]
+
+  * [`element_declaration`][xml-sax-parser-element-declaration]
+
+  * [`attribute_declaration`][xml-sax-parser-attribute-declaration]
+
+  * [`notation_declaration`][xml-sax-parser-notation-declaration]
+
+  * [`unparsed_entity_declaration`][xml-sax-parser-unparsed-entity-declaration]
+
+  * [`entity_declaration`][xml-sax-parser-entity-declaration]
+
+  * [`internal_subset`][xml-sax-parser-internal-subset]
+
+  * [`external_subset`][xml-sax-parser-external-subset]
+
+  * [`reference`][xml-sax-parser-reference]
+
+  * [`processing_instruction`][xml-sax-parser-processing-instruction]
+
+  * [`cdata_block`][xml-sax-parser-cdata-block]
+
+  * [`ignorable_whitespace`][xml-sax-parser-ignorable-whitespace]
+
+  * [`comment`][xml-sax-parser-comment]
+
+  * [`start_element`][xml-sax-parser-start-element]
+
+  * [`end_element`][xml-sax-parser-end-element]
+
+  * [`text`][xml-sax-parser-text]
+
+  * [`warning`][xml-sax-parser-warning]
+
+  * [`error`][xml-sax-parser-error]
 
 コールバックメソッドの登録方法は、以下のように`listener`(`listener`はLuaのテーブルです。)にコールバックメソッドを追加して、`XMLStreamSAXParser`の引数に与えます。
 
@@ -125,6 +144,28 @@ end
 
 SAXを使ったXMLのパースを終了します。
 
-`xmlua.XMLStreamSAXParser.parse`を使ってパースを開始した場合は、パース完了後にこのメソッドを呼ぶ必要があります。
+[`parse`][parse]を使ってパースを開始した場合は、パース完了後にこのメソッドを呼ぶ必要があります。
 
-このメソッドを呼ばないと、`EndDocument`のイベントは発生しません。
+このメソッドを呼ばないと、最後のドキュメント用の[`end_document`][xml-sax-parser-end-document]イベントは発生しないかもしれません。
+
+[xml-sax-parser-start-document]:xml-sax-parser.html#start-document
+[xml-sax-parser-end-document]:xml-sax-parser.html#end-document
+[xml-sax-parser-element-declaration]:xml-sax-parser.html#element-declaration
+[xml-sax-parser-attribute-declaration]:xml-sax-parser.html#attribute-declaration
+[xml-sax-parser-notation-declaration]:xml-sax-parser.html#notation-declaration
+[xml-sax-parser-unparsed-entity-declaration]:xml-sax-parser.html#unparsed-entity-declaration
+[xml-sax-parser-entity-declaration]:xml-sax-parser.html#entity-declaration
+[xml-sax-parser-internal-subset]:xml-sax-parser.html#internal-subset
+[xml-sax-parser-external-subset]:xml-sax-parser.html#external-subset
+[xml-sax-parser-reference]:xml-sax-parser.html#reference
+[xml-sax-parser-processing-instruction]:xml-sax-parser.html#processing-instruction
+[xml-sax-parser-cdata-block]:xml-sax-parser.html#cdata-block
+[xml-sax-parser-ignorable-whitespace]:xml-sax-parser.html#ignorable-whitespace
+[xml-sax-parser-comment]:xml-sax-parser.html#comment
+[xml-sax-parser-start-element]:xml-sax-parser.html#start-element
+[xml-sax-parser-end-element]:xml-sax-parser.html#end-element
+[xml-sax-parser-text]:xml-sax-parser.html#text
+[xml-sax-parser-warning]:xml-sax-parser.html#warning
+[xml-sax-parser-error]:xml-sax-parser.html#error
+
+[parse]:#parse

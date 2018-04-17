@@ -108,9 +108,9 @@ end
 
 It finishes parse XML with SAX.
 
-If you started parse with `xmlua.XMLSAXParser.parse`, you should call this method.
+If you started parse with [`parse`][parse], you should call this method.
 
-If you don't call this method, `EndDocument` event isn't occure.
+If you don't call this method, [`end_document`][xml-sax-parser-end-document] event isn't occurred.
 
 Example:
 
@@ -202,7 +202,7 @@ parser.end_document = function()
 end
 ```
 
-Registered function is called, when call `xmlua.XMLSAXParser.parser.finish`.
+Registered function is called, when call `xmlua.XMLSAXParser.finish`.
 
 Registered function is called, when parse `parser:finish()` in below example.
 
@@ -1422,6 +1422,8 @@ Failed to parse XML with SAX
 [xml-sax-parser-text]:#text
 [xml-sax-parser-warning]:#warning
 [xml-sax-parser-error]:#error
+
+[parse]:#parse
 
 [error-domain-list]:error-domain-list.html
 [error-code-list]:error-code-list.html

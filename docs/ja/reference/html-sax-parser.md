@@ -12,17 +12,28 @@ SAXは、DOMと異なりドキュメントを一行ずつパースし、DOMは�
 
 このクラスを使って、以下のイベントが起こった際に呼ばれるコールバックメソッドを登録できます。
 
-コールバックイベント一覧:
-  * StartDocument
-  * ProcessingInstruction
-  * CdataBlock
-  * IgnorableWhitespace
-  * Comment
-  * StartElement
-  * EndElement
-  * Text
-  * EndDocument
-  * Error
+コールバックイベント一覧：
+
+  * [`start_document`][html-sax-parser-start-document]
+
+  * [`end_document`][html-sax-parser-end-document]
+
+  * [`processing_instruction`][html-sax-parser-processing-instruction]
+
+  * [`cdata_block`][html-sax-parser-cdata-block]
+
+  * [`ignorable_whitespace`][html-sax-parser-ignorable-whitespace]
+
+  * [`comment`][html-sax-parser-comment]
+
+  * [`start_element`][html-sax-parser-start-element]
+
+  * [`end_element`][html-sax-parser-end-element]
+
+  * [`text`][html-sax-parser-text]
+
+  * [`error`][html-sax-parser-error]
+
 
 ## クラスメソッド
 
@@ -80,9 +91,9 @@ end
 
 SAXを使ったHTMLのパースを終了します。
 
-`xmlua.HTMLSAXParser.parse`を使ってパースを開始した場合は、パース完了後にこのメソッドを呼ぶ必要があります。
+[`parse`][parse]を使ってパースを開始した場合は、パース完了後にこのメソッドを呼ぶ必要があります。
 
-このメソッドを呼ばないと、`EndDocument`のイベントは発生しません。
+このメソッドを呼ばないと、[`end_document`][html-sax-parser-end-document]イベントは発生しません。
 
 例：
 
@@ -116,7 +127,7 @@ parser:finish()
 
 ## プロパティ
 
-### `start_document`
+### `start_document` {#start-document}
 
 以下のようにコールバック関数を登録できます。
 
@@ -170,7 +181,7 @@ parser:finish()
 Start document
 ```
 
-### `end_document`
+### `end_document` {#end-document}
 
 以下のようにコールバック関数を登録できます。
 
@@ -181,7 +192,7 @@ parser.end_document = function()
 end
 ```
 
-`xmlua.HTMLSAXParser.parser.finish`が呼ばれたときに、登録したコールバック関数が呼び出されます。
+[`finish`][finish]が呼ばれたときに、登録したコールバック関数が呼び出されます。
 
 以下の例では、`parser:finish()`を実行したときに登録した関数が呼び出されます。
 
@@ -224,7 +235,7 @@ parser:finish()
 End document
 ```
 
-### `processing_instruction`
+### `processing_instruction` {#processing-instruction}
 
 以下のようにコールバック関数を登録できます。
 
@@ -283,7 +294,7 @@ Processing instruction target: target
 Processing instruction data: This is PI
 ```
 
-### `cdata_block`
+### `cdata_block` {#cdata-block}
 
 以下のようにコールバック関数を登録できます。
 
@@ -340,7 +351,7 @@ parser:finish()
 CDATA block: alert(\"Hello world!\")
 ```
 
-### `ignorable_whitespace`
+### `ignorable_whitespace` {#ignorable-whitespace}
 
 以下のようにコールバック関数を登録できます。
 
@@ -393,7 +404,7 @@ Ignorable whitespace: "
 "
 ```
 
-### `comment`
+### `comment` {#comment}
 
 以下のようにコールバック関数を登録できます。
 
@@ -448,7 +459,7 @@ parser:finish()
 Comment:  This is comment.
 ```
 
-### `start_element`
+### `start_element` {#start-element}
 
 以下のようにコールバック関数を登録できます。
 
@@ -523,7 +534,7 @@ Start element: body
 Start element: p
 ```
 
-### `end_element`
+### `end_element` {#end-element}
 
 以下のようにコールバック関数を登録できます。
 
@@ -580,7 +591,7 @@ End element: body
 End element: html
 ```
 
-### `text`
+### `text` {#text}
 
 以下のようにコールバック関数を登録できます。
 
@@ -631,7 +642,7 @@ parser:finish()
 Text: Hello
 ```
 
-### `error`
+### `error` {#error}
 
 以下のようにコールバック関数を登録できます。
 
@@ -708,7 +719,20 @@ Error line   : 1
 Failed to parse HTML with SAX
 ```
 
+[html-sax-parser-start-document]:#start-document
+[html-sax-parser-end-document]:#end-document
+[html-sax-parser-processing-instruction]:#processing-instruction
+[html-sax-parser-cdata-block]:#cdata-block
+[html-sax-parser-ignorable-whitespace]:#ignorable-whitespace
+[html-sax-parser-comment]:#comment
+[html-sax-parser-start-element]:#start-element
+[html-sax-parser-end-element]:#end-element
+[html-sax-parser-text]:#text
+[html-sax-parser-error]:#error
+
+[parse]:#parse
+[finish]:#finish
+
 [error-domain-list]:error-domain-list.html
 [error-code-list]:error-code-list.html
 [error-level-list]:error-level-list.html
-

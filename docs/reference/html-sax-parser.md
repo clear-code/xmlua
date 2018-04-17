@@ -15,16 +15,27 @@ So, SAX can parse documents with much less memory and fast.
 You can register your callback method which call when occured events below.
 
 Call back event list:
-  * StartDocument
-  * ProcessingInstruction
-  * CdataBlock
-  * IgnorableWhitespace
-  * Comment
-  * StartElement
-  * EndElement
-  * Text
-  * EndDocument
-  * Error
+
+  * [`start_document`][html-sax-parser-start-document]
+
+  * [`end_document`][html-sax-parser-end-document]
+
+  * [`processing_instruction`][html-sax-parser-processing-instruction]
+
+  * [`cdata_block`][html-sax-parser-cdata-block]
+
+  * [`ignorable_whitespace`][html-sax-parser-ignorable-whitespace]
+
+  * [`comment`][html-sax-parser-comment]
+
+  * [`start_element`][html-sax-parser-start-element]
+
+  * [`end_element`][html-sax-parser-end-element]
+
+  * [`text`][html-sax-parser-text]
+
+  * [`error`][html-sax-parser-error]
+
 
 ## Class methods
 
@@ -83,9 +94,9 @@ end
 
 It finishes parse HTML with SAX.
 
-If you started parse with `xmlua.HTMLSAXParser.parse`, you should call this method.
+If you started parse with [`parse`][parse], you should call this method.
 
-If you don't call this method, `EndDocument` event isn't occure.
+If you don't call this method, [`end_document`][html-sax-parser-end-document] event isn't occurred.
 
 Example:
 
@@ -119,7 +130,7 @@ parser:finish()
 
 ## Property
 
-### `start_document`
+### `start_document` {#start-document}
 
 It registers user call back function as below.
 
@@ -173,7 +184,7 @@ Result of avobe example as blow.
 Start document
 ```
 
-### `end_document`
+### `end_document` {#end-document}
 
 It registers user call back function as below.
 
@@ -184,7 +195,7 @@ parser.end_document = function()
 end
 ```
 
-Registered function is called, when call `xmlua.HTMLSAXParser.parser.finish`.
+Registered function is called, when call [`finish`][finish].
 
 Registered function is called, when parse `parser:finish()` in below example.
 
@@ -227,7 +238,7 @@ Result of avobe example as blow.
 End document
 ```
 
-### `processing_instruction`
+### `processing_instruction` {#processing-instruction}
 
 It registers user call back function as below.
 
@@ -286,7 +297,7 @@ Processing instruction target: target
 Processing instruction data: This is PI
 ```
 
-### `cdata_block`
+### `cdata_block` {#cdata-block}
 
 It registers user call back function as below.
 
@@ -343,7 +354,7 @@ Result of avobe example as blow.
 CDATA block: alert(\"Hello world!\")
 ```
 
-### `ignorable_whitespace`
+### `ignorable_whitespace` {#ignorable-whitespace}
 
 It registers user call back function as below.
 
@@ -396,7 +407,7 @@ Ignorable whitespace: "
 "
 ```
 
-### `comment`
+### `comment` {#comment}
 
 It registers user call back function as below.
 
@@ -451,7 +462,7 @@ Result of avobe example as blow.
 Comment:  This is comment.
 ```
 
-### `start_element`
+### `start_element` {#start-element}
 
 It registers user call back function as below.
 
@@ -526,7 +537,7 @@ Start element: body
 Start element: p
 ```
 
-### `end_element`
+### `end_element` {#end-element}
 
 It registers user call back function as below.
 
@@ -583,7 +594,7 @@ End element: body
 End element: html
 ```
 
-### `text`
+### `text` {#text}
 
 It registers user call back function as below.
 
@@ -634,7 +645,7 @@ Result of avobe example as blow.
 Text: Hello
 ```
 
-### `error`
+### `error` {#error}
 
 It registers user call back function as below.
 
@@ -715,7 +726,20 @@ Error line   : 1
 Failed to parse HTML with SAX
 ```
 
+[html-sax-parser-start-document]:#start-document
+[html-sax-parser-end-document]:#end-document
+[html-sax-parser-processing-instruction]:#processing-instruction
+[html-sax-parser-cdata-block]:#cdata-block
+[html-sax-parser-ignorable-whitespace]:#ignorable-whitespace
+[html-sax-parser-comment]:#comment
+[html-sax-parser-start-element]:#start-element
+[html-sax-parser-end-element]:#end-element
+[html-sax-parser-text]:#text
+[html-sax-parser-error]:#error
+
+[parse]:#parse
+[finish]:#finish
+
 [error-domain-list]:error-domain-list.html
 [error-code-list]:error-code-list.html
 [error-level-list]:error-level-list.html
-

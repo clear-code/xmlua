@@ -178,7 +178,7 @@ local doc_tree = {
     }
   }
 }
--- テーブルから新規にドキュメントを作成
+-- テーブルから新規にドキュメントを作成。
 local document = xmlua.HTML.build(doc_tree)
 print(document:to_html())
 -- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">

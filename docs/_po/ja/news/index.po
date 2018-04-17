@@ -19,10 +19,115 @@ msgstr ""
 msgid "# News"
 msgstr "# おしらせ"
 
-msgid "## 1.0.5: 2018-03-30 {#version-1-0-5}"
+msgid "## 1.1.1: 2018-04-16 {#version-1-1-1}"
+msgstr ""
+
+msgid "### Fixes"
+msgstr ""
+
+msgid ""
+"  * `xmlua.Document`: Fix bug that `add_entity` returns `xmlEntity` of libxml2"
+"."
+msgstr ""
+
+msgid ""
+"  * `xmlua.Document`: Fix bug that `add_dtd_entity` returns `xmlEntity` of lib"
+"xml2."
+msgstr ""
+
+msgid "## 1.1.0: 2018-04-13 {#version-1-1-0}"
+msgstr ""
+
+msgid "  * `rockspec`: Fix a bug that installation failed."
+msgstr ""
+
+msgid "## 1.0.9: 2018-04-13 {#version-1-0-9}"
 msgstr ""
 
 msgid "### Improvements"
+msgstr ""
+
+msgid "  * `xmlua.XMLSAXParser`: Added supported events:"
+msgstr ""
+
+msgid "    * `start_document`"
+msgstr ""
+
+msgid "    * `end_document`"
+msgstr ""
+
+msgid "    * `start_element`"
+msgstr ""
+
+msgid "    * `end_element`"
+msgstr ""
+
+msgid "    * `element declaration`"
+msgstr ""
+
+msgid "    * `attribute declaration`"
+msgstr ""
+
+msgid "    * `unparsed entity declaration`"
+msgstr ""
+
+msgid "    * `notation declaration`"
+msgstr ""
+
+msgid "    * `entity declaration`"
+msgstr ""
+
+msgid "    * `internal subset`"
+msgstr ""
+
+msgid "    * `external subset`"
+msgstr ""
+
+msgid "    * `comment`"
+msgstr ""
+
+msgid "    * `text`"
+msgstr ""
+
+msgid "    * `reference`"
+msgstr ""
+
+msgid "    * `ignorable_whitespace`"
+msgstr ""
+
+msgid "    * `cdata_block`"
+msgstr ""
+
+msgid "    * `processing_instruction`"
+msgstr ""
+
+msgid "    * `warning`"
+msgstr ""
+
+msgid "    * `error`"
+msgstr ""
+
+msgid "  * `xmlua.HTMLSAXParser`: Added supported events:"
+msgstr ""
+
+msgid "## 1.0.8: 2018-04-03 {#version-1-0-8}"
+msgstr ""
+
+msgid "## 1.0.7: 2018-04-03 {#version-1-0-7}"
+msgstr ""
+
+msgid "  * `xmlua.HTML.build()`: Added."
+msgstr ""
+
+msgid "## 1.0.6: 2018-04-02 {#version-1-0-6}"
+msgstr ""
+
+msgid ""
+"  * `xmlua.Element:insert_element()`: Fixed a bug that\n"
+"    `insert_element(1)` with empty element raises an error."
+msgstr ""
+
+msgid "## 1.0.5: 2018-03-30 {#version-1-0-5}"
 msgstr ""
 
 msgid "  * `xmlua.NodeSet:insert()`: Added."
@@ -64,33 +169,9 @@ msgstr ""
 msgid "  * Experimental: `xmlua.HTMLSAXParser`: Added supported events:"
 msgstr ""
 
-msgid "    * `start_document`"
-msgstr ""
-
-msgid "    * `end_document`"
-msgstr ""
-
-msgid "    * `comment`"
-msgstr ""
-
-msgid "    * `ignorable_whitespace`"
-msgstr ""
-
-msgid "    * `cdata_block`"
-msgstr ""
-
-msgid "    * `processing_instruction`"
-msgstr ""
-
 msgid ""
 "  * Experimental: `xmlua.HTMLSAXParser`: Removed needless namespace informatio"
 "n from the following events."
-msgstr ""
-
-msgid "    * `start_element`"
-msgstr ""
-
-msgid "    * `end_element`"
 msgstr ""
 
 msgid "  * Experimental: `xmlua.XMLSAXParser`: Added."
@@ -111,9 +192,6 @@ msgstr ""
 msgid "  * Experimental: `xmlua.HTMLSAXParser`: Added."
 msgstr ""
 
-msgid "### Fixes"
-msgstr ""
-
 msgid "  * Fixed a memory leak for parsing XML."
 msgstr ""
 
@@ -126,7 +204,7 @@ msgstr ""
 msgid "  * Fixed package."
 msgstr ""
 
-msgid "## 1.0.1: 2017-12-04 {#version-1-0-2}"
+msgid "## 1.0.1: 2017-12-04 {#version-1-0-1}"
 msgstr ""
 
 msgid "  * `xmlua.HTML.parse()`: Changed to parse HTML rough."

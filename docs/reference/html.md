@@ -139,7 +139,7 @@ If you give tabel as below, it returns document tree.
     ...,
     ["Attribute name n"] = "Attribute value n",
   },
-  -- 3rd element is child node
+  -- 3rd element is child node.
   "Text node1", -- If this element is a string, this element is a text node.
   {                 -- If this element is a table, this element is an element node.
     "Child node name1",
@@ -150,7 +150,7 @@ If you give tabel as below, it returns document tree.
       ["Attribute name n"] = "Attribute value n",
     },
   }
-  "Text ndoe2",
+  "Text node2",
   ...
 }
 ```
@@ -185,12 +185,12 @@ print(document:to_html())
 -- <html></html>
 ```
 
-You can also specify the external subset of DTD with system id or public id as below.
+You can also specify the external subset of DTD with system ID or public ID as below.
 
 Example:
 
 ```lua
--- Specify external subset with system id
+-- Specify external subset with system ID
 local uri = "file:///usr/local/share/test.dtd"
 tree = {"html"}
 document = xmlua.HTML.build(tree, uri)
@@ -199,7 +199,7 @@ print(document:to_html())
 -- <html></html>
 
 
--- Specify external subset with public id
+-- Specify external subset with public ID
 local uri = "http://www.w3.org/TR/html4/strict.dtd"
 local public_id = "-//W3C//DTD HTML 4.01//EN"
 tree = {"html"}

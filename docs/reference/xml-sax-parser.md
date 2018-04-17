@@ -15,25 +15,44 @@ So, SAX can parse documents with much less memory and fast.
 You can register your callback method which call when occured events below.
 
 Call back event list:
-  * StartDocument
-  * ElementDeclaration
-  * AttributeDeclaration
-  * UnparsedEntityDeclaration
-  * NotationDeclaration
-  * EntityDeclaration
-  * InternalSubset
-  * ExternalSubset
-  * CdataBlock
-  * Comment
-  * ProcessingInstruction
-  * IgnorableWhitespace
-  * Text
-  * Reference
-  * StartElement
-  * EndElement
-  * Warning
-  * Error
-  * EndDocument
+
+  * [`start_document`][xml-sax-parser-start-document]
+
+  * [`end_document`][xml-sax-parser-end-document]
+
+  * [`element_declaration`][xml-sax-parser-element-declaration]
+
+  * [`attribute_declaration`][xml-sax-parser-attribute-declaration]
+
+  * [`notation_declaration`][xml-sax-parser-notation-declaration]
+
+  * [`unparsed_entity_declaration`][xml-sax-parser-unparsed-entity-declaration]
+
+  * [`entity_declaration`][xml-sax-parser-entity-declaration]
+
+  * [`internal_subset`][xml-sax-parser-internal-subset]
+
+  * [`external_subset`][xml-sax-parser-external-subset]
+
+  * [`reference`][xml-sax-parser-reference]
+
+  * [`processing_instruction`][xml-sax-parser-processing-instruction]
+
+  * [`cdata_block`][xml-sax-parser-cdata-block]
+
+  * [`ignorable_whitespace`][xml-sax-parser-ignorable-whitespace]
+
+  * [`comment`][xml-sax-parser-comment]
+
+  * [`start_element`][xml-sax-parser-start-element]
+
+  * [`end_element`][xml-sax-parser-end-element]
+
+  * [`text`][xml-sax-parser-text]
+
+  * [`warning`][xml-sax-parser-warning]
+
+  * [`error`][xml-sax-parser-error]
 
 ## Class methods
 
@@ -122,7 +141,7 @@ parser:finish()
 
 ## Property
 
-### `start_document`
+### `start_document` {#start-document}
 
 It registers user call back function as below.
 
@@ -172,7 +191,7 @@ Result of avobe example as blow.
 Start document
 ```
 
-### `end_document`
+### `end_document` {#end-document}
 
 It registers user call back function as below.
 
@@ -222,7 +241,7 @@ Result of avobe example as blow.
 End document
 ```
 
-### `element_declaration`
+### `element_declaration` {#element-declaration}
 
 It registers user call back function as below.
 
@@ -302,7 +321,7 @@ Content:
     name: C
 ```
 
-### `attribute_declaration`
+### `attribute_declaration` {#attribute-declaration}
 
 It registers user call back function as below.
 
@@ -379,7 +398,7 @@ Enumrated value: yes
 Enumrated value: no
 ```
 
-### `notation_declaration`
+### `notation_declaration` {#notation-declaration}
 
 It registers user call back function as below.
 
@@ -443,7 +462,7 @@ Notation name: test
 Notation system id: Test
 ```
 
-### `unparsed_entity_declaration`
+### `unparsed_entity_declaration` {#unparsed-entity-declaration}
 
 It registers user call back function as below.
 
@@ -511,7 +530,7 @@ Unparserd entity system id: file:///usr/local/share/test.gif
 Unparserd entity notation_name: gif
 ```
 
-### `entity_declaration`
+### `entity_declaration` {#entity-declaration}
 
 It registers user call back function as below.
 
@@ -582,7 +601,7 @@ Entity type: 1
 Entity content: This is test.
 ```
 
-### `internal_subset`
+### `internal_subset` {#internal-subset}
 
 It registers user call back function as below.
 
@@ -646,7 +665,7 @@ Result of avobe example as blow.
 Internal subset name: example
 ```
 
-### `external_subset`
+### `external_subset` {#external-subset}
 
 It registers user call back function as below.
 
@@ -711,7 +730,7 @@ External subset external id: -//W3C//DTD XHTML 1.0 Transitional//EN
 External subset system id: http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
 ```
 
-### `reference`
+### `reference` {#reference}
 
 It registers user call back function as below.
 
@@ -765,7 +784,7 @@ Result of avobe example as blow.
 Reference entity name: ref
 ```
 
-### `processing_instruction`
+### `processing_instruction` {#processing-instruction}
 
 It registers user call back function as below.
 
@@ -820,7 +839,7 @@ Processing instruction target: target
 Processing instruction data: This is PI
 ```
 
-### `cdata_block`
+### `cdata_block` {#cdata-block}
 
 It registers user call back function as below.
 
@@ -875,7 +894,7 @@ Result of avobe example as blow.
 CDATA block: <p>Hello world!</p>
 ```
 
-### `ignorable_whitespace`
+### `ignorable_whitespace` {#ignorable-whitespace}
 
 It registers user call back function as below.
 
@@ -931,7 +950,7 @@ Ignorable whitespace: "
 "
 ```
 
-### `comment`
+### `comment` {#comment}
 
 It registers user call back function as below.
 
@@ -982,7 +1001,7 @@ Result of avobe example as blow.
 Comment:  This is comment.
 ```
 
-### `start_element`
+### `start_element` {#start-element}
 
 It registers user call back function as below.
 
@@ -1080,7 +1099,7 @@ Start element: html
     xhtml:class{http://www.w3.org/1999/xhtml}: top-level
 ```
 
-### `end_element`
+### `end_element` {#end-element}
 
 It registers user call back function as below.
 
@@ -1143,7 +1162,7 @@ End element: html
   URI: http://www.w3.org/1999/xhtml
 ```
 
-### `text`
+### `text` {#text}
 
 It registers user call back function as below.
 
@@ -1198,7 +1217,7 @@ Text:
 Text: Hello World
 ```
 
-### `warning`
+### `warning` {#warning}
 
 It registers user call back function as below.
 
@@ -1303,7 +1322,7 @@ Warning message: Entity(test) already defined in the internal subset
 Pedantic :	true
 ```
 
-### `error`
+### `error` {#error}
 
 It registers user call back function as below.
 
@@ -1384,6 +1403,27 @@ Error line :	1
 Failed to parse XML with SAX
 ```
 
+[xml-sax-parser-start-document]:#start-document
+[xml-sax-parser-end-document]:#end-document
+[xml-sax-parser-element-declaration]:#element-declaration
+[xml-sax-parser-attribute-declaration]:#attribute-declaration
+[xml-sax-parser-notation-declaration]:#notation-declaration
+[xml-sax-parser-unparsed-entity-declaration]:#unparsed-entity-declaration
+[xml-sax-parser-entity-declaration]:#entity-declaration
+[xml-sax-parser-internal-subset]:#internal-subset
+[xml-sax-parser-external-subset]:#external-subset
+[xml-sax-parser-reference]:#reference
+[xml-sax-parser-processing-instruction]:#processing-instruction
+[xml-sax-parser-cdata-block]:#cdata-block
+[xml-sax-parser-ignorable-whitespace]:#ignorable-whitespace
+[xml-sax-parser-comment]:#comment
+[xml-sax-parser-start-element]:#start-element
+[xml-sax-parser-end-element]:#end-element
+[xml-sax-parser-text]:#text
+[xml-sax-parser-warning]:#warning
+[xml-sax-parser-error]:#error
+
 [error-domain-list]:error-domain-list.html
 [error-code-list]:error-code-list.html
 [error-level-list]:error-level-list.html
+

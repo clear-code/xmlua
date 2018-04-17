@@ -33,48 +33,67 @@ msgstr ""
 msgid "You can register your callback method which call when occured events below."
 msgstr "このクラスを使って、以下のイベントが起こった際に呼ばれるコールバックメソッドを登録できます。"
 
-msgid ""
-"Call back event list:\n"
-"  * StartDocument\n"
-"  * ElementDeclaration\n"
-"  * AttributeDeclaration\n"
-"  * UnparsedEntityDeclaration\n"
-"  * NotationDeclaration\n"
-"  * EntityDeclaration\n"
-"  * InternalSubset\n"
-"  * ExternalSubset\n"
-"  * CdataBlock\n"
-"  * Comment\n"
-"  * ProcessingInstruction\n"
-"  * IgnorableWhitespace\n"
-"  * Text\n"
-"  * Reference\n"
-"  * StartElement\n"
-"  * EndElement\n"
-"  * Warning\n"
-"  * Error\n"
-"  * EndDocument"
+msgid "Call back event list:"
+msgstr "コールバックイベント一覧："
+
+msgid "  * [`start_document`][xml-sax-parser-start-document]"
 msgstr ""
-"コールバックイベント一覧:\n"
-"  * StartDocument\n"
-"  * ElementDeclaration\n"
-"  * AttributeDeclaration\n"
-"  * UnparsedEntityDeclaration\n"
-"  * NotationDeclaration\n"
-"  * EntityDeclaration\n"
-"  * InternalSubset\n"
-"  * ExternalSubset\n"
-"  * CdataBlock\n"
-"  * Comment\n"
-"  * ProcessingInstruction\n"
-"  * IgnorableWhitespace\n"
-"  * Text\n"
-"  * Reference\n"
-"  * StartElement\n"
-"  * EndElement\n"
-"  * Warning\n"
-"  * Error\n"
-"  * EndDocument"
+
+msgid "  * [`end_document`][xml-sax-parser-end-document]"
+msgstr ""
+
+msgid "  * [`element_declaration`][xml-sax-parser-element-declaration]"
+msgstr ""
+
+msgid "  * [`attribute_declaration`][xml-sax-parser-attribute-declaration]"
+msgstr ""
+
+msgid "  * [`notation_declaration`][xml-sax-parser-notation-declaration]"
+msgstr ""
+
+msgid ""
+"  * [`unparsed_entity_declaration`][xml-sax-parser-unparsed-entity-declaration"
+"]"
+msgstr ""
+
+msgid "  * [`entity_declaration`][xml-sax-parser-entity-declaration]"
+msgstr ""
+
+msgid "  * [`internal_subset`][xml-sax-parser-internal-subset]"
+msgstr ""
+
+msgid "  * [`external_subset`][xml-sax-parser-external-subset]"
+msgstr ""
+
+msgid "  * [`reference`][xml-sax-parser-reference]"
+msgstr ""
+
+msgid "  * [`processing_instruction`][xml-sax-parser-processing-instruction]"
+msgstr ""
+
+msgid "  * [`cdata_block`][xml-sax-parser-cdata-block]"
+msgstr ""
+
+msgid "  * [`ignorable_whitespace`][xml-sax-parser-ignorable-whitespace]"
+msgstr ""
+
+msgid "  * [`comment`][xml-sax-parser-comment]"
+msgstr ""
+
+msgid "  * [`start_element`][xml-sax-parser-start-element]"
+msgstr ""
+
+msgid "  * [`end_element`][xml-sax-parser-end-element]"
+msgstr ""
+
+msgid "  * [`text`][xml-sax-parser-text]"
+msgstr ""
+
+msgid "  * [`warning`][xml-sax-parser-warning]"
+msgstr ""
+
+msgid "  * [`error`][xml-sax-parser-error]"
+msgstr ""
 
 msgid "## Class methods"
 msgstr "## クラスメソッド"
@@ -197,7 +216,7 @@ msgstr ""
 msgid "## Property"
 msgstr "## プロパティ"
 
-msgid "### `start_document`"
+msgid "### `start_document` {#start-document}"
 msgstr ""
 
 msgid "It registers user call back function as below."
@@ -263,7 +282,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `end_document`"
+msgid "### `end_document` {#end-document}"
 msgstr ""
 
 msgid ""
@@ -316,7 +335,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `element_declaration`"
+msgid "### `element_declaration` {#element-declaration}"
 msgstr ""
 
 msgid ""
@@ -423,7 +442,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `attribute_declaration`"
+msgid "### `attribute_declaration` {#attribute-declaration}"
 msgstr ""
 
 msgid ""
@@ -538,7 +557,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `notation_declaration`"
+msgid "### `notation_declaration` {#notation-declaration}"
 msgstr ""
 
 msgid ""
@@ -631,7 +650,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `unparsed_entity_declaration`"
+msgid "### `unparsed_entity_declaration` {#unparsed-entity-declaration}"
 msgstr ""
 
 msgid ""
@@ -735,7 +754,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `entity_declaration`"
+msgid "### `entity_declaration` {#entity-declaration}"
 msgstr ""
 
 msgid ""
@@ -841,7 +860,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `internal_subset`"
+msgid "### `internal_subset` {#internal-subset}"
 msgstr ""
 
 msgid ""
@@ -935,7 +954,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `external_subset`"
+msgid "### `external_subset` {#external-subset}"
 msgstr ""
 
 msgid ""
@@ -1018,7 +1037,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `reference`"
+msgid "### `reference` {#reference}"
 msgstr ""
 
 msgid ""
@@ -1090,7 +1109,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `processing_instruction`"
+msgid "### `processing_instruction` {#processing-instruction}"
 msgstr ""
 
 msgid ""
@@ -1164,7 +1183,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `cdata_block`"
+msgid "### `cdata_block` {#cdata-block}"
 msgstr ""
 
 msgid ""
@@ -1241,7 +1260,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `ignorable_whitespace`"
+msgid "### `ignorable_whitespace` {#ignorable-whitespace}"
 msgstr ""
 
 msgid ""
@@ -1318,7 +1337,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `comment`"
+msgid "### `comment` {#comment}"
 msgstr ""
 
 msgid ""
@@ -1386,7 +1405,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `start_element`"
+msgid "### `start_element` {#start-element}"
 msgstr ""
 
 msgid "You can get name and attributes of elements as argument of your call back."
@@ -1480,7 +1499,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `end_element`"
+msgid "### `end_element` {#end-element}"
 msgstr ""
 
 msgid "You can get name of elements as argument of your call back."
@@ -1531,7 +1550,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `text`"
+msgid "### `text` {#text}"
 msgstr ""
 
 msgid "You can get text of text element as argument of your call back."
@@ -1587,7 +1606,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `warning`"
+msgid "### `warning` {#warning}"
 msgstr ""
 
 msgid ""
@@ -1708,7 +1727,7 @@ msgid ""
 "```"
 msgstr ""
 
-msgid "### `error`"
+msgid "### `error` {#error}"
 msgstr ""
 
 msgid ""
@@ -1794,6 +1813,28 @@ msgid ""
 "Error line :\t1\n"
 "Failed to parse XML with SAX\n"
 "```"
+msgstr ""
+
+msgid ""
+"[xml-sax-parser-start-document]:#start-document\n"
+"[xml-sax-parser-end-document]:#end-document\n"
+"[xml-sax-parser-element-declaration]:#element-declaration\n"
+"[xml-sax-parser-attribute-declaration]:#attribute-declaration\n"
+"[xml-sax-parser-notation-declaration]:#notation-declaration\n"
+"[xml-sax-parser-unparsed-entity-declaration]:#unparsed-entity-declaration\n"
+"[xml-sax-parser-entity-declaration]:#entity-declaration\n"
+"[xml-sax-parser-internal-subset]:#internal-subset\n"
+"[xml-sax-parser-external-subset]:#external-subset\n"
+"[xml-sax-parser-reference]:#reference\n"
+"[xml-sax-parser-processing-instruction]:#processing-instruction\n"
+"[xml-sax-parser-cdata-block]:#cdata-block\n"
+"[xml-sax-parser-ignorable-whitespace]:#ignorable-whitespace\n"
+"[xml-sax-parser-comment]:#comment\n"
+"[xml-sax-parser-start-element]:#start-element\n"
+"[xml-sax-parser-end-element]:#end-element\n"
+"[xml-sax-parser-text]:#text\n"
+"[xml-sax-parser-warning]:#warning\n"
+"[xml-sax-parser-error]:#error"
 msgstr ""
 
 msgid ""

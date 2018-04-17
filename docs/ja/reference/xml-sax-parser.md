@@ -12,26 +12,45 @@ SAXは、DOMと異なりドキュメントを一行ずつパースし、DOMは�
 
 このクラスを使って、以下のイベントが起こった際に呼ばれるコールバックメソッドを登録できます。
 
-コールバックイベント一覧:
-  * StartDocument
-  * ElementDeclaration
-  * AttributeDeclaration
-  * UnparsedEntityDeclaration
-  * NotationDeclaration
-  * EntityDeclaration
-  * InternalSubset
-  * ExternalSubset
-  * CdataBlock
-  * Comment
-  * ProcessingInstruction
-  * IgnorableWhitespace
-  * Text
-  * Reference
-  * StartElement
-  * EndElement
-  * Warning
-  * Error
-  * EndDocument
+コールバックイベント一覧：
+
+  * [`start_document`][xml-sax-parser-start-document]
+
+  * [`end_document`][xml-sax-parser-end-document]
+
+  * [`element_declaration`][xml-sax-parser-element-declaration]
+
+  * [`attribute_declaration`][xml-sax-parser-attribute-declaration]
+
+  * [`notation_declaration`][xml-sax-parser-notation-declaration]
+
+  * [`unparsed_entity_declaration`][xml-sax-parser-unparsed-entity-declaration]
+
+  * [`entity_declaration`][xml-sax-parser-entity-declaration]
+
+  * [`internal_subset`][xml-sax-parser-internal-subset]
+
+  * [`external_subset`][xml-sax-parser-external-subset]
+
+  * [`reference`][xml-sax-parser-reference]
+
+  * [`processing_instruction`][xml-sax-parser-processing-instruction]
+
+  * [`cdata_block`][xml-sax-parser-cdata-block]
+
+  * [`ignorable_whitespace`][xml-sax-parser-ignorable-whitespace]
+
+  * [`comment`][xml-sax-parser-comment]
+
+  * [`start_element`][xml-sax-parser-start-element]
+
+  * [`end_element`][xml-sax-parser-end-element]
+
+  * [`text`][xml-sax-parser-text]
+
+  * [`warning`][xml-sax-parser-warning]
+
+  * [`error`][xml-sax-parser-error]
 
 ## クラスメソッド
 
@@ -120,7 +139,7 @@ parser:finish()
 
 ## プロパティ
 
-### `start_document`
+### `start_document` {#start-document}
 
 以下のようにコールバック関数を登録できます。
 
@@ -170,7 +189,7 @@ parser:finish()
 Start document
 ```
 
-### `end_document`
+### `end_document` {#end-document}
 
 以下のようにコールバック関数を登録できます。
 
@@ -220,7 +239,7 @@ parser:finish()
 End document
 ```
 
-### `element_declaration`
+### `element_declaration` {#element-declaration}
 
 以下のようにコールバック関数を登録できます。
 
@@ -300,7 +319,7 @@ Content:
     name: C
 ```
 
-### `attribute_declaration`
+### `attribute_declaration` {#attribute-declaration}
 
 以下のようにコールバック関数を登録できます。
 
@@ -377,7 +396,7 @@ Enumrated value: yes
 Enumrated value: no
 ```
 
-### `notation_declaration`
+### `notation_declaration` {#notation-declaration}
 
 以下のようにコールバック関数を登録できます。
 
@@ -441,7 +460,7 @@ Notation name: test
 Notation system id: Test
 ```
 
-### `unparsed_entity_declaration`
+### `unparsed_entity_declaration` {#unparsed-entity-declaration}
 
 以下のようにコールバック関数を登録できます。
 
@@ -509,7 +528,7 @@ Unparserd entity system id: file:///usr/local/share/test.gif
 Unparserd entity notation_name: gif
 ```
 
-### `entity_declaration`
+### `entity_declaration` {#entity-declaration}
 
 以下のようにコールバック関数を登録できます。
 
@@ -580,7 +599,7 @@ Entity type: 1
 Entity content: This is test.
 ```
 
-### `internal_subset`
+### `internal_subset` {#internal-subset}
 
 以下のようにコールバック関数を登録できます。
 
@@ -644,7 +663,7 @@ parser:finish()
 Internal subset name: example
 ```
 
-### `external_subset`
+### `external_subset` {#external-subset}
 
 以下のようにコールバック関数を登録できます。
 
@@ -709,7 +728,7 @@ External subset external id: -//W3C//DTD XHTML 1.0 Transitional//EN
 External subset system id: http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
 ```
 
-### `reference`
+### `reference` {#reference}
 
 以下のようにコールバック関数を登録できます。
 
@@ -763,7 +782,7 @@ parser:finish()
 Reference entity name: ref
 ```
 
-### `processing_instruction`
+### `processing_instruction` {#processing-instruction}
 
 以下のようにコールバック関数を登録できます。
 
@@ -818,7 +837,7 @@ Processing instruction target: target
 Processing instruction data: This is PI
 ```
 
-### `cdata_block`
+### `cdata_block` {#cdata-block}
 
 以下のようにコールバック関数を登録できます。
 
@@ -873,7 +892,7 @@ parser:finish()
 CDATA block: <p>Hello world!</p>
 ```
 
-### `ignorable_whitespace`
+### `ignorable_whitespace` {#ignorable-whitespace}
 
 以下のようにコールバック関数を登録できます。
 
@@ -929,7 +948,7 @@ Ignorable whitespace: "
 "
 ```
 
-### `comment`
+### `comment` {#comment}
 
 以下のようにコールバック関数を登録できます。
 
@@ -980,7 +999,7 @@ parser:finish()
 Comment:  This is comment.
 ```
 
-### `start_element`
+### `start_element` {#start-element}
 
 以下のようにコールバック関数を登録できます。
 
@@ -1078,7 +1097,7 @@ Start element: html
     xhtml:class{http://www.w3.org/1999/xhtml}: top-level
 ```
 
-### `end_element`
+### `end_element` {#end-element}
 
 以下のようにコールバック関数を登録できます。
 
@@ -1141,7 +1160,7 @@ End element: html
   URI: http://www.w3.org/1999/xhtml
 ```
 
-### `text`
+### `text` {#text}
 
 以下のようにコールバック関数を登録できます。
 
@@ -1196,7 +1215,7 @@ Text:
 Text: Hello World
 ```
 
-### `warning`
+### `warning` {#warning}
 
 以下のようにコールバック関数を登録できます。
 
@@ -1300,7 +1319,7 @@ Warning message: Entity(test) already defined in the internal subset
 Pedantic :	true
 ```
 
-### `error`
+### `error` {#error}
 
 以下のようにコールバック関数を登録できます。
 
@@ -1377,6 +1396,27 @@ Error line :	1
 Failed to parse XML with SAX
 ```
 
+[xml-sax-parser-start-document]:#start-document
+[xml-sax-parser-end-document]:#end-document
+[xml-sax-parser-element-declaration]:#element-declaration
+[xml-sax-parser-attribute-declaration]:#attribute-declaration
+[xml-sax-parser-notation-declaration]:#notation-declaration
+[xml-sax-parser-unparsed-entity-declaration]:#unparsed-entity-declaration
+[xml-sax-parser-entity-declaration]:#entity-declaration
+[xml-sax-parser-internal-subset]:#internal-subset
+[xml-sax-parser-external-subset]:#external-subset
+[xml-sax-parser-reference]:#reference
+[xml-sax-parser-processing-instruction]:#processing-instruction
+[xml-sax-parser-cdata-block]:#cdata-block
+[xml-sax-parser-ignorable-whitespace]:#ignorable-whitespace
+[xml-sax-parser-comment]:#comment
+[xml-sax-parser-start-element]:#start-element
+[xml-sax-parser-end-element]:#end-element
+[xml-sax-parser-text]:#text
+[xml-sax-parser-warning]:#warning
+[xml-sax-parser-error]:#error
+
 [error-domain-list]:error-domain-list.html
 [error-code-list]:error-code-list.html
 [error-level-list]:error-level-list.html
+

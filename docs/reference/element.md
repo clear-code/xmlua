@@ -233,6 +233,26 @@ print(document:to_xml())
 -- </xhtml:html>
 ```
 
+### `append_text(text_content) -> xmlua.Text` {#append-text}
+
+Make an text element with the specified text content and append it the last child element of `xmlua.Element` of the receiver.
+It returns appended text element.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+--append text node.
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+local child = root:append_text("This is Text element.")
+print(child:text())
+-- This is Text element.
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>This is Text element.</root>
+```
+
 ### `unlink() -> xmlua.Element` {#unlink}
 
 It remove reciver from document tree.

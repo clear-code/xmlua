@@ -218,6 +218,25 @@ print(document:to_xml())
 -- </xhtml:html>
 ```
 
+### `append_text(text_content) -> xmlua.Text` {#append-text}
+
+指定された名前のテキスト要素を作成し、それをレシーバーの`xmlua.Element`の最後の子要素にします。このメソッドは、追加したテキスト要素を返します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+--要素の追加
+local document = xmlua.XML.parse("<root/>")
+local root = document:root()
+local child = root:append_text("This is Text element.")
+print(child:text())
+-- This is Text element.
+print(document:to_xml())
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <root>This is Text element.</root>
+```
+
 ### `unlink() -> xmlua.Element` {#unlink}
 
 レシーバーをドキュメントツリーから削除します。

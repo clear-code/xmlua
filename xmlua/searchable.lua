@@ -12,6 +12,7 @@ local NodeSet
 function Searchable.lazy_load()
   Element = require("xmlua.element")
   Text = require("xmlua.text")
+  Comment = require("xmlua.comment")
   NodeSet = require("xmlua.node-set")
 end
 
@@ -79,6 +80,8 @@ function Searchable:search(xpath)
         table.insert(raw_node_set, Element.new(document, node))
       elseif node_type == ffi.C.XML_TEXT_NODE then
         table.insert(raw_node_set, Text.new(document, node))
+      elseif node_type == ffi.C.XML_COMMENT_NODE then
+        table.insert(raw_node_set, Comment.new(document, node))
       else
         -- TODO: Support more nodes such as text node
         -- table.insert(raw_node_set, node)

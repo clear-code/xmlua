@@ -12,7 +12,7 @@ function metatable.__index(element, key)
     Node[key]
 end
 
-function methods.name(self)
+function methods:name()
   return ffi.string(self.node.name)
 end
 

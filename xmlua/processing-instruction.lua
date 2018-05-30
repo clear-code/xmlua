@@ -11,7 +11,7 @@ function metatable.__index(element, key)
     Node[key]
 end
 
-function methods.target(self)
+function methods:target()
   return ffi.string(self.node.name)
 end
 

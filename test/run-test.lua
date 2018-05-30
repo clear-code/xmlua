@@ -18,6 +18,7 @@ require("test.test-element")
 require("test.test-node-set")
 require("test.test-text")
 require("test.test-comment")
+require("test.test-processing-instruction")
 
 luaunit = require("luaunit")
 os.exit(luaunit.LuaUnit.run())

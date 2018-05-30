@@ -1,6 +1,7 @@
 local Attr = {}
 
 local Node = require("xmlua.node")
+local Element = require("xmlua.element")
 local ffi = require("ffi")
 
 local methods = {}
@@ -13,6 +14,11 @@ end
 
 function methods.name(self)
   return ffi.string(self.node.name)
+end
+
+function methods:get_owner_element()
+  return Element.new(self.document,
+                     self.node.parent)
 end
 
 function Attr.new(document, node)

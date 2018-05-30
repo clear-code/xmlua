@@ -24,3 +24,14 @@ function TestComment.test_content()
   luaunit.assertEquals(comment[1]:content(),
                        "This is comment!")
 end
+
+function TestComment.test_text()
+  local document = xmlua.XML.parse([[
+<root>
+  <!--This is comment!-->
+</root>
+]])
+  local comment = document:search("/root/comment()")
+  luaunit.assertEquals(comment[1]:text(),
+                       "")
+end

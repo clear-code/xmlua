@@ -10,6 +10,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:comment()
+  return self:content()
+end
+
 function Comment.new(document, node)
   local comment = {
     document = document,

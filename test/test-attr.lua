@@ -23,6 +23,17 @@ function TestAttr.test_content()
                        "1")
 end
 
+function TestAttr.test_set_content()
+  local document = xmlua.XML.parse([[
+<?xml version="1.0" encoding="UTF-8"?>
+<root id="1"/>
+]])
+  local attr = document:search("/root/@id")
+  attr[1]:set_content("345")
+  luaunit.assertEquals(attr[1]:content(),
+                       "345")
+end
+
 function TestAttr.test_name()
   local document = xmlua.XML.parse([[
 <?xml version="1.0" encoding="UTF-8"?>

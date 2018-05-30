@@ -6,11 +6,9 @@ TestAttr = {}
 function TestAttr.test_path()
   local document = xmlua.XML.parse([[
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
-  <child id="1"/>
-</root>
+<root id="1"/>
 ]])
-  local attr = document:search("/root/child/@id")
+  local attr = document:search("/root/@id")
   luaunit.assertEquals(attr[1]:path(),
-                       "/root/child/@id")
+                       "/root/@id")
 end

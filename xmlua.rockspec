@@ -59,6 +59,7 @@ build = {
     ["xmlua.libxml2.xpath"] = "xmlua/libxml2/xpath.lua",
     ["xmlua.node"] = "xmlua/node.lua",
     ["xmlua.node-set"] = "xmlua/node-set.lua",
+    ["xmlua.processing-instruction"] = "xmlua/processing-instruction.lua",
     ["xmlua.searchable"] = "xmlua/searchable.lua",
     ["xmlua.serializable"] = "xmlua/serializable.lua",
     ["xmlua.text"] = "xmlua/text.lua",

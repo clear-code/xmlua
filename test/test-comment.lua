@@ -14,13 +14,13 @@ function TestComment.test_path()
                        "/root/comment()")
 end
 
-function TestComment.test_comment()
+function TestComment.test_content()
   local document = xmlua.XML.parse([[
 <root>
   <!--This is comment!-->
 </root>
 ]])
   local comment = document:search("/root/comment()")
-  luaunit.assertEquals(comment[1]:comment(),
+  luaunit.assertEquals(comment[1]:content(),
                        "This is comment!")
 end

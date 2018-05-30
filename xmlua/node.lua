@@ -7,6 +7,10 @@ function Node:content()
   return libxml2.xmlNodeGetContent(self.node)
 end
 
+function Node:text()
+  return ""
+end
+
 function Node:path()
   return libxml2.xmlGetNodePath(self.node)
 end

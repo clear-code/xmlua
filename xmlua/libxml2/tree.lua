@@ -306,6 +306,7 @@ xmlAttrPtr xmlNewProp(xmlNodePtr node,
 int xmlUnsetNsProp(xmlNodePtr node, xmlNsPtr ns, const xmlChar *name);
 int xmlUnsetProp(xmlNodePtr node, const xmlChar *name);
 
+void xmlNodeSetContent(xmlNodePtr cur, const xmlChar *content);
 xmlChar *xmlNodeGetContent(const xmlNode *cur);
 xmlChar *xmlGetNodePath(const xmlNode *node);
 

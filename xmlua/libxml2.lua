@@ -341,6 +341,10 @@ function libxml2.xmlUnsetProp(node, name)
   xml2.xmlUnsetProp(node, name)
 end
 
+function libxml2.xmlNodeSetContent(node, content)
+  xml2.xmlNodeSetContent(node, content)
+  return
+end
 
 function libxml2.xmlNodeGetContent(node)
   local content = xml2.xmlNodeGetContent(node)

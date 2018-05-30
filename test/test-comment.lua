@@ -25,6 +25,18 @@ function TestComment.test_content()
                        "This is comment!")
 end
 
+function TestComment.test_set_content()
+  local document = xmlua.XML.parse([[
+<root>
+  <!--This is comment!-->
+</root>
+]])
+  local comment = document:search("/root/comment()")
+  comment[1]:set_content("Setting comment!")
+  luaunit.assertEquals(comment[1]:content(),
+                       "Setting comment!")
+end
+
 function TestComment.test_text()
   local document = xmlua.XML.parse([[
 <root>

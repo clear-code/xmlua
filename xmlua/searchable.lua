@@ -14,6 +14,7 @@ function Searchable.lazy_load()
   Text = require("xmlua.text")
   Comment = require("xmlua.comment")
   ProcessingInstruction = require("xmlua.processing-instruction")
+  Attr = require("xmlua.attr")
   NodeSet = require("xmlua.node-set")
 end
 
@@ -86,6 +87,8 @@ function Searchable:search(xpath)
       elseif node_type == ffi.C.XML_PI_NODE then
         table.insert(raw_node_set,
                      ProcessingInstruction.new(document, node))
+      elseif node_type == ffi.C.XML_ATTRIBUTE_NODE then
+        table.insert(raw_node_set, Attr.new(document, node))
       else
         -- TODO: Support more nodes such as text node
         -- table.insert(raw_node_set, node)

@@ -20,3 +20,13 @@ function TestCDATASection.test_content()
   luaunit.assertEquals(cdata_section[1]:content(),
                        "This is <CDATA>")
 end
+
+function TestCDATASection.test_set_content()
+  local document = xmlua.XML.parse([=[
+<root><![CDATA[This is <CDATA>]]></root>
+]=])
+  local cdata_section = document:search("/root/text()")
+  cdata_section[1]:set_content("Setting new <CDATA> content!")
+  luaunit.assertEquals(cdata_section[1]:content(),
+                       "Setting new <CDATA> content!")
+end

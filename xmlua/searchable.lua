@@ -16,6 +16,7 @@ function Searchable.lazy_load()
   ProcessingInstruction = require("xmlua.processing-instruction")
   Attr = require("xmlua.attr")
   NodeSet = require("xmlua.node-set")
+  CDATASection = require("xmlua.cdata-section")
 end
 
 local ERROR_MESSAGES = {
@@ -89,6 +90,8 @@ function Searchable:search(xpath)
                      ProcessingInstruction.new(document, node))
       elseif node_type == ffi.C.XML_ATTRIBUTE_NODE then
         table.insert(raw_node_set, Attr.new(document, node))
+      elseif node_type == ffi.C.XML_CDATA_SECTION_NODE then
+        table.insert(raw_node_set, CDATASection.new(document, node))
       else
         -- TODO: Support more nodes such as text node
         -- table.insert(raw_node_set, node)

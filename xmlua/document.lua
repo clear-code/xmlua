@@ -15,6 +15,7 @@ function Document.lazy_load()
   Element = require("xmlua.element")
   Attr = require("xmlua.attr")
   CDataSection = require("xmlua.cdata-section")
+  Comment = require("xmlua.comment")
 end
 
 local methods = {}
@@ -58,6 +59,12 @@ function methods:create_cdata_section(data)
                              data,
                              data:len())
   return CDATASection.new(self.document, raw_cdata_section_node)
+end
+
+function methods:create_comment(data)
+  local raw_comment_node =
+    libxml2.xmlNewComment(data)
+  return Comment.new(self.document, raw_comment_node)
 end
 
 function methods:add_entity(entity_info)

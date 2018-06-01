@@ -96,6 +96,25 @@ function TestDocument.test_add_attribute_node()
 ]])
 end
 
+function TestDocument.test_add_cdata_section_node()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local succeeded = parser:parse(xml)
+  local document = parser.document
+  local cdata_section_node = document:create_cdata_section("This is <CDATA>")
+
+  local root = document:root()
+  root:add_child(cdata_section_node)
+  luaunit.assertEquals(document:to_xml(),
+                       [=[
+<?xml version="1.0" encoding="UTF-8"?>
+<root><![CDATA[This is <CDATA>]]></root>
+]=])
+end
+
 function TestElement.test_children()
   local document = xmlua.XML.parse([[
 <root>

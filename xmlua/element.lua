@@ -151,7 +151,7 @@ function methods:add_child(node)
     self:set_attribute(node:name(), node:value())
   else
     local raw_added_node =
-      libxml2.xmlAddChild(self.node, node)
+      libxml2.xmlAddChild(self.node, node.node)
   end
 end
 

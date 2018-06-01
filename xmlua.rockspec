@@ -40,6 +40,7 @@ build = {
     ["xmlua.converter"] = "xmlua/converter.lua",
     ["xmlua.comment"] = "xmlua/comment.lua",
     ["xmlua.document"] = "xmlua/document.lua",
+    ["xmlua.document-fragment"] = "xmlua/document-fragment.lua",
     ["xmlua.element"] = "xmlua/element.lua",
     ["xmlua.entity"] = "xmlua/entity.lua",
     ["xmlua.entity-reference"] = "xmlua/entity-reference.lua",

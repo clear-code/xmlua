@@ -41,6 +41,7 @@ build = {
     ["xmlua.comment"] = "xmlua/comment.lua",
     ["xmlua.document"] = "xmlua/document.lua",
     ["xmlua.document-fragment"] = "xmlua/document-fragment.lua",
+    ["xmlua.document-type"] = "xmlua/document-type.lua",
     ["xmlua.element"] = "xmlua/element.lua",
     ["xmlua.entity"] = "xmlua/entity.lua",
     ["xmlua.entity-reference"] = "xmlua/entity-reference.lua",

@@ -11,7 +11,6 @@ function metatable.__index(element, key)
 end
 
 function EntityReference.new(document, node)
-  print("entity-ref")
   local entity_reference = {
     document = document,
     node = node,

@@ -44,6 +44,7 @@ build = {
     ["xmlua.document-type"] = "xmlua/document-type.lua",
     ["xmlua.element"] = "xmlua/element.lua",
     ["xmlua.entity"] = "xmlua/entity.lua",
+    ["xmlua.entity-declaration"] = "xmlua/entity-declaration.lua",
     ["xmlua.entity-reference"] = "xmlua/entity-reference.lua",
     ["xmlua.html"] = "xmlua/html.lua",
     ["xmlua.html-sax-parser"] = "xmlua/html-sax-parser.lua",

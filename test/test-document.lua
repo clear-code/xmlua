@@ -38,6 +38,20 @@ function TestDocument.test_create_cdata_section()
                        "This is <CDATA>")
 end
 
+function TestDocument.test_create_comment()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local succeeded = parser:parse(xml)
+  local document = parser.document
+  local comment_node = document:create_comment("This is comment")
+
+  luaunit.assertEquals(comment_node:content(),
+                       "This is comment")
+end
+
 function TestDocument.test_add_entity()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

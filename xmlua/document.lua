@@ -13,6 +13,7 @@ local Element
 
 function Document.lazy_load()
   Element = require("xmlua.element")
+  Attr = require("xmlua.attr")
 end
 
 local methods = {}
@@ -39,6 +40,15 @@ end
 
 function methods:encoding()
   return ffi.string(self.document.encoding)
+end
+
+function methods:create_attribute(name, value, ns)
+  local new_raw_node = libxml2.xmlNewNode(ns, name)
+  local raw_attribute_node =
+    libxml2.xmlNewProp(new_raw_node,
+                       name,
+                       value)
+  return Attr.new(self.document, raw_attribute_node)
 end
 
 function methods:add_entity(entity_info)

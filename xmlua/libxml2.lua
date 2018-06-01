@@ -330,7 +330,7 @@ function libxml2.xmlNewNsProp(node, namespace, name, value)
 end
 
 function libxml2.xmlNewProp(node, name, value)
-  xml2.xmlNewProp(node, name, value)
+  return xml2.xmlNewProp(node, name, value)
 end
 
 function libxml2.xmlUnsetNsProp(node, namespace, name)

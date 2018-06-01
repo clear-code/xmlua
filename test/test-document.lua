@@ -4,6 +4,26 @@ local ffi = require("ffi")
 
 TestDocument = {}
 
+function TestDocument.test_create_attribute()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local succeeded = parser:parse(xml)
+  local document = parser.document
+  local attr_node = document:create_attribute("id", "1")
+
+  luaunit.assertEquals({
+                         attr_node:name(),
+                         attr_node:value()
+                       },
+                       {
+                         "id",
+                         "1"
+                       })
+end
+
 function TestDocument.test_add_entity()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

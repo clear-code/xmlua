@@ -16,6 +16,14 @@ function methods:name()
   return ffi.string(self.node.name)
 end
 
+function methods:content()
+  return ffi.string(self.node.children.content)
+end
+
+function methods:value()
+  return self:content()
+end
+
 function methods:get_owner_element()
   return Element.new(self.document,
                      self.node.parent)

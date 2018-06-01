@@ -263,6 +263,14 @@ function libxml2.xmlNewText(content)
   return xml2.xmlNewText(content)
 end
 
+function libxml2.xmlNewCDataBlock(document,
+                                  content,
+                                  content_length)
+  return xml2.xmlNewCDataBlock(document,
+                               content,
+                               content_length)
+end
+
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)
   local new_node = xml2.xmlAddPrevSibling(sibling, new_sibling)
   if new_node == ffi.NULL then

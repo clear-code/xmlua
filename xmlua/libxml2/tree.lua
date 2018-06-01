@@ -284,6 +284,10 @@ xmlDocPtr xmlNewDoc(const xmlChar *version);
 xmlNodePtr xmlDocSetRootElement(xmlDocPtr doc, xmlNodePtr root);
 xmlNodePtr xmlNewNode(xmlNsPtr ns, const xmlChar *name);
 xmlNodePtr xmlNewText(const xmlChar *content);
+xmlNodePtr xmlNewCDataBlock(xmlDocPtr doc,
+			    const xmlChar *content,
+			    int len);
+
 xmlNodePtr xmlAddPrevSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);
 

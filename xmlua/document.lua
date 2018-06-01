@@ -14,6 +14,7 @@ local Element
 function Document.lazy_load()
   Element = require("xmlua.element")
   Attr = require("xmlua.attr")
+  CDataSection = require("xmlua.cdata-section")
 end
 
 local methods = {}
@@ -49,6 +50,14 @@ function methods:create_attribute(name, value, ns)
                        name,
                        value)
   return Attr.new(self.document, raw_attribute_node)
+end
+
+function methods:create_cdata_section(data)
+  local raw_cdata_section_node =
+    libxml2.xmlNewCDataBlock(self.document,
+                             data,
+                             data:len())
+  return CDATASection.new(self.document, raw_cdata_section_node)
 end
 
 function methods:add_entity(entity_info)

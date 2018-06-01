@@ -24,6 +24,20 @@ function TestDocument.test_create_attribute()
                        })
 end
 
+function TestDocument.test_create_cdata_section()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local succeeded = parser:parse(xml)
+  local document = parser.document
+  local cdata_section_node = document:create_cdata_section("This is <CDATA>")
+
+  luaunit.assertEquals(cdata_section_node:content(),
+                       "This is <CDATA>")
+end
+
 function TestDocument.test_add_entity()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

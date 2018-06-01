@@ -148,7 +148,6 @@ end
 
 function methods:add_child(node)
   if node.node.type == ffi.C.XML_ATTRIBUTE_NODE then
-    print(node:name(), node:content())
     self:set_attribute(node:name(), node:content())
   else
     local raw_added_node =

@@ -16,6 +16,7 @@ function Document.lazy_load()
   Attr = require("xmlua.attr")
   CDataSection = require("xmlua.cdata-section")
   Comment = require("xmlua.comment")
+  DocumentFragment = require("xmlua.document-fragment")
 end
 
 local methods = {}
@@ -65,6 +66,13 @@ function methods:create_comment(data)
   local raw_comment_node =
     libxml2.xmlNewComment(data)
   return Comment.new(self.document, raw_comment_node)
+end
+
+function methods:create_document_fragment()
+  local raw_document_fragment_node =
+    libxml2.xmlNewDocFragment(self.document)
+  return DocumentFragment.new(self.document,
+                              raw_document_fragment_node)
 end
 
 function methods:add_entity(entity_info)

@@ -288,6 +288,7 @@ xmlNodePtr xmlNewCDataBlock(xmlDocPtr doc,
 			    const xmlChar *content,
 			    int len);
 xmlNodePtr xmlNewComment(const xmlChar *content);
+xmlNodePtr xmlNewDocFragment(xmlDocPtr doc);
 
 xmlNodePtr xmlAddPrevSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);

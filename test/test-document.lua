@@ -52,6 +52,20 @@ function TestDocument.test_create_comment()
                        "This is comment")
 end
 
+function TestDocument.test_create_document_fragment()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local succeeded = parser:parse(xml)
+  local document = parser.document
+  local document_fragment = document:create_document_fragment()
+
+  luaunit.assertEquals(tonumber(document_fragment.node.type),
+                       ffi.C.XML_DOCUMENT_FRAG_NODE)
+end
+
 function TestDocument.test_add_entity()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

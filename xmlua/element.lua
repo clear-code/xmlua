@@ -148,7 +148,7 @@ end
 
 function methods:add_child(node)
   if node.node.type == ffi.C.XML_ATTRIBUTE_NODE then
-    self:set_attribute(node:name(), node:content())
+    self:set_attribute(node:name(), node:value())
   else
     local raw_added_node =
       libxml2.xmlAddChild(self.node, node)

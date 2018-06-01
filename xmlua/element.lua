@@ -146,6 +146,16 @@ local function create_sub_element(document, node, name, attributes)
   return element
 end
 
+function methods:add_child(node)
+  if node.node.type == ffi.C.XML_ATTRIBUTE_NODE then
+    print(node:name(), node:content())
+    self:set_attribute(node:name(), node:content())
+  else
+    local raw_added_node =
+      libxml2.xmlAddChild(self.node, node)
+  end
+end
+
 function methods:append_text(value)
   local raw_text = libxml2.xmlNewText(value)
   local added_raw_text = libxml2.xmlAddChild(self.node, raw_text)

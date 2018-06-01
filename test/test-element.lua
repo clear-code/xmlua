@@ -115,6 +115,27 @@ function TestDocument.test_add_cdata_section_node()
 ]=])
 end
 
+function TestDocument.test_add_comment_node()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local succeeded = parser:parse(xml)
+  local document = parser.document
+  local comment_node = document:create_comment("This is comment!")
+
+  local root = document:root()
+  root:add_child(comment_node)
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!--This is comment!-->
+</root>
+]])
+end
+
 function TestElement.test_children()
   local document = xmlua.XML.parse([[
 <root>

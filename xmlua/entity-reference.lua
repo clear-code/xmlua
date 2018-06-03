@@ -1,6 +1,7 @@
 local EntityReference = {}
 
 local Node = require("xmlua.node")
+local ffi = require("ffi")
 
 local methods = {}
 local metatable = {}
@@ -8,6 +9,10 @@ local metatable = {}
 function metatable.__index(element, key)
   return methods[key] or
     Node[key]
+end
+
+function methods:name()
+  return ffi.string(self.node.name)
 end
 
 function EntityReference.new(document, node)

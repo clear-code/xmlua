@@ -17,6 +17,7 @@ function Document.lazy_load()
   CDataSection = require("xmlua.cdata-section")
   Comment = require("xmlua.comment")
   DocumentFragment = require("xmlua.document-fragment")
+  EntityReference = require("xmlua.entity-reference")
 end
 
 local methods = {}
@@ -73,6 +74,13 @@ function methods:create_document_fragment()
     libxml2.xmlNewDocFragment(self.document)
   return DocumentFragment.new(self.document,
                               raw_document_fragment_node)
+end
+
+function methods:create_entity_reference(name)
+  local raw_entity_reference =
+    libxml2.xmlNewReference(self.document, name)
+  return EntityReference.new(self.document,
+                             raw_entity_reference)
 end
 
 function methods:add_entity(entity_info)

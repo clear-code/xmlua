@@ -279,6 +279,10 @@ function libxml2.xmlNewDocFragment(document)
   return xml2.xmlNewDocFragment(document)
 end
 
+function libxml2.xmlNewReference(document, name)
+  return xml2.xmlNewReference(document, name)
+end
+
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)
   local new_node = xml2.xmlAddPrevSibling(sibling, new_sibling)
   if new_node == ffi.NULL then

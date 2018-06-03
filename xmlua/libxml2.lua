@@ -283,6 +283,10 @@ function libxml2.xmlNewReference(document, name)
   return xml2.xmlNewReference(document, name)
 end
 
+function libxml2.xmlNewPI(name, content)
+  return xml2.xmlNewPI(name, content)
+end
+
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)
   local new_node = xml2.xmlAddPrevSibling(sibling, new_sibling)
   if new_node == ffi.NULL then

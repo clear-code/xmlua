@@ -291,6 +291,8 @@ xmlNodePtr xmlNewComment(const xmlChar *content);
 xmlNodePtr xmlNewDocFragment(xmlDocPtr doc);
 xmlNodePtr xmlNewReference(const xmlDoc *doc,
 			   const xmlChar *name);
+xmlNodePtr xmlNewPI(const xmlChar *name,
+		    const xmlChar *content);
 
 xmlNodePtr xmlAddPrevSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);

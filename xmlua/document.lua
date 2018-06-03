@@ -83,6 +83,13 @@ function methods:create_entity_reference(name)
                              raw_entity_reference)
 end
 
+function methods:create_processing_instruction(name, content)
+  local raw_processing_instruction =
+    libxml2.xmlNewPI(name, content)
+  return EntityReference.new(self.document,
+                             raw_processing_instruction)
+end
+
 function methods:add_entity(entity_info)
   local entity_type_name = entity_info["entity_type"]
   local entity_type = converter.convert_entity_type_name(entity_type_name)

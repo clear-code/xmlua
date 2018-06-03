@@ -80,6 +80,28 @@ function TestDocument.test_create_entity_reference()
                        "test_entity")
 end
 
+function TestDocument.test_create_processing_instruction()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
+  local parser = xmlua.XMLSAXParser.new()
+  local succeeded = parser:parse(xml)
+  local document = parser.document
+  local processing_instruction =
+    document:create_processing_instruction("xml-stylesheet",
+                                           "href=\"www.test.com/test-style.xsl\" type=\"text/xsl\"")
+
+  luaunit.assertEquals({
+                         processing_instruction:name(),
+                         processing_instruction:content()
+                       },
+                       {
+                         "xml-stylesheet",
+                         "href=\"www.test.com/test-style.xsl\" type=\"text/xsl\"",
+                       })
+end
+
 function TestDocument.test_add_entity()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>

@@ -271,6 +271,10 @@ function libxml2.xmlTextConcat(node,
                             content_length)
 end
 
+function libxml2.xmlTextMerge(merged_node, merge_node)
+  return xml2.xmlTextMerge(merged_node, merge_node)
+end
+
 function libxml2.xmlNewCDataBlock(document,
                                   content,
                                   content_length)

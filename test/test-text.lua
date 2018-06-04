@@ -23,3 +23,24 @@ function TestText.test_concat()
 <root>Text1Text2</root>
 ]])
 end
+
+function TestText.test_merge()
+  local document = xmlua.XML.parse([[
+<root>
+  Text:
+  <child>This is child</child>
+</root>
+]])
+  local text1 = document:search("/root/text()")
+  local text2 = document:search("/root/child/text()")
+
+  text1[1]:merge(text2[1])
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  Text:
+  This is child<child/>
+</root>
+]])
+end

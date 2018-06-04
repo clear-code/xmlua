@@ -23,6 +23,11 @@ function methods:concat(content)
   return
 end
 
+function methods:merge(merge_node)
+  libxml2.xmlTextMerge(self.node, merge_node.node)
+  return
+end
+
 function Text.new(document, node)
   local text = {
     document = document,

@@ -302,6 +302,7 @@ xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);
 int xmlTextConcat(xmlNodePtr node,
                   const xmlChar *content,
 		  int len);
+xmlNodePtr xmlTextMerge(xmlNodePtr first, xmlNodePtr second);
 
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);
 xmlNsPtr xmlSearchNsByHref(xmlDocPtr doc, xmlNodePtr node, const xmlChar *href);

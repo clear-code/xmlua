@@ -5,9 +5,13 @@ local ffi = require("ffi")
 
 local luacs = require("luacs")
 
+local Attr
+local CDATASection
+local Comment
 local Element
-local Text
 local NodeSet
+local ProcessingInstruction
+local Text
 
 function Searchable.lazy_load()
   Element = require("xmlua.element")

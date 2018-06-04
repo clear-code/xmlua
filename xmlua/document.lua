@@ -15,6 +15,7 @@ local Comment
 local DocumentFragment
 local Element
 local EntityReference
+local ProcessingInstruction
 
 function Document.lazy_load()
   Attribute = require("xmlua.attribute")
@@ -23,6 +24,7 @@ function Document.lazy_load()
   DocumentFragment = require("xmlua.document-fragment")
   Element = require("xmlua.element")
   EntityReference = require("xmlua.entity-reference")
+  ProcessingInstruction = require("xmlua.processing-instruction")
 end
 
 local methods = {}
@@ -92,7 +94,7 @@ end
 function methods:create_processing_instruction(name, content)
   local raw_processing_instruction =
     libxml2.xmlNewPI(name, content)
-  return EntityReference.new(self.document,
+  return ProcessingInstruction.new(self.document,
                              raw_processing_instruction)
 end
 

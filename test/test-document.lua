@@ -93,7 +93,7 @@ function TestDocument.test_create_processing_instruction()
                                            "href=\"www.test.com/test-style.xsl\" type=\"text/xsl\"")
 
   luaunit.assertEquals({
-                         processing_instruction:name(),
+                         processing_instruction:target(),
                          processing_instruction:content()
                        },
                        {

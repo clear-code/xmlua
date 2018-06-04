@@ -977,3 +977,21 @@ function TestElement.test_unlink()
 ]],
                        })
 end
+
+function TestElement.test_find_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local namespace = root:find_namespace("xhtml")
+  luaunit.assertEquals({
+                         namespace:get_prefix(),
+                         namespace:get_href()
+                       },
+                       {
+                         "xhtml",
+                         "http://www.w3.org/1999/xhtml"
+                       })
+end

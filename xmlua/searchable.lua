@@ -5,7 +5,7 @@ local ffi = require("ffi")
 
 local luacs = require("luacs")
 
-local Attr
+local Attribute
 local CDATASection
 local Comment
 local Element
@@ -14,7 +14,7 @@ local ProcessingInstruction
 local Text
 
 function Searchable.lazy_load()
-  Attr = require("xmlua.attr")
+  Attribute = require("xmlua.attribute")
   CDATASection = require("xmlua.cdata-section")
   Comment = require("xmlua.comment")
   Element = require("xmlua.element")
@@ -93,7 +93,7 @@ function Searchable:search(xpath)
         table.insert(raw_node_set,
                      ProcessingInstruction.new(document, node))
       elseif node_type == ffi.C.XML_ATTRIBUTE_NODE then
-        table.insert(raw_node_set, Attr.new(document, node))
+        table.insert(raw_node_set, Attribute.new(document, node))
       elseif node_type == ffi.C.XML_CDATA_SECTION_NODE then
         table.insert(raw_node_set, CDATASection.new(document, node))
       else

@@ -1,4 +1,4 @@
-local Attr = {}
+local Attribute = {}
 
 local Node = require("xmlua.node")
 local Element = require("xmlua.element")
@@ -29,7 +29,7 @@ function methods:get_owner_element()
                      self.node.parent)
 end
 
-function Attr.new(document, node)
+function Attribute.new(document, node)
   local attr = {
     document = document,
     node = node,
@@ -38,4 +38,4 @@ function Attr.new(document, node)
   return attr
 end
 
-return Attr
+return Attribute

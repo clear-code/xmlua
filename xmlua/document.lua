@@ -9,7 +9,7 @@ local Serializable = require("xmlua.serializable")
 local Searchable = require("xmlua.searchable")
 
 
-local Attr
+local Attribute
 local CDATASection
 local Comment
 local DocumentFragment
@@ -17,7 +17,7 @@ local Element
 local EntityReference
 
 function Document.lazy_load()
-  Attr = require("xmlua.attr")
+  Attribute = require("xmlua.attribute")
   CDATASection = require("xmlua.cdata-section")
   Comment = require("xmlua.comment")
   DocumentFragment = require("xmlua.document-fragment")
@@ -57,7 +57,7 @@ function methods:create_attribute(name, value, ns)
     libxml2.xmlNewProp(new_raw_node,
                        name,
                        value)
-  return Attr.new(self.document, raw_attribute_node)
+  return Attribute.new(self.document, raw_attribute_node)
 end
 
 function methods:create_cdata_section(data)

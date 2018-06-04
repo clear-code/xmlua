@@ -295,6 +295,7 @@ xmlNodePtr xmlNewPI(const xmlChar *name,
 		    const xmlChar *content);
 
 xmlNodePtr xmlAddPrevSibling(xmlNodePtr cur, xmlNodePtr elem);
+xmlNodePtr xmlAddSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddNextSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);
 

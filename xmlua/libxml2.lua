@@ -295,6 +295,14 @@ function libxml2.xmlAddPrevSibling(sibling, new_sibling)
   return new_node
 end
 
+function libxml2.xmlAddSibling(sibling, new_sibling)
+  local new_node = xml2.xmlAddSibling(sibling, new_sibling)
+  if new_node == ffi.NULL then
+    new_node = nil
+  end
+  return new_node
+end
+
 function libxml2.xmlAddNextSibling(sibling, new_sibling)
   local new_node = xml2.xmlAddNextSibling(sibling, new_sibling)
   if new_node == ffi.NULL then

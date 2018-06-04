@@ -5,27 +5,15 @@ local ffi = require("ffi")
 TestDocument = {}
 
 function TestDocument.test_create_cdata_section()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8"?>
-<root/>
-]]
-  local parser = xmlua.XMLSAXParser.new()
-  local succeeded = parser:parse(xml)
-  local document = parser.document
-  local cdata_section_node = document:create_cdata_section("This is <CDATA>")
-
+  local document = xmlua.XML.build({})
+  local cdata_section_node =
+    document:create_cdata_section("This is <CDATA>")
   luaunit.assertEquals(cdata_section_node:content(),
                        "This is <CDATA>")
 end
 
 function TestDocument.test_create_comment()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8"?>
-<root/>
-]]
-  local parser = xmlua.XMLSAXParser.new()
-  local succeeded = parser:parse(xml)
-  local document = parser.document
+  local document = xmlua.XML.build({})
   local comment_node = document:create_comment("This is comment")
 
   luaunit.assertEquals(comment_node:content(),
@@ -33,41 +21,21 @@ function TestDocument.test_create_comment()
 end
 
 function TestDocument.test_create_document_fragment()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8"?>
-<root/>
-]]
-  local parser = xmlua.XMLSAXParser.new()
-  local succeeded = parser:parse(xml)
-  local document = parser.document
+  local document = xmlua.XML.build({})
   local document_fragment = document:create_document_fragment()
-
   luaunit.assertEquals(tonumber(document_fragment.node.type),
                        ffi.C.XML_DOCUMENT_FRAG_NODE)
 end
 
 function TestDocument.test_add_entity_reference()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8"?>
-<root/>
-]]
-  local parser = xmlua.XMLSAXParser.new()
-  local succeeded = parser:parse(xml)
-  local document = parser.document
+  local document = xmlua.XML.build({})
   local entity_reference = document:add_entity_reference("test_entity")
-
   luaunit.assertEquals(entity_reference:name(),
                        "test_entity")
 end
 
 function TestDocument.test_create_processing_instruction()
-  local xml = [[
-<?xml version="1.0" encoding="UTF-8"?>
-<root/>
-]]
-  local parser = xmlua.XMLSAXParser.new()
-  local succeeded = parser:parse(xml)
-  local document = parser.document
+  local document = xmlua.XML.build({})
   local processing_instruction =
     document:create_processing_instruction("xml-stylesheet",
                                            "href=\"www.test.com/test-style.xsl\" type=\"text/xsl\"")

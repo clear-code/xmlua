@@ -14,7 +14,7 @@ local Element
 function Document.lazy_load()
   Element = require("xmlua.element")
   Attr = require("xmlua.attr")
-  CDataSection = require("xmlua.cdata-section")
+  CDATASection = require("xmlua.cdata-section")
   Comment = require("xmlua.comment")
   DocumentFragment = require("xmlua.document-fragment")
   EntityReference = require("xmlua.entity-reference")

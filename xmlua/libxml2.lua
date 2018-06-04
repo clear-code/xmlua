@@ -419,13 +419,15 @@ end
 
 local function error_ignore(user_data, err)
 end
+local c_error_ignore = ffi.cast("xmlStructuredErrorFunc", error_ignore)
+ffi.gc(c_error_ignore, function(callback) callback:free() end)
 
 function libxml2.xmlXPathNewContext(document)
   local context = xml2.xmlXPathNewContext(document)
   if context == ffi.NULL then
     return nil
   end
-  context.error = error_ignore
+  context.error = c_error_ignore
   return ffi.gc(context, xml2.xmlXPathFreeContext)
 end
 

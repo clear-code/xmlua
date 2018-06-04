@@ -147,6 +147,9 @@ local function create_sub_element(document, node, name, attributes)
 end
 
 function methods:add_child(node)
+  if(node.node.parent ~= ffi.NULL) then
+    node:unlink()
+  end
   local raw_added_node =
     libxml2.xmlAddChild(self.node, node.node)
 end

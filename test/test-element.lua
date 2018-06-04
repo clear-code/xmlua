@@ -92,7 +92,7 @@ function TestDocument.test_add_attribute_node()
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
-<root id="1">
+<root>
   <child1 id="1"/>
 </root>
 ]])

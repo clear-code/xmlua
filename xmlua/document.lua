@@ -10,6 +10,11 @@ local Searchable = require("xmlua.searchable")
 
 
 local Element
+local Attr
+local CDATASection
+local Comment
+local DocumentFragment
+local EntityReference
 
 function Document.lazy_load()
   Element = require("xmlua.element")

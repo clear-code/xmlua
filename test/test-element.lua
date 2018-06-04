@@ -78,21 +78,23 @@ function TestElement.test_parent_root()
 end
 
 function TestDocument.test_add_attribute_node()
-  local xml = [[
+  local document = xmlua.XML.parse([[
 <?xml version="1.0" encoding="UTF-8"?>
-<root/>
-]]
-  local parser = xmlua.XMLSAXParser.new()
-  local succeeded = parser:parse(xml)
-  local document = parser.document
-  local attr_node = document:create_attribute("id", "1")
+<root id="1">
+  <child1/>
+</root>
+]])
+  local attribute_node = document:search("/root/@id")
 
   local root = document:root()
-  root:add_child(attr_node)
+  local child = root:children()[1]
+  child:add_child(attribute_node[1])
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
-<root id="1"/>
+<root id="1">
+  <child1 id="1"/>
+</root>
 ]])
 end
 

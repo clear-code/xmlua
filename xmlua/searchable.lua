@@ -14,13 +14,13 @@ local ProcessingInstruction
 local Text
 
 function Searchable.lazy_load()
-  Element = require("xmlua.element")
-  Text = require("xmlua.text")
-  Comment = require("xmlua.comment")
-  ProcessingInstruction = require("xmlua.processing-instruction")
   Attr = require("xmlua.attr")
-  NodeSet = require("xmlua.node-set")
   CDATASection = require("xmlua.cdata-section")
+  Comment = require("xmlua.comment")
+  Element = require("xmlua.element")
+  NodeSet = require("xmlua.node-set")
+  ProcessingInstruction = require("xmlua.processing-instruction")
+  Text = require("xmlua.text")
 end
 
 local ERROR_MESSAGES = {

@@ -299,6 +299,10 @@ xmlNodePtr xmlAddSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddNextSibling(xmlNodePtr cur, xmlNodePtr elem);
 xmlNodePtr xmlAddChild(xmlNodePtr parent, xmlNodePtr cur);
 
+int xmlTextConcat(xmlNodePtr node,
+                  const xmlChar *content,
+		  int len);
+
 xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);
 xmlNsPtr xmlSearchNsByHref(xmlDocPtr doc, xmlNodePtr node, const xmlChar *href);
 

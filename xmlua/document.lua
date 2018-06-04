@@ -9,19 +9,19 @@ local Serializable = require("xmlua.serializable")
 local Searchable = require("xmlua.searchable")
 
 
-local Element
 local Attr
 local CDATASection
 local Comment
 local DocumentFragment
+local Element
 local EntityReference
 
 function Document.lazy_load()
-  Element = require("xmlua.element")
   Attr = require("xmlua.attr")
   CDATASection = require("xmlua.cdata-section")
   Comment = require("xmlua.comment")
   DocumentFragment = require("xmlua.document-fragment")
+  Element = require("xmlua.element")
   EntityReference = require("xmlua.entity-reference")
 end
 

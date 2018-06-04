@@ -66,6 +66,7 @@ build = {
     ["xmlua.libxml2.xmlsave"] = "xmlua/libxml2/xmlsave.lua",
     ["xmlua.libxml2.xmlstring"] = "xmlua/libxml2/xmlstring.lua",
     ["xmlua.libxml2.xpath"] = "xmlua/libxml2/xpath.lua",
+    ["xmlua.namespace"] = "xmlua/namespace.lua",
     ["xmlua.namespace-declaration"] = "xmlua/namespace-declaration.lua",
     ["xmlua.node"] = "xmlua/node.lua",
     ["xmlua.node-set"] = "xmlua/node-set.lua",

@@ -66,7 +66,7 @@ function TestDocument.test_create_document_fragment()
                        ffi.C.XML_DOCUMENT_FRAG_NODE)
 end
 
-function TestDocument.test_create_entity_reference()
+function TestDocument.test_add_entity_reference()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root/>
@@ -74,7 +74,7 @@ function TestDocument.test_create_entity_reference()
   local parser = xmlua.XMLSAXParser.new()
   local succeeded = parser:parse(xml)
   local document = parser.document
-  local entity_reference = document:create_entity_reference("test_entity")
+  local entity_reference = document:add_entity_reference("test_entity")
 
   luaunit.assertEquals(entity_reference:name(),
                        "test_entity")

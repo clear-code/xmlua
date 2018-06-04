@@ -82,7 +82,7 @@ function methods:create_document_fragment()
                               raw_document_fragment_node)
 end
 
-function methods:create_entity_reference(name)
+function methods:add_entity_reference(name)
   local raw_entity_reference =
     libxml2.xmlNewReference(self.document, name)
   return EntityReference.new(self.document,

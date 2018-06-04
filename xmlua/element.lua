@@ -154,6 +154,11 @@ function methods:add_child(node)
     libxml2.xmlAddChild(self.node, node.node)
 end
 
+function methods:add_previous_sibling(node)
+  local raw_added_node =
+    libxml2.xmlAddPrevSibling(self.node, node.node)
+end
+
 function methods:append_text(value)
   local raw_text = libxml2.xmlNewText(value)
   local added_raw_text = libxml2.xmlAddChild(self.node, raw_text)

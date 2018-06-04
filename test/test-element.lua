@@ -126,6 +126,27 @@ function TestDocument.test_add_comment_node()
 ]])
 end
 
+function TestDocument.test_add_previous_sibling_node()
+  local document = xmlua.XML.parse([[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child1/>
+</root>
+]])
+  local root = document:root()
+  local comment_node =
+    document:create_comment("This is comment!")
+  local child = root:children()[1]
+  child:add_previous_sibling(comment_node)
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!--This is comment!--><child1/>
+</root>
+]])
+end
+
 function TestElement.test_children()
   local document = xmlua.XML.parse([[
 <root>

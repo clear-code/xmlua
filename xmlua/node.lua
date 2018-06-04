@@ -3,6 +3,11 @@ local Node = {}
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 
+function Node:replace(replace_node)
+  libxml2.xmlReplaceNode(self.node, replace_node.node)
+  return
+end
+
 function Node:set_content(content)
   libxml2.xmlNodeSetContent(self.node, content)
   return

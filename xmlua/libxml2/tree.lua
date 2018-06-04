@@ -320,6 +320,7 @@ int xmlUnsetProp(xmlNodePtr node, const xmlChar *name);
 
 void xmlNodeSetContent(xmlNodePtr cur, const xmlChar *content);
 xmlChar *xmlNodeGetContent(const xmlNode *cur);
+xmlNodePtr xmlReplaceNode(xmlNodePtr old, xmlNodePtr cur);
 xmlChar *xmlGetNodePath(const xmlNode *node);
 
 void xmlFreeNode(xmlNodePtr cur);

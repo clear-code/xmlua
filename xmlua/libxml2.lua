@@ -396,6 +396,11 @@ function libxml2.xmlNodeGetContent(node)
   return lua_string
 end
 
+function libxml2.xmlReplaceNode(old_node, new_node)
+  xml2.xmlReplaceNode(old_node, new_node)
+  return
+end
+
 function libxml2.xmlGetNodePath(node)
   local path = xml2.xmlGetNodePath(node)
   if path == ffi.NULL then

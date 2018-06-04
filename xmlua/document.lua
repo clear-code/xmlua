@@ -57,7 +57,8 @@ function methods:create_attribute(name, value, ns)
     libxml2.xmlNewProp(new_raw_node,
                        name,
                        value)
-  return Attribute.new(self.document, raw_attribute_node)
+  return Attribute.new(self.document,
+                       ffi.cast("xmlNode *", raw_attribute_node))
 end
 
 function methods:create_cdata_section(data)

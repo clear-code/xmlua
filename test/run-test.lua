@@ -19,7 +19,7 @@ require("test.test-node-set")
 require("test.test-text")
 require("test.test-comment")
 require("test.test-processing-instruction")
-require("test.test-attr")
+require("test.test-attribute")
 require("test.test-cdata-section")
 
 luaunit = require("luaunit")

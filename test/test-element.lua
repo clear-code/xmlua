@@ -147,6 +147,25 @@ function TestDocument.test_add_previous_sibling_node()
 ]])
 end
 
+function TestDocument.test_add_previous_sibling_node_added_node_nil()
+  local document = xmlua.XML.parse([[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child1/>
+</root>
+]])
+  local root = document:root()
+  local comment_node =
+    document:create_comment("This is comment!")
+  local child = root:children()[1]
+  comment_node.node = nil
+  local success, message =
+    pcall(function() child:add_previous_sibling(comment_node) end)
+  luaunit.assertEquals(success, false)
+  luaunit.assertEquals(message:gsub("^.+:%d+: ", ""),
+                       "Already freed added node")
+end
+
 function TestDocument.test_append_sibling_node()
   local document = xmlua.XML.parse([[
 <?xml version="1.0" encoding="UTF-8"?>

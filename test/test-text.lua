@@ -56,6 +56,43 @@ function TestText.test_merge_receiver_nil()
   local text2 = document:search("/root/child/text()")
 
   text1[1].node = nil
-  luaunit.assertErrorMsgEquals("./xmlua/text.lua:29: Already freed reciver node",
-                               text1[1].merge, text1[1], text2[1])
+  local success, message = pcall(function() text1[1]:merge(text2[1]) end)
+  luaunit.assertEquals(success, false)
+  luaunit.assertEquals(message:gsub("^.+:%d+: ", ""),
+                       "Already freed reciver node")
+end
+
+function TestText.test_merge_merged_node_nil()
+  local document = xmlua.XML.parse([[
+<root>
+  Text:
+  <child>This is child</child>
+</root>
+]])
+  local text1 = document:search("/root/text()")
+  local text2 = document:search("/root/child/text()")
+
+  text2[1].node = nil
+  local success, message = pcall(function() text1[1]:merge(text2[1]) end)
+  luaunit.assertEquals(success, false)
+  luaunit.assertEquals(message:gsub("^.+:%d+: ", ""),
+                       "Already freed merged node")
+end
+
+function TestText.test_merge_merged_node_and_receiver()
+  local document = xmlua.XML.parse([[
+<root>
+  Text:
+  <child>This is child</child>
+</root>
+]])
+  local text1 = document:search("/root/text()")
+  local text2 = document:search("/root/child/text()")
+
+  text1[1].node = nil
+  text2[1].node = nil
+  local success, message = pcall(function() text1[1]:merge(text2[1]) end)
+  luaunit.assertEquals(success, false)
+  luaunit.assertEquals(message:gsub("^.+:%d+: ", ""),
+                       "Already freed receiver node and merged node")
 end

@@ -290,7 +290,12 @@ function libxml2.xmlNewCDataBlock(document,
 end
 
 function libxml2.xmlNewComment(content)
-  return xml2.xmlNewComment(content)
+  local new_comment =
+    xml2.xmlNewComment(content)
+  if new_comment == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(new_comment, libxml2.xmlFreeNode)
 end
 
 function libxml2.xmlNewDocFragment(document)

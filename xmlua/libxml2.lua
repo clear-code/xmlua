@@ -319,7 +319,11 @@ function libxml2.xmlNewReference(document, name)
 end
 
 function libxml2.xmlNewPI(name, content)
-  return xml2.xmlNewPI(name, content)
+  local new_pi = xml2.xmlNewPI(name, content)
+  if new_pi == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(new_pi, libxml2.xmlFreeNode)
 end
 
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)

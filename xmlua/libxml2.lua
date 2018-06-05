@@ -299,7 +299,13 @@ function libxml2.xmlNewComment(content)
 end
 
 function libxml2.xmlNewDocFragment(document)
-  return xml2.xmlNewDocFragment(document)
+  local new_document_fragment =
+    xml2.xmlNewDocFragment(document)
+  if new_document_fragment == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(new_document_fragment,
+                libxml2.xmlFreeNode)
 end
 
 function libxml2.xmlNewReference(document, name)

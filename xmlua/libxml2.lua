@@ -360,7 +360,7 @@ function libxml2.xmlAddPrevSibling(sibling, new_sibling)
     error("Failed to add previous sibling. "..
            error_node, 1)
   end
-  return new_node
+  return new_node, is_free
 end
 
 function libxml2.xmlAddSibling(sibling, new_sibling)
@@ -390,7 +390,7 @@ function libxml2.xmlAddSibling(sibling, new_sibling)
     error("Failed to add previous sibling. "..
            error_node, 1)
   end
-  return new_node
+  return new_node, is_free
 end
 
 function libxml2.xmlAddNextSibling(sibling, new_sibling)

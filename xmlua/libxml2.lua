@@ -330,35 +330,20 @@ function libxml2.xmlNewPI(name, content)
 end
 
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)
-  local new_node = nil
-  local was_freed =false
-  if sibling ~= ffi.NULL and new_sibling ~= ffi.NULL then
-    was_freed = (sibling.type == ffi.C.XML_TEXT_NODE
-               and new_sibling.type == ffi.C.XML_TEXT_NODE)
-               or
-               (sibling.type == ffi.C.XML_TEXT_NODE
-                and sibling.prev ~= ffi.NULL
-                and sibling.prev.type == ffi.C.XML_TEXT_NODE
-                and sibling.name == sibling.prev.name)
-    new_node = xml2.xmlAddPrevSibling(sibling, new_sibling)
-    if new_node == ffi.NULL then
-      new_node = nil
-    else
-      if was_freed then
-        ffi.gc(new_sibling, nil)
-      end
-    end
+  local was_freed = (sibling.type == ffi.C.XML_TEXT_NODE
+                     and new_sibling.type == ffi.C.XML_TEXT_NODE)
+                     or
+                     (sibling.type == ffi.C.XML_TEXT_NODE
+                      and sibling.prev ~= ffi.NULL
+                      and sibling.prev.type == ffi.C.XML_TEXT_NODE
+                      and sibling.name == sibling.prev.name)
+  local new_node = xml2.xmlAddPrevSibling(sibling, new_sibling)
+  if new_node == ffi.NULL then
+    new_node = nil
   else
-    local error_node = nil
-    if sibling == ffi.NULL and new_sibling == ffi.NULL then
-      error_node = "Current node and new node are NULL."
-    elseif sibling == ffi.NULL then
-      error_node = "Current node is NULL."
-    else
-      error_node = "New node is NULL."
+    if was_freed then
+      ffi.gc(new_sibling, nil)
     end
-    error("Failed to add previous sibling. "..
-           error_node, 1)
   end
   return new_node, was_freed
 end

@@ -276,7 +276,14 @@ function libxml2.xmlTextConcat(node,
 end
 
 function libxml2.xmlTextMerge(merged_node, merge_node)
-  return xml2.xmlTextMerge(merged_node, merge_node)
+  local was_freed = (merged_node.type == ffi.C.XML_TEXT_NODE
+                     and merge_node.type == ffi.C.XML_TEXT_NODE
+                     and merged_node.name == merge_node.name)
+  xml2.xmlTextMerge(merged_node, merge_node)
+  if was_freed then
+    ffi.gc(merge_node, nil)
+  end
+  return was_freed
 end
 
 function libxml2.xmlNewCDataBlock(document,

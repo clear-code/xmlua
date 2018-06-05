@@ -44,3 +44,18 @@ function TestText.test_merge()
 </root>
 ]])
 end
+
+function TestText.test_merge_receiver_nil()
+  local document = xmlua.XML.parse([[
+<root>
+  Text:
+  <child>This is child</child>
+</root>
+]])
+  local text1 = document:search("/root/text()")
+  local text2 = document:search("/root/child/text()")
+
+  text1[1].node = nil
+  luaunit.assertErrorMsgEquals("./xmlua/text.lua:29: Already freed reciver node",
+                               text1[1].merge, text1[1], text2[1])
+end

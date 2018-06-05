@@ -23,7 +23,18 @@ function methods:concat(content)
 end
 
 function methods:merge(merge_node)
-  libxml2.xmlTextMerge(self.node, merge_node.node)
+  if not self.node and not merge_node.node then
+    error("Already freed receiver node and merged node")
+  elseif not self.node then
+    error("Already freed reciver node")
+  elseif not merge_node.node then
+    error("Already freed merged node")
+  end
+
+  local was_freed = libxml2.xmlTextMerge(self.node, merge_node.node)
+  if was_freed then
+    merge_node.node = nil
+  end
 end
 
 function Text.new(document, node)

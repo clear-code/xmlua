@@ -159,7 +159,7 @@ function methods:add_previous_sibling(node)
   local raw_added_node, was_freed =
     libxml2.xmlAddPrevSibling(self.node, node.node)
   if was_freed then
-    node = nil
+    node.node = nil
   end
 end
 

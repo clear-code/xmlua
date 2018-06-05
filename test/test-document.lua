@@ -34,6 +34,21 @@ function TestDocument.test_add_entity_reference()
                        "test_entity")
 end
 
+function TestDocument.test_create_namespace()
+  local document = xmlua.XML.build({})
+  local namespace =
+    document:create_namespace("http://www.w3.org/1999/xhtml",
+                              "xhtml")
+  luaunit.assertEquals({
+                         namespace:href(),
+                         namespace:prefix()
+                       },
+                       {
+                         "http://www.w3.org/1999/xhtml",
+                         "xhtml"
+                       })
+end
+
 function TestDocument.test_create_processing_instruction()
   local document = xmlua.XML.build({})
   local processing_instruction =

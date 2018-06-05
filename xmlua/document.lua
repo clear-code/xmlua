@@ -14,6 +14,7 @@ local Comment
 local DocumentFragment
 local Element
 local EntityReference
+local Namespace
 local ProcessingInstruction
 
 function Document.lazy_load()
@@ -22,6 +23,7 @@ function Document.lazy_load()
   DocumentFragment = require("xmlua.document-fragment")
   Element = require("xmlua.element")
   EntityReference = require("xmlua.entity-reference")
+  Namespace = require("xmlua.namespace")
   ProcessingInstruction = require("xmlua.processing-instruction")
 end
 
@@ -77,6 +79,12 @@ function methods:add_entity_reference(name)
     libxml2.xmlNewReference(self.document, name)
   return EntityReference.new(self.document,
                              raw_entity_reference)
+end
+
+function methods:create_namespace(href, prefix)
+  local raw_namespace =
+    libxml2.xmlNewNs(self.node, href, prefix)
+  return Namespace.new(self.document, raw_namespace)
 end
 
 function methods:create_processing_instruction(name, content)

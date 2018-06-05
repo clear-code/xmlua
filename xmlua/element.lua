@@ -187,6 +187,14 @@ function methods:append_sibling(node)
 end
 
 function methods:add_next_sibling(node)
+  if not self.node and node.node then
+    error("Already freed receiver node and added node")
+  elseif not self.node then
+    error("Already freed reciver node")
+  elseif not node.node then
+    error("Already freed added node")
+  end
+
   local was_freed =
     libxml2.xmlAddNextSibling(self.node, node.node)
   if was_freed then

@@ -11,11 +11,11 @@ function metatable.__index(element, key)
     Node[key]
 end
 
-function methods:get_prefix()
+function methods:prefix()
   return ffi.string(self.node.prefix)
 end
 
-function methods:get_href()
+function methods:href()
   return ffi.string(self.node.href)
 end
 

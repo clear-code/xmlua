@@ -987,8 +987,8 @@ function TestElement.test_find_namespace()
   local root = document:root()
   local namespace = root:find_namespace("xhtml")
   luaunit.assertEquals({
-                         namespace:get_prefix(),
-                         namespace:get_href()
+                         namespace:prefix(),
+                         namespace:href()
                        },
                        {
                          "xhtml",

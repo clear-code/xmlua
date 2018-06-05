@@ -345,7 +345,6 @@ function libxml2.xmlAddPrevSibling(sibling, new_sibling)
     else
       if is_free then
         ffi.gc(new_sibling, nil)
-        new_sibling = nil
       end
     end
   else

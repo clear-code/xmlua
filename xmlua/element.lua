@@ -156,8 +156,11 @@ function methods:add_child(node)
 end
 
 function methods:add_previous_sibling(node)
-  local raw_added_node =
+  local raw_added_node, is_free =
     libxml2.xmlAddPrevSibling(self.node, node.node)
+  if is_free then
+    node = nil
+  end
 end
 
 function methods:append_sibling(node)

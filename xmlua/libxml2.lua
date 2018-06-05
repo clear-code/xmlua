@@ -370,12 +370,8 @@ function libxml2.xmlAddSibling(sibling, new_sibling)
                and new_sibling.type == ffi.C.XML_TEXT_NODE
                and sibling.name == new_sibling.name)
     local new_node = xml2.xmlAddSibling(sibling, new_sibling)
-    if new_node == ffi.NULL then
-      new_node = nil
-    else
-      if was_freed then
-        ffi.gc(new_sibling, nil)
-      end
+    if new_node ~= ffi.NULL and was_freed then
+      ffi.gc(new_sibling, nil)
     end
   else
     local error_node = nil

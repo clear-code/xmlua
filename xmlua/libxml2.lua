@@ -309,7 +309,13 @@ function libxml2.xmlNewDocFragment(document)
 end
 
 function libxml2.xmlNewReference(document, name)
-  return xml2.xmlNewReference(document, name)
+  local new_reference =
+    xml2.xmlNewReference(document, name)
+  if new_reference == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(new_reference,
+                libxml2.xmlFreeNode)
 end
 
 function libxml2.xmlNewPI(name, content)

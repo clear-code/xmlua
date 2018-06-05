@@ -364,13 +364,12 @@ function libxml2.xmlAddPrevSibling(sibling, new_sibling)
 end
 
 function libxml2.xmlAddSibling(sibling, new_sibling)
-  local new_node = nil
   local is_free = false
   if sibling ~= ffi.NULL and new_sibling ~= ffi.NULL then
     is_free = (sibling.type == ffi.C.XML_TEXT_NODE
                and new_sibling.type == ffi.C.XML_TEXT_NODE
                and sibling.name == new_sibling.name)
-    new_node = xml2.xmlAddSibling(sibling, new_sibling)
+    local new_node = xml2.xmlAddSibling(sibling, new_sibling)
     if new_node == ffi.NULL then
       new_node = nil
     else
@@ -390,10 +389,13 @@ function libxml2.xmlAddSibling(sibling, new_sibling)
     error("Failed to add previous sibling. "..
            error_node, 1)
   end
-  return new_node, is_free
+  return is_free
 end
 
 function libxml2.xmlAddNextSibling(sibling, new_sibling)
+  local new_node = nil
+  local is_free = false
+
   local new_node = xml2.xmlAddNextSibling(sibling, new_sibling)
   if new_node == ffi.NULL then
     new_node = nil

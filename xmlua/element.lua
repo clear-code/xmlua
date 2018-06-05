@@ -164,10 +164,17 @@ function methods:add_previous_sibling(node)
 end
 
 function methods:append_sibling(node)
-  local raw_added_node, is_free =
-    libxml2.xmlAddSibling(self.node, node.node)
-  if is_free then
-    node = nil
+  if not self.node and node.node then
+    error("Already freed receiver node and appended node")
+  elseif not self.node then
+    error("Already freed reciver node")
+  elseif not node.node then
+    error("Already freed appended node")
+  end
+
+  local was_freed = libxml2.xmlAddSibling(self.node, node.node)
+  if was_freed then
+    node.node = nil
   end
 end
 

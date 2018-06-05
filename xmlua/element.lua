@@ -187,8 +187,11 @@ function methods:append_sibling(node)
 end
 
 function methods:add_next_sibling(node)
-  local raw_added_node =
+  local was_freed =
     libxml2.xmlAddNextSibling(self.node, node.node)
+  if was_freed then
+    node.node = nil
+  end
 end
 
 function methods:append_text(value)

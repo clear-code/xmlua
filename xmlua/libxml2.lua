@@ -350,7 +350,7 @@ function libxml2.xmlAddPrevSibling(sibling, new_sibling)
     end
   else
     error(
-[[Failed add previous sibling.
+[[Failed to add previous sibling.
 current node or new node are NULL.]], 1)
   end
   return new_node
@@ -372,7 +372,9 @@ function libxml2.xmlAddSibling(sibling, new_sibling)
       end
     end
   else
-    error("Failed add sibling. current node or new node are NULL.", 1)
+    error(
+[[Failed to add sibling.
+current node or new node are NULL.]], 1)
   end
   return new_node
 end

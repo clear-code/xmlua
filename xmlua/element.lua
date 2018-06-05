@@ -160,7 +160,7 @@ function methods:add_previous_sibling(node)
     libxml2.xmlAddPrevSibling(self.node, node.node)
 end
 
-function methods:add_sibling(node)
+function methods:append_sibling(node)
   local raw_added_node =
     libxml2.xmlAddSibling(self.node, node.node)
 end

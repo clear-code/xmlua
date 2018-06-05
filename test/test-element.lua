@@ -147,7 +147,7 @@ function TestDocument.test_add_previous_sibling_node()
 ]])
 end
 
-function TestDocument.test_add_sibling_node()
+function TestDocument.test_append_sibling_node()
   local document = xmlua.XML.parse([[
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
@@ -158,7 +158,7 @@ function TestDocument.test_add_sibling_node()
   local comment_node =
     document:create_comment("This is comment!")
   local child = root:children()[1]
-  child:add_sibling(comment_node)
+  child:append_sibling(comment_node)
   luaunit.assertEquals(document:to_xml(),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>

@@ -19,7 +19,7 @@ end
 function methods:concat(content)
   return libxml2.xmlTextConcat(self.node,
                                content,
-                               content:len()) == 0
+                               content:len())
 end
 
 function methods:merge(merge_node)

@@ -266,9 +266,10 @@ end
 function libxml2.xmlTextConcat(node,
                                content,
                                content_length)
-  return xml2.xmlTextConcat(node,
-                            content,
-                            content_length)
+  local status = xml2.xmlTextConcat(node,
+                                    content,
+                                    content_length)
+  return status == 0
 end
 
 function libxml2.xmlTextMerge(merged_node, merge_node)

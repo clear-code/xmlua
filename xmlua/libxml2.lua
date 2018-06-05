@@ -279,9 +279,14 @@ end
 function libxml2.xmlNewCDataBlock(document,
                                   content,
                                   content_length)
-  return xml2.xmlNewCDataBlock(document,
-                               content,
-                               content_length)
+  local new_cdata_block =
+    xml2.xmlNewCDataBlock(document,
+                          content,
+                          content_length)
+  if new_cdata_block == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(new_cdata_block, libxml2.xmlFreeNode)
 end
 
 function libxml2.xmlNewComment(content)

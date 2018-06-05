@@ -331,14 +331,15 @@ end
 
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)
   local new_node = nil
+  local is_free =false
   if sibling ~= ffi.NULL and new_sibling ~= ffi.NULL then
-    local is_free = (sibling.type == ffi.C.XML_TEXT_NODE
-                     and new_sibling.type == ffi.C.XML_TEXT_NODE)
-                     or
-                     (sibling.type == ffi.C.XML_TEXT_NODE
-                      and sibling.prev ~= ffi.NULL
-                      and sibling.prev.type == ffi.C.XML_TEXT_NODE
-                      and sibling.name == sibling.prev.name)
+    is_free = (sibling.type == ffi.C.XML_TEXT_NODE
+               and new_sibling.type == ffi.C.XML_TEXT_NODE)
+               or
+               (sibling.type == ffi.C.XML_TEXT_NODE
+                and sibling.prev ~= ffi.NULL
+                and sibling.prev.type == ffi.C.XML_TEXT_NODE
+                and sibling.name == sibling.prev.name)
     new_node = xml2.xmlAddPrevSibling(sibling, new_sibling)
     if new_node == ffi.NULL then
       new_node = nil

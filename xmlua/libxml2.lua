@@ -351,7 +351,7 @@ function libxml2.xmlAddPrevSibling(sibling, new_sibling)
   else
     local error_node = nil
     if sibling == ffi.NULL and new_sibling == ffi.NULL then
-      error_node = "Current node and New node are NULL."
+      error_node = "Current node and new node are NULL."
     elseif sibling == ffi.NULL then
       error_node = "Current node is NULL."
     else
@@ -381,7 +381,7 @@ function libxml2.xmlAddSibling(sibling, new_sibling)
   else
     local error_node = nil
     if sibling == ffi.NULL and new_sibling == ffi.NULL then
-      error_node = "Current node and New node are NULL."
+      error_node = "Current node and new node are NULL."
     elseif sibling == ffi.NULL then
       error_node = "Current node is NULL."
     else

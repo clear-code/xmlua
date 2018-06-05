@@ -17,13 +17,9 @@ function methods:text()
 end
 
 function methods:concat(content)
-  if (libxml2.xmlTextConcat(self.node,
-                           content,
-                           content:len()) == -1) then
-    return false
-  else
-    return true
-  end
+  return libxml2.xmlTextConcat(self.node,
+                               content,
+                               content:len()) == 0
 end
 
 function methods:merge(merge_node)

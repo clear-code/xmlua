@@ -14,7 +14,7 @@ local Searchable = require("xmlua.searchable")
 local Node = require("xmlua.node")
 local Document = require("xmlua.document")
 local Text = require("xmlua.text")
-local NameSpace = require("xmlua.namespace")
+local Namespace = require("xmlua.namespace")
 local NodeSet = require("xmlua.node-set")
 
 local methods = {}
@@ -367,7 +367,7 @@ end
 function methods:find_namespace(prefix)
   local raw_namespace =
     libxml2.xmlSearchNs(self.document, self.node, prefix)
-  return NameSpace.new(self.document, raw_namespace)
+  return Namespace.new(self.document, raw_namespace)
 end
 
 -- For internal use

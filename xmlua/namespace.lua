@@ -1,4 +1,4 @@
-local NameSpace = {}
+local Namespace = {}
 
 local Node = require("xmlua.node")
 local ffi = require("ffi")
@@ -19,7 +19,7 @@ function methods:get_href()
   return ffi.string(self.node.href)
 end
 
-function NameSpace.new(document, node)
+function Namespace.new(document, node)
   local namespace = {
     document = document,
     node = node,
@@ -28,4 +28,4 @@ function NameSpace.new(document, node)
   return namespace
 end
 
-return NameSpace
+return Namespace

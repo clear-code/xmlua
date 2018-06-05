@@ -230,7 +230,10 @@ end
 
 function libxml2.xmlNewNs(node, uri, prefix)
   local new_namespace = xml2.xmlNewNs(node, uri, prefix)
-  return new_namespace
+  if new_namespace == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(new_namespace, libxml2.xmlFreeNs)
 end
 
 function libxml2.xmlFreeNs(namespace)

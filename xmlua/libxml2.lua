@@ -330,9 +330,23 @@ function libxml2.xmlNewPI(name, content)
 end
 
 function libxml2.xmlAddPrevSibling(sibling, new_sibling)
+  if sibling ~= ffi.NULL and new_sibling ~= ffi.NULL then
+    local is_free = (sibling.type == ffi.C.XML_TEXT_NODE
+                     and new_sibling.type == ffi.C.XML_TEXT_NODE)
+                     or
+                     (sibling.type == ffi.C.XML_TEXT_NODE
+                      and sibling.prev ~= ffi.NULL
+                      and sibling.prev.type == ffi.C.XML_TEXT_NODE
+                      and sibling.name == sibling.prev.name)
+  end
   local new_node = xml2.xmlAddPrevSibling(sibling, new_sibling)
   if new_node == ffi.NULL then
     new_node = nil
+  else
+    if is_free then
+      ffi.gc(new_sibling, nil)
+      new_sibling = nil
+    end
   end
   return new_node
 end

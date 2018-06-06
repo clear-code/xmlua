@@ -276,7 +276,7 @@ print(document:to_xml())
 
 Add a new node as the previous sibling receiver.
 If the new node was already inserted in a document it is first unlinked from its existing context.
-If the new node is ATTRIBUTE, it is added into properties instead of children.
+If the new node is ATTRIBUTE, it is added into properties instead of sibling.
 
 Example:
 

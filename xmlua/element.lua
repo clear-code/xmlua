@@ -159,7 +159,7 @@ function methods:add_previous_sibling(node)
   if not self.node and not node.node then
     error("Already freed receiver node and added node")
   elseif not self.node then
-    error("Already freed reciver node")
+    error("Already freed receiver node")
   elseif not node.node then
     error("Already freed added node")
   end
@@ -175,7 +175,7 @@ function methods:append_sibling(node)
   if not self.node and not node.node then
     error("Already freed receiver node and appended node")
   elseif not self.node then
-    error("Already freed reciver node")
+    error("Already freed receiver node")
   elseif not node.node then
     error("Already freed appended node")
   end
@@ -190,7 +190,7 @@ function methods:add_next_sibling(node)
   if not self.node and not node.node then
     error("Already freed receiver node and added node")
   elseif not self.node then
-    error("Already freed reciver node")
+    error("Already freed receiver node")
   elseif not node.node then
     error("Already freed added node")
   end

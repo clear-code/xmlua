@@ -255,7 +255,7 @@ print(document:to_xml())
 
 ### `unlink() -> xmlua.Element` {#unlink}
 
-It remove reciver from document tree.
+It remove receiver from document tree.
 
 Example:
 

@@ -26,7 +26,7 @@ function methods:merge(merge_node)
   if not self.node and not merge_node.node then
     error("Already freed receiver node and merged node")
   elseif not self.node then
-    error("Already freed reciver node")
+    error("Already freed receiver node")
   elseif not merge_node.node then
     error("Already freed merged node")
   end

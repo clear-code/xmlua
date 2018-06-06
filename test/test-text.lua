@@ -59,7 +59,7 @@ function TestText.test_merge_receiver_nil()
   local success, message = pcall(function() text1[1]:merge(text2[1]) end)
   luaunit.assertEquals(success, false)
   luaunit.assertEquals(message:gsub("^.+:%d+: ", ""),
-                       "Already freed reciver node")
+                       "Already freed receiver node")
 end
 
 function TestText.test_merge_merged_node_nil()

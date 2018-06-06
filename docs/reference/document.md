@@ -283,6 +283,32 @@ print(document:to_xml())
 end
 ```
 
+### `create_document_fragment() -> [xmlua.DocumentFragment]` {#create_document_fragment}
+
+You can create new document fragment node.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.build({"root"})
+local document_fragment = document:create_document_fragment()
+local comment_node =
+  document:create_comment("This is comment")
+document_fragment:add_child(comment_node)
+
+root = document:root()
+root:add_child(comment_node)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  <!--This is comment-->
+--
+--</root>
+end
+```
+
 ## See also
 
   * [`xmlua.HTML`][html]: The class for parsing HTML.

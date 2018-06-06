@@ -282,6 +282,32 @@ print(document:to_xml())
 --</root>
 ```
 
+### `append_sibling(node) -> void` {#append_sibling}
+
+新しいノードをレシーバーの最後の兄弟要素として追加します。
+新しいノードが既にドキュメント内に挿入されている場合は、最初に既存のコンテキストからリンクが解除されます。
+
+例：
+
+```lua
+local document = xmlua.XML.parse([[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child/>
+</root>
+]])
+local root = document:root()
+local comment_node =
+  document:create_comment("This is comment!")
+local child = root:children()[1]
+child:append_sibling(comment_node)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  <child/>
+--<!--This is comment!--></root>
+```
+
 ### `unlink() -> xmlua.Element` {#unlink}
 
 レシーバーをドキュメントツリーから削除します。

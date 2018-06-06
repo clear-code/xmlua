@@ -27,6 +27,37 @@ function TestDocument.test_create_document_fragment()
                        ffi.C.XML_DOCUMENT_FRAG_NODE)
 end
 
+function TestDocument.test_create_document_type_public_id()
+  local document = xmlua.XML.build({})
+  local document_type =
+    document:create_document_type("TestDocumentDecl",
+                                  "//test/uri")
+  luaunit.assertEquals({
+                         document_type:name(),
+                         document_type:external_id()
+                       },
+                       {
+                         "TestDocumentDecl",
+                         "//test/uri"
+                       })
+end
+
+function TestDocument.test_create_document_type_system_id()
+  local document = xmlua.XML.build({})
+  local document_type =
+    document:create_document_type("TestDocumentDecl",
+                                  nil,
+                                  "system.dtd")
+  luaunit.assertEquals({
+                         document_type:name(),
+                         document_type:system_id()
+                       },
+                       {
+                         "TestDocumentDecl",
+                         "system.dtd"
+                       })
+end
+
 function TestDocument.test_add_entity_reference()
   local document = xmlua.XML.build({})
   local entity_reference = document:add_entity_reference("test_entity")

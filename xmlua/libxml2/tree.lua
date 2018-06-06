@@ -282,6 +282,11 @@ void xmlFreeNs(xmlNsPtr cur);
 void xmlSetNs(xmlNodePtr node, xmlNsPtr ns);
 xmlDocPtr xmlNewDoc(const xmlChar *version);
 xmlNodePtr xmlDocSetRootElement(xmlDocPtr doc, xmlNodePtr root);
+xmlDtdPtr xmlNewDtd(xmlDocPtr doc,
+		    const xmlChar *name,
+		    const xmlChar *ExternalID,
+		    const xmlChar *SystemID);
+void xmlFreeDtd(xmlDtdPtr cur);
 xmlNodePtr xmlNewNode(xmlNsPtr ns, const xmlChar *name);
 xmlNodePtr xmlNewText(const xmlChar *content);
 xmlNodePtr xmlNewCDataBlock(xmlDocPtr doc,

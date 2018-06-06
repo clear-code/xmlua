@@ -308,6 +308,25 @@ function libxml2.xmlNewComment(content)
   return ffi.gc(new_comment, libxml2.xmlFreeNode)
 end
 
+function libxml2.xmlNewDtd(document,
+                           name,
+                           external_id,
+                           system_id)
+  local new_dtd =
+    xml2.xmlNewDtd(document,
+                   name,
+                   external_id,
+                   system_id)
+  if new_dtd == ffi.NULL then
+    return nil
+  end
+  return ffi.gc(new_dtd, libxml2.xmlFreeDtd)
+end
+
+function libxml2.xmlFreeDtd(dtd)
+  xml2.xmlFreeDtd(dtd)
+end
+
 function libxml2.xmlNewDocFragment(document)
   local new_document_fragment =
     xml2.xmlNewDocFragment(document)

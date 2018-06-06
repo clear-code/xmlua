@@ -12,6 +12,7 @@ local Searchable = require("xmlua.searchable")
 local CDATASection
 local Comment
 local DocumentFragment
+local DocumentType
 local Element
 local EntityReference
 local Namespace
@@ -21,6 +22,7 @@ function Document.lazy_load()
   CDATASection = require("xmlua.cdata-section")
   Comment = require("xmlua.comment")
   DocumentFragment = require("xmlua.document-fragment")
+  DocumentType = require("xmlua.document-type")
   Element = require("xmlua.element")
   EntityReference = require("xmlua.entity-reference")
   Namespace = require("xmlua.namespace")
@@ -72,6 +74,13 @@ function methods:create_document_fragment()
     libxml2.xmlNewDocFragment(self.document)
   return DocumentFragment.new(self.document,
                               raw_document_fragment_node)
+end
+
+function methods:create_document_type(name, external_id, system_id)
+  local raw_document_type =
+    libxml2.xmlNewDtd(self.document, name, external_id, system_id)
+  return DocumentType.new(self.document,
+                          raw_document_type)
 end
 
 function methods:add_entity_reference(name)

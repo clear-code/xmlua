@@ -78,7 +78,7 @@ end
 
 function methods:create_document_type(name, external_id, system_id)
   local raw_document_type =
-    libxml2.xmlNewDtd(self.document, name, external_id, system_id)
+    libxml2.xmlCreateIntSubset(self.document, name, external_id, system_id)
   return DocumentType.new(self.document,
                           raw_document_type)
 end

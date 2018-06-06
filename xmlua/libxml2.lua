@@ -307,15 +307,15 @@ function libxml2.xmlNewComment(content)
   return ffi.gc(new_comment, libxml2.xmlFreeNode)
 end
 
-function libxml2.xmlNewDtd(document,
-                           name,
-                           external_id,
-                           system_id)
+function libxml2.xmlCreateIntSubset(document,
+                                    name,
+                                    external_id,
+                                    system_id)
   local new_dtd =
-    xml2.xmlNewDtd(document,
-                   name,
-                   external_id,
-                   system_id)
+    xml2.xmlCreateIntSubset(document,
+                            name,
+                            external_id,
+                            system_id)
   if new_dtd == ffi.NULL then
     return nil
   end

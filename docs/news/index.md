@@ -4,6 +4,38 @@ title: News
 
 # News
 
+## 1.1.2: 2018-06-06 {#version-1-1-2}
+
+### Improvements
+
+  * `xmlua.Document`: Added below functions.
+
+    * `create_cdata_section()`
+
+    * `create_comment()`
+
+    * `create_processing_instruction()`
+
+    * `create_namespace()`
+
+  * `xmlua.Element`: Added below functions.
+
+    * `add_child()`
+
+    * `add_previous_sibling()`
+
+    * `add_sibling()`
+
+    * `add_next_sibling()`
+
+    * `find_namespace()`
+
+  * `xmlua.Node.replace_node()` Added.
+
+  * `xmlua.Text.concat()` Added.
+
+  * `xmlua.Text.merge()` Added.
+
 ## 1.1.1: 2018-04-16 {#version-1-1-1}
 
 ### Fixes

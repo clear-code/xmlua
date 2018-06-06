@@ -21,7 +21,6 @@ local loaded, xml2 = pcall(ffi.load, "xml2")
 if not loaded then
   xml2 = ffi.load("libxml2.so.2")
 end
-
 local function __xmlParserVersionIsAvailable()
   local success, err = pcall(function()
       local func = xml2.__xmlParserVersion
@@ -529,6 +528,7 @@ end
 
 local function error_ignore(user_data, err)
 end
+jit.off(c_error_ignore, true)
 local c_error_ignore = ffi.cast("xmlStructuredErrorFunc", error_ignore)
 ffi.gc(c_error_ignore, function(callback) callback:free() end)
 

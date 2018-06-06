@@ -40,6 +40,8 @@ XMLua provides the following classes:
 
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
 
+  * [`xmlua.Text`][text]: The class for text nodes.
+
 You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` directly. Other classes are accessible via methods of `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser`.
 
 [tutorial]:../tutorial/
@@ -65,3 +67,5 @@ You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` directly
 [element]:element.html
 
 [node-set]:node-set.html
+
+[text]:text.html

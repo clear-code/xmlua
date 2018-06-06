@@ -40,6 +40,8 @@ XMLuaは以下のクラスを提供します。
 
   * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。
 
+  * [`xmlua.Text`][text]: テキストノード用のクラスです。
+
 `xmlua.HTML`と`xmlua.XML`、`xmlua.HTMLSAXParser`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XML`、`xmlua.HTMLSAXParser`のメソッド経由でアクセスできます。
 
 [tutorial]:../tutorial/
@@ -65,3 +67,5 @@ XMLuaは以下のクラスを提供します。
 [element]:element.html
 
 [node-set]:node-set.html
+
+[text]:text.html

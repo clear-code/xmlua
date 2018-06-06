@@ -90,6 +90,9 @@ msgstr "  * [`xmlua.Element`][element]: 要素ノード用のクラスです。"
 msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
 msgstr "  * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。"
 
+msgid "  * [`xmlua.Text`][text]: The class for text nodes."
+msgstr "  * [`xmlua.Text`][text]: テキストノード用のクラスです。"
+
 msgid ""
 "You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` direct"
 "ly. Other classes are accessible via methods of `xmlua.HTML` and `xmlua.XML`, "
@@ -132,4 +135,7 @@ msgid "[element]:element.html"
 msgstr ""
 
 msgid "[node-set]:node-set.html"
+msgstr ""
+
+msgid "[text]:text.html"
 msgstr ""

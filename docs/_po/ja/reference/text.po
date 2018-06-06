@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua.Text\n"
+"---"
+msgstr ""
+
+msgid "# `xmlua.Text` class"
+msgstr "# `xmlua.Text` クラス"
+
+msgid "## Summary"
+msgstr "## 概要"
+
+msgid ""
+"It's a class for text node. You can get text object by [`xmlua.Searchable:sear"
+"ch`][searchable-search] and [`xmlua.NodeSet`][node-set]'s `[]`."
+msgstr ""
+"テキストノードのためのクラスです。[`xmlua.Searchable:search`][searchable-search] と [`xmlua.Node"
+"Set`][node-set] の `[]` を使ってテキストノードを取得できます。"
+
+msgid "Example:"
+msgstr "例："
+
+msgid ""
+"```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid "local document = xmlua.XML.parse(\"<root>This is text</root>\")"
+msgstr ""
+
+msgid ""
+"document:search(\"/root/text()\")[1] -- -> xmlua.Text\n"
+"```"
+msgstr ""
+
+msgid "## Instance methods"
+msgstr "## インスタンスメソッド"
+
+msgid "### `concat(content) -> boolean` {#concat}"
+msgstr ""
+
+msgid "Concat the given content of argument at the end of the existing node."
+msgstr "既存のノードの最後に引数で指定した内容を連結します。"
+
+msgid ""
+"```lua\n"
+"local document =\n"
+"  xmlua.XML.build({\"root\", {}, \"Text1\"})\n"
+"local text_nodes = document:search(\"/root/text()\")\n"
+"text_nodes[1]:concat(\"Text2\")\n"
+"print(document:to_xml())\n"
+"--<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"--<root>Text1Text2</root>\n"
+"end\n"
+"```"
+msgstr ""
+
+msgid "## See also"
+msgstr "## 参照"
+
+msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
+msgstr "  * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。"
+
+msgid "  * [`xmlua.Searchable`][searchable]: Provides node search related methods."
+msgstr "  * [`xmlua.Searchable`][searchable]: ノード検索関連のメソッドを提供します。"
+
+msgid "[node-set]:node-set.html"
+msgstr ""
+
+msgid "[searchable-search]:searchable.html#search"
+msgstr ""
+
+msgid "[searchable]:searchable.html"
+msgstr ""

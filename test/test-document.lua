@@ -10,9 +10,12 @@ function TestDocument.test_create_cdata_section()
     document:create_cdata_section("This is <CDATA>")
   root = document:root()
   root:add_child(cdata_section_node)
-    print(document:to_xml())
-  luaunit.assertEquals(cdata_section_node:content(),
-                       "This is <CDATA>")
+  luaunit.assertEquals(document:to_xml(),
+                       [=[
+<?xml version="1.0" encoding="UTF-8"?>
+<root><![CDATA[This is <CDATA>]]></root>
+]=]
+                       )
 end
 
 function TestDocument.test_create_comment()
@@ -20,42 +23,44 @@ function TestDocument.test_create_comment()
   local comment_node = document:create_comment("This is comment")
   root = document:root()
   root:add_child(comment_node)
-    print(document:to_xml())
-
-
-  luaunit.assertEquals(comment_node:content(),
-                       "This is comment")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!--This is comment-->
+</root>
+]])
 end
 
 function TestDocument.test_create_document_fragment()
   local document = xmlua.XML.build({"root"})
+
   local document_fragment = document:create_document_fragment()
   local comment_node = document:create_comment("This is comment")
   document_fragment:add_child(comment_node)
+
   root = document:root()
   root:add_child(document_fragment)
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!--This is comment-->
 
-    print(document:to_xml())
-  luaunit.assertEquals(tonumber(document_fragment.node.type),
-                       ffi.C.XML_DOCUMENT_FRAG_NODE)
+</root>
+]])
 end
 
 function TestDocument.test_create_document_type_public_id()
-  local document = xmlua.XML.build({"root"})
+  local document = xmlua.XML.build({})
   local document_type =
     document:create_document_type("TestDocumentDecl",
                                   "//test/uri")
-root = document:root()
---root:add_child(document_type)
-print(document:to_xml())
-  luaunit.assertEquals({
-                         document_type:name(),
-                         document_type:external_id()
-                       },
-                       {
-                         "TestDocumentDecl",
-                         "//test/uri"
-                       })
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE TestDocumentDecl PUBLIC "//test/uri" "">
+]])
 end
 
 function TestDocument.test_create_document_type_system_id()
@@ -63,15 +68,12 @@ function TestDocument.test_create_document_type_system_id()
   local document_type =
     document:create_document_type("TestDocumentDecl",
                                   nil,
-                                  "system.dtd")
-  luaunit.assertEquals({
-                         document_type:name(),
-                         document_type:system_id()
-                       },
-                       {
-                         "TestDocumentDecl",
-                         "system.dtd"
-                       })
+                                  "//system.dtd")
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE TestDocumentDecl SYSTEM "//system.dtd">
+]])
 end
 
 function TestDocument.test_add_entity_reference()

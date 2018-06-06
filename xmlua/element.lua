@@ -396,9 +396,15 @@ function methods:text()
   return self:content()
 end
 
-function methods:find_namespace(prefix)
-  local raw_namespace =
-    libxml2.xmlSearchNs(self.document, self.node, prefix)
+function methods:find_namespace(prefix, href)
+  local raw_namespace
+  if not prefix and href then
+    raw_namespace =
+      libxml2.xmlSearchNsByHref(self.document, self.node, href)
+  else
+    raw_namespace =
+      libxml2.xmlSearchNs(self.document, self.node, prefix)
+  end
   return Namespace.new(self.document, raw_namespace)
 end
 

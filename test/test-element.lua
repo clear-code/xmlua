@@ -997,7 +997,7 @@ function TestElement.test_unlink()
                        })
 end
 
-function TestElement.test_find_namespace()
+function TestElement.test_find_namespace_with_prefix()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8"?>
 <xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
@@ -1013,4 +1013,36 @@ function TestElement.test_find_namespace()
                          "xhtml",
                          "http://www.w3.org/1999/xhtml"
                        })
+end
+
+function TestElement.test_find_namespace_with_href()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local namespace = root:find_namespace(nil, "http://www.w3.org/1999/xhtml")
+  luaunit.assertEquals({
+                         namespace:prefix(),
+                         namespace:href()
+                       },
+                       {
+                         "xhtml",
+                         "http://www.w3.org/1999/xhtml"
+                       })
+end
+
+function TestElement.test_find_namespace_default_namespace()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<test xmlns='http://www.test.org/xhtml'
+      xmlns:xhtml='http://www.w3.org/1999/xhtml'>
+</test>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local namespace = root:find_namespace()
+  luaunit.assertEquals(namespace:href(),
+                       "http://www.test.org/xhtml")
 end

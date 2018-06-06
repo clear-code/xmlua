@@ -5,33 +5,49 @@ local ffi = require("ffi")
 TestDocument = {}
 
 function TestDocument.test_create_cdata_section()
-  local document = xmlua.XML.build({})
+  local document = xmlua.XML.build({"root"})
   local cdata_section_node =
     document:create_cdata_section("This is <CDATA>")
+  root = document:root()
+  root:add_child(cdata_section_node)
+    print(document:to_xml())
   luaunit.assertEquals(cdata_section_node:content(),
                        "This is <CDATA>")
 end
 
 function TestDocument.test_create_comment()
-  local document = xmlua.XML.build({})
+  local document = xmlua.XML.build({"root"})
   local comment_node = document:create_comment("This is comment")
+  root = document:root()
+  root:add_child(comment_node)
+    print(document:to_xml())
+
 
   luaunit.assertEquals(comment_node:content(),
                        "This is comment")
 end
 
 function TestDocument.test_create_document_fragment()
-  local document = xmlua.XML.build({})
+  local document = xmlua.XML.build({"root"})
   local document_fragment = document:create_document_fragment()
+  local comment_node = document:create_comment("This is comment")
+  document_fragment:add_child(comment_node)
+  root = document:root()
+  root:add_child(document_fragment)
+
+    print(document:to_xml())
   luaunit.assertEquals(tonumber(document_fragment.node.type),
                        ffi.C.XML_DOCUMENT_FRAG_NODE)
 end
 
 function TestDocument.test_create_document_type_public_id()
-  local document = xmlua.XML.build({})
+  local document = xmlua.XML.build({"root"})
   local document_type =
     document:create_document_type("TestDocumentDecl",
                                   "//test/uri")
+root = document:root()
+--root:add_child(document_type)
+print(document:to_xml())
   luaunit.assertEquals({
                          document_type:name(),
                          document_type:external_id()
@@ -205,3 +221,20 @@ function TestDocument.test_add_dtd_entity()
                        })
 end
 
+function TestDocument.test_get_dtd_internal_subset()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "./test/test.dtd">
+<root/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local dtd = document:get_internal_subset()
+  luaunit.assertEquals({
+                         dtd:name(),
+                         dtd:system_id()
+                       },
+                       {
+                         "root",
+                         "./test/test.dtd"
+                       })
+end

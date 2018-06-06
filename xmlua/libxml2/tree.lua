@@ -286,10 +286,11 @@ xmlDtdPtr xmlNewDtd(xmlDocPtr doc,
 		    const xmlChar *name,
 		    const xmlChar *ExternalID,
 		    const xmlChar *SystemID);
-xmlDtdPtr	xmlCreateIntSubset(xmlDocPtr doc,
-				   const xmlChar * name,
-				   const xmlChar * ExternalID,
-				   const xmlChar * SystemID);
+xmlDtdPtr xmlCreateIntSubset(xmlDocPtr doc,
+	                     const xmlChar * name,
+			     const xmlChar * ExternalID,
+			     const xmlChar * SystemID);
+xmlDtdPtr xmlGetIntSubset(const xmlDoc * doc);
 void xmlFreeDtd(xmlDtdPtr cur);
 xmlNodePtr xmlNewNode(xmlNsPtr ns, const xmlChar *name);
 xmlNodePtr xmlNewText(const xmlChar *content);

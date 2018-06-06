@@ -322,6 +322,15 @@ function libxml2.xmlCreateIntSubset(document,
   return ffi.gc(new_dtd, libxml2.xmlFreeDtd)
 end
 
+function libxml2.xmlGetIntSubset(document)
+  local raw_internal_subset
+    = xml2.xmlGetIntSubset(document)
+  if raw_internal_subset == ffi.NULL then
+    return nil
+  end
+  return raw_internal_subset
+end
+
 function libxml2.xmlFreeDtd(dtd)
   xml2.xmlFreeDtd(dtd)
 end

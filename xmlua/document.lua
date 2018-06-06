@@ -83,6 +83,17 @@ function methods:create_document_type(name, external_id, system_id)
                           raw_document_type)
 end
 
+function methods:get_internal_subset()
+  local raw_document_type =
+    libxml2.xmlGetIntSubset(self.document)
+  if raw_document_type ~= nil then
+    return DocumentType.new(self.document,
+                            raw_document_type)
+  else
+    return nil
+  end
+end
+
 function methods:add_entity_reference(name)
   local raw_entity_reference =
     libxml2.xmlNewReference(self.document, name)

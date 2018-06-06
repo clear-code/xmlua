@@ -327,6 +327,32 @@ print(document:to_xml())
 --<!--This is comment!--></root>
 ```
 
+### `add_next_sibling(node) -> void` {#add_next_sibling}
+
+Add a new node to a receiver as the next sibling.
+If the new node was already inserted in a document it is first unlinked from its existing context.
+
+Example:
+
+```lua
+local document = xmlua.XML.parse([[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child/>
+</root>
+]])
+local root = document:root()
+local comment_node =
+  document:create_comment("This is comment!")
+local child = root:children()[1]
+child:add_next_sibling(comment_node)
+print(document:to_xml()
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  <child/><!--This is comment!-->
+--</root>
+```
+
 ### `unlink() -> xmlua.Element` {#unlink}
 
 It remove receiver from document tree.

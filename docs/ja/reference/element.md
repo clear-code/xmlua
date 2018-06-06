@@ -237,6 +237,24 @@ print(document:to_xml())
 -- <root>This is Text element.</root>
 ```
 
+### `add_child(child_node) -> void` {#add_child}
+
+レシーバーの要素の新しい要素を最後の子要素として追加します。新しいノードが属性ノードの場合は、子要素ではなく、レシーバーのプロパティに追加されます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+--append CDATASection node.
+local document = xmlua.XML.build({"root"})
+local cdata_section_node =
+  document:create_cdata_section("This is <CDATA>")
+local root = document:root()
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root><![CDATA[This is <CDATA>]]></root>
+```
+
 ### `unlink() -> xmlua.Element` {#unlink}
 
 レシーバーをドキュメントツリーから削除します。

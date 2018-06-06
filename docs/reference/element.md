@@ -253,6 +253,25 @@ print(document:to_xml())
 -- <root>This is Text element.</root>
 ```
 
+### `add_child(child_node) -> void` {#add_child}
+
+Add a new node to reciver, at the end of child.
+If new node is attribute node, it is added into propertoes instead of children.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+--append CDATASection node.
+local document = xmlua.XML.build({"root"})
+local cdata_section_node =
+  document:create_cdata_section("This is <CDATA>")
+local root = document:root()
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root><![CDATA[This is <CDATA>]]></root>
+```
+
 ### `unlink() -> xmlua.Element` {#unlink}
 
 It remove receiver from document tree.

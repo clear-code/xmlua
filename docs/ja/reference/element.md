@@ -697,6 +697,58 @@ print(subs[3]:to_xml())
 -- <sub3/>
 ```
 
+### `find_namespace(prefix, href) -> [xmlua.Namespace]` {#find_namespace}
+
+ドキュメントに登録されている名前空間を検索することができます。prefixがnilで、hrefが存在する場合、このメソッドは名前空間をhrefで検索します。prefixとhrefがnilの場合、このメソッドはデフォルトの名前空間を検索します。見つかった名前空間またはnilを返します。戻り値がnilの場合は、名前空間の検索は失敗です。
+
+例：
+
+```lua
+--prefixによる検索
+local xmlua = require("xmlua")
+
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local namespace = root:find_namespace("xhtml")
+print(namespace:prefix()) --"xhtml"
+print(namespace:href()) --"http://www.w3.org/1999/xhtml"
+```
+
+```lua
+--hrefによる検索
+local xmlua = require("xmlua")
+
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local namespace = root:find_namespace(nil, "http://www.w3.org/1999/xhtml")
+print(namespace:prefix()) --"xhtml"
+print(namespace:href()) --"http://www.w3.org/1999/xhtml"
+```
+
+```lua
+--デフォルトネームスペースの検索
+local xmlua = require("xmlua")
+
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<test xmlns='http://www.test.org/xhtml'
+      xmlns:xhtml='http://www.w3.org/1999/xhtml'>
+</test>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local namespace = root:find_namespace()
+print(namespace:href()) --"http://www.test.org/xhtml"
+```
+
 ## 参照
 
   * [`xmlua.HTML`][html]: HTMLをパースするクラスです。
@@ -704,6 +756,8 @@ print(subs[3]:to_xml())
   * [`xmlua.XML`][xml]: XMLをパースするクラスです。
 
   * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。
+
+  * [`xmlua.Namespace`][namespace]: The class for namespace nodes.
 
   * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。
 
@@ -725,3 +779,5 @@ print(subs[3]:to_xml())
 [serializable]:serializable.html
 
 [searchable]:searchable.html
+
+[namespace]:namespace.html

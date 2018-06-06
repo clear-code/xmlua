@@ -716,6 +716,63 @@ print(subs[3]:to_xml())
 -- <sub3/>
 ```
 
+### `find_namespace(prefix, href) -> [xmlua.Namespace]` {#find_namespace}
+
+You can search namespace registered for a document.
+If a prefix is a nil and href is exist, this method search namespace by href.
+IF a prefix and href is exist, this method search namespace by prefix.
+If prefix and href are nil, this method search default namespace.
+It returns found namespace or nil.
+If a return value is a nil, the search of a namespace is a failure.
+
+Example:
+
+```lua
+--search by prefix
+local xmlua = require("xmlua")
+
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local namespace = root:find_namespace("xhtml")
+print(namespace:prefix()) --"xhtml"
+print(namespace:href()) --"http://www.w3.org/1999/xhtml"
+```
+
+```lua
+--search by href
+local xmlua = require("xmlua")
+
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local namespace = root:find_namespace(nil, "http://www.w3.org/1999/xhtml")
+print(namespace:prefix()) --"xhtml"
+print(namespace:href()) --"http://www.w3.org/1999/xhtml"
+```
+
+```lua
+--search of default namespace
+local xmlua = require("xmlua")
+
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<test xmlns='http://www.test.org/xhtml'
+      xmlns:xhtml='http://www.w3.org/1999/xhtml'>
+</test>
+]]
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local namespace = root:find_namespace()
+print(namespace:href()) --"http://www.test.org/xhtml"
+```
+
 ## See also
 
   * [`xmlua.HTML`][html]: The class for parsing HTML.
@@ -723,6 +780,8 @@ print(subs[3]:to_xml())
   * [`xmlua.XML`][xml]: The class for parsing XML.
 
   * [`xmlua.Document`][document]: The class for HTML document and XML document.
+
+  * [`xmlua.Namespace`][namespace]: The class for namespace nodes.
 
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
 
@@ -744,3 +803,5 @@ print(subs[3]:to_xml())
 [serializable]:serializable.html
 
 [searchable]:searchable.html
+
+[namespace]:namespace.html

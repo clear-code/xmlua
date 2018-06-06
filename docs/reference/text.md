@@ -39,6 +39,33 @@ print(document:to_xml())
 end
 ```
 
+### `merge(content) -> boolean` {#concat}
+
+Merge receiver and content of argument into one text node.
+It returns the success or failure of the merge as a boolean.
+`true` is a success of merge. `false` is merge failure.
+
+Example:
+
+```lua
+local document = xmlua.XML.parse([[
+<root>
+  Text:
+  <child>This is child</child>
+</root>
+]])
+local text1 = document:search("/root/text()")
+local text2 = document:search("/root/child/text()")
+
+text1[1]:merge(text2[1])
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  Text:
+--  This is child<child/>
+--</root>
+```
+
 ## See also
 
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.

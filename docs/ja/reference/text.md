@@ -37,6 +37,31 @@ print(document:to_xml())
 end
 ```
 
+### `merge(content) -> boolean` {#concat}
+
+レシーバーのノードと引数の内容を１つのテキストノードにマージします。マージの成否をブーリアンとして返します。`true` はマージの成功を表します。 `false` はマージの失敗を表します。
+
+例：
+
+```lua
+local document = xmlua.XML.parse([[
+<root>
+  Text:
+  <child>This is child</child>
+</root>
+]])
+local text1 = document:search("/root/text()")
+local text2 = document:search("/root/child/text()")
+
+text1[1]:merge(text2[1])
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  Text:
+--  This is child<child/>
+--</root>
+```
+
 ## 参照
 
   * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。

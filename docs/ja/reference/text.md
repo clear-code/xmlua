@@ -22,7 +22,7 @@ document:search("/root/text()")[1] -- -> xmlua.Text
 
 ### `concat(content) -> boolean` {#concat}
 
-既存のノードの最後に引数で指定した内容を連結します。
+既存のノードの最後に引数で指定した内容を連結します。連結の成否をブーリアンとして返します。`true` は連結の成功を表します。 `false` は連結の失敗を表します。
 
 例：
 

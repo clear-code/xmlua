@@ -239,6 +239,50 @@ Result of avobe example as blow.
 This is test.
 ```
 
+### `create_cdata_section(content) -> [xmlua.CDATADection]` {#create_cdata_section}
+
+You can create new cdata section node.
+the argument is content of cdata section node.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.build({"root"})
+local cdata_section_node =
+  document:create_cdata_section("This is <CDATA>")
+root = document:root()
+root:add_child(cdata_section_node)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root><![CDATA[This is <CDATA>]]></root>
+end
+```
+
+### `create_comment(content) -> [xmlua.Comment]` {#create_comment}
+
+You can create new comment node.
+the argument is content of comment node.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.build({"root"})
+local comment_node =
+  document:create_comment("This is comment")
+root = document:root()
+root:add_child(comment_node)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  <!--This is comment-->
+--</root>
+end
+```
+
 ## See also
 
   * [`xmlua.HTML`][html]: The class for parsing HTML.

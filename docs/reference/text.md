@@ -24,7 +24,7 @@ document:search("/root/text()")[1] -- -> xmlua.Text
 
 Concat the given content of argument at the end of the existing node.
 It returns the success or failure of the concatenation as a boolean.
-`true` is a success of concatenating. `false` is faile of concatenating.
+`true` is a success of concatenating. `false` is concatenate failure.
 
 Example:
 

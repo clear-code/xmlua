@@ -99,19 +99,19 @@ function TestDocument.test_create_namespace()
 end
 
 function TestDocument.test_create_processing_instruction()
-  local document = xmlua.XML.build({})
+  local document = xmlua.XML.build({"root"})
   local processing_instruction =
     document:create_processing_instruction("xml-stylesheet",
                                            "href=\"www.test.com/test-style.xsl\" type=\"text/xsl\"")
-
-  luaunit.assertEquals({
-                         processing_instruction:target(),
-                         processing_instruction:content()
-                       },
-                       {
-                         "xml-stylesheet",
-                         "href=\"www.test.com/test-style.xsl\" type=\"text/xsl\"",
-                       })
+  local root = document:root()
+  root:add_child(processing_instruction)
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <?xml-stylesheet href="www.test.com/test-style.xsl" type="text/xsl"?>
+</root>
+]])
 end
 
 function TestDocument.test_add_entity()

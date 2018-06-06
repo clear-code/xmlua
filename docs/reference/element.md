@@ -255,7 +255,7 @@ print(document:to_xml())
 
 ### `add_child(child_node) -> void` {#add_child}
 
-Add a new node to reciver, at the end of child.
+Add a new node to receiver, at the end of child.
 If new node is attribute node, it is added into propertoes instead of children.
 
 Example:
@@ -270,6 +270,35 @@ local root = document:root()
 print(document:to_xml())
 --<?xml version="1.0" encoding="UTF-8"?>
 --<root><![CDATA[This is <CDATA>]]></root>
+```
+
+### `add_previous_sibling(node) -> void` {#add_previous_sibling}
+
+Add a new node as the previous sibling receiver.
+If the new node was already inserted in a document it is first unlinked from its existing context.
+If the new node is ATTRIBUTE, it is added into properties instead of children.
+
+Example:
+
+```lua
+local document = xmlua.XML.parse([[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child/>
+</root>
+]])
+
+--append comment node.
+local root = document:root()
+local comment_node =
+  document:create_comment("This is comment!")
+local child = root:children()[1]
+child:add_previous_sibling(comment_node)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  <!--This is comment!--><child/>
+--</root>
 ```
 
 ### `unlink() -> xmlua.Element` {#unlink}

@@ -255,6 +255,33 @@ print(document:to_xml())
 --<root><![CDATA[This is <CDATA>]]></root>
 ```
 
+### `add_previous_sibling(node) -> void` {#add_previous_sibling}
+
+新しいノードをレシーバーの要素の前に兄弟要素として追加します。新しいノードが既にドキュメント内に挿入されている場合は、最初に既存のコンテキストからリンクが解除されます。
+
+例：
+
+```lua
+local document = xmlua.XML.parse([[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child/>
+</root>
+]])
+
+--append comment node.
+local root = document:root()
+local comment_node =
+  document:create_comment("This is comment!")
+local child = root:children()[1]
+child:add_previous_sibling(comment_node)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  <!--This is comment!--><child/>
+--</root>
+```
+
 ### `unlink() -> xmlua.Element` {#unlink}
 
 レシーバーをドキュメントツリーから削除します。

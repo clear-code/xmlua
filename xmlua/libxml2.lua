@@ -323,8 +323,7 @@ function libxml2.xmlCreateIntSubset(document,
 end
 
 function libxml2.xmlGetIntSubset(document)
-  local raw_internal_subset
-    = xml2.xmlGetIntSubset(document)
+  local raw_internal_subset = xml2.xmlGetIntSubset(document)
   if raw_internal_subset == ffi.NULL then
     return nil
   end

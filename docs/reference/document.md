@@ -309,6 +309,43 @@ print(document:to_xml())
 end
 ```
 
+### `create_document_type(name, public_id, system_id) -> [xmlua.DocumentType]` {#create_document_type}
+
+You can create new document type node.
+You can specify a location of the external subset by SystemID or PublicID.
+If you want to specify a location of the exterrnal subset by PublicID, you set `public_id` and `system_id`.
+If you want to specify a location of the external subset by SystemID, you set `system_id`(`public_id` is `nil`).
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+--Specify a location by PublicID
+local document = xmlua.XML.build({})
+local document_type =
+  document:create_document_type("TestDocumentDecl",
+                                "-//Test/Sample/EN",
+                                "//test.dtd")
+print(document:to_xml()
+--<?xml version="1.0" encoding="UTF-8"?>
+--<!DOCTYPE TestDocumentDecl PUBLIC "-//Test/Sample/EN" "//system.dtd">
+```
+
+```lua
+local xmlua = require("xmlua")
+
+--Specify a location by SystemID
+local document = xmlua.XML.build({})
+local document_type =
+  document:create_document_type("TestDocumentDecl",
+                                nil,
+                                "//test.dtd")
+print(document:to_xml()
+--<?xml version="1.0" encoding="UTF-8"?>
+--<!DOCTYPE TestDocumentDecl SYSTEM "//system.dtd">
+```
+
 ## See also
 
   * [`xmlua.HTML`][html]: The class for parsing HTML.

@@ -300,6 +300,41 @@ print(document:to_xml())
 end
 ```
 
+### `create_document_type(name, public_id, system_id) -> [xmlua.DocumentType]` {#create_document_type}
+
+新しいドキュメントタイプノードを作成できます。
+外部サブセットの場所は、SystemIDまたはPublicIDで指定できます。PublicIDで外部サブセットの場所を指定する場合は、 `public_id` と` system_id` を設定します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+--PublicIDによる指定
+local document = xmlua.XML.build({})
+local document_type =
+  document:create_document_type("TestDocumentDecl",
+                                "-//Test/Sample/EN",
+                                "//test.dtd")
+print(document:to_xml()
+--<?xml version="1.0" encoding="UTF-8"?>
+--<!DOCTYPE TestDocumentDecl PUBLIC "-//Test/Sample/EN" "//system.dtd">
+```
+
+```lua
+local xmlua = require("xmlua")
+
+--SystemIDによる指定
+local document = xmlua.XML.build({})
+local document_type =
+  document:create_document_type("TestDocumentDecl",
+                                nil,
+                                "//test.dtd")
+print(document:to_xml()
+--<?xml version="1.0" encoding="UTF-8"?>
+--<!DOCTYPE TestDocumentDecl SYSTEM "//system.dtd">
+```
+
 ## 参照
 
   * [`xmlua.HTML`][html]: HTMLをパースするクラスです。

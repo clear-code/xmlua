@@ -1,0 +1,91 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua.ProcessingInstruction\n"
+"---"
+msgstr ""
+
+msgid "# `xmlua.ProcessingInstruction` class"
+msgstr "# `xmlua.ProcessingInstruction` クラス"
+
+msgid "## Summary"
+msgstr "## 概要"
+
+msgid "It's a class for processing instruction node."
+msgstr "処理命令ノード用のクラスです。"
+
+msgid ""
+"Normaly, you can get processing instruction object by [`xmlua.Document:create_"
+"processing_instruction`][create-processing-instruction]."
+msgstr ""
+"通常、[`xmlua.Document:create_processing_instruction`][create-processing-instruct"
+"ion]を使用して取得します。"
+
+msgid "Example:"
+msgstr "例："
+
+msgid ""
+"```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid ""
+"local document = xmlua.XML.build({\"root\"})\n"
+"local document_type = -- -> xmlua.ProcessingInstruction\n"
+"  document:create_processing_instruction()\n"
+"```"
+msgstr ""
+
+msgid "It has methods of the following modules:"
+msgstr "このクラスのオブジェクトは以下のモジュールのメソッドを使えます。"
+
+msgid "  * [`xmlua.Node`][node]: Provides common methods of each nodes."
+msgstr "  * [`xmlua.Node`][node]: それぞれのノードに共通のメソッドを提供します。"
+
+msgid "It means that you can use methods in the modules."
+msgstr "つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。"
+
+msgid "## Instance methods"
+msgstr "## インスタンスメソッド"
+
+msgid "### `target() -> string` {#prefix}"
+msgstr ""
+
+msgid "It returns processing instruction as `string`."
+msgstr "処理命令を `string` として返します。"
+
+msgid ""
+"local document = xmlua.XML.build({\"root\"})\n"
+"local processing_instruction =\n"
+"  document:create_processing_instruction(\"xml-stylesheet\",\n"
+"                                         \"href=\\\"www.test.com/test-style.xsl\\\""
+" type=\\\"text/xsl\\\"\")\n"
+"print(processing_instruction:target())\n"
+"-- xml-stylesheet\n"
+"```"
+msgstr ""
+
+msgid "## See also"
+msgstr "## 参照"
+
+msgid ""
+"  * [`xmlua.Document`][document]: The class for HTML document and XML document"
+"."
+msgstr "  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。"
+
+msgid "[create-processing-instruction]:document.html#create-processing-instruction"
+msgstr ""
+
+msgid "[document]:document.html"
+msgstr ""
+
+msgid "[node]:node.html"
+msgstr ""

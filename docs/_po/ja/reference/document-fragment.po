@@ -61,3 +61,23 @@ msgstr "## インスタンスメソッド"
 
 msgid "There are no methods specific to this class."
 msgstr "このクラス特有のメソッドはありません。"
+
+msgid "## See also"
+msgstr "## 参照"
+
+msgid ""
+"  * [`xmlua.Document`][document]: The class for HTML document and XML document"
+"."
+msgstr "  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。"
+
+msgid "[create-cdata-section]:document.html#cdata-section.html"
+msgstr ""
+
+msgid "[document]:document.html"
+msgstr ""
+
+msgid "[node]:node.html"
+msgstr ""
+
+msgid "[element]:element.html"
+msgstr ""

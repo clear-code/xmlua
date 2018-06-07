@@ -31,3 +31,20 @@ local document_fragment_node = -- -> xmlua.DocumentFragment
 ## インスタンスメソッド
 
 このクラス特有のメソッドはありません。
+
+## 参照
+
+  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。
+
+  * [`xmlua.Node`][node]: それぞれのノードに共通のメソッドを提供します。
+
+  * [`xmlua.Element`][element]: 要素ノード用のクラスです。
+
+
+[create-cdata-section]:document.html#cdata-section.html
+
+[document]:document.html
+
+[node]:node.html
+
+[element]:element.html

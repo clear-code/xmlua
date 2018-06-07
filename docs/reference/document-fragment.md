@@ -31,3 +31,20 @@ It means that you can use methods in the modules.
 ## Instance methods
 
 There are no methods specific to this class.
+
+## See also
+
+  * [`xmlua.Document`][document]: The class for HTML document and XML document.
+
+  * [`xmlua.Node`][node]: Provides common methods of each nodes.
+
+  * [`xmlua.Element`][element]: The class for element node.
+
+
+[create-cdata-section]:document.html#cdata-section.html
+
+[document]:document.html
+
+[node]:node.html
+
+[element]:element.html

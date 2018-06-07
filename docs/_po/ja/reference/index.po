@@ -176,7 +176,7 @@ msgstr ""
 msgid "[comment]:comment.html"
 msgstr ""
 
-msgid "[document-fragment]:docuemnt-fragment"
+msgid "[document-fragment]:document-fragment"
 msgstr ""
 
 msgid "[document-type]:document-type"

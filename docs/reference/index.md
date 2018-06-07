@@ -90,7 +90,7 @@ You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` directly
 
 [comment]:comment.html
 
-[document-fragment]:docuemnt-fragment
+[document-fragment]:document-fragment
 
 [document-type]:document-type
 

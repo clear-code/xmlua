@@ -90,7 +90,7 @@ XMLuaは以下のクラスを提供します。
 
 [comment]:comment.html
 
-[document-fragment]:docuemnt-fragment
+[document-fragment]:document-fragment
 
 [document-type]:document-type
 

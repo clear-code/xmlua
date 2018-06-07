@@ -90,6 +90,7 @@ function libxml2.htmlParseChunk(context, chunk, is_terminated)
     return xml2.htmlParseChunk(context, nil, 0, is_terminated)
   end
 end
+jit.off(libxml2.htmlParseChunk, true)
 
 function libxml2.htmlCtxtReadMemory(context, html, options)
   local url = nil
@@ -113,6 +114,7 @@ function libxml2.htmlCtxtReadMemory(context, html, options)
   end
   return ffi.gc(document, libxml2.xmlFreeDoc)
 end
+jit.off(libxml2.htmlCtxtReadMemory, true)
 
 function libxml2.htmlNewDoc(uri, externa_dtd)
   local document = xml2.htmlNewDoc(uri, externa_dtd)
@@ -160,6 +162,7 @@ function libxml2.xmlCtxtReadMemory(context, xml, options)
   end
   return ffi.gc(document, libxml2.xmlFreeDoc)
 end
+jit.off(libxml2.xmlCtxtReadMemory, true)
 
 function libxml2.xmlParseChunk(context, chunk, is_terminated)
   if chunk then
@@ -528,15 +531,16 @@ function libxml2.xmlSaveDoc(context, document)
   local written = xml2.xmlSaveDoc(context, document)
   return written ~= -1
 end
+jit.off(libxml2.xmlSaveDoc, true)
 
 function libxml2.xmlSaveTree(context, node)
   local written = xml2.xmlSaveTree(context, node)
   return written ~= -1
 end
+jit.off(libxml2.xmlSaveTree, true)
 
 local function error_ignore(user_data, err)
 end
-jit.off(c_error_ignore, true)
 local c_error_ignore = ffi.cast("xmlStructuredErrorFunc", error_ignore)
 ffi.gc(c_error_ignore, function(callback) callback:free() end)
 
@@ -570,6 +574,7 @@ else
     return true
   end
 end
+jit.off(libxml2.xmlXPathSetContextNode, true)
 
 function libxml2.xmlXPathEvalExpression(expression, context)
   local object = xml2.xmlXPathEvalExpression(expression, context)
@@ -578,6 +583,7 @@ function libxml2.xmlXPathEvalExpression(expression, context)
   end
   return ffi.gc(object, xml2.xmlXPathFreeObject)
 end
+jit.off(libxml2.xmlXPathEvalExpression, true)
 
 function libxml2.xmlStrdup(string)
   return xml2.xmlStrdup(string)

@@ -4,6 +4,18 @@ title: News
 
 # News
 
+## 1.1.3: 2018-06-07 {#version-1-1-3}
+
+### Fixes
+
+  * `xmlua.DocumentFragment`: Fixed a bug that accidentally returned element node.
+
+  * `xmlua.libxml2`:
+
+    * Fix a bug that unintentionally set to `jit.off` in all modules.
+
+    * Fix a bug that replaced nodes are not released.
+
 ## 1.1.2: 2018-06-06 {#version-1-1-2}
 
 ### Improvements

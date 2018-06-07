@@ -496,8 +496,20 @@ function libxml2.xmlNodeGetContent(node)
 end
 
 function libxml2.xmlReplaceNode(old_node, new_node)
-  xml2.xmlReplaceNode(old_node, new_node)
-  return
+  local was_freed = false
+  local was_unlinked = (old_node == new_node
+                       or
+                       (old_node.type == ffi.C.XML_ATTRIBUTE_NODE
+                        and new_node.type ~= ffi.C.XML_ATTRIBUTE_NODE)
+                       or
+                       (old_node.type ~= ffi.C.XML_ATTRIBUTE_NODE
+                        and new_node.type == ffi.C.XML_ATTRIBUTE_NODE))
+  local old = xml2.xmlReplaceNode(old_node, new_node)
+  if old ~= ffi.NULL and was_unlinked then
+    libxml2.xmlFree(old_node)
+    was_freed = true
+  end
+  return was_freed
 end
 
 function libxml2.xmlGetNodePath(node)

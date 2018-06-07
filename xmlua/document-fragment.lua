@@ -8,7 +8,7 @@ local document_fragment
 
 function metatable.__index(element, key)
   return methods[key] or
-  document_fragment.parent[key]
+    document_fragment.parent[key]
 end
 
 function DocumentFragment.new(document, node)

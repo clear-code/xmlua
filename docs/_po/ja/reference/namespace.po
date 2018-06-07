@@ -1,0 +1,103 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"---\n"
+"title: xmlua.Namespace\n"
+"---"
+msgstr ""
+
+msgid "# `xmlua.Namespace` class"
+msgstr "# `xmlua.Namespace` クラス"
+
+msgid "## Summary"
+msgstr "## 概要"
+
+msgid "It's a class for namespace node."
+msgstr "名前空間用のクラスです。"
+
+msgid ""
+"Normaly, you can get document type object by [`xmlua.Document:create_namespace"
+"`][create-namespace]."
+msgstr "通常、[`xmlua.Document:create_namespace`][create-namespace]を使用して取得します。"
+
+msgid "Example:"
+msgstr "例："
+
+msgid ""
+"```lua\n"
+"local xmlua = require(\"xmlua\")"
+msgstr ""
+
+msgid ""
+"local document = xmlua.XML.build({\"root\"})\n"
+"local document_type = -- -> xmlua.Namespace\n"
+"  document:create_namespace()\n"
+"```"
+msgstr ""
+
+msgid "It has methods of the following modules:"
+msgstr "このクラスのオブジェクトは以下のモジュールのメソッドを使えます。"
+
+msgid "  * [`xmlua.Node`][node]: Provides common methods of each nodes."
+msgstr "  * [`xmlua.Node`][node]: それぞれのノードに共通のメソッドを提供します。"
+
+msgid "It means that you can use methods in the modules."
+msgstr "つまり、このクラスのオブジェクトで上述のモジュールのメソッドを使えます。"
+
+msgid "## Instance methods"
+msgstr "## インスタンスメソッド"
+
+msgid "### `prefix() -> string` {#prefix}"
+msgstr ""
+
+msgid "It returns prefix of the namespace as `string`."
+msgstr "名前空間のプレフィックスを `string` として返します。"
+
+msgid ""
+"local document = xmlua.XML.build({\"root\"})\n"
+"local namespace =\n"
+"  document:create_namespace(\"http://www.w3.org/1999/xhtml\",\n"
+"                            \"xhtml\")"
+msgstr ""
+
+msgid ""
+"print(namespace:prefix())\n"
+"-- xhtml\n"
+"```"
+msgstr ""
+
+msgid "### `href() -> string` {#external_id}"
+msgstr ""
+
+msgid "It returns namespace of uri as `string`."
+msgstr "名前空間のURIを `string` で返します。"
+
+msgid ""
+"print(namespace:prefix())\n"
+"-- http://www.w3.org/1999/xhtml\n"
+"```"
+msgstr ""
+
+msgid "## See also"
+msgstr "## 参照"
+
+msgid ""
+"  * [`xmlua.Document`][document]: The class for HTML document and XML document"
+"."
+msgstr "  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。"
+
+msgid "[create-namespace]:document.html#create-namespace"
+msgstr ""
+
+msgid "[document]:document.html"
+msgstr ""
+
+msgid "[node]:node.html"
+msgstr ""

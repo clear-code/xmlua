@@ -369,6 +369,28 @@ print(document:to_xml())
 --<root/>
 ```
 
+### `create_processing_instruction(name, content) -> [xmlua.ProcessingInstruction]` {#create_processing_instruction}
+
+新しく処理命令ノードを作成できます。処理命令を `name`、処理命令の引数を` content`として指定することができます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local document = xmlua.XML.build({"root"})
+local processing_instruction =
+  document:create_processing_instruction("xml-stylesheet",
+                                         "href=\"www.test.com/test-style.xsl\" type=\"text/xsl\"")
+local root = document:root()
+root:add_child(processing_instruction)
+print(document:to_xml())
+<?xml version="1.0" encoding="UTF-8"?>
+--<root>
+--  <?xml-stylesheet href="www.test.com/test-style.xsl" type="text/xsl"?>
+--</root>
+```
+
 ## 参照
 
   * [`xmlua.HTML`][html]: HTMLをパースするクラスです。

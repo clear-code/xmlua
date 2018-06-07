@@ -346,6 +346,42 @@ print(document:to_xml()
 --<!DOCTYPE TestDocumentDecl SYSTEM "//system.dtd">
 ```
 
+### `create_namespace(href, prefix) -> [xmlua.Namespace]` {#create_namespace}
+
+You can create new namespace node.
+This method can't create a namespace with a similar prefix than an existing one present on this node.
+If you want to create default namespace, you set `nil` to `prefix`.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+--create new namespace
+local document = xmlua.XML.build({"root"})
+local namespace =
+  document:create_namespace("http://www.w3.org/1999/xhtml",
+                            "xhtml")
+local root = document:root()
+root:set_namespace(namespace)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<xhtml:root/>
+```
+
+```lua
+local xmlua = require("xmlua")
+--create default namespace
+local document = xmlua.XML.build({"root"})
+local namespace =
+  document:create_namespace("http://www.w3.org/1999/xhtml",
+                            nil)
+local root = document:root()
+root:set_namespace(namespace)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root/>
+```
+
 ## See also
 
   * [`xmlua.HTML`][html]: The class for parsing HTML.

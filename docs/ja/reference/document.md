@@ -335,6 +335,40 @@ print(document:to_xml()
 --<!DOCTYPE TestDocumentDecl SYSTEM "//system.dtd">
 ```
 
+### `create_namespace(href, prefix) -> [xmlua.Namespace]` {#create_namespace}
+
+新しく名前空間ノードを作成できます。このメソッドは、このノードに存在する既存の接頭辞と同じ接頭辞を持つ名前空間を作成することはできません。デフォルトの名前空間を作成する場合は、 `nil`を` prefix`に設定します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+--新しい名前空間の作成
+local document = xmlua.XML.build({"root"})
+local namespace =
+  document:create_namespace("http://www.w3.org/1999/xhtml",
+                            "xhtml")
+local root = document:root()
+root:set_namespace(namespace)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<xhtml:root/>
+```
+
+```lua
+local xmlua = require("xmlua")
+--デフォルト名前空間の作成
+local document = xmlua.XML.build({"root"})
+local namespace =
+  document:create_namespace("http://www.w3.org/1999/xhtml",
+                            nil)
+local root = document:root()
+root:set_namespace(namespace)
+print(document:to_xml())
+--<?xml version="1.0" encoding="UTF-8"?>
+--<root/>
+```
+
 ## 参照
 
   * [`xmlua.HTML`][html]: HTMLをパースするクラスです。

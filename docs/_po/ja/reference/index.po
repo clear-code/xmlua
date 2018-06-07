@@ -79,16 +79,43 @@ msgstr ""
 "  * [`xmlua.XMLStreamSAXParser`][xml-stream-sax-parser]: 同じファイル内に複数のルート要素を持つXM"
 "L用のSAXパーサークラスです。"
 
+msgid "  * [`xmlua.CDATASection`][cdata-section]: The class for cdata section node."
+msgstr "  * [`xmlua.CDATASection`][cdata-section]: CDATASectionノード用のクラスです。"
+
+msgid "  * [`xmlua.Comment`][comment]: The class for comment node."
+msgstr "  * [`xmlua.Element`][element]: コメントノード用のクラスです。"
+
 msgid ""
 "  * [`xmlua.Document`][document]: The class for HTML document and XML document"
 "."
 msgstr "  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。"
 
+msgid ""
+"  * [`xmlua.DocumentFragment`][document-fragment]: The class for document frag"
+"ment node."
+msgstr "  * [`xmlua.DocumentFragment`][document-fragment]: ドキュメントフラグメントノード用のクラスです。"
+
+msgid "  * [`xmlua.DocumentType`][document-type]: The class for document type node."
+msgstr "  * [`xmlua.DocumentType`][document-type]: ドキュメントタイプノード用のクラスです。"
+
 msgid "  * [`xmlua.Element`][element]: The class for element node."
 msgstr "  * [`xmlua.Element`][element]: 要素ノード用のクラスです。"
 
+msgid "  * [`xmlua.Namespace`][namespace]: The class for namespace node."
+msgstr "  * [`xmlua.Namespace`][namespace]: 名前空間ノード用のクラスです。"
+
+msgid ""
+"  * [`xmlua.Node`][node]: It's a class that provides a common method for each "
+"node."
+msgstr "  * [`xmlua.Node`][node]: 各ノードに共通のメソッドを提供するクラスです。"
+
 msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
 msgstr "  * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。"
+
+msgid ""
+"  * [`xmlua.ProcessingInstruction`][processing-instruction]: The class for pro"
+"cessing instruction node."
+msgstr "  * [`xmlua.ProcessingInstruction`][processing-instruction]: 処理命令ノード用のクラスです。"
 
 msgid "  * [`xmlua.Text`][text]: The class for text nodes."
 msgstr "  * [`xmlua.Text`][text]: テキストノード用のクラスです。"
@@ -134,8 +161,29 @@ msgstr ""
 msgid "[element]:element.html"
 msgstr ""
 
+msgid "[node]:node.html"
+msgstr ""
+
 msgid "[node-set]:node-set.html"
 msgstr ""
 
 msgid "[text]:text.html"
+msgstr ""
+
+msgid "[cdata-section]:cdata-section.html"
+msgstr ""
+
+msgid "[comment]:comment.html"
+msgstr ""
+
+msgid "[document-fragment]:docuemnt-fragment"
+msgstr ""
+
+msgid "[document-type]:document-type"
+msgstr ""
+
+msgid "[namespace]:namespace"
+msgstr ""
+
+msgid "[processing-instruction]:processing-instruction"
 msgstr ""

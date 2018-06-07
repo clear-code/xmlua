@@ -34,11 +34,25 @@ XMLuaは以下のクラスを提供します。
 
   * [`xmlua.XMLStreamSAXParser`][xml-stream-sax-parser]: 同じファイル内に複数のルート要素を持つXML用のSAXパーサークラスです。
 
+  * [`xmlua.CDATASection`][cdata-section]: CDATASectionノード用のクラスです。
+
+  * [`xmlua.Element`][element]: コメントノード用のクラスです。
+
   * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。
+
+  * [`xmlua.DocumentFragment`][document-fragment]: ドキュメントフラグメントノード用のクラスです。
+
+  * [`xmlua.DocumentType`][document-type]: ドキュメントタイプノード用のクラスです。
 
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。
 
+  * [`xmlua.Namespace`][namespace]: 名前空間ノード用のクラスです。
+
+  * [`xmlua.Node`][node]: 各ノードに共通のメソッドを提供するクラスです。
+
   * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。
+
+  * [`xmlua.ProcessingInstruction`][processing-instruction]: 処理命令ノード用のクラスです。
 
   * [`xmlua.Text`][text]: テキストノード用のクラスです。
 
@@ -66,6 +80,20 @@ XMLuaは以下のクラスを提供します。
 
 [element]:element.html
 
+[node]:node.html
+
 [node-set]:node-set.html
 
 [text]:text.html
+
+[cdata-section]:cdata-section.html
+
+[comment]:comment.html
+
+[document-fragment]:docuemnt-fragment
+
+[document-type]:document-type
+
+[namespace]:namespace
+
+[processing-instruction]:processing-instruction

@@ -34,11 +34,25 @@ XMLua provides the following classes:
 
   * [`xmlua.XMLStreamSAXParser`][xml-stream-sax-parser]: The class for XML SAX parsing with multiple root elements in same file.
 
+  * [`xmlua.CDATASection`][cdata-section]: The class for cdata section node.
+
+  * [`xmlua.Comment`][comment]: The class for comment node.
+
   * [`xmlua.Document`][document]: The class for HTML document and XML document.
+
+  * [`xmlua.DocumentFragment`][document-fragment]: The class for document fragment node.
+
+  * [`xmlua.DocumentType`][document-type]: The class for document type node.
 
   * [`xmlua.Element`][element]: The class for element node.
 
+  * [`xmlua.Namespace`][namespace]: The class for namespace node.
+
+  * [`xmlua.Node`][node]: It's a class that provides a common method for each node.
+
   * [`xmlua.NodeSet`][node-set]: The class for multiple nodes.
+
+  * [`xmlua.ProcessingInstruction`][processing-instruction]: The class for processing instruction node.
 
   * [`xmlua.Text`][text]: The class for text nodes.
 
@@ -66,6 +80,20 @@ You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` directly
 
 [element]:element.html
 
+[node]:node.html
+
 [node-set]:node-set.html
 
 [text]:text.html
+
+[cdata-section]:cdata-section.html
+
+[comment]:comment.html
+
+[document-fragment]:docuemnt-fragment
+
+[document-type]:document-type
+
+[namespace]:namespace
+
+[processing-instruction]:processing-instruction

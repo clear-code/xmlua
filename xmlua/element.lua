@@ -396,6 +396,10 @@ function methods:text()
   return self:content()
 end
 
+function methods:set_namespace(namespace)
+  libxml2.xmlSetNs(self.node, namespace.node)
+end
+
 function methods:find_namespace(prefix, href)
   local raw_namespace
   if not prefix and href then

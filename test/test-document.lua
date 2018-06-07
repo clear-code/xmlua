@@ -84,17 +84,44 @@ function TestDocument.test_add_entity_reference()
 end
 
 function TestDocument.test_create_namespace()
-  local document = xmlua.XML.build({})
+  local document = xmlua.XML.build({"root"})
   local namespace =
     document:create_namespace("http://www.w3.org/1999/xhtml",
                               "xhtml")
+  local root = document:root()
+  root:set_namespace(namespace)
   luaunit.assertEquals({
                          namespace:href(),
-                         namespace:prefix()
+                         namespace:prefix(),
+                         document:to_xml()
                        },
                        {
                          "http://www.w3.org/1999/xhtml",
-                         "xhtml"
+                         "xhtml",
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:root/>
+]]
+                       })
+end
+
+function TestDocument.test_create_default_namespace()
+  local document = xmlua.XML.build({"root"})
+  local namespace =
+    document:create_namespace("http://www.w3.org/1999/xhtml",
+                              nil)
+  local root = document:root()
+  root:set_namespace(namespace)
+  luaunit.assertEquals({
+                         namespace:href(),
+                         document:to_xml()
+                       },
+                       {
+                         "http://www.w3.org/1999/xhtml",
+                         [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]]
                        })
 end
 

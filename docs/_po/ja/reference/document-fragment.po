@@ -24,9 +24,9 @@ msgstr "ドキュメントフラグメントノード用のクラスです。"
 
 msgid ""
 "Normaly, you can get document fragment object by [`xmlua.Document:create_docum"
-"ent_fragment`][create-document_fragment]."
+"ent_fragment`][create-document-fragment]."
 msgstr ""
-"通常、[`xmlua.Document:create_document_fragment`][create-document_fragment]を使用して取"
+"通常、[`xmlua.Document:create_document_fragment`][create-document-fragment]を使用して取"
 "得します。"
 
 msgid "Example:"
@@ -70,7 +70,7 @@ msgid ""
 "."
 msgstr "  * [`xmlua.Document`][document]: HTMLドキュメントとXMLドキュメント用のクラスです。"
 
-msgid "[create-cdata-section]:document.html#cdata-section.html"
+msgid "[create-document-fragment]:document.html#document-fragment.html"
 msgstr ""
 
 msgid "[document]:document.html"

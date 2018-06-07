@@ -8,7 +8,7 @@ title: xmlua.DocumentFragment
 
 It's a class for document fragment node.
 
-Normaly, you can get document fragment object by [`xmlua.Document:create_document_fragment`][create-document_fragment].
+Normaly, you can get document fragment object by [`xmlua.Document:create_document_fragment`][create-document-fragment].
 
 Example:
 
@@ -41,7 +41,7 @@ There are no methods specific to this class.
   * [`xmlua.Element`][element]: The class for element node.
 
 
-[create-cdata-section]:document.html#cdata-section.html
+[create-document-fragment]:document.html#document-fragment.html
 
 [document]:document.html
 

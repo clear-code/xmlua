@@ -8,7 +8,7 @@ title: xmlua.DocumentFragment
 
 ドキュメントフラグメントノード用のクラスです。
 
-通常、[`xmlua.Document:create_document_fragment`][create-document_fragment]を使用して取得します。
+通常、[`xmlua.Document:create_document_fragment`][create-document-fragment]を使用して取得します。
 
 例：
 
@@ -41,7 +41,7 @@ local document_fragment_node = -- -> xmlua.DocumentFragment
   * [`xmlua.Element`][element]: 要素ノード用のクラスです。
 
 
-[create-cdata-section]:document.html#cdata-section.html
+[create-document-fragment]:document.html#document-fragment.html
 
 [document]:document.html
 

@@ -15,8 +15,6 @@ RUN \
     m4 \
     openssl-devel
 RUN \
-  luarocks install cqueues && \
-  luarocks install luautf8 && \
   luarocks install luaunit
 
 RUN \
@@ -29,12 +27,10 @@ COPY . /home/xmlua/xmlua
 WORKDIR /home/xmlua/xmlua
 
 RUN \
-  sed \
-    -e 's@url = .*@url = "file:///home/xmlua/xmlua/",@g' \
-    -e 's@dir = .*@@g' \
-    xmlua.rockspec > \
+  cp \
+    xmlua.rockspec \
     xmlua-$(grep VERSION xmlua.lua | sed -e 's/.*"\(.*\)"/\1/g')-0.rockspec
-RUN luarocks install xmlua-*.rockspec
+RUN luarocks make xmlua-*.rockspec
 RUN rm -rf xmlua.lua xmlua
 
 USER xmlua

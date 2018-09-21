@@ -15,21 +15,17 @@ matrix:
     - env: TYPE=centos-6
     - env: TYPE=centos-7
     - os: osx
-      env: LUAROCKS_VERSION=2.4.3
       install:
-        - brew update && brew install luajit libxml2
-        - curl -O http://luarocks.github.io/luarocks/releases/luarocks-${LUAROCKS_VERSION}.tar.gz
-        - tar xf luarocks-${LUAROCKS_VERSION}.tar.gz
-        - cd luarocks-${LUAROCKS_VERSION}
-        - ./configure --lua-suffix=jit --with-lua-include=/usr/local/include/luajit-2.0
-        - make build
-        - sudo make install
-        - cd ..
-        - sudo luarocks install cqueues
+        - brew update > /dev/null
+        - brew bundle
+        - LUAROCKS="sudo -H luarocks --tree=$(brew --prefix) --lua-dir=$(brew --prefix luajit)"
+        - VERSION=$(grep VERSION xmlua.lua | sed -e 's/.*"\(.*\)"/\1/g')
+        - cp xmlua.rockspec xmlua-${VERSION}-0.rockspec
+        - ${LUAROCKS} make xmlua
             CRYPTO_DIR=$(brew --prefix openssl)
             OPENSSL_DIR=$(brew --prefix openssl)
-        - sudo luarocks install luautf8
-        - sudo luarocks install luaunit
+        - rm -rf xmlua.lua xmlua
+        - ${LUAROCKS} install luaunit
         - git clone --depth 1 https://github.com/clear-code/luacs.git ../luacs
       script:
         - test/run-test.lua

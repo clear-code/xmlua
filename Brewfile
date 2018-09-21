@@ -1,0 +1,2 @@
+brew "luajit"
+brew "luarocks"

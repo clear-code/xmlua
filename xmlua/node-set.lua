@@ -61,7 +61,7 @@ function methods:css_select(css_selectors)
   return node_set
 end
 
-function methods:content(xpath)
+function methods:content()
   return table.concat(map(self,
                           function(node)
                             return node:content() or ""

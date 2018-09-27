@@ -81,6 +81,10 @@ print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
 print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 ```
 
+### `xpath_search(xpath) -> xmlua.NodeSet` {#xpath-search}
+
+It's an alias of [`search`][search].
+
 ### `css_select(css_selectors) -> xmlua.NodeSet` {#css-select}
 
 It searches nodes by [CSS Selectors][css-selectors] and returns as [`xmlua.NodeSet`][node-set] object.
@@ -164,6 +168,8 @@ print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
 
 
 [xpath]:https://www.w3.org/TR/xpath/
+
+[search]:#search
 
 [css-selectors]:https://www.w3.org/TR/selectors-3/
 

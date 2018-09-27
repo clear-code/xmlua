@@ -105,6 +105,9 @@ function Searchable:search(xpath)
   end
 end
 
+-- For LuaWebDriver compatibility
+Searchable.xpath_search = Searchable.search
+
 function Searchable:css_select(css_selector_groups)
   local xpaths = luacs.to_xpaths(css_selector_groups)
   local node_set = nil

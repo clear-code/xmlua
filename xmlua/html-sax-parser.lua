@@ -174,7 +174,7 @@ function methods:finish()
   return parser_error == ffi.C.XML_ERR_OK
 end
 
-function HTMLSAXParser.new()
+function HTMLSAXParser.new(options)
   local parser = {}
 
   local filename = nil
@@ -182,6 +182,15 @@ function HTMLSAXParser.new()
   parser.context = libxml2.htmlCreatePushParserCtxt(filename, encoding)
   if not parser.context then
     error("Failed to create context to parse HTML")
+  end
+  -- For backward compatibility: libxml2 2.9.5 changes the default value
+  -- to false from true. Bat we keep false as the default value for
+  -- backward compatibility.
+  parser.context.keepBlanks = 0
+  if options then
+    if options.keep_blanks then
+      parser.context.keepBlanks = 1
+    end
   end
   -- TODO: Workaround for htmlCreatePushParserCtxt().
   -- It should allocate htmlParserCtxt::pushTab.

@@ -4,6 +4,16 @@ title: News
 
 # News
 
+## 1.1.4: 2018-10-03 {#version-1-1-4}
+
+### Improvements
+
+  * `xmlua.Searchable.xpath_search()`: Added.
+    * It's an alias of Searchable:search.
+    * Added for LuaWebDriver compatibility.
+  * `xmlua.HTMLSAXParser`: 
+    * We modified to keep backward compatibility with libxml2 2.9.5 or later.
+
 ## 1.1.3: 2018-06-07 {#version-1-1-3}
 
 ### Fixes

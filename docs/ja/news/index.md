@@ -4,6 +4,60 @@ title: おしらせ
 
 # おしらせ
 
+## 1.1.4: 2018-10-03 {#version-1-1-4}
+
+### 改善
+
+  * `xmlua.Searchable.xpath_search()`: 追加
+    * Searchable:searchのエイリアスです。
+    * LuaWebDriverとの互換性のために追加されました。
+  * `xmlua.HTMLSAXParser`: 
+    * libxml2 2.9.5 以降との下位互換性を維持するよう変更しました。
+
+## 1.1.3: 2018-06-07 {#version-1-1-3}
+
+### Fixes
+
+  * `xmlua.DocumentFragment`: Fixed a bug that accidentally returned element node.
+
+  * `xmlua.libxml2`:
+
+    * Fix a bug that unintentionally set to `jit.off` in all modules.
+
+    * Fix a bug that replaced nodes are not released.
+
+## 1.1.2: 2018-06-06 {#version-1-1-2}
+
+### 改善
+
+  * `xmlua.Document`: Added below functions.
+
+    * `create_cdata_section()`
+
+    * `create_comment()`
+
+    * `create_processing_instruction()`
+
+    * `create_namespace()`
+
+  * `xmlua.Element`: Added below functions.
+
+    * `add_child()`
+
+    * `add_previous_sibling()`
+
+    * `add_sibling()`
+
+    * `add_next_sibling()`
+
+    * `find_namespace()`
+
+  * `xmlua.Node.replace_node()` Added.
+
+  * `xmlua.Text.concat()` Added.
+
+  * `xmlua.Text.merge()` Added.
+
 ## 1.1.1: 2018-04-16 {#version-1-1-1}
 
 ### Fixes
@@ -20,7 +74,7 @@ title: おしらせ
 
 ## 1.0.9: 2018-04-13 {#version-1-0-9}
 
-### Improvements
+### 改善
 
   * `xmlua.XMLSAXParser`: Added supported events:
 
@@ -91,7 +145,7 @@ title: おしらせ
 
 ## 1.0.7: 2018-04-03 {#version-1-0-7}
 
-### Improvements
+### 改善
 
   * `xmlua.HTML.build()`: Added.
 
@@ -104,7 +158,7 @@ title: おしらせ
 
 ## 1.0.5: 2018-03-30 {#version-1-0-5}
 
-### Improvements
+### 改善
 
   * `xmlua.NodeSet:insert()`: Added.
 
@@ -128,7 +182,7 @@ title: おしらせ
 
 ## 1.0.4: 2018-03-19 {#version-1-0-4}
 
-### Improvements
+### 改善
 
   * `xmlua.libxml2.VERSION`: Added.
 
@@ -162,7 +216,7 @@ title: おしらせ
 
 ## 1.0.3: 2017-12-14 {#version-1-0-3}
 
-### Improvements
+### 改善
 
   * Experimental: `xmlua.HTMLSAXParser`: Added.
 
@@ -180,7 +234,7 @@ title: おしらせ
 
 ## 1.0.1: 2017-12-04 {#version-1-0-1}
 
-### Improvements
+### 改善
 
   * `xmlua.HTML.parse()`: Changed to parse HTML rough.
 

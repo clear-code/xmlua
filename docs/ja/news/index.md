@@ -16,21 +16,21 @@ title: おしらせ
 
 ## 1.1.3: 2018-06-07 {#version-1-1-3}
 
-### Fixes
+### 修正
 
-  * `xmlua.DocumentFragment`: Fixed a bug that accidentally returned element node.
+  * `xmlua.DocumentFragment`: 誤ってelement nodeを返却するバグを修正しました。
 
   * `xmlua.libxml2`:
 
-    * Fix a bug that unintentionally set to `jit.off` in all modules.
+    * 全てのモジュールで意図せず、`jit.off`を設定したバグを修正しました。
 
-    * Fix a bug that replaced nodes are not released.
+    * 置き換えられたノードが解放されないバグを修正しました。
 
 ## 1.1.2: 2018-06-06 {#version-1-1-2}
 
 ### 改善
 
-  * `xmlua.Document`: Added below functions.
+  * `xmlua.Document`: 以下の関数を追加しました。
 
     * `create_cdata_section()`
 
@@ -40,7 +40,7 @@ title: おしらせ
 
     * `create_namespace()`
 
-  * `xmlua.Element`: Added below functions.
+  * `xmlua.Element`: 以下の関数を追加しました。
 
     * `add_child()`
 
@@ -52,31 +52,31 @@ title: おしらせ
 
     * `find_namespace()`
 
-  * `xmlua.Node.replace_node()` Added.
+  * `xmlua.Node.replace_node()` 追加
 
-  * `xmlua.Text.concat()` Added.
+  * `xmlua.Text.concat()` 追加
 
-  * `xmlua.Text.merge()` Added.
+  * `xmlua.Text.merge()` 追加
 
 ## 1.1.1: 2018-04-16 {#version-1-1-1}
 
-### Fixes
+### 修正
 
-  * `xmlua.Document`: Fix bug that `add_entity` returns `xmlEntity` of libxml2.
+  * `xmlua.Document`: `add_entity` がlibxml2の `xmlEntity` を返すバグを修正しました。
 
-  * `xmlua.Document`: Fix bug that `add_dtd_entity` returns `xmlEntity` of libxml2.
+  * `xmlua.Document`: `add_dtd_entity` がlibxml2の `xmlEntity` を返すバグを修正しました。
 
 ## 1.1.0: 2018-04-13 {#version-1-1-0}
 
-### Fixes
+### 修正
 
-  * `rockspec`: Fix a bug that installation failed.
+  * `rockspec`: インストールに失敗するバグを修正しました。
 
 ## 1.0.9: 2018-04-13 {#version-1-0-9}
 
 ### 改善
 
-  * `xmlua.XMLSAXParser`: Added supported events:
+  * `xmlua.XMLSAXParser`: サポートするイベントを追加しました:
 
     * `start_document`
 
@@ -116,7 +116,7 @@ title: おしらせ
 
     * `error`
 
-  * `xmlua.HTMLSAXParser`: Added supported events:
+  * `xmlua.HTMLSAXParser`: サポートするイベントを追加しました:
 
     * `start_document`
 
@@ -139,54 +139,53 @@ title: おしらせ
 
 ## 1.0.8: 2018-04-03 {#version-1-0-8}
 
-### Fixes
+### 修正
 
-  * `rockspec`: Fix a bug that installation failed.
+  * `rockspec`: インストールに失敗するバグを修正しました。
 
 ## 1.0.7: 2018-04-03 {#version-1-0-7}
 
 ### 改善
 
-  * `xmlua.HTML.build()`: Added.
+  * `xmlua.HTML.build()`: 追加
 
 ## 1.0.6: 2018-04-02 {#version-1-0-6}
 
-### Fixes
+### 修正
 
-  * `xmlua.Element:insert_element()`: Fixed a bug that
-    `insert_element(1)` with empty element raises an error.
+  * `xmlua.Element:insert_element()`: `insert_element(1)` が空の要素の時にエラーが発生するバグを修正しました。
 
 ## 1.0.5: 2018-03-30 {#version-1-0-5}
 
 ### 改善
 
-  * `xmlua.NodeSet:insert()`: Added.
+  * `xmlua.NodeSet:insert()`: 追加
 
-  * `xmlua.NodeSet:remove()`: Added.
+  * `xmlua.NodeSet:remove()`: 追加
 
-  * `xmlua.NodeSet:merge()`: Added.
+  * `xmlua.NodeSet:merge()`: 追加
 
-  * `xmlua.NodeSet:unlink()`: Added.
+  * `xmlua.NodeSet:unlink()`: 追加
 
-  * `xmlua.Element:append_element()`: Added.
+  * `xmlua.Element:append_element()`: 追加
 
-  * `xmlua.Element:insert_element()`: Added.
+  * `xmlua.Element:insert_element()`: 追加
 
-  * `xmlua.Element:unlink()`: Added.
+  * `xmlua.Element:unlink()`: 追加
 
-  * `xmlua.Element:set_attribute()`: Added.
+  * `xmlua.Element:set_attribute()`: 追加
 
-  * `xmlua.Element:remove_attribute()`: Added.
+  * `xmlua.Element:remove_attribute()`: 追加
 
-  * `xmlua.XML.build()`: Added.
+  * `xmlua.XML.build()`: 追加
 
 ## 1.0.4: 2018-03-19 {#version-1-0-4}
 
 ### 改善
 
-  * `xmlua.libxml2.VERSION`: Added.
+  * `xmlua.libxml2.VERSION`: 追加
 
-  * Experimental: `xmlua.HTMLSAXParser`: Added supported events:
+  * 実験的: `xmlua.HTMLSAXParser`: サポートするイベントを追加しました。:
 
     * `start_document`
 
@@ -200,66 +199,66 @@ title: おしらせ
 
     * `processing_instruction`
 
-  * Experimental: `xmlua.HTMLSAXParser`: Removed needless namespace information from the following events.
+  * 実験的: `xmlua.HTMLSAXParser`: 以下のイベントから必要のない名前空間の情報を削除しました。
 
     * `start_element`
 
     * `end_element`
 
-  * Experimental: `xmlua.XMLSAXParser`: Added.
+  * 実験的: `xmlua.XMLSAXParser`: 追加
 
-  * `xmlua.Node:path()`: Added.
+  * `xmlua.Node:path()`: 追加
 
-  * `xmlua.NodeSet:paths()`: Added.
+  * `xmlua.NodeSet:paths()`: 追加
 
-  * `xmlua.Searchable.css_select()`: Added.
+  * `xmlua.Searchable.css_select()`: 追加
 
 ## 1.0.3: 2017-12-14 {#version-1-0-3}
 
 ### 改善
 
-  * Experimental: `xmlua.HTMLSAXParser`: Added.
+  * 実験的: `xmlua.HTMLSAXParser`: 追加
 
-### Fixes
+### 修正
 
-  * Fixed a memory leak for parsing XML.
+  * XMLをパース中のメモリリークを修正しました。
 
-  * Fixed a memory leak for parsed document.
+  * ドキュメントをパース中のメモリリークを修正しました。
 
 ## 1.0.2: 2017-12-05 {#version-1-0-2}
 
-### Fixes
+### 修正
 
-  * Fixed package.
+  * パッケージを修正しました。
 
 ## 1.0.1: 2017-12-04 {#version-1-0-1}
 
 ### 改善
 
-  * `xmlua.HTML.parse()`: Changed to parse HTML rough.
+  * `xmlua.HTML.parse()`: HTMLを荒くパースするよう変更しました。
 
-  * `xmlua.HTML.parse()`: Added `url` option that specifies base URL.
+  * `xmlua.HTML.parse()`: ベースURLを指定するための `url` オプションを追加しました。
 
-  * `xmlua.HTML.parse()`: Added `encoding` option that specifies HTML encoding.
+  * `xmlua.HTML.parse()`: HTMLエンコーディングを指定するための `encoding` オプションを追加しました。
 
-  * `xmlua.Node:content()`: Added.
+  * `xmlua.Node:content()`: 追加
 
-  * `xmlua.NodeSet:content()`: Added.
+  * `xmlua.NodeSet:content()`: 追加
 
-  * `xmlua.Element:text()`: Added.
+  * `xmlua.Element:text()`: 追加
 
-  * `xmlua.NodeSet:text()`: Added.
+  * `xmlua.NodeSet:text()`: 追加
 
-  * Added `//text()` XPath support.
+  * `//text()` XPathのサポートを追加しました。
 
-  * `xmlua.HTML.parse()`: Added `prefer_meta_charset` option.
+  * `xmlua.HTML.parse()`: `prefer_meta_charset` オプションを追加しました。
 
-  * `xmlua.Document:errors`: Added.
+  * `xmlua.Document:errors`: 追加
 
-### Fixes
+### 修正
 
-  * Fixed a memory leak of parsed XML document.
+  * XMLドキュメントパース中のメモリリークを修正しました。
 
 ## 1.0.0: 2017-11-29 {#version-1-0-0}
 
-The first release!!!
+最初のリリースです！！！

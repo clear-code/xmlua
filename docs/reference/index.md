@@ -56,7 +56,7 @@ XMLua provides the following classes:
 
   * [`xmlua.Text`][text]: The class for text nodes.
 
-You can access only `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser` directly. Other classes are accessible via methods of `xmlua.HTML` and `xmlua.XML`, `xmlua.HTMLSAXParser`.
+You can access only [`xmlua.HTML`][html] and [`xmlua.XML`][xml], [`xmlua.HTMLSAXParser`][html-sax-parser] directly. Other classes are accessible via methods of [`xmlua.HTML`][html] and [`xmlua.XML`][xml], [`xmlua.HTMLSAXParser`][html-sax-parser].
 
 [tutorial]:../tutorial/
 

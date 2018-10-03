@@ -56,7 +56,7 @@ XMLuaは以下のクラスを提供します。
 
   * [`xmlua.Text`][text]: テキストノード用のクラスです。
 
-`xmlua.HTML`と`xmlua.XML`、`xmlua.HTMLSAXParser`のみ直接アクセスできます。その他のクラスへは、`xmlua.HTML`と`xmlua.XML`、`xmlua.HTMLSAXParser`のメソッド経由でアクセスできます。
+[`xmlua.HTML`][html]と[`xmlua.XML`][xml]、[`xmlua.HTMLSAXParser`][html-sax-parser]のみ直接アクセスできます。その他のクラスへは、[`xmlua.HTML`][html]と[`xmlua.XML`][xml]、[`xmlua.HTMLSAXParser`][html-sax-parser]のメソッド経由でアクセスできます。
 
 [tutorial]:../tutorial/
 

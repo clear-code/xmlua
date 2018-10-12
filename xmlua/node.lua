@@ -21,7 +21,6 @@ end
 
 function Node:set_content(content)
   libxml2.xmlNodeSetContent(self.node, content)
-  return
 end
 
 function Node:content()

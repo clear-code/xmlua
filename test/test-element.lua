@@ -246,6 +246,16 @@ function TestElement.test_content()
 ]])
 end
 
+function TestElement.test_set_content()
+  local document = xmlua.XML.parse("<root>text</root>")
+  local root = document:root()
+  luaunit.assertEquals(root:content(),
+                       "text")
+  root:set_content("<child1>text-child1</child1>")
+  luaunit.assertEquals(root:content(),
+                       "<child1>text-child1</child1>")
+end
+
 function TestElement.test_text()
   local document = xmlua.XML.parse([[
 <root>

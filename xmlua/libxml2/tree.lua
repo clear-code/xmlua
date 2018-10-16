@@ -333,7 +333,7 @@ xmlAttrPtr xmlNewProp(xmlNodePtr node,
 int xmlUnsetNsProp(xmlNodePtr node, xmlNsPtr ns, const xmlChar *name);
 int xmlUnsetProp(xmlNodePtr node, const xmlChar *name);
 
-void xmlNodeSetContent(xmlNodePtr cur, const xmlChar *content);
+void xmlNodeSetContentLen(xmlNodePtr cur, const xmlChar *content, int len);
 xmlChar *xmlNodeGetContent(const xmlNode *cur);
 xmlNodePtr xmlReplaceNode(xmlNodePtr old, xmlNodePtr cur);
 xmlChar *xmlGetNodePath(const xmlNode *node);

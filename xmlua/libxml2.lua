@@ -481,8 +481,11 @@ function libxml2.xmlUnsetProp(node, name)
 end
 
 function libxml2.xmlNodeSetContent(node, content)
-  xml2.xmlNodeSetContent(node, content)
-  return
+  if content then
+    xml2.xmlNodeSetContentLen(node, content, #content)
+  else
+    xml2.xmlNodeSetContentLen(node, nil, 0)
+  end
 end
 
 function libxml2.xmlNodeGetContent(node)

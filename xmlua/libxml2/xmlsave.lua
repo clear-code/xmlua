@@ -21,4 +21,6 @@ xmlSaveCtxtPtr xmlSaveToBuffer(xmlBuffer *buffer,
 long xmlSaveDoc(xmlSaveCtxtPtr ctxt, xmlDocPtr doc);
 long xmlSaveTree(xmlSaveCtxtPtr ctxt, xmlNodePtr node);
 int xmlSaveClose(xmlSaveCtxtPtr ctxt);
+int xmlSaveSetEscape(xmlSaveCtxtPtr ctxt,
+                     xmlCharEncodingOutputFunc escape);
 ]]

@@ -27,4 +27,7 @@ typedef enum {
     XML_CHAR_ENCODING_EUC_JP=   21,/* EUC-JP */
     XML_CHAR_ENCODING_ASCII=    22 /* pure ASCII */
 } xmlCharEncoding;
+
+typedef int (* xmlCharEncodingOutputFunc)(unsigned char *out, int *outlen,
+                                          const unsigned char *in, int *inlen);
 ]]

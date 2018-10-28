@@ -10,6 +10,9 @@ local function save(target, flags, failure_message, options)
     encoding = options.encoding
   end
   local context = libxml2.xmlSaveToBuffer(buffer, encoding, flags)
+  if options and options.escape then
+    libxml2.xmlSaveSetEscape(context, options.escape)
+  end
   local success
   if target.node then
     success = libxml2.xmlSaveTree(context, target.node)

@@ -38,3 +38,46 @@ function TestSave.test_to_xml_encoding()
 <root/>
 ]])
 end
+
+function TestSave.test_escape()
+  local entities = {
+    ["<"] = "&lt;",
+    [">"] = "&gt;",
+    ["&"] = "&amp;",
+    ["\n"] = "&#xA;",
+  }
+  local function escape(out_bytes, out_length, in_bytes, in_length)
+    local in_index = 0
+    local out_index = 0
+    local n_in_bytes = in_length[0]
+    local n_out_bytes = out_length[0]
+    while in_index < n_in_bytes and out_index < n_out_bytes do
+      local entity = entities[string.char(in_bytes[in_index])]
+      if entity then
+        local n_entity_bytes = entity:len()
+        if out_index + n_entity_bytes >= n_out_bytes then
+          break
+        end
+        local i
+        for i = 1, n_entity_bytes do
+          out_bytes[out_index] = entity:byte(i, i)
+          out_index = out_index + 1
+        end
+        in_index = in_index + 1
+      else
+        out_bytes[out_index] = in_bytes[in_index]
+        out_index = out_index + 1
+        in_index = in_index + 1
+      end
+    end
+    in_length[0] = in_index
+    out_length[0] = out_index
+    return 0
+  end
+  local xml = xmlua.XML.parse("<root>before\nafter</root>")
+  luaunit.assertEquals(xml:to_xml({escape = escape}),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>before&#xA;after</root>
+]])
+end

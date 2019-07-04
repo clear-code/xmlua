@@ -2,7 +2,7 @@ notifications:
   webhooks:
     - https://webhook.commit-email.info/
 
-dist: trusty
+dist: xenial
 
 sudo: required
 
@@ -14,9 +14,10 @@ matrix:
     - env: TYPE=centos-6
     - env: TYPE=centos-7
     - os: osx
+      addons:
+        homebrew:
+          brewfile: true
       install:
-        - brew update > /dev/null
-        - brew bundle
         - LUAROCKS="sudo -H luarocks --tree=$(brew --prefix) --lua-dir=$(brew --prefix luajit)"
         - VERSION=$(grep VERSION xmlua.lua | sed -e 's/.*"\(.*\)"/\1/g')
         - cp xmlua.rockspec xmlua-${VERSION}-0.rockspec

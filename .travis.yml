@@ -14,6 +14,7 @@ matrix:
     - env: TYPE=centos-6
     - env: TYPE=centos-7
     - os: osx
+      osx_image: xcode10.2
       addons:
         homebrew:
           brewfile: true

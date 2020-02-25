@@ -18,6 +18,7 @@ matrix:
       addons:
         homebrew:
           brewfile: true
+          update: true
       install:
         - LUAROCKS="sudo -H luarocks --tree=$(brew --prefix) --lua-dir=$(brew --prefix luajit)"
         - VERSION=$(grep VERSION xmlua.lua | sed -e 's/.*"\(.*\)"/\1/g')

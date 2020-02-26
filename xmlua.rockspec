@@ -1,6 +1,6 @@
 -- -*- lua -*-
 
-local package_version = "1.1.5"
+local package_version = "1.1.6"
 
 package = "XMLua"
 version = package_version .. "-0"

@@ -17,6 +17,19 @@ function TestXML.test_parse_invalid()
                          "Start tag expected, '<' not found\n")
 end
 
+function TestXML.test_parse_options()
+  local options = {
+    parse_options = {"default", "nocdata"},
+  }
+  local success, xml = pcall(xmlua.XML.parse,
+                             "<root>text<![CDATA[cdata]]>text</root>",
+                             options)
+  luaunit.assertEquals(success, true)
+  luaunit.assertEquals(xml:to_xml(),
+                       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ..
+                         "<root>textcdatatext</root>\n")
+end
+
 function TestXML.test_root()
   local xml = xmlua.XML.parse("<root><child/></root>")
   luaunit.assertEquals(xml:root():to_xml(),

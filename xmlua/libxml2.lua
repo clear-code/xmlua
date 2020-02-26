@@ -140,17 +140,50 @@ function libxml2.xmlCreatePushParserCtxt(filename)
   return ffi.gc(context, xml2.xmlFreeParserCtxt)
 end
 
+local function parse_xml_parse_options(value, default)
+  if value == nil then
+    return default
+  end
+  local value_type = type(value)
+  if value_type == "table" then
+    local options = 0
+    for _, v in pairs(value) do
+      options = bit.bor(options, parse_xml_parse_options(v, default))
+    end
+    return options
+  elseif value_type == "number" then
+    return value
+  elseif value_type == "string" then
+    if value == "default" then
+      return default
+    end
+    value = value:upper()
+    if value:sub(1, #"XML_PARSE_") ~= "XML_PARSE_" then
+      value = "XML_PARSE_" .. value
+    end
+    return ffi.C[value]
+  else
+    error("Unsupported XML parse options: " .. value_type .. ": " .. value)
+  end
+end
+
 function libxml2.xmlCtxtReadMemory(context, xml, options)
   local url = nil
   local encoding = nil
+  local default_parse_options = bit.bor(ffi.C.XML_PARSE_RECOVER,
+                                        ffi.C.XML_PARSE_NOERROR,
+                                        ffi.C.XML_PARSE_NOWARNING,
+                                        ffi.C.XML_PARSE_NONET)
+  local parse_options = nil
   if options then
     url = options.url
     encoding = options.encoding
+    parse_options = parse_xml_parse_options(options.parse_options,
+                                            default_parse_options)
   end
-  local parse_options = bit.bor(ffi.C.XML_PARSE_RECOVER,
-                                ffi.C.XML_PARSE_NOERROR,
-                                ffi.C.XML_PARSE_NOWARNING,
-                                ffi.C.XML_PARSE_NONET)
+  if parse_options == nil then
+    parse_options = default_parse_options
+  end
   local document = xml2.xmlCtxtReadMemory(context,
                                           xml,
                                           #xml,

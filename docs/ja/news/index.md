@@ -4,6 +4,26 @@ title: おしらせ
 
 # おしらせ
 
+## 1.1.5: 2020-02-26 {#version-1-1-5}
+
+### 改善
+
+  * `xmlua.serializable`:
+
+    * to_html() と to_xml() に escape オプションを追加しました。
+
+  * `xmlua.xml`:
+
+    * to XML.parse() に "parse_options" オプションを追加しました。
+
+### 修正
+
+  * `xmlua.Node`:
+
+    * set_content() が Cの文字列を処理しない問題を修正しました。
+      * xmlNodeSetContent() の代わりに xmlNodeSetContentLen() を使用するようにしました。
+        * Luaの文字列は '\0'で終端しないことがあるためです。
+
 ## 1.1.4: 2018-10-03 {#version-1-1-4}
 
 ### 改善

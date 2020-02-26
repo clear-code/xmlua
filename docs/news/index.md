@@ -4,6 +4,26 @@ title: News
 
 # News
 
+## 1.1.5: 2020-02-26 {#version-1-1-5}
+
+### Improvements
+
+  * `xmlua.serializable`:
+
+    * Added escape option to to_html() and to_xml().
+
+  * `xmlua.xml`:
+
+    * Added "parse_options" options to XML.parse().
+
+### Fixes
+
+  * `xmlua.Node`:
+
+    * Fixed set_content() does not handle c-strings.
+      * Use xmlNodeSetContentLen() instead of xmlNodeSetContent().
+        * Because Lua string may not be finished by '\0'.
+
 ## 1.1.4: 2018-10-03 {#version-1-1-4}
 
 ### Improvements

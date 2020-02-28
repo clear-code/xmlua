@@ -10,28 +10,28 @@ title: おしらせ
 
   * `xmlua.serializable`:
 
-    * to_html() と to_xml() に escape オプションを追加しました。
+    * `to_html()`と`to_xml()`に`escape`オプションを追加しました。
 
   * `xmlua.xml`:
 
-    * to XML.parse() に "parse_options" オプションを追加しました。
+    * `XML.parse()`に`parse_options`オプションを追加しました。
 
 ### 修正
 
   * `xmlua.Node`:
 
-    * set_content() が Cの文字列を処理しない問題を修正しました。
-      * xmlNodeSetContent() の代わりに xmlNodeSetContentLen() を使用するようにしました。
-        * Luaの文字列は '\0'で終端しないことがあるためです。
+    * `set_content()`がCの文字列を処理しない問題を修正しました。
+      * `xmlNodeSetContent()`の代わりに`xmlNodeSetContentLen()`を使用するようにしました。
+        * Luaの文字列は`'\0'`で終端しないことがあるためです。
 
 ## 1.1.4: 2018-10-03 {#version-1-1-4}
 
 ### 改善
 
   * `xmlua.Searchable.xpath_search()`: 追加
-    * Searchable:searchのエイリアスです。
+    * `Searchable:search`のエイリアスです。
     * LuaWebDriverとの互換性のために追加されました。
-  * `xmlua.HTMLSAXParser`: 
+  * `xmlua.HTMLSAXParser`:
     * libxml2 2.9.5 以降との下位互換性を維持するよう変更しました。
 
 ## 1.1.3: 2018-06-07 {#version-1-1-3}

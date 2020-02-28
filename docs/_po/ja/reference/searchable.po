@@ -114,6 +114,12 @@ msgstr ""
 "-- <root>要素配下の要素をすべて検索します。\n"
 "local all_subs = root:search(\"*\")"
 
+msgid "### `xpath_search(xpath) -> xmlua.NodeSet` {#xpath-search}"
+msgstr ""
+
+msgid "It's an alias of [`search`][search]."
+msgstr "[`search`][search]の別名です。"
+
 msgid "### `css_select(css_selectors) -> xmlua.NodeSet` {#css-select}"
 msgstr ""
 
@@ -173,6 +179,9 @@ msgid "  * [`xmlua.NodeSet`][node-set]: The class for multiple nodes."
 msgstr "  * [`xmlua.NodeSet`][node-set]: 複数ノードを扱うためのクラスです。"
 
 msgid "[xpath]:https://www.w3.org/TR/xpath/"
+msgstr ""
+
+msgid "[search]:#search"
 msgstr ""
 
 msgid "[css-selectors]:https://www.w3.org/TR/selectors-3/"

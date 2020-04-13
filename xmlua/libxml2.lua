@@ -268,7 +268,7 @@ function libxml2.xmlNewNs(node, uri, prefix)
   if new_namespace == ffi.NULL then
     return nil
   end
-  return ffi.gc(new_namespace, libxml2.xmlFreeNs)
+  return new_namespace
 end
 
 function libxml2.xmlFreeNs(namespace)

@@ -4,6 +4,18 @@ title: おしらせ
 
 # おしらせ
 
+## 1.1.6: 2020-04-14 {#version-1-1-6}
+
+### 修正
+
+  * `xmlua.libxml2`:
+
+    * Fixed a double free bug when setting a namespace. [GitHub#22][Reported by edo]
+
+### 感謝
+
+* edo
+
 ## 1.1.5: 2020-02-26 {#version-1-1-5}
 
 ### 改善

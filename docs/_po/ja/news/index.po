@@ -19,6 +19,26 @@ msgstr ""
 msgid "# News"
 msgstr "# おしらせ"
 
+msgid "## 1.1.6: 2020-04-14 {#version-1-1-6}"
+msgstr ""
+
+msgid "### Fixes"
+msgstr "### 修正"
+
+msgid "  * `xmlua.libxml2`:"
+msgstr ""
+
+msgid ""
+"    * Fixed a double free bug when setting a namespace. [GitHub#22][Reported b"
+"y edo]"
+msgstr ""
+
+msgid "### Thanks"
+msgstr "### 感謝"
+
+msgid "* edo"
+msgstr ""
+
 msgid "## 1.1.5: 2020-02-26 {#version-1-1-5}"
 msgstr ""
 
@@ -36,9 +56,6 @@ msgstr ""
 
 msgid "    * Added `parse_options` options to `XML.parse()`."
 msgstr "    * `XML.parse()`に`parse_options`オプションを追加しました。"
-
-msgid "### Fixes"
-msgstr "### 修正"
 
 msgid "  * `xmlua.Node`:"
 msgstr ""
@@ -75,9 +92,6 @@ msgid ""
 "  * `xmlua.DocumentFragment`: Fixed a bug that accidentally returned element n"
 "ode."
 msgstr "  * `xmlua.DocumentFragment`: 誤ってelement nodeを返却するバグを修正しました。"
-
-msgid "  * `xmlua.libxml2`:"
-msgstr ""
 
 msgid "    * Fix a bug that unintentionally set to `jit.off` in all modules."
 msgstr "    * 全てのモジュールで意図せず、`jit.off`を設定したバグを修正しました。"

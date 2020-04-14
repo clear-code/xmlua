@@ -31,13 +31,13 @@ msgstr ""
 msgid ""
 "    * Fixed a double free bug when setting a namespace. [GitHub#22][Reported b"
 "y edo]"
-msgstr ""
+msgstr "    * ネームスペースを設定する際にダブルフリーしてしまう問題を修正しました。 [GitHub#22][edoさんによる報告]"
 
 msgid "### Thanks"
 msgstr "### 感謝"
 
 msgid "* edo"
-msgstr ""
+msgstr "* edoさん"
 
 msgid "## 1.1.5: 2020-02-26 {#version-1-1-5}"
 msgstr ""

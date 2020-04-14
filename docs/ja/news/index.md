@@ -10,11 +10,11 @@ title: おしらせ
 
   * `xmlua.libxml2`:
 
-    * Fixed a double free bug when setting a namespace. [GitHub#22][Reported by edo]
+    * ネームスペースを設定する際にダブルフリーしてしまう問題を修正しました。 [GitHub#22][edoさんによる報告]
 
 ### 感謝
 
-* edo
+* edoさん
 
 ## 1.1.5: 2020-02-26 {#version-1-1-5}
 

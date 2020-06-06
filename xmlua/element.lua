@@ -153,6 +153,9 @@ function methods:add_child(node)
   end
   local raw_added_node =
     libxml2.xmlAddChild(self.node, node.node)
+  if raw_added_node ~= ffi.NULL then
+    ffi.gc(node.node, nil)
+  end
 end
 
 function methods:add_previous_sibling(node)

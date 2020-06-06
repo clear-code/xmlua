@@ -77,6 +77,25 @@ function TestElement.test_parent_root()
 ]])
 end
 
+function TestDocument.test_add_unlinked_element_node()
+  local document = xmlua.XML.parse([[
+<?xml version="1.0" encoding="UTF-8"?>
+<root/>
+]])
+  local another_document = xmlua.XML.build({"child"})
+  local child = another_document:root():unlink()
+
+  local root = document:root()
+  root:add_child(child)
+  luaunit.assertEquals(document:to_xml(),
+                       [[
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child/>
+</root>
+]])
+end
+
 function TestDocument.test_add_attribute_node()
   local document = xmlua.XML.parse([[
 <?xml version="1.0" encoding="UTF-8"?>

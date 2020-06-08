@@ -4,6 +4,18 @@ title: News
 
 # News
 
+## 1.1.7: 2020-06-08 {#version-1-1-7}
+
+### Fixes
+
+  * `xmlua.Element:add_child()`:
+
+    * Fix a double free bug when unlinked element is added. [GitHub#24][Reported by Arturas M.]
+
+### Thanks
+
+* Arturas M.
+
 ## 1.1.6: 2020-04-14 {#version-1-1-6}
 
 ### Fixes

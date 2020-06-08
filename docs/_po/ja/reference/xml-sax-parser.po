@@ -300,6 +300,9 @@ msgstr ""
 "end\n"
 "```"
 
+msgid "Registered function is called, when call `xmlua.XMLSAXParser.finish`."
+msgstr "`xmlua.XMLSAXParser.finish` を呼び出した時に、登録した関数が呼び出されます。"
+
 msgid "Registered function is called, when parse `parser:finish()` in below example."
 msgstr "以下の例では、`parser:finish()`を実行したときに登録した関数が呼び出されます。"
 

@@ -200,7 +200,7 @@ parser.end_document = function()
 end
 ```
 
-Registered function is called, when call `xmlua.XMLSAXParser.finish`.
+`xmlua.XMLSAXParser.finish` を呼び出した時に、登録した関数が呼び出されます。
 
 以下の例では、`parser:finish()`を実行したときに登録した関数が呼び出されます。
 

@@ -340,4 +340,5 @@ xmlChar *xmlGetNodePath(const xmlNode *node);
 
 void xmlFreeNode(xmlNodePtr cur);
 void xmlUnlinkNode(xmlNodePtr cur);
+void xmlSetTreeDoc(xmlNodePtr tree, xmlDocPtr doc);
 ]]

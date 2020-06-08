@@ -560,6 +560,7 @@ end
 
 function libxml2.xmlUnlinkNode(node)
   xml2.xmlUnlinkNode(node)
+  xml2.xmlSetTreeDoc(node, ffi.NULL)
   return ffi.gc(node, xml2.xmlFreeNode)
 end
 

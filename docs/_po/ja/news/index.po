@@ -19,25 +19,36 @@ msgstr ""
 msgid "# News"
 msgstr "# おしらせ"
 
-msgid "## 1.1.7: 2020-06-08 {#version-1-1-7}"
+msgid "## 1.1.8: 2020-06-09 {#version-1-1-8}"
 msgstr ""
 
 msgid "### Fixes"
 msgstr "### 修正"
 
-msgid "  * `xmlua.Element:add_child()`:"
+msgid "  * `xmlua.libxml2.xmlUnlinkNode()`:"
 msgstr ""
 
 msgid ""
-"    * Fix a double free bug when unlinked element is added. [GitHub#24][Report"
-"ed by Arturas M.]"
-msgstr "    * unlink された要素を追加する際にダブルフリーしてしまう問題を修正しました。 [GitHub#24][Arturas M.さんによる報告]"
+"    * Ensured removing reference to document from an unlinked node. [GitHub#24"
+"][Reported by Arturas M.]"
+msgstr "    * 削除されたノードからドキュメントへの参照を削除するようにしました。 [GitHub#24][Arturas M.さんによる報告]"
 
 msgid "### Thanks"
 msgstr "### 感謝"
 
 msgid "* Arturas M."
 msgstr "* Arturas M.さん"
+
+msgid "## 1.1.7: 2020-06-08 {#version-1-1-7}"
+msgstr ""
+
+msgid "  * `xmlua.Element:add_child()`:"
+msgstr ""
+
+msgid ""
+"    * Fixed a double free bug when unlinked element is added. [GitHub#24][Repo"
+"rted by Arturas M.]"
+msgstr "    * unlink された要素を追加する際にダブルフリーしてしまう問題を修正しました。 [GitHub#24][Arturas M.さんによる報告]"
 
 msgid "## 1.1.6: 2020-04-14 {#version-1-1-6}"
 msgstr ""

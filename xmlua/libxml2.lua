@@ -19,7 +19,10 @@ require("xmlua.libxml2.entities")
 local ffi = require("ffi")
 local loaded, xml2 = pcall(ffi.load, "xml2")
 if not loaded then
-  xml2 = ffi.load("libxml2.so.2")
+  loaded, xml2 = pcall(ffi.load, "libxml2.so.2")
+  if not loaded then
+    xml2 = ffi.load("libxml2-2.dll")
+  end
 end
 local function __xmlParserVersionIsAvailable()
   local success, err = pcall(function()

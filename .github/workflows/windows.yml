@@ -1,0 +1,57 @@
+name: "Windows"
+on:
+  - push
+  - pull_request
+jobs:
+  build:
+    name: Build
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@master
+      - name: Install dependencies
+        run: |
+          $MSYS2_ROOT = "c:\msys64"
+          & ${MSYS2_ROOT}\msys2_shell.cmd `
+            -defterm `
+            -here `
+            -msys2 `
+            -no-start `
+            -c "pacman --sync --refresh --sysupgrade --sysupgrade --noconfirm"
+          taskkill /F /FI "MODULES eq msys-2.0.dll"
+          & ${MSYS2_ROOT}\msys2_shell.cmd `
+           -defterm `
+           -here `
+           -msys2 `
+           -no-start `
+           -c "pacman --sync --sysupgrade --sysupgrade --noconfirm"
+          taskkill /F /FI "MODULES eq msys-2.0.dll"
+          $LUAJIT_INSTALLER_URL_BASE = `
+            "https://gitlab.com/clear-code/windows-luajit-installer/uploads"
+          $HASH = "445e451b21d1ddcad8b092a702ba736c"
+          $LUAJIT_INSTALLER_NAME = "windows-luajit-installer-1.0.5.zip"
+          Invoke-WebRequest `
+            -Uri $LUAJIT_INSTALLER_URL_BASE/$HASH/$LUAJIT_INSTALLER_NAME `
+            -OutFile $LUAJIT_INSTALLER_NAME
+          Expand-Archive `
+            -Path .\$LUAJIT_INSTALLER_NAME `
+            -DestinationPath .\
+          cd windows-luajit-installer-1.0.5
+          ls
+          Copy-Item *.cmd ${MSYS2_ROOT}
+          Copy-Item *.sh ${MSYS2_ROOT}
+          $WORKAROUND_PACKAGES = Get-ChildItem . -Filter *.pkg.tar.zst
+          foreach ($Package in $WORKAROUND_PACKAGES) `
+          { `
+            & ${MSYS2_ROOT}\pacman.cmd --upgrade --noconfirm $Package `
+          }
+          & ${MSYS2_ROOT}\pacman.cmd --sync --needed --noconfirm `
+            mingw-w64-x86_64-gcc mingw-w64-x86_64-libxml2 make unzip
+          & ${MSYS2_ROOT}\luarocks.cmd install luacs
+          & ${MSYS2_ROOT}\luarocks.cmd install luaunit
+      - name: Test
+        run: |
+          $MSYS2_ROOT = "c:\msys64"
+          & ${MSYS2_ROOT}\luarocks.cmd --version
+          & ${MSYS2_ROOT}\luajit.cmd -v
+          & ${MSYS2_ROOT}\luajit.cmd test\run-test.lua
+

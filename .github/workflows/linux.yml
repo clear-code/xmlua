@@ -24,6 +24,4 @@ jobs:
       - name: Test
         run: |
           docker run \
-            --interactive \
-            --tty \
             clear-code/xmlua-${{ matrix.os }}

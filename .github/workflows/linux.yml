@@ -19,7 +19,7 @@ jobs:
           sudo apt update
           docker build \
             -t clear-code/xmlua-${{ matrix.os }} \
-            -f travis/Dockerfile.${{ matrix.os }} \
+            -f dockerfiles/Dockerfile.${{ matrix.os }} \
             .
       - name: Test
         run: |

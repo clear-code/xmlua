@@ -1,0 +1,27 @@
+name: Linux
+on:
+  - push
+  - pull_request
+jobs:
+  centos:
+    name: Install
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - centos-6
+          - centos-7
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install XMLua
+        run: |
+          sudo apt update
+          docker build \
+            -t clear-code/xmlua-${{ matrix.os }} \
+            -f dockerfiles/Dockerfile.${{ matrix.os }} \
+            .
+      - name: Test
+        run: |
+          docker run \
+            clear-code/xmlua-${{ matrix.os }}

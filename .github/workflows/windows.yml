@@ -45,12 +45,18 @@ jobs:
             & ${MSYS2_ROOT}\pacman.cmd --upgrade --noconfirm $Package `
           }
           & ${MSYS2_ROOT}\pacman.cmd --sync --needed --noconfirm `
-            mingw-w64-x86_64-gcc mingw-w64-x86_64-libxml2 make unzip
+            mingw-w64-x86_64-gcc mingw-w64-x86_64-libxml2 make unzip patch
           & ${MSYS2_ROOT}\luarocks.cmd install luacs
           & ${MSYS2_ROOT}\luarocks.cmd install luaunit
       - name: Test
         run: |
           $MSYS2_ROOT = "c:\msys64"
+          & ${MSYS2_ROOT}\msys2_shell.cmd `
+           -defterm `
+           -here `
+           -msys2 `
+           -no-start `
+           -c "patch -u test/test-libxml2.lua < test/patches/libxml2-2.9.10-error-message.diff"          
           & ${MSYS2_ROOT}\luarocks.cmd --version
           & ${MSYS2_ROOT}\luajit.cmd -v
           & ${MSYS2_ROOT}\luajit.cmd test\run-test.lua

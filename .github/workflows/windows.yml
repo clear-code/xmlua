@@ -18,7 +18,7 @@ jobs:
             -Uri $LUAJIT_INSTALLER_URL_BASE/$HASH/$LUAJIT_INSTALLER_BASE.zip `
             -OutFile $LUAJIT_INSTALLER_BASE.zip
           Expand-Archive `
-            -Path .\$LUAJIT_INSTALLER_BASE.zip
+            -Path .\$LUAJIT_INSTALLER_BASE.zip `
             -DestinationPath .\
           cd $LUAJIT_INSTALLER_BASE
           .\luajit-installer.cmd

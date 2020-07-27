@@ -25,11 +25,11 @@ jobs:
           .\luajit-installer.cmd
       - name: Install libxml2
         run: |
-          & windows-luajit\pacman.cmd `
+          & "windows-luajit\pacman.cmd" `
               --sync `
               --noconfirm `
               mingw-w64-x86_64-libxml2
       - name: Test
         run: |
-          & windows-luajit\luajit.cmd test\run-test.lua
+          & "windows-luajit\luajit.cmd" test\run-test.lua
 

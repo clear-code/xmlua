@@ -21,14 +21,15 @@ jobs:
             -Path ".\${LUAJIT_INSTALLER_BASE}.zip" `
             -DestinationPath .\
           cd "${LUAJIT_INSTALLER_BASE}"
+          $ENV:MSYS2_ROOT = "msys64"
           .\luajit-installer.cmd
       - name: Install libxml2
         run: |
-          c:\msys64\pacman.cmd `
+          msys64\pacman.cmd `
             --sync `
             --noconfirm `
             mingw-w64-x86_64-libxml2
       - name: Test
         run: |
-          c:\msys64\luajit.cmd test\run-test.lua
+          msys64\luajit.cmd test\run-test.lua
 

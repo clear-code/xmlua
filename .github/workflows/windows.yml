@@ -15,12 +15,12 @@ jobs:
           $HASH = "445e451b21d1ddcad8b092a702ba736c"
           $LUAJIT_INSTALLER_BASE = "windows-luajit-installer-1.0.5"
           Invoke-WebRequest `
-            -Uri $LUAJIT_INSTALLER_URL_BASE/$HASH/$LUAJIT_INSTALLER_BASE.zip `
-            -OutFile $LUAJIT_INSTALLER_BASE.zip
+            -Uri "${LUAJIT_INSTALLER_URL_BASE}/${HASH}/${LUAJIT_INSTALLER_BASE}.zip" `
+            -OutFile "${LUAJIT_INSTALLER_BASE}.zip"
           Expand-Archive `
-            -Path .\$LUAJIT_INSTALLER_BASE.zip `
+            -Path ".\${LUAJIT_INSTALLER_BASE}.zip" `
             -DestinationPath .\
-          cd $LUAJIT_INSTALLER_BASE
+          cd "${LUAJIT_INSTALLER_BASE}"
           .\luajit-installer.cmd
       - name: Install libxml2
         run: |

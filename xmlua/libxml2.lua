@@ -22,7 +22,7 @@ if not loaded then
   if _G.jit.os == "Windows" then
     xml2 = ffi.load("libxml2-2.dll")
   else
-    xml2 = pcall(ffi.load, "libxml2.so.2")
+    xml2 = ffi.load("libxml2.so.2")
   end
 end
 local function __xmlParserVersionIsAvailable()

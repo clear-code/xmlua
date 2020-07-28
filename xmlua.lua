@@ -1,6 +1,6 @@
 local xmlua = {}
 
-xmlua.VERSION = "1.1.9"
+xmlua.VERSION = "1.2.0"
 
 xmlua.libxml2 = require("xmlua.libxml2")
 xmlua.XML = require("xmlua.xml")

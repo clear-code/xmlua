@@ -1,8 +1,8 @@
 title: XMLua
 markdown: kramdown
 highlighter: rouge
-version: 1.1.8
-release_date: 2020-06-09
+version: 1.1.9
+release_date: 2020-07-28
 copyright_year: 2017-2020
 exclude:
   - "Rakefile"

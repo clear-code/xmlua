@@ -19,6 +19,18 @@ msgstr ""
 msgid "# News"
 msgstr "# おしらせ"
 
+msgid "## 1.1.9: 2020-07-28 {#version-1-1-9}"
+msgstr ""
+
+msgid "### Improvements"
+msgstr "### 改善"
+
+msgid "  * `xmlua.libxml2`:"
+msgstr ""
+
+msgid "    * Added support for MSYS2."
+msgstr "    * MSYS2 をサポートしました。"
+
 msgid "## 1.1.8: 2020-06-09 {#version-1-1-8}"
 msgstr ""
 
@@ -53,9 +65,6 @@ msgstr "    * unlink された要素を追加する際にダブルフリーし�
 msgid "## 1.1.6: 2020-04-14 {#version-1-1-6}"
 msgstr ""
 
-msgid "  * `xmlua.libxml2`:"
-msgstr ""
-
 msgid ""
 "    * Fixed a double free bug when setting a namespace. [GitHub#22][Reported b"
 "y edo]"
@@ -66,9 +75,6 @@ msgstr "* edoさん"
 
 msgid "## 1.1.5: 2020-02-26 {#version-1-1-5}"
 msgstr ""
-
-msgid "### Improvements"
-msgstr "### 改善"
 
 msgid "  * `xmlua.serializable`:"
 msgstr ""

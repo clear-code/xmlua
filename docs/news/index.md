@@ -4,6 +4,14 @@ title: News
 
 # News
 
+## 1.1.9: 2020-07-28 {#version-1-1-9}
+
+### Improvements
+
+  * `xmlua.libxml2`:
+
+    * Added support for MSYS2.
+
 ## 1.1.8: 2020-06-09 {#version-1-1-8}
 
 ### Fixes

@@ -7,3 +7,4 @@
 /docs/.sass-cache/
 /docs/_site/
 /docs/_po/*.po
+/docs/Gemfile.lock

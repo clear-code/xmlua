@@ -78,3 +78,13 @@ function TestSearch.test_text()
   luaunit.assertEquals(document:search("/root/sub/text()"):content(),
                        "text1text2text3")
 end
+
+function TestSearch.test_with_namespace()
+  local document = xmlua.XML.parse([[
+<example:root xmlns:example="http://example.com/">
+  <example:sub>text</example:sub>
+</example:root>
+]])
+  luaunit.assertEquals(document:search("/example:root/example:sub"):content(),
+                       "text")
+end

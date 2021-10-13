@@ -279,6 +279,7 @@ xmlNsPtr xmlNewNs(xmlNodePtr node,
 		  const xmlChar *href,
 		  const xmlChar *prefix);
 void xmlFreeNs(xmlNsPtr cur);
+void xmlFreeNsList(xmlNsPtr cur);
 void xmlSetNs(xmlNodePtr node, xmlNsPtr ns);
 xmlDocPtr xmlNewDoc(const xmlChar *version);
 xmlNodePtr xmlDocSetRootElement(xmlDocPtr doc, xmlNodePtr root);

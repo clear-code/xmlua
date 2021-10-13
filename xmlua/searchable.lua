@@ -61,6 +61,21 @@ function Searchable:search(xpath)
       error("failed to set target node: <" .. tostring(self.node) .. ">")
     end
   end
+  local root_element = libxml2.xmlDocGetRootElement(document)
+  local raw_namespaces =
+    libxml2.xmlGetNsList(document, root_element)
+  if raw_namespaces ~= ffi.NULL then
+    local i = 0
+    while true do
+      local registered = libxml2.xmlXPathRegisterNs(context,
+                                                    raw_namespaces[i].prefix,
+                                                    raw_namespaces[i].href)
+      if raw_namespaces[i].next == ffi.NULL then
+        break
+      end
+      i = i + 1
+    end
+  end
   local object = libxml2.xmlXPathEvalExpression(xpath, context)
   if not object then
     local raw_error_message = context.lastError.message

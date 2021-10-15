@@ -377,6 +377,10 @@ function methods:next()
   return Element.new(self.document, element)
 end
 
+function methods:root()
+  return Document.new(self.document):root()
+end
+
 function methods:parent()
   if tonumber(self.node.parent.type) == ffi.C.XML_DOCUMENT_NODE then
     return Document.new(self.document)

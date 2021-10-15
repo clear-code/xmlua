@@ -58,6 +58,13 @@ function TestElement.test_next_last()
   luaunit.assertNil(child2:next())
 end
 
+function TestElement.test_root()
+  local document = xmlua.XML.parse([[<root><child><grandchild/></child></root>]])
+  local grandchild = document:search("/root/child/grandchild")[1]
+  luaunit.assertEquals(grandchild:root():name(),
+                       "root")
+end
+
 function TestElement.test_parent()
   local document = xmlua.XML.parse([[<root><child/></root>]])
   local child = document:search("/root/child")[1]

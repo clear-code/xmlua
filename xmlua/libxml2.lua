@@ -647,6 +647,11 @@ function libxml2.xmlXPathEvalExpression(expression, context)
 end
 jit.off(libxml2.xmlXPathEvalExpression)
 
+function libxml2.xmlXPathRegisterNs(context, prefix, namespace_uri)
+  local status = xml2.xmlXPathRegisterNs(context, prefix, namespace_uri)
+  return status == 0
+end
+
 function libxml2.xmlStrdup(string)
   return xml2.xmlStrdup(string)
 end

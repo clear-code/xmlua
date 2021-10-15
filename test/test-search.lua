@@ -78,3 +78,29 @@ function TestSearch.test_text()
   luaunit.assertEquals(document:search("/root/sub/text()"):content(),
                        "text1text2text3")
 end
+
+function TestSearch.test_namespaces_default()
+  local document = xmlua.XML.parse([[
+<example:root xmlns:example="http://example.com/">
+  <example:sub>text</example:sub>
+</example:root>
+]])
+  luaunit.assertEquals(document:search("/example:root/example:sub")[1]:to_xml(),
+                       "<example:sub>text</example:sub>")
+end
+
+function TestSearch.test_namespaces_custom()
+  local document = xmlua.XML.parse([[
+<example:root xmlns:example="http://example.com/">
+  <example:sub>text</example:sub>
+</example:root>
+]])
+  local namespaces = {
+    {
+      prefix = "e",
+      href = "http://example.com/",
+    }
+  }
+  luaunit.assertEquals(document:search("/e:root/e:sub", namespaces)[1]:to_xml(),
+                       "<example:sub>text</example:sub>")
+end

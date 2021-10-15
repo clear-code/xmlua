@@ -406,7 +406,7 @@ function methods:namespaces()
   end
 
   local namespaces = {}
-  local i = 1;
+  local i = 0;
   while raw_namespaces[i] ~= ffi.NULL do
     local raw_namespace = raw_namespaces[i]
     table.insert(namespaces, Namespace.new(self.document, raw_namespace))

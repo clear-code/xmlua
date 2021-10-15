@@ -318,8 +318,6 @@ xmlNsPtr xmlSearchNs(xmlDocPtr doc, xmlNodePtr node, const xmlChar *nameSpace);
 xmlNsPtr xmlSearchNsByHref(xmlDocPtr doc, xmlNodePtr node, const xmlChar *href);
 xmlNsPtr *xmlGetNsList(const xmlDoc *doc, const xmlNode *node);
 
-xmlNsPtr *xmlGetNsList(const xmlDoc * doc, const xmlNode * node);
-
 char *xmlGetNoNsProp(const xmlNode *node, const xmlChar *name);
 xmlChar *xmlGetNsProp(const xmlNode *node,
                       const xmlChar *name,

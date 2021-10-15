@@ -35,6 +35,12 @@ RUN \
     LIBXML2_LIBDIR=/usr/lib64
 RUN rm -rf xmlua.lua xmlua
 
+RUN \
+  mv /root/.luarocks/share/lua/5.1/* \
+     /usr/share/lua/5.1/ && \
+  mv /root/.luarocks/lib64/lua/5.1/* \
+     /usr/lib64/lua/5.1/
+
 USER xmlua
 
 RUN \

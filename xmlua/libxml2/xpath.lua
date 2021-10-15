@@ -177,7 +177,7 @@ xmlXPathObjectPtr xmlXPathEvalExpression	(const xmlChar *str, xmlXPathContextPtr
 
 void xmlXPathFreeObject		(xmlXPathObjectPtr obj);
 
-int	xmlXPathRegisterNs(xmlXPathContextPtr ctxt,
-                       const xmlChar * prefix,
-                       const xmlChar * ns_uri);
+int xmlXPathRegisterNs(xmlXPathContextPtr ctxt,
+                       const xmlChar *prefix,
+                       const xmlChar *ns_uri);
 ]]

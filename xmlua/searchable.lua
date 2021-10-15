@@ -50,7 +50,7 @@ local ERROR_MESSAGES = {
   [ffi.C.XPATH_FORBID_VARIABLE_ERROR]    = "Forbidden variable\n",
 }
 
-function Searchable:search(xpath)
+function Searchable:search(xpath, namespaces)
   local document = self.document
   local context = libxml2.xmlXPathNewContext(document)
   if not context then
@@ -61,19 +61,23 @@ function Searchable:search(xpath)
       error("failed to set target node: <" .. tostring(self.node) .. ">")
     end
   end
-  local root_element = libxml2.xmlDocGetRootElement(document)
-  local raw_namespaces =
-    libxml2.xmlGetNsList(document, root_element)
-  if raw_namespaces ~= ffi.NULL then
-    local i = 0
-    while true do
-      local registered = libxml2.xmlXPathRegisterNs(context,
-                                                    raw_namespaces[i].prefix,
-                                                    raw_namespaces[i].href)
-      if raw_namespaces[i].next == ffi.NULL then
-        break
+  if not namespaces then
+    namespaces = self:root():namespaces()
+  end
+  if namespaces then
+    for _, namespace in ipairs(namespaces) do
+      local prefix = nil
+      local href = nil
+      if type(namespace.prefix) == "function" then
+        prefix = namespace:prefix()
+        href = namespace:href()
+      else
+        prefix = namespace.prefix
+        href = namespace.href
       end
-      i = i + 1
+      if prefix then
+        libxml2.xmlXPathRegisterNs(context, prefix, href)
+      end
     end
   end
   local object = libxml2.xmlXPathEvalExpression(xpath, context)

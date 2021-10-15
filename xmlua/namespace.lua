@@ -12,11 +12,19 @@ function metatable.__index(element, key)
 end
 
 function methods:prefix()
-  return ffi.string(self.node.prefix)
+  if self.node.prefix == ffi.NULL then
+    return nil
+  else
+    return ffi.string(self.node.prefix)
+  end
 end
 
 function methods:href()
-  return ffi.string(self.node.href)
+  if self.node.href == ffi.NULL then
+    return nil
+  else
+    return ffi.string(self.node.href)
+  end
 end
 
 function Namespace.new(document, node)

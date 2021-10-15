@@ -1046,6 +1046,10 @@ function TestElement.test_namespaces()
   luaunit.assertEquals(plain_namespaces,
                        {
                          {
+                           prefix = nil,
+                           href = "http://www.w3.org/1999/xhtml",
+                         },
+                         {
                            prefix = "svg",
                            href = "http://www.w3.org/2000/svg",
                          },

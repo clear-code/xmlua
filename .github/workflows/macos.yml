@@ -17,7 +17,7 @@ jobs:
           LUAROCKS="sudo -H luarocks --tree=$(brew --prefix) --lua-dir=$(brew --prefix luajit)"
           VERSION=$(grep VERSION xmlua.lua | sed -e 's/.*"\(.*\)"/\1/g')
           cp xmlua.rockspec xmlua-${VERSION}-0.rockspec
-          ${LUAROCKS} make xmlua-${VERSION}-0.rockspec
+          ${LUAROCKS} make xmlua-${VERSION}-0.rockspec LIBXML2_DIR=$(brew --prefix libxml2)
           rm -rf xmlua.lua xmlua
           ${LUAROCKS} install luaunit
           ${LUAROCKS} install cqueues \
@@ -29,5 +29,3 @@ jobs:
           test/run-test.lua
           luajit -e 'package.path = "../luacs/?.lua;" .. package.path' \
             sample/parse-html-cqueues-thread.lua sample/sample.html
-
-

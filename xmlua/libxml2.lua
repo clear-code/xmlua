@@ -471,6 +471,14 @@ function libxml2.xmlSearchNsByHref(document, node, href)
   return namespace
 end
 
+function libxml2.xmlGetNsList(document, node)
+  local namespaces = xml2.xmlGetNsList(document, node)
+  if namespaces == ffi.NULL then
+    return nil
+  end
+  return namespaces
+end
+
 function libxml2.xmlGetNoNsProp(node, name)
   local value = xml2.xmlGetNoNsProp(node, name)
   if value == ffi.NULL then

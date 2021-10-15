@@ -1026,6 +1026,32 @@ function TestElement.test_unlink()
                        })
 end
 
+function TestElement.test_namespaces()
+  local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:svg="http://www.w3.org/2000/svg"/>
+]]
+  local document = xmlua.XML.parse(xml)
+  local root = document:root()
+  local namespaces = root:namespaces()
+  local plain_namespaces = {}
+  for _, namespace in ipairs(namespaces) do
+    local plain_namespace = {
+      prefix = namespace:prefix(),
+      href = namespace:href(),
+    }
+    table.insert(plain_namespaces, plain_namespace)
+  end
+  luaunit.assertEquals(plain_namespaces,
+                       {
+                         {
+                           prefix = "svg",
+                           href = "http://www.w3.org/2000/svg",
+                         },
+                       })
+end
+
 function TestElement.test_find_namespace_with_prefix()
   local xml = [[
 <?xml version="1.0" encoding="UTF-8"?>

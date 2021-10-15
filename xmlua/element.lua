@@ -399,6 +399,23 @@ function methods:text()
   return self:content()
 end
 
+function methods:namespaces()
+  local raw_namespaces = libxml2.xmlGetNsList(self.document, self.node)
+  if not raw_namespaces then
+    return nil
+  end
+
+  local namespaces = {}
+  local i = 1;
+  while raw_namespaces[i] ~= ffi.NULL do
+    local raw_namespace = raw_namespaces[i]
+    table.insert(namespaces, Namespace.new(self.document, raw_namespace))
+    i = i + 1
+  end
+  libxml2.xmlFree(raw_namepaces)
+  return namespaces
+end
+
 function methods:set_namespace(namespace)
   libxml2.xmlSetNs(self.node, namespace.node)
 end

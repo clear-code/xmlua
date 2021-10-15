@@ -1,18 +1,18 @@
-FROM centos:6
+FROM almalinux:8
 
 RUN \
-  yum install -y epel-release
+  dnf install -y epel-release
 RUN \
-  yum install -y \
+  dnf install --enablerepo=powertools -y \
+    compat-lua-devel \
     gcc \
     git \
     libxml2 \
-    lua-devel \
     luajit \
     luajit-devel \
     luarocks \
-    make \
     m4 \
+    make \
     openssl-devel \
     unzip
 RUN \

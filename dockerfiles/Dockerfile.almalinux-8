@@ -16,10 +16,10 @@ RUN \
     openssl-devel \
     unzip
 RUN \
-  luarocks install cqueues \
+  luarocks --lua-version 5.1 install cqueues \
     CRYPTO_LIBDIR=/usr/lib64 \
     OPENSSL_LIBDIR=/usr/lib64 && \
-  luarocks install luaunit
+  luarocks --lua-version 5.1 install luaunit
 
 RUN \
   useradd --user-group --create-home xmlua
@@ -31,10 +31,8 @@ RUN \
     xmlua.rockspec \
     xmlua-$(grep VERSION xmlua.lua | sed -e 's/.*"\(.*\)"/\1/g')-0.rockspec
 RUN \
-  luarocks make xmlua-*.rockspec \
-    LIBXML2_LIBDIR=/usr/lib64 && \
-  mv /usr/lib/lua/5.1/* \
-     /usr/lib64/lua/5.1/
+  luarocks --lua-version 5.1 make xmlua-*.rockspec \
+    LIBXML2_LIBDIR=/usr/lib64
 RUN rm -rf xmlua.lua xmlua
 
 USER xmlua

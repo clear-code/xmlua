@@ -412,7 +412,6 @@ function methods:namespaces()
     table.insert(namespaces, Namespace.new(self.document, raw_namespace))
     i = i + 1
   end
-  libxml2.xmlFree(raw_namepaces)
   return namespaces
 end
 

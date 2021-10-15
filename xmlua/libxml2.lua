@@ -476,7 +476,7 @@ function libxml2.xmlGetNsList(document, node)
   if namespaces == ffi.NULL then
     return nil
   end
-  return namespaces
+  return ffi.gc(namespaces, libxml2.xmlFree)
 end
 
 function libxml2.xmlGetNoNsProp(node, name)

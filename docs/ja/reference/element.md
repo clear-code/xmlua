@@ -749,6 +749,29 @@ local namespace = root:find_namespace()
 print(namespace:href()) --"http://www.test.org/xhtml"
 ```
 
+## `namespaces() -> [xmlua.Namespace][]` {#namespaces}
+
+ドキュメントに登録されているネームスペースを取得できます。このメソッドは、 [`xmlua.Namespace`][namespace] の配列を返します。戻り値が空の配列の場合は、ドキュメントにネームスペースがありません。
+
+例：
+
+```lua
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:svg="http://www.w3.org/2000/svg"/>
+]]
+
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local namespaces = root:namespaces()
+
+print(namespaces[1]:prefix()) -- nil
+print(namespaces[1]:href()) -- "http://www.w3.org/1999/xhtml"
+print(namespaces[2]:prefix()) -- "svg"
+print(namespaces[2]:href()) -- "http://www.w3.org/2000/svg"
+```
+
 ## 参照
 
   * [`xmlua.HTML`][html]: HTMLをパースするクラスです。

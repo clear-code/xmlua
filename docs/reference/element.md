@@ -773,6 +773,31 @@ local namespace = root:find_namespace()
 print(namespace:href()) --"http://www.test.org/xhtml"
 ```
 
+## `namespaces() -> [xmlua.Namespace][]` {#namespaces}
+
+You can get namespaces registered for a document.
+This method returns an array of [`xmlua.Namespace`][namespace].
+If a return value is an empty array, a document hasn't namespaces.
+
+Example:
+
+```lua
+local xml = [[
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:svg="http://www.w3.org/2000/svg"/>
+]]
+
+local document = xmlua.XML.parse(xml)
+local root = document:root()
+local namespaces = root:namespaces()
+
+print(namespaces[1]:prefix()) -- nil
+print(namespaces[1]:href()) -- "http://www.w3.org/1999/xhtml"
+print(namespaces[2]:prefix()) -- "svg"
+print(namespaces[2]:href()) -- "http://www.w3.org/2000/svg"
+```
+
 ## See also
 
   * [`xmlua.HTML`][html]: The class for parsing HTML.

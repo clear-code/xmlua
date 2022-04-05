@@ -618,6 +618,30 @@ print(sub3:next())
 -- nil
 ```
 
+### `root() -> xmlua.Element` {#root}
+
+root要素を`xmlua.Element`として返します。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<root>
+  <child>
+    <grandchild/>
+  </child>
+</root>
+]]
+
+local document = xmlua.XML.parse(xml)
+local grandchild = document:search("/root/child/grandchild")[1]
+
+-- Gets the root element of <grandchild>
+print(grandchild:root():name())
+-- "root"
+
 ### `parent() -> xmlua.Element` {#parent}
 
 親要素を`xmlua.Element`として返します。要素がルート要素の場合は、[`xmlua.Document`][document]を返します。

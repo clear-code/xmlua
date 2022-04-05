@@ -1027,6 +1027,33 @@ msgstr ""
 "-- nil\n"
 "```"
 
+msgid "### `root() -> xmlua.Element` {#root}"
+msgstr ""
+
+msgid "It returns the root element as `xmlua.Element`."
+msgstr "root要素を`xmlua.Element`として返します。"
+
+msgid ""
+"local xml = [[\n"
+"<root>\n"
+"  <child>\n"
+"    <grandchild/>\n"
+"  </child>\n"
+"</root>\n"
+"]]"
+msgstr ""
+
+msgid ""
+"local document = xmlua.XML.parse(xml)\n"
+"local grandchild = document:search(\"/root/child/grandchild\")[1]"
+msgstr ""
+
+msgid ""
+"-- Gets the root element of <grandchild>\n"
+"print(grandchild:root():name())\n"
+"-- \"root\""
+msgstr ""
+
 msgid "### `parent() -> xmlua.Element` {#parent}"
 msgstr ""
 

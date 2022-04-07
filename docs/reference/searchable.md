@@ -10,7 +10,7 @@ It provides features that search nodes by [XPath][xpath].
 
 ## Methods
 
-### `search(xpath) -> xmlua.NodeSet` {#search}
+### `search(xpath[, namespace]) -> xmlua.NodeSet` {#search}
 
 It searches nodes by XPath and returns as [`xmlua.NodeSet`][node-set] object.
 
@@ -19,6 +19,7 @@ If the receiver is a [`xmlua.Document`][document], the context node in XPath is 
 If the receiver is a [`xmlua.Element`][element], the context node in XPath is the element. It means that "`.`" XPath is the receiver element.
 
 `xpath`: XPath to search nodes as `string`.
+`namespace`: Customized namespace. If you use the default namespace, you must omit this argument.
 
 If XPath searching is failed, it raises an error.
 
@@ -79,6 +80,52 @@ print(#all_subs) -- -> 3
 print(all_subs[1]:to_xml()) -- -> <sub1>text1</sub1>
 print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
 print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
+```
+
+You can also search document with namespace.
+If you want to use the default namespace, you must specify the namespace explicitly as below.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<example:root xmlns:example="http://example.com/">
+  <example:sub>text</example:sub>
+</example:root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+local example_sub = document:search("/example:root/example:sub")
+print(example_sub[1]:to_xml()) -- -> <example:sub>text</example:sub>
+```
+
+You can also use customize the namespace as below.
+
+Example:
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<example:root xmlns:example="http://example.com/">
+  <example:sub>text</example:sub>
+</example:root>
+]]
+
+local namespaces = {
+  {
+    prefix = "e",
+    href = "http://example.com/",
+  }
+}
+
+local document = xmlua.XML.parse(xml)
+
+local example_sub = document:search("/e:root/e:sub", namespace)
+print(example_sub[1]:to_xml()) -- -> <example:sub>text</example:sub>
 ```
 
 ### `xpath_search(xpath) -> xmlua.NodeSet` {#xpath-search}

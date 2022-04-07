@@ -10,7 +10,7 @@ title: xmlua.Searchable
 
 ## メソッド
 
-### `search(xpath) -> xmlua.NodeSet` {#search}
+### `search(xpath[, namespace]) -> xmlua.NodeSet` {#search}
 
 XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェクトを返します。
 
@@ -19,6 +19,7 @@ XPathを使ってノードを検索し[`xmlua.NodeSet`][node-set]オブジェク
 レシーバーが[`xmlua.Element`][element]の場合、XPathのコンテキストノードはレシーバーの要素になります。つまり、XPathの「`.`」はレシーバーの要素です。
 
 `xpath`: ノードを検索するためのXPath文字列です。
+`namespace`: カスタマイズされた名前空間です。デフォルトの名前空間を使用する場合は、この引数を省略する必要があります。
 
 XPathでの検索に失敗した場合は、エラーが発生します。
 
@@ -79,6 +80,52 @@ print(#all_subs) -- -> 3
 print(all_subs[1]:to_xml()) -- -> <sub1>text1</sub1>
 print(all_subs[2]:to_xml()) -- -> <sub2>text2</sub2>
 print(all_subs[3]:to_xml()) -- -> <sub3>text3</sub3>
+```
+
+名前空間のあるドキュメントを検索することもできます。
+デフォルトの名前空間を使いたい場合は、以下のように明示的に名前空間を指定する必要があります。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<example:root xmlns:example="http://example.com/">
+  <example:sub>text</example:sub>
+</example:root>
+]]
+
+local document = xmlua.XML.parse(xml)
+
+local example_sub = document:search("/example:root/example:sub")
+print(example_sub[1]:to_xml()) -- -> <example:sub>text</example:sub>
+```
+
+以下のように、カスタマイズした名前空間を使うこともできます。
+
+例：
+
+```lua
+local xmlua = require("xmlua")
+
+local xml = [[
+<example:root xmlns:example="http://example.com/">
+  <example:sub>text</example:sub>
+</example:root>
+]]
+
+local namespaces = {
+  {
+    prefix = "e",
+    href = "http://example.com/",
+  }
+}
+
+local document = xmlua.XML.parse(xml)
+
+local example_sub = document:search("/e:root/e:sub", namespace)
+print(example_sub[1]:to_xml()) -- -> <example:sub>text</example:sub>
 ```
 
 ### `xpath_search(xpath) -> xmlua.NodeSet` {#xpath-search}

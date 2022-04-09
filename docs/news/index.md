@@ -4,6 +4,20 @@ title: News
 
 # News
 
+## 1.2.0: 2022-04-11 {#version-1-2-0}
+
+### Improvements
+
+  * `xmlua.Element.namespaces()`: Added.
+  * `xmlua.Element.root()`: Added.
+  * `xmlua.Searchable.search()`:
+
+    * Added support for searching document with namespace. [GitHub#28][Reported by GYWang1983]
+
+### Thanks
+
+  * GYWang1983
+
 ## 1.1.9: 2020-07-28 {#version-1-1-9}
 
 ### Improvements

@@ -19,11 +19,31 @@ msgstr ""
 msgid "# News"
 msgstr "# おしらせ"
 
-msgid "## 1.1.9: 2020-07-28 {#version-1-1-9}"
+msgid "## 1.2.0: 2022-04-11 {#version-1-2-0}"
 msgstr ""
 
 msgid "### Improvements"
 msgstr "### 改善"
+
+msgid ""
+"  * `xmlua.Element.namespaces()`: Added.\n"
+"  * `xmlua.Element.root()`: Added.\n"
+"  * `xmlua.Searchable.search()`:"
+msgstr ""
+
+msgid ""
+"    * Added support for searching document with namespace. [GitHub#28][Reporte"
+"d by GYWang1983]"
+msgstr "    * 名前空間のあるドキュメントの検索をサポートしました。[GitHub#28][GYWang1983さんの報告]"
+
+msgid "### Thanks"
+msgstr "### 感謝"
+
+msgid "  * GYWang1983"
+msgstr "  * GYWang1983さん"
+
+msgid "## 1.1.9: 2020-07-28 {#version-1-1-9}"
+msgstr ""
 
 msgid "  * `xmlua.libxml2`:"
 msgstr ""
@@ -44,9 +64,6 @@ msgid ""
 "    * Ensured removing reference to document from an unlinked node. [GitHub#24"
 "][Reported by Arturas M.]"
 msgstr "    * 削除されたノードからドキュメントへの参照を削除するようにしました。 [GitHub#24][Arturas M.さんによる報告]"
-
-msgid "### Thanks"
-msgstr "### 感謝"
 
 msgid "* Arturas M."
 msgstr "* Arturas M.さん"

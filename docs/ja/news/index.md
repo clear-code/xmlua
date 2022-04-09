@@ -4,6 +4,20 @@ title: おしらせ
 
 # おしらせ
 
+## 1.2.0: 2022-04-11 {#version-1-2-0}
+
+### 改善
+
+  * `xmlua.Element.namespaces()`: Added.
+  * `xmlua.Element.root()`: Added.
+  * `xmlua.Searchable.search()`:
+
+    * 名前空間のあるドキュメントの検索をサポートしました。[GitHub#28][GYWang1983さんの報告]
+
+### 感謝
+
+  * GYWang1983さん
+
 ## 1.1.9: 2020-07-28 {#version-1-1-9}
 
 ### 改善

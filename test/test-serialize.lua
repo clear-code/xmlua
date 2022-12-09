@@ -14,10 +14,10 @@ end
 
 function TestSave.test_to_html_encoding()
   local html = xmlua.HTML.parse("<html><head></head></html>")
-  luaunit.assertEquals(html:to_html({encoding = "EUC-JP"}),
+  luaunit.assertEquals(html:to_html({encoding = "ISO-8859-1"}),
                        [[
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=EUC-JP"></head></html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></head></html>
 ]])
 end
 
@@ -32,9 +32,9 @@ end
 
 function TestSave.test_to_xml_encoding()
   local xml = xmlua.XML.parse("<root/>")
-  luaunit.assertEquals(xml:to_xml({encoding = "EUC-JP"}),
+  luaunit.assertEquals(xml:to_xml({encoding = "ISO-8859-1"}),
                        [[
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <root/>
 ]])
 end

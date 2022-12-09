@@ -71,7 +71,7 @@ end
 
 local function ensure_sax_parser(parser)
   if parser.sax_parser == nil then
-    sax_parser = create_sax_parser(parser)
+    local sax_parser = create_sax_parser(parser)
     parser.sax_parser = sax_parser
     parser.need_finish = false
   end

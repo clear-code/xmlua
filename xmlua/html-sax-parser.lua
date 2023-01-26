@@ -20,8 +20,7 @@ local function create_start_document_callback(user_callback)
     user_callback()
   end
   local c_callback = ffi.cast("startDocumentSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_processing_instruction_callback(user_callback)
@@ -31,8 +30,7 @@ local function create_processing_instruction_callback(user_callback)
     user_callback(target, data)
   end
   local c_callback = ffi.cast("processingInstructionSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_cdata_block_callback(user_callback)
@@ -41,8 +39,7 @@ local function create_cdata_block_callback(user_callback)
     user_callback(cdata_block)
   end
   local c_callback = ffi.cast("cdataBlockSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_ignorable_whitespace_callback(user_callback)
@@ -51,8 +48,7 @@ local function create_ignorable_whitespace_callback(user_callback)
     user_callback(ignorable_whitespaces)
   end
   local c_callback = ffi.cast("ignorableWhitespaceSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_comment_callback(user_callback)
@@ -60,8 +56,7 @@ local function create_comment_callback(user_callback)
     user_callback(to_string(raw_comment))
   end
   local c_callback = ffi.cast("commentSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_start_element_callback(user_callback)
@@ -89,8 +84,7 @@ local function create_start_element_callback(user_callback)
     user_callback(to_string(raw_name), attributes)
   end
   local c_callback = ffi.cast("startElementSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_end_element_callback(user_callback)
@@ -98,8 +92,7 @@ local function create_end_element_callback(user_callback)
     user_callback(to_string(raw_name))
   end
   local c_callback = ffi.cast("endElementSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_text_callback(user_callback)
@@ -107,8 +100,7 @@ local function create_text_callback(user_callback)
     user_callback(to_string(raw_text, raw_length))
   end
   local c_callback = ffi.cast("charactersSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_end_document_callback(user_callback)
@@ -116,8 +108,7 @@ local function create_end_document_callback(user_callback)
     user_callback()
   end
   local c_callback = ffi.cast("endDocumentSAXFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 local function create_error_callback(user_callback)
@@ -125,8 +116,7 @@ local function create_error_callback(user_callback)
     user_callback(converter.convert_xml_error(raw_xml_error))
   end
   local c_callback = ffi.cast("xmlStructuredErrorFunc", callback)
-  ffi.gc(c_callback, function() c_callback:free() end)
-  return c_callback
+  return ffi.gc(c_callback, c_callback.free)
 end
 
 function metatable.__newindex(parser, key, value)

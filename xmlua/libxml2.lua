@@ -604,7 +604,7 @@ jit.off(libxml2.xmlSaveTree)
 local function error_ignore(user_data, err)
 end
 local c_error_ignore = ffi.cast("xmlStructuredErrorFunc", error_ignore)
-ffi.gc(c_error_ignore, function(callback) callback:free() end)
+ffi.gc(c_error_ignore, c_error_ignore.free)
 
 function libxml2.xmlXPathNewContext(document)
   local context = xml2.xmlXPathNewContext(document)

@@ -4,6 +4,22 @@ title: News
 
 # News
 
+## 1.2.1: 2023-02-03 {#version-1-2-1}
+
+### Improvements
+
+  * `xmlua.XMLStreamSAXParser.parse`: Narrowed scope.
+    [GH-30][Reported by Aleksey Konovkin]
+
+### Fixes
+
+  * Fixed memory leaks in callbacks.
+    [GH-32][Reported by Aleksey Konovkin]
+
+### Thanks
+
+  * Aleksey Konovkin
+
 ## 1.2.0: 2022-04-11 {#version-1-2-0}
 
 ### Improvements

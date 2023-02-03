@@ -19,11 +19,37 @@ msgstr ""
 msgid "# News"
 msgstr "# おしらせ"
 
-msgid "## 1.2.0: 2022-04-11 {#version-1-2-0}"
+msgid "## 1.2.1: 2023-02-03 {#version-1-2-1}"
 msgstr ""
 
 msgid "### Improvements"
 msgstr "### 改善"
+
+msgid ""
+"  * `xmlua.XMLStreamSAXParser.parse`: Narrowed scope.\n"
+"    [GH-30][Reported by Aleksey Konovkin]"
+msgstr ""
+"  * `xmlua.XMLStreamSAXParser.parse`: スコープを狭くしました。\n"
+"    [GH-30][Aleksey Konovkinさんが報告]"
+
+msgid "### Fixes"
+msgstr "### 修正"
+
+msgid ""
+"  * Fixed memory leaks in callbacks.\n"
+"    [GH-32][Reported by Aleksey Konovkin]"
+msgstr ""
+"  * コールバックでのメモリーリークを修正しました。\n"
+"    [GH-32][Aleksey Konovkinさんが報告]"
+
+msgid "### Thanks"
+msgstr "### 感謝"
+
+msgid "  * Aleksey Konovkin"
+msgstr "  * Aleksey Konovkinさん"
+
+msgid "## 1.2.0: 2022-04-11 {#version-1-2-0}"
+msgstr ""
 
 msgid ""
 "  * `xmlua.Element.namespaces()`: Added.\n"
@@ -35,9 +61,6 @@ msgid ""
 "    * Added support for searching document with namespace. [GitHub#28][Reporte"
 "d by GYWang1983]"
 msgstr "    * 名前空間のあるドキュメントの検索をサポートしました。[GitHub#28][GYWang1983さんの報告]"
-
-msgid "### Thanks"
-msgstr "### 感謝"
 
 msgid "  * GYWang1983"
 msgstr "  * GYWang1983さん"
@@ -53,9 +76,6 @@ msgstr "    * MSYS2 をサポートしました。"
 
 msgid "## 1.1.8: 2020-06-09 {#version-1-1-8}"
 msgstr ""
-
-msgid "### Fixes"
-msgstr "### 修正"
 
 msgid "  * `xmlua.libxml2.xmlUnlinkNode()`:"
 msgstr ""

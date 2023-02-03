@@ -4,6 +4,22 @@ title: おしらせ
 
 # おしらせ
 
+## 1.2.1: 2023-02-03 {#version-1-2-1}
+
+### 改善
+
+  * `xmlua.XMLStreamSAXParser.parse`: スコープを狭くしました。
+    [GH-30][Aleksey Konovkinさんが報告]
+
+### 修正
+
+  * コールバックでのメモリーリークを修正しました。
+    [GH-32][Aleksey Konovkinさんが報告]
+
+### 感謝
+
+  * Aleksey Konovkinさん
+
 ## 1.2.0: 2022-04-11 {#version-1-2-0}
 
 ### 改善

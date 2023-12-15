@@ -13,7 +13,7 @@ end
 function CDATASection.new(document, node)
   local cdata_section = {
     document = document,
-    node = node,
+    node = node
   }
   setmetatable(cdata_section, metatable)
   return cdata_section

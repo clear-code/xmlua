@@ -13,7 +13,7 @@ end
 function AttributeDeclaration.new(document, node)
   local attribute_declaration = {
     document = document,
-    node = node,
+    node = node
   }
   setmetatable(attribute_declaration, metatable)
   return attribute_declaration

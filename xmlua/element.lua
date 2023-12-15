@@ -88,7 +88,7 @@ local function remove_namespace(node, prefix)
     end
   end
 
-  namespace = node.nsDef
+  local namespace = node.nsDef
   local namespace_previous = nil
   while namespace ~= ffi.NULL do
     if is_target_namespace(namespace) then
@@ -127,65 +127,69 @@ local function set_attributes(element, attributes)
   end
 end
 
-local function create_sub_element(document, node, name, attributes)
+local function create_sub_element(document, parent, name, attributes)
   local namespace_prefix, local_name = parse_name(name)
-  local raw_element = libxml2.xmlNewNode(nil, local_name)
-  local element = Element.new(document, raw_element)
+  local node = libxml2.xmlNewNode(nil, local_name)
+  local element = Element.new(document, node)
   set_attributes(element, attributes)
-  local namespace = libxml2.xmlSearchNs(document, raw_element, namespace_prefix)
-  if not namespace and node then
-    namespace = libxml2.xmlSearchNs(document, node, namespace_prefix)
+  local namespace = libxml2.xmlSearchNs(document.raw_document, node, namespace_prefix)
+  if not namespace and parent then
+    namespace = libxml2.xmlSearchNs(document.raw_document, parent, namespace_prefix)
   end
   if namespace then
-    libxml2.xmlSetNs(raw_element, namespace)
+    libxml2.xmlSetNs(node, namespace)
   elseif namespace_prefix then
     element:unlink()
-    raw_element = libxml2.xmlNewNode(nil, name)
-    element = Element.new(document, raw_element)
+    node = libxml2.xmlNewNode(nil, name)
+    element = Element.new(document, node)
     set_attributes(element, attributes)
   end
   return element
 end
 
-function methods:add_child(node)
-  if node.node.parent ~= ffi.NULL then
-    node:unlink()
+function methods:add_child(element)
+  local node
+  if self.document == element.document then
+    if element.node.parent ~= ffi.NULL then
+      element:unlink()
+    end
+    node = element.node
+    -- node back to the document but to the another place
+    element.document.unlinked[node] = nil
+  else
+    node = libxml2.xmlDocCopyNode(element.node, self.document.raw_document)
   end
-  local raw_added_node =
-    libxml2.xmlAddChild(self.node, node.node)
-  if raw_added_node ~= ffi.NULL then
-    ffi.gc(node.node, nil)
-  end
+  libxml2.xmlAddChild(self.node, node)
 end
 
-function methods:add_previous_sibling(node)
-  if not self.node and not node.node then
+function methods:add_previous_sibling(element)
+  if not self.node and not element.node then
     error("Already freed receiver node and added node")
   elseif not self.node then
     error("Already freed receiver node")
-  elseif not node.node then
+  elseif not element.node then
     error("Already freed added node")
   end
 
   local raw_added_node, was_freed =
-    libxml2.xmlAddPrevSibling(self.node, node.node)
+    libxml2.xmlAddPrevSibling(self.node, element.node)
   if was_freed then
-    node.node = nil
+    element.node = nil
   end
 end
 
-function methods:append_sibling(node)
-  if not self.node and not node.node then
+function methods:append_sibling(element)
+  if not self.node and not element.node then
     error("Already freed receiver node and appended node")
   elseif not self.node then
     error("Already freed receiver node")
-  elseif not node.node then
+  elseif not element.node then
     error("Already freed appended node")
   end
 
-  local was_freed = libxml2.xmlAddSibling(self.node, node.node)
+  local was_freed = libxml2.xmlAddSibling(self.node, element.node)
   if was_freed then
-    node.node = nil
+    element.node = nil
   end
 end
 
@@ -256,28 +260,28 @@ function methods:insert_element(position, name, attributes)
 end
 
 function methods:unlink()
-  local unlinked_node = Node.unlink(self)
-  return Element.new(nil, unlinked_node)
+  Node.unlink(self)
+  return self
 end
 
 function methods:get_attribute(name)
   local namespace_prefix, local_name = parse_name(name)
   if namespace_prefix == "xmlns" then
-    local namespace = libxml2.xmlSearchNs(self.document, self.node, local_name)
+    local namespace = libxml2.xmlSearchNs(self.document.raw_document, self.node, local_name)
     if namespace then
       return ffi.string(namespace.href)
     else
       return nil
     end
   elseif namespace_prefix == ffi.NULL and local_name == "xmlns" then
-    local namespace = libxml2.xmlSearchNs(self.document, self.node, nil)
+    local namespace = libxml2.xmlSearchNs(self.document.raw_document, self.node, nil)
     if namespace then
       return ffi.string(namespace.href)
     else
       return nil
     end
   elseif namespace_prefix then
-    local namespace = libxml2.xmlSearchNs(self.document,
+    local namespace = libxml2.xmlSearchNs(self.document.raw_document,
                                           self.node,
                                           namespace_prefix)
     if namespace then
@@ -298,7 +302,7 @@ function methods:set_attribute(name, value)
   local namespace_prefix, local_name = parse_name(name)
   local namespace
   if namespace_prefix == "xmlns" then
-    namespace = libxml2.xmlSearchNs(self.document,
+    namespace = libxml2.xmlSearchNs(self.document.raw_document,
                                     self.node,
                                     local_name)
     if namespace then
@@ -308,7 +312,7 @@ function methods:set_attribute(name, value)
       libxml2.xmlNewNs(self.node, value, local_name)
     end
   elseif namespace_prefix == nil and local_name == "xmlns" then
-    namespace = libxml2.xmlSearchNs(self.document, self.node, nil)
+    namespace = libxml2.xmlSearchNs(self.document.raw_document, self.node, nil)
     if namespace then
       libxml2.xmlFree(ffi.cast("void *", namespace.href))
       namespace.href = libxml2.xmlStrdup(value)
@@ -317,7 +321,7 @@ function methods:set_attribute(name, value)
       set_default_namespace(self.node, namespace)
     end
   elseif namespace_prefix then
-    namespace = libxml2.xmlSearchNs(self.document,
+    namespace = libxml2.xmlSearchNs(self.document.raw_document,
                                     self.node,
                                     namespace_prefix)
     if namespace then
@@ -341,7 +345,7 @@ function methods:remove_attribute(name)
   elseif namespace_prefix == nil and local_name == "xmlns" then
     remove_namespace(self.node, nil)
   elseif namespace_prefix then
-    namespace = libxml2.xmlSearchNs(self.document,
+    namespace = libxml2.xmlSearchNs(self.document.raw_document,
                                     self.node,
                                     namespace_prefix)
     if namespace then
@@ -378,12 +382,12 @@ function methods:next()
 end
 
 function methods:root()
-  return Document.new(self.document):root()
+  return self.document:root()
 end
 
 function methods:parent()
   if tonumber(self.node.parent.type) == ffi.C.XML_DOCUMENT_NODE then
-    return Document.new(self.document)
+    return self.document
   else
     return Element.new(self.document, self.node.parent)
   end
@@ -404,7 +408,7 @@ function methods:text()
 end
 
 function methods:namespaces()
-  local raw_namespaces = libxml2.xmlGetNsList(self.document, self.node)
+  local raw_namespaces = libxml2.xmlGetNsList(self.document.raw_document, self.node)
   if not raw_namespaces then
     return nil
   end
@@ -427,23 +431,23 @@ function methods:find_namespace(prefix, href)
   local raw_namespace
   if not prefix and href then
     raw_namespace =
-      libxml2.xmlSearchNsByHref(self.document, self.node, href)
+      libxml2.xmlSearchNsByHref(self.document.raw_document, self.node, href)
   else
     raw_namespace =
-      libxml2.xmlSearchNs(self.document, self.node, prefix)
+      libxml2.xmlSearchNs(self.document.raw_document, self.node, prefix)
   end
   return Namespace.new(self.document, raw_namespace)
 end
 
 -- For internal use
 function Element.build(document, name, attributes)
-  return create_sub_element(document.node, nil, name, attributes)
+  return create_sub_element(document, nil, name, attributes)
 end
 
 function Element.new(document, node)
   local element = {
     document = document,
-    node = node,
+    node = node
   }
   setmetatable(element, metatable)
   return element

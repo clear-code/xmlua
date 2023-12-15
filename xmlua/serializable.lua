@@ -17,7 +17,7 @@ local function save(target, flags, failure_message, options)
   if target.node then
     success = libxml2.xmlSaveTree(context, target.node)
   else
-    success = libxml2.xmlSaveDoc(context, target.document)
+    success = libxml2.xmlSaveDoc(context, target.raw_document)
   end
   libxml2.xmlSaveClose(context)
   if not success then

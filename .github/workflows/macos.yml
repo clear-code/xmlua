@@ -8,6 +8,7 @@ jobs:
     strategy:
       fail-fast: false
     runs-on: macos-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - name: Install XMLua

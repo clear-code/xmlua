@@ -1,10 +1,32 @@
-name: macOS
+name: Test
 on:
   - push
   - pull_request
 jobs:
+  linux:
+    name: Linux
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - centos-7
+          - almalinux-8
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XMLua
+        run: |
+          docker build \
+            -t clear-code/xmlua-${{ matrix.os }} \
+            -f dockerfiles/Dockerfile.${{ matrix.os }} \
+            .
+      - name: Test
+        run: |
+          docker run \
+            clear-code/xmlua-${{ matrix.os }}
   macos:
-    name: Test
+    name: macOS
     strategy:
       fail-fast: false
     runs-on: macos-latest

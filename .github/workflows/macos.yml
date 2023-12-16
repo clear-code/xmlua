@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
       - name: Install XMLua
         run: |
           brew update

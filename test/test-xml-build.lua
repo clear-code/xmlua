@@ -43,6 +43,14 @@ function TestXMLBuild.test_root_namespace()
                        })
 end
 
+local function normalize_attributes_order(text)
+  local normalized_text, n_substitutions =
+    text:gsub([[id="1" class="A"]], [[class="A" id="1"]])
+  normalized_text, n_substitutions =
+    normalized_text:gsub([[id="2" class="B"]], [[class="B" id="2"]])
+  return normalized_text
+end
+
 function TestXMLBuild.test_root_children()
   local tree = {
     "root",
@@ -60,7 +68,7 @@ function TestXMLBuild.test_root_children()
     }
   }
   local document = XML.build(tree)
-  luaunit.assertEquals(document:to_xml(),
+  luaunit.assertEquals(normalize_attributes_order(document:to_xml()),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root class="A" id="1">This is text.<child class="B" id="2"/></root>
@@ -88,7 +96,7 @@ function TestXMLBuild.test_nested()
     }
   }
   local document = XML.build(tree)
-  luaunit.assertEquals(document:to_xml(),
+  luaunit.assertEquals(normalize_attributes_order(document:to_xml()),
                        [[
 <?xml version="1.0" encoding="UTF-8"?>
 <root class="A" id="1">root text<child class="B" id="2">child text<grand-child/></child></root>

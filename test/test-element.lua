@@ -337,13 +337,19 @@ function TestElement.test_append_element()
                        })
 end
 
+local function normalize_attributes_order(text)
+  local normalized_text, n_substitutions =
+    text:gsub([[class="A" id="1"]], [[id="1" class="A"]])
+  return normalized_text
+end
+
 function TestElement.test_append_element_with_attribute()
   local document = xmlua.XML.parse("<root/>")
   local root = document:root()
   local child = root:append_element("child", {id="1", class="A"})
   luaunit.assertEquals({
-                         child:to_xml(),
-                         document:to_xml(),
+                         normalize_attributes_order(child:to_xml()),
+                         normalize_attributes_order(document:to_xml()),
                        },
                        {
                          [[<child id="1" class="A"/>]],
@@ -365,9 +371,9 @@ function TestElement.test_append_element_with_namespace()
   local root = document:root()
   local child = root:append_element("xhtml:child", {id="1", class="A"})
   luaunit.assertEquals({
-                         child:to_xml(),
+                         normalize_attributes_order(child:to_xml()),
                          ffi.string(child.node.ns.href),
-                         document:to_xml(),
+                         normalize_attributes_order(document:to_xml()),
                        },
                        {
                          [[<xhtml:child id="1" class="A"/>]],
@@ -567,8 +573,8 @@ function TestElement.test_insert_element_with_attributes()
   local root = document:root()
   local child = root:insert_element(2, "new-child", {id="1", class="A"})
   luaunit.assertEquals({
-                         child:to_xml(),
-                         document:to_xml(),
+                         normalize_attributes_order(child:to_xml()),
+                         normalize_attributes_order(document:to_xml()),
                        },
                        {
                          [[<new-child id="1" class="A"/>]],
@@ -597,8 +603,8 @@ function TestElement.test_insert_element_with_namespace()
                                     "xhtml:new-child",
                                     {id="1", class="A"})
   luaunit.assertEquals({
-                         child:to_xml(),
-                         document:to_xml(),
+                         normalize_attributes_order(child:to_xml()),
+                         normalize_attributes_order(document:to_xml()),
                        },
                        {
                          [[<xhtml:new-child id="1" class="A"/>]],

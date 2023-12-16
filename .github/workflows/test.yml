@@ -33,10 +33,18 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: "xmlua"
+      - uses: actions/checkout@v4
+        with:
+          repository: "clear-code/luacs"
+          path: "luacs"
+      - name: Install dependencies
+        run: |
+          brew bundle
       - name: Install XMLua
         run: |
-          brew update
-          brew bundle
+          cd xmlua
           LUAROCKS="sudo -H luarocks --tree=$(brew --prefix) --lua-dir=$(brew --prefix luajit)"
           VERSION=$(grep VERSION xmlua.lua | sed -e 's/.*"\(.*\)"/\1/g')
           cp xmlua.rockspec xmlua-${VERSION}-0.rockspec
@@ -46,9 +54,9 @@ jobs:
           ${LUAROCKS} install cqueues \
             CRYPTO_DIR=$(brew --prefix openssl) \
             OPENSSL_DIR=$(brew --prefix openssl)
-          git clone --depth 1 https://github.com/clear-code/luacs.git ../luacs
       - name: Test
         run: |
+          cd xmlua
           test/run-test.lua
           luajit -e 'package.path = "../luacs/?.lua;" .. package.path' \
             sample/parse-html-cqueues-thread.lua sample/sample.html

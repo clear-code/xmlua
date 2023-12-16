@@ -41,6 +41,7 @@ jobs:
           path: "luacs"
       - name: Install dependencies
         run: |
+          cd xmlua
           brew bundle
       - name: Install XMLua
         run: |

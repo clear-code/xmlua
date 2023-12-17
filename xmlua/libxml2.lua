@@ -620,6 +620,7 @@ end
 libxml2.xmlSaveToBuffer = xml2.xmlSaveToBuffer
 libxml2.xmlSaveClose = xml2.xmlSaveClose
 libxml2.xmlSaveSetEscape = xml2.xmlSaveSetEscape
+libxml2.xmlCharEncCloseFunc = xml2.xmlCharEncCloseFunc
 
 function libxml2.xmlSaveDoc(context, document)
   local written = xml2.xmlSaveDoc(context, document)

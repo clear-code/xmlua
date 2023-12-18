@@ -13,7 +13,7 @@ end
 function Comment.new(document, node)
   local comment = {
     document = document,
-    node = node,
+    node = node
   }
   setmetatable(comment, metatable)
   return comment

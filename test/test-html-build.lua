@@ -26,7 +26,7 @@ function TestHTMLBuild.test_empty_root_dtd_systemid()
   local uri = "file:///usr/local/share/test.dtd"
   local document = HTML.build({"html"}, uri)
   luaunit.assertEquals({
-                          ffi.string(document.document.intSubset.SystemID),
+                          ffi.string(document.raw_document.intSubset.SystemID),
                           document:to_html()
                        },
                        {
@@ -43,8 +43,8 @@ function TestHTMLBuild.test_empty_root_dtd_publicid()
   local public_id = "-//W3C//DTD HTML 4.01//EN"
   local document = HTML.build({"html"}, uri, public_id)
   luaunit.assertEquals({
-                         ffi.string(document.document.intSubset.SystemID),
-                         ffi.string(document.document.intSubset.ExternalID),
+                         ffi.string(document.raw_document.intSubset.SystemID),
+                         ffi.string(document.raw_document.intSubset.ExternalID),
                          document:to_html()
                        },
                        {

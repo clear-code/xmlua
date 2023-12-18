@@ -16,6 +16,14 @@ require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
 require("xmlua.libxml2.entities")
 
+local function print_dbg(...)
+  -- if ngx then
+  --   ngx.log(ngx.DEBUG, ...)
+  -- else
+  --   print(...)
+  -- end
+end
+
 local ffi = require("ffi")
 local loaded, xml2 = pcall(ffi.load, "xml2")
 if not loaded then
@@ -116,7 +124,7 @@ function libxml2.htmlCtxtReadMemory(context, html, options)
   if document == ffi.NULL then
     return nil
   end
-  return ffi.gc(document, libxml2.xmlFreeDoc)
+  return ffi.gc(document, xml2.xmlFreeDoc)
 end
 jit.off(libxml2.htmlCtxtReadMemory)
 
@@ -125,7 +133,7 @@ function libxml2.htmlNewDoc(uri, externa_dtd)
   if document == ffi.NULL then
     return nil
   end
-  return ffi.gc(document, libxml2.xmlFreeDoc)
+  return ffi.gc(document, xml2.xmlFreeDoc)
 end
 
 function libxml2.xmlNewParserCtxt()
@@ -133,7 +141,11 @@ function libxml2.xmlNewParserCtxt()
   if context == ffi.NULL then
     return nil
   end
-  return ffi.gc(context, xml2.xmlFreeParserCtxt)
+  print_dbg("xmlNewParserCtxt: ", context)
+  return ffi.gc(context, function(p)
+    print_dbg("xmlFreeParserCtxt: ", p)
+    xml2.xmlFreeParserCtxt(p)
+  end)
 end
 
 function libxml2.xmlCreatePushParserCtxt(filename)
@@ -197,7 +209,9 @@ function libxml2.xmlCtxtReadMemory(context, xml, options)
   if document == ffi.NULL then
     return nil
   end
+  print_dbg("xmlCtxtReadMemory: ", document, ", ctx=", context)
   return ffi.gc(document, libxml2.xmlFreeDoc)
+
 end
 jit.off(libxml2.xmlCtxtReadMemory)
 
@@ -209,7 +223,10 @@ function libxml2.xmlParseChunk(context, chunk, is_terminated)
   end
 end
 
-libxml2.xmlFreeDoc = xml2.xmlFreeDoc
+function libxml2.xmlFreeDoc(document)
+  print_dbg("xmlFreeDoc: ", document)
+  xml2.xmlFreeDoc(document)
+end
 
 function libxml2.xmlDocGetRootElement(document)
   local root = xml2.xmlDocGetRootElement(document)
@@ -289,6 +306,7 @@ function libxml2.xmlNewDoc(xml_version)
   if document == ffi.NULL then
     return nil
   end
+  print_dbg("xmlNewDoc: ", document)
   return ffi.gc(document, libxml2.xmlFreeDoc)
 end
 
@@ -572,10 +590,18 @@ end
 
 function libxml2.xmlUnlinkNode(node)
   xml2.xmlUnlinkNode(node)
-  xml2.xmlSetTreeDoc(node, ffi.NULL)
-  return ffi.gc(node, xml2.xmlFreeNode)
+  print_dbg("xmlUnlinkNode: ", node, ", doc=", node.doc)
 end
 
+function libxml2.xmlDocCopyNode(node, doc)
+  return xml2.xmlDocCopyNode(node, doc, 2)
+end
+
+function libxml2.xmlFreeNode(node)
+  assert(node.parent == ffi.NULL, "node linked")
+  print_dbg("xmlFreeNode: ", node, ", doc=", node.doc)
+  xml2.xmlFreeNode(node)
+end
 
 function libxml2.xmlBufferCreate()
   return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)
@@ -588,6 +614,7 @@ end
 libxml2.xmlSaveToBuffer = xml2.xmlSaveToBuffer
 libxml2.xmlSaveClose = xml2.xmlSaveClose
 libxml2.xmlSaveSetEscape = xml2.xmlSaveSetEscape
+libxml2.xmlCharEncCloseFunc = xml2.xmlCharEncCloseFunc
 
 function libxml2.xmlSaveDoc(context, document)
   local written = xml2.xmlSaveDoc(context, document)
@@ -643,9 +670,14 @@ function libxml2.xmlXPathEvalExpression(expression, context)
   if object == ffi.NULL then
     return nil
   end
-  return ffi.gc(object, xml2.xmlXPathFreeObject)
+  return object
 end
 jit.off(libxml2.xmlXPathEvalExpression)
+
+function libxml2.xmlXPathFreeObject(object)
+  xml2.xmlXPathFreeObject(object)
+end
+jit.off(libxml2.xmlXPathFreeObject)
 
 function libxml2.xmlXPathRegisterNs(context, prefix, namespace_uri)
   local status = xml2.xmlXPathRegisterNs(context, prefix, namespace_uri)

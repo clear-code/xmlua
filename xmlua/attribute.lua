@@ -32,7 +32,7 @@ end
 function Attribute.new(document, node)
   local attr = {
     document = document,
-    node = node,
+    node = node
   }
   setmetatable(attr, metatable)
   return attr

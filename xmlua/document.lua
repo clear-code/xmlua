@@ -28,14 +28,6 @@ function Document.lazy_load()
   ProcessingInstruction = require("xmlua.processing-instruction")
 end
 
-local function print_dbg(...)
-  -- if ngx then
-  --   ngx.log(ngx.DEBUG, ...)
-  -- else
-  --   print(...)
-  -- end
-end
-
 local methods = {}
 
 local metatable = {}
@@ -202,11 +194,9 @@ function Document.new(raw_document, errors)
   ffi.gc(document.raw_document, function(pdocument)
     for node in pairs(unlinked) do
       if node.parent == ffi.NULL then
-        print_dbg("Free unlinked: ", node)
         libxml2.xmlFreeNode(node)
       end
     end
-    print_dbg("xmlFreeDoc: ", pdocument)
     libxml2.xmlFreeDoc(pdocument)
   end)
   setmetatable(document, metatable)

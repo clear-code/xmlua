@@ -124,11 +124,7 @@ function libxml2.htmlCtxtReadMemory(context, html, options)
   if document == ffi.NULL then
     return nil
   end
-  print_dbg("htmlCtxtReadMemory: ", document)
-  return ffi.gc(document, function(p)
-    print_dbg("xmlFreeDoc: ", p)
-    xml2.xmlFreeNode(p)
-  end)
+  return ffi.gc(document, xml2.xmlFreeDoc)
 end
 jit.off(libxml2.htmlCtxtReadMemory)
 
@@ -137,7 +133,7 @@ function libxml2.htmlNewDoc(uri, externa_dtd)
   if document == ffi.NULL then
     return nil
   end
-  return ffi.gc(document, libxml2.xmlFreeDoc)
+  return ffi.gc(document, xml2.xmlFreeDoc)
 end
 
 function libxml2.xmlNewParserCtxt()
@@ -214,10 +210,7 @@ function libxml2.xmlCtxtReadMemory(context, xml, options)
     return nil
   end
   print_dbg("xmlCtxtReadMemory: ", document, ", ctx=", context)
-  return ffi.gc(document, function(p)
-    print_dbg("xmlFreeDoc: ", p, ", ctx=", context)
-    xml2.xmlFreeDoc(p)
-  end)
+  return ffi.gc(document, libxml2.xmlFreeDoc)
 
 end
 jit.off(libxml2.xmlCtxtReadMemory)
@@ -230,7 +223,10 @@ function libxml2.xmlParseChunk(context, chunk, is_terminated)
   end
 end
 
-libxml2.xmlFreeDoc = xml2.xmlFreeDoc
+function libxml2.xmlFreeDoc(document)
+  print_dbg("xmlFreeDoc: ", document)
+  xml2.xmlFreeDoc(document)
+end
 
 function libxml2.xmlDocGetRootElement(document)
   local root = xml2.xmlDocGetRootElement(document)
@@ -311,10 +307,7 @@ function libxml2.xmlNewDoc(xml_version)
     return nil
   end
   print_dbg("xmlNewDoc: ", document)
-  return ffi.gc(document, function(p)
-    print_dbg("xmlFreeDoc: ", p)
-    xml2.xmlFreeDoc(p)
-  end)
+  return ffi.gc(document, libxml2.xmlFreeDoc)
 end
 
 function libxml2.xmlDocSetRootElement(document, root)
@@ -605,6 +598,7 @@ function libxml2.xmlDocCopyNode(node, doc)
 end
 
 function libxml2.xmlFreeNode(node)
+  assert(node.parent == ffi.NULL, "node linked")
   print_dbg("xmlFreeNode: ", node, ", doc=", node.doc)
   xml2.xmlFreeNode(node)
 end

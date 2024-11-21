@@ -15,6 +15,7 @@ require("xmlua.libxml2.html-tree")
 require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
 require("xmlua.libxml2.entities")
+require("xmlua.libxml2.c14n")
 
 local ffi = require("ffi")
 local loaded, xml2 = pcall(ffi.load, "xml2")
@@ -66,6 +67,17 @@ if __xmlFreeIsAvailable() then
   libxml2.xmlFree = xml2.__xmlFree()
 else
   libxml2.xmlFree = xml2.xmlFree
+end
+
+local function __xmlC14NDocSaveToIsAvailable()
+  local success, err = pcall(function()
+    local func = xml2.xmlC14NDocSaveTo
+  end)
+  return success, err
+end
+
+if __xmlC14NDocSaveToIsAvailable() then
+  libxml2.xmlC14NDocSaveTo = xml2.xmlC14NDocSaveTo
 end
 
 libxml2.xmlInitParser = xml2.xmlInitParser
@@ -579,6 +591,10 @@ end
 
 function libxml2.xmlBufferCreate()
   return ffi.gc(xml2.xmlBufferCreate(), xml2.xmlBufferFree)
+end
+
+function libxml2.xmlOutputBufferCreate(buffer)
+  return ffi.gc(xml2.xmlOutputBufferCreateBuffer(buffer, nil), xml2.xmlOutputBufferClose)
 end
 
 function libxml2.xmlBufferGetContent(buffer)

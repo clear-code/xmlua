@@ -7,6 +7,7 @@ local to_string = converter.to_string
 
 local Serializable = require("xmlua.serializable")
 local Searchable = require("xmlua.searchable")
+local C14n = require("xmlua.c14n")
 
 
 local CDATASection
@@ -36,7 +37,8 @@ local metatable = {}
 function metatable.__index(document, key)
   return methods[key] or
     Serializable[key] or
-    Searchable[key]
+    Searchable[key] or
+    C14n[key]
 end
 
 function methods:node_name()

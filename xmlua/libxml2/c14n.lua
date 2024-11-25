@@ -20,4 +20,18 @@ int
          xmlChar **inclusive_ns_prefixes,
          int with_comments,
          xmlOutputBufferPtr buf);
+
+typedef int (*xmlC14NIsVisibleCallback)	(void* user_data,
+					 xmlNodePtr node,
+					 xmlNodePtr parent);
+
+int
+		xmlC14NExecute		(xmlDocPtr doc,
+					 xmlC14NIsVisibleCallback is_visible_callback,
+					 void* user_data,
+					 int mode, /* a xmlC14NMode */
+					 xmlChar **inclusive_ns_prefixes,
+					 int with_comments,
+					 xmlOutputBufferPtr buf);
+
 ]]

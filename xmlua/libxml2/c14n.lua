@@ -7,9 +7,6 @@ ffi.cdef[[
     XML_C14N_1_1 = 2, /*  C14N 1.1 spec */
   } xmlC14NMode;
 
-  typedef struct _xmlCharEncodingHandler xmlCharEncodingHandler;
-  typedef xmlCharEncodingHandler *xmlCharEncodingHandlerPtr;
-
   typedef int (*xmlOutputWriteCallback) (void * context, const char * buffer, int len);
   typedef int (*xmlOutputCloseCallback) (void * context);
 

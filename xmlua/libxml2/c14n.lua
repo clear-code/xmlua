@@ -7,8 +7,6 @@ ffi.cdef[[
     XML_C14N_1_1 = 2, /*  C14N 1.1 spec */
   } xmlC14NMode;
 
-  typedef unsigned char xmlChar;
-  typedef struct _xmlBuffer xmlBuffer;
   typedef xmlBuffer *xmlBufferPtr;
 
   typedef struct _xmlCharEncodingHandler xmlCharEncodingHandler;

@@ -87,6 +87,7 @@ typedef enum {
 } xmlBufferAllocationScheme;
 
 typedef struct _xmlBuffer xmlBuffer;
+typedef xmlBuffer *xmlBufferPtr;
 struct _xmlBuffer {
     xmlChar *content;		/* The buffer content UTF8 */
     unsigned int use;		/* The buffer size used */

@@ -80,7 +80,7 @@ end
 -- @param inclusive_ns_prefixes array, or space-separated string, of namespace prefixes to include
 -- @param with_comments if truthy, comments will be included (default: false)
 -- @return string containing canonicalized xml
-function C14n:c14n(nodes, mode, inclusive_ns_prefixes, with_comments)
+function C14n:c14n_save(nodes, mode, inclusive_ns_prefixes, with_comments)
   if mode == nil then -- default is exclusive 1.0
     mode = "C14N_EXCLUSIVE_1_0"
   end

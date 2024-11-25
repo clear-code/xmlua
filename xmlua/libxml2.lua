@@ -15,6 +15,7 @@ require("xmlua.libxml2.html-tree")
 require("xmlua.libxml2.xmlsave")
 require("xmlua.libxml2.xpath")
 require("xmlua.libxml2.entities")
+require("xmlua.libxml2.xml-io")
 require("xmlua.libxml2.c14n")
 
 local ffi = require("ffi")

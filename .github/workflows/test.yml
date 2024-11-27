@@ -9,7 +9,6 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - centos-7
           - almalinux-8
     runs-on: ubuntu-latest
     timeout-minutes: 5

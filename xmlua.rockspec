@@ -70,6 +70,7 @@ build = {
     ["xmlua.namespace-declaration"] = "xmlua/namespace-declaration.lua",
     ["xmlua.node"] = "xmlua/node.lua",
     ["xmlua.node-set"] = "xmlua/node-set.lua",
+    ["xmlua.notation"] = "xmlua/notation.lua",
     ["xmlua.notation-declaration"] = "xmlua/notation-declaration.lua",
     ["xmlua.processing-instruction"] = "xmlua/processing-instruction.lua",
     ["xmlua.searchable"] = "xmlua/searchable.lua",

@@ -70,27 +70,8 @@ else
   libxml2.xmlFree = xml2.xmlFree
 end
 
-local function __xmlC14NDocSaveToIsAvailable()
-  local success, err = pcall(function()
-    local func = xml2.xmlC14NDocSaveTo
-  end)
-  return success, err
-end
-
-if __xmlC14NDocSaveToIsAvailable() then
-  libxml2.xmlC14NDocSaveTo = xml2.xmlC14NDocSaveTo
-end
-
-local function __xmlC14NExecuteIsAvailable()
-  local success, err = pcall(function()
-    local func = xml2.xmlC14NExecute
-  end)
-  return success, err
-end
-
-if __xmlC14NExecuteIsAvailable() then
-  libxml2.xmlC14NExecute = xml2.xmlC14NExecute
-end
+libxml2.xmlC14NDocSaveTo = xml2.xmlC14NDocSaveTo
+libxml2.xmlC14NExecute = xml2.xmlC14NExecute
 
 libxml2.xmlInitParser = xml2.xmlInitParser
 libxml2.xmlCleanupParser = xml2.xmlCleanupParser

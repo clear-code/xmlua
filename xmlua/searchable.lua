@@ -51,8 +51,9 @@ local ERROR_MESSAGES = {
 }
 
 function Searchable:search(xpath, namespaces)
-  local document = self.document
-  local context = libxml2.xmlXPathNewContext(document)
+  local document = self.document or self
+  local raw_document = document.raw_document
+  local context = libxml2.xmlXPathNewContext(raw_document)
   if not context then
     error("failed to create XPath context")
   end
@@ -96,6 +97,7 @@ function Searchable:search(xpath, namespaces)
   if type == ffi.C.XPATH_NODESET then
     local found_node_set = object.nodesetval
     if found_node_set == ffi.NULL then
+      libxml2.xmlXPathFreeObject(object)
       return NodeSet.new({})
     end
     local raw_node_set = {}
@@ -120,7 +122,10 @@ function Searchable:search(xpath, namespaces)
         -- table.insert(raw_node_set, node)
       end
     end
+    libxml2.xmlXPathFreeObject(object)
     return NodeSet.new(raw_node_set)
+  else
+    libxml2.xmlXPathFreeObject(object)
   end
 end
 

@@ -1,7 +1,7 @@
 local Node = {}
 
 local libxml2 = require("xmlua.libxml2")
-local ffi = require("ffi")
+local ffi = require "ffi"
 
 function Node:replace(replace_node)
   if not self.node and not replace_node.node then
@@ -36,6 +36,11 @@ function Node:path()
 end
 
 function Node:unlink()
-  return libxml2.xmlUnlinkNode(self.node)
+  if self.node.parent ~= ffi.NULL then
+    libxml2.xmlUnlinkNode(self.node)
+  end
+  self.document.unlinked[self.node] = true
+  return self
 end
+
 return Node

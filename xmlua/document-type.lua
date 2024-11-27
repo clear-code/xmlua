@@ -26,7 +26,7 @@ end
 function DocumentType.new(document, node)
   local document_type = {
     document = document,
-    node = node,
+    node = node
   }
   setmetatable(document_type, metatable)
   return document_type

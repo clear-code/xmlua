@@ -107,36 +107,6 @@ end
 
 
 
---- Canonicalise an xmlDocument or set of elements.
--- @param self xmlDoc from which to canonicalize elements
--- @param nodes list of nodes to include when canonicalizing, if 'nil' entire doc will be canonicalized
--- @param mode any of C14N_1_0, C14N_EXCLUSIVE_1_0 (default), C14N_1_1
--- @param inclusive_ns_prefixes array, or space-separated string, of namespace prefixes to include
--- @param with_comments if truthy, comments will be included (default: false)
--- @return string containing canonicalized xml
-function C14n:c14n_save(nodes, mode, inclusive_ns_prefixes, with_comments)
-  if mode == nil then
-    mode = DEFAULT_MODE
-  end
-  with_comments = with_comments and 1 or 0 -- default = not including comments
-
-  mode = assert(C14N_MODES_LOOKUP[mode], "mode must be a valid C14N mode constant")
-  local prefixes = getNamespacePrefixArray(inclusive_ns_prefixes)
-  local nodeSet = getNodesList(nodes)
-  local buffer = libxml2.xmlBufferCreate()
-  local output_buffer = libxml2.xmlOutputBufferCreate(buffer)
-
-  local success = libxml2.xmlC14NDocSaveTo(self.document, nodeSet, mode,
-                                            prefixes, with_comments, output_buffer)
-
-  if success < 0 then
-    return nil, "failed to generate C14N string"
-  end
-  return libxml2.xmlBufferGetContent(buffer)
-end
-
-
-
 local wrap_raw_node do
   -- order is according to the constant value of xmlElementType enum in libxml2
   local type_generators = setmetatable({
@@ -221,31 +191,41 @@ end
 
 --- Canonicalise an xmlDocument or set of elements.
 -- @param self xmlDoc from which to canonicalize elements
--- @param callback function to determine if a node should be included in the canonicalized output.
+-- @param select array of nodes to include, or function to determine if a node should be included in the canonicalized output.
 --        Signature: `boolean = function(node, parent)`
 -- @param mode any of C14N_1_0, C14N_EXCLUSIVE_1_0 (default), C14N_1_1
 -- @param inclusive_ns_prefixes array, or space-separated string, of namespace prefixes to include
 -- @param with_comments if truthy, comments will be included (default: false)
 -- @return string containing canonicalized xml
-function C14n:c14n_execute(callback, mode, inclusive_ns_prefixes, with_comments)
+function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
   if mode == nil then
     mode = DEFAULT_MODE
   end
   with_comments = with_comments and 1 or 0 -- default = not including comments
-  assert(type(callback) == "function", "callback must be a function")
 
-  -- wrap the callback to pass wrapped objects, and return 1 or 0
-  local cbwrapper = function(_, nodePtr, parentPtr)
-    return callback(wrap_raw_node(self, nodePtr), wrap_raw_node(self, parentPtr)) and 1 or 0
-  end
+  local callback = type(select) == "function" and select or nil
+  local nodes = type(select) == "table" and select or nil
+  assert(callback or nodes, "select must be a function or an array of nodes")
 
   mode = assert(C14N_MODES_LOOKUP[mode], "mode must be a valid C14N mode constant")
+
   local prefixes = getNamespacePrefixArray(inclusive_ns_prefixes)
   local buffer = libxml2.xmlBufferCreate()
   local output_buffer = libxml2.xmlOutputBufferCreate(buffer)
 
-  local success = libxml2.xmlC14NExecute(self.document, cbwrapper, nil, mode,
-                                            prefixes, with_comments, output_buffer)
+  local success
+  if callback then
+    -- wrap the callback to pass wrapped objects, and return 1 or 0
+    local cbwrapper = function(_, nodePtr, parentPtr)
+      return callback(wrap_raw_node(self, nodePtr), wrap_raw_node(self, parentPtr)) and 1 or 0
+    end
+    success = libxml2.xmlC14NExecute(self.document, cbwrapper, nil, mode,
+                                      prefixes, with_comments, output_buffer)
+  else -- array of nodes
+    local nodeSet = getNodesList(nodes)
+    success = libxml2.xmlC14NDocSaveTo(self.document, nodeSet, mode,
+                                      prefixes, with_comments, output_buffer)
+  end
 
   if success < 0 then
     return nil, "failed to generate C14N string"

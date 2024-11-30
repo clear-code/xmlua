@@ -17,10 +17,6 @@ local Searchable = require("xmlua.searchable")
 Searchable.lazy_load()
 Searchable.lazy_load = nil
 
-local C14n = require("xmlua.c14n")
-C14n.lazy_load()
-C14n.lazy_load = nil
-
 function xmlua.init()
   xmlua.libxml2.xmlInitParser()
 end

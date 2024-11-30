@@ -203,7 +203,10 @@ function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
   end
   with_comments = with_comments and 1 or 0 -- default = not including comments
 
-  mode = assert(C14N_MODES_LOOKUP[mode], "mode must be a valid C14N mode constant")
+  if not C14N_MODES_LOOKUP[mode] then
+    error("mode must be a valid C14N mode constant, got: " .. tostring(mode))
+  end
+  mode = C14N_MODES_LOOKUP[mode]
 
   local prefixes = get_namespace_prefix_array(inclusive_ns_prefixes)
   local buffer = libxml2.xmlBufferCreate()

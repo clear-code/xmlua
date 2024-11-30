@@ -216,7 +216,11 @@ function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
   if type(select) == "function" then  -- callback function
     -- wrap the callback to pass wrapped objects, and return 1 or 0
     local cbwrapper = function(_, nodePtr, parentPtr)
-      return select(wrap_raw_node(self, nodePtr), wrap_raw_node(self, parentPtr)) and 1 or 0
+      if select(wrap_raw_node(self, nodePtr), wrap_raw_node(self, parentPtr)) then
+        return 1
+      else
+        return 0
+      end
     end
     success = libxml2.xmlC14NExecute(self.document, cbwrapper, nil, mode,
                                       prefixes, with_comments, output_buffer)

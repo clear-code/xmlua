@@ -13,15 +13,15 @@ ffi.cdef[[
  * Returns the number of bytes written or -1 in case of error
  */
  typedef int (*xmlOutputWriteCallback) (void * context, const char * buffer,
- int len);
+                                        int len);
 /**
-* xmlOutputCloseCallback:
-* @context:  an Output context
-*
-* Callback used in the I/O Output API to close the resource
-*
-* Returns 0 or -1 in case of error
-*/
+ * xmlOutputCloseCallback:
+ * @context:  an Output context
+ *
+ * Callback used in the I/O Output API to close the resource
+ *
+ * Returns 0 or -1 in case of error
+ */
 typedef int (*xmlOutputCloseCallback) (void * context);
 
 struct _xmlOutputBuffer {

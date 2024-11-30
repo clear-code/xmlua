@@ -230,7 +230,7 @@ function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
   end
 
   if success < 0 then
-    return nil, "failed to generate C14N string"
+    error("failed to generate C14N string")
   end
   return libxml2.xmlBufferGetContent(buffer)
 end

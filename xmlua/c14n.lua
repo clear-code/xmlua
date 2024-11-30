@@ -191,8 +191,8 @@ end
 
 --- Canonicalise an xmlDocument or set of elements.
 -- @param self xmlDoc from which to canonicalize elements
--- @param select array of nodes to include, or function to determine if a node should be included in the canonicalized output.
---        Signature: `boolean = function(node, parent)`
+-- @tparam[opt={}] array|function select array of nodes to include, or function to determine if a node should be included in the canonicalized output.
+--        Signature: `boolean = function(node, parent)`. Defaults to an empty array, which canonicalizes the entire document.
 -- @tparam[opt] table opts options table with the following fields:
 -- @tparam[opt="C14N_EXCLUSIVE_1_0"] string|number opts.mode any of C14N_1_0, C14N_EXCLUSIVE_1_0, C14N_1_1
 -- @tparam[opt] array|string opts.inclusive_ns_prefixes array, or space-separated string, of namespace prefixes to include
@@ -213,6 +213,9 @@ function C14n:canonicalize(select, opts)
   local output_buffer = libxml2.xmlOutputBufferCreate(buffer)
 
   local success
+  if select == nil then
+    select = {} -- default to include all nodes in the output
+  end
   if type(select) == "function" then  -- callback function
     -- wrap the callback to pass wrapped objects, and return 1 or 0
     local cbwrapper = function(_, nodePtr, parentPtr)
@@ -238,6 +241,7 @@ function C14n:canonicalize(select, opts)
   end
   return libxml2.xmlBufferGetContent(buffer)
 end
+
 
 
 return C14n

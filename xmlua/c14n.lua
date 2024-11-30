@@ -56,7 +56,7 @@ end
 
 
 -- list can be a string (space separated), an array of strings, or nil
-local function getNamespacePrefixArray(list)
+local function get_namespace_prefix_array(list)
   local list = list or {}
 
   if type(list) == "string" then
@@ -87,7 +87,7 @@ end
 
 
 
-local function getNodesList(nodes)
+local function create_xml_node_set(nodes)
   if (not nodes) or #nodes == 0 then
     return nil
   end
@@ -209,7 +209,7 @@ function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
 
   mode = assert(C14N_MODES_LOOKUP[mode], "mode must be a valid C14N mode constant")
 
-  local prefixes = getNamespacePrefixArray(inclusive_ns_prefixes)
+  local prefixes = get_namespace_prefix_array(inclusive_ns_prefixes)
   local buffer = libxml2.xmlBufferCreate()
   local output_buffer = libxml2.xmlOutputBufferCreate(buffer)
 
@@ -222,7 +222,7 @@ function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
     success = libxml2.xmlC14NExecute(self.document, cbwrapper, nil, mode,
                                       prefixes, with_comments, output_buffer)
   else -- array of nodes
-    local nodeSet = getNodesList(nodes)
+    local nodeSet = create_xml_node_set(nodes)
     success = libxml2.xmlC14NDocSaveTo(self.document, nodeSet, mode,
                                       prefixes, with_comments, output_buffer)
   end

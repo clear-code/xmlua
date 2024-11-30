@@ -37,7 +37,6 @@ build = {
     ["xmlua"] = "xmlua.lua",
     ["xmlua.attribute"] = "xmlua/attribute.lua",
     ["xmlua.attribute-declaration"] = "xmlua/attribute-declaration.lua",
-    ["xmlua.c14n"] = "xmlua/c14n.lua",
     ["xmlua.cdata-section"] = "xmlua/cdata-section.lua",
     ["xmlua.comment"] = "xmlua/comment.lua",
     ["xmlua.converter"] = "xmlua/converter.lua",

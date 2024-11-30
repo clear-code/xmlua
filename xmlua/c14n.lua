@@ -193,22 +193,22 @@ end
 -- @param self xmlDoc from which to canonicalize elements
 -- @param select array of nodes to include, or function to determine if a node should be included in the canonicalized output.
 --        Signature: `boolean = function(node, parent)`
--- @param mode any of C14N_1_0, C14N_EXCLUSIVE_1_0 (default), C14N_1_1
--- @param inclusive_ns_prefixes array, or space-separated string, of namespace prefixes to include
--- @param with_comments if truthy, comments will be included (default: false)
--- @return string containing canonicalized xml
-function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
-  if mode == nil then
-    mode = DEFAULT_MODE
-  end
-  with_comments = with_comments and 1 or 0 -- default = not including comments
+-- @tparam[opt] table opts options table with the following fields:
+-- @tparam[opt="C14N_EXCLUSIVE_1_0"] string|number opts.mode any of C14N_1_0, C14N_EXCLUSIVE_1_0, C14N_1_1
+-- @tparam[opt] array|string opts.inclusive_ns_prefixes array, or space-separated string, of namespace prefixes to include
+-- @tparam[opt=false] boolean with_comments if truthy, comments will be included
+-- @return string containing canonicalized xml, or throws an error if it fails
+function C14n:canonicalize(select, opts)
+  opts = opts or {}
+  local with_comments = opts.with_comments and 1 or 0 -- default = not including comments
 
+  local mode = opts.mode or DEFAULT_MODE
   if not C14N_MODES_LOOKUP[mode] then
     error("mode must be a valid C14N mode constant, got: " .. tostring(mode))
   end
   mode = C14N_MODES_LOOKUP[mode]
 
-  local prefixes = get_namespace_prefix_array(inclusive_ns_prefixes)
+  local prefixes = get_namespace_prefix_array(opts.inclusive_ns_prefixes)
   local buffer = libxml2.xmlBufferCreate()
   local output_buffer = libxml2.xmlOutputBufferCreate(buffer)
 

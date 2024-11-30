@@ -203,10 +203,6 @@ function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
   end
   with_comments = with_comments and 1 or 0 -- default = not including comments
 
-  local callback = type(select) == "function" and select or nil
-  local nodes = type(select) == "table" and select or nil
-  assert(callback or nodes, "select must be a function or an array of nodes")
-
   mode = assert(C14N_MODES_LOOKUP[mode], "mode must be a valid C14N mode constant")
 
   local prefixes = get_namespace_prefix_array(inclusive_ns_prefixes)
@@ -214,17 +210,20 @@ function C14n:canonicalize(select, mode, inclusive_ns_prefixes, with_comments)
   local output_buffer = libxml2.xmlOutputBufferCreate(buffer)
 
   local success
-  if callback then
+  if type(select) == "function" then  -- callback function
     -- wrap the callback to pass wrapped objects, and return 1 or 0
     local cbwrapper = function(_, nodePtr, parentPtr)
-      return callback(wrap_raw_node(self, nodePtr), wrap_raw_node(self, parentPtr)) and 1 or 0
+      return select(wrap_raw_node(self, nodePtr), wrap_raw_node(self, parentPtr)) and 1 or 0
     end
     success = libxml2.xmlC14NExecute(self.document, cbwrapper, nil, mode,
                                       prefixes, with_comments, output_buffer)
-  else -- array of nodes
-    local nodeSet = create_xml_node_set(nodes)
+
+  elseif type(select) == "table" then  -- array of nodes
+    local nodeSet = create_xml_node_set(select)
     success = libxml2.xmlC14NDocSaveTo(self.document, nodeSet, mode,
                                       prefixes, with_comments, output_buffer)
+  else
+    error("select must be a function or an array of nodes")
   end
 
   if success < 0 then

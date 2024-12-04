@@ -318,13 +318,14 @@ do  -- C14N methods
 
   --- Canonicalise an xmlDocument or set of elements.
   -- @param self xmlDoc from which to canonicalize elements
-  -- @tparam[opt={}] array|function select array of nodes to include, or function to determine if a node should be included in the canonicalized output.
-  --        Signature: `boolean = function(node, parent)`. Defaults to an empty array, which canonicalizes the entire document.
+  -- @tparam[opt={}] array|function select array of nodes to include, or function to determine if a node should be
+  --        included in the canonicalized output. Signature: `boolean = function(node, parent)`. Defaults to an empty
+  --        array, which canonicalizes the entire document.
   -- @tparam[opt] table opts options table with the following fields:
   -- @tparam[opt="C14N_EXCLUSIVE_1_0"] string|number opts.mode any of C14N_1_0, C14N_EXCLUSIVE_1_0, C14N_1_1
   -- @tparam[opt] array|string opts.inclusive_ns_prefixes array, or space-separated string, of namespace prefixes to include
   -- @tparam[opt=false] boolean with_comments if truthy, comments will be included
-  -- @return string containing canonicalized xml, or throws an error if it fails
+  -- @return string containing canonicalized XML, or throws an error if it fails
   function methods:canonicalize(select, opts)
     opts = opts or {}
     local with_comments = opts.with_comments and 1 or 0 -- default = not including comments

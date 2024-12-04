@@ -28,7 +28,6 @@ local Text
 function Document.lazy_load()
   Attribute = require("xmlua.attribute")
   AttributeDeclaration = require("xmlua.attribute-declaration")
-  Text = require("xmlua.text")
   CDATASection = require("xmlua.cdata-section")
   Comment = require("xmlua.comment")
   DocumentFragment = require("xmlua.document-fragment")
@@ -41,6 +40,7 @@ function Document.lazy_load()
   NamespaceDeclaration = require("xmlua.namespace-declaration")
   Notation = require("xmlua.notation")
   ProcessingInstruction = require("xmlua.processing-instruction")
+  Text = require("xmlua.text")
 end
 
 local DEFAULT_C14N_MODE = "C14N_EXCLUSIVE_1_0"

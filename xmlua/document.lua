@@ -228,7 +228,9 @@ do  -- C14N methods
     set.nodeMax = #nodes
     set.nodeTab = nodeTab
 
-    return set
+    return ffi.gc(set, function(ptr)
+      nodeTab = nil -- release references, so they can be GC'ed
+    end)
   end
 
 

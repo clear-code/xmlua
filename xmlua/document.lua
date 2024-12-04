@@ -3,7 +3,6 @@ local Document = {}
 local libxml2 = require("xmlua.libxml2")
 local ffi = require("ffi")
 local converter = require("xmlua.converter")
-local to_string = converter.to_string
 
 local Serializable = require("xmlua.serializable")
 local Searchable = require("xmlua.searchable")
@@ -183,7 +182,7 @@ end
 
 do  -- C14N methods
   -- list can be a string (space separated), an array of strings, or nil
-  local function get_namespace_prefix_array(list)
+  local function create_xml_string_array(list)
     local list = list or {}
 
     if type(list) == "string" then
@@ -316,8 +315,8 @@ do  -- C14N methods
 
 
 
-  --- Canonicalise an xmlDocument or set of elements.
-  -- @param self xmlDoc from which to canonicalize elements
+  --- Canonicalise an XML document or set of elements.
+  -- @param self xmlua.Document from which to canonicalize elements
   -- @tparam[opt={}] array|function select array of nodes to include, or function to determine if a node should be
   --        included in the canonicalized output. Signature: `boolean = function(node, parent)`. Defaults to an empty
   --        array, which canonicalizes the entire document.
@@ -336,7 +335,7 @@ do  -- C14N methods
     end
     mode = C14N_MODES_LOOKUP[mode]
 
-    local prefixes = get_namespace_prefix_array(opts.inclusive_ns_prefixes)
+    local prefixes = create_xml_string_array(opts.inclusive_ns_prefixes)
     local buffer = libxml2.xmlBufferCreate()
     local output_buffer = libxml2.xmlOutputBufferCreate(buffer)
 
@@ -346,20 +345,20 @@ do  -- C14N methods
     end
     if type(select) == "function" then  -- callback function
       -- wrap the callback to pass wrapped objects, and return 1 or 0
-      local cbwrapper = function(_, nodePtr, parentPtr)
+      local callback = function(_, nodePtr, parentPtr)
         if select(wrap_raw_node(self, nodePtr), wrap_raw_node(self, parentPtr)) then
           return 1
         else
           return 0
         end
       end
-      success = libxml2.xmlC14NExecute(self.document, cbwrapper, nil, mode,
-                                        prefixes, with_comments, output_buffer)
+      success = libxml2.xmlC14NExecute(self.document, callback, nil, mode,
+                                       prefixes, with_comments, output_buffer)
 
     elseif type(select) == "table" then  -- array of nodes
-      local nodeSet = create_xml_node_set(select)
-      success = libxml2.xmlC14NDocSaveTo(self.document, nodeSet, mode,
-                                        prefixes, with_comments, output_buffer)
+      local node_set = create_xml_node_set(select)
+      success = libxml2.xmlC14NDocSaveTo(self.document, node_set, mode,
+                                         prefixes, with_comments, output_buffer)
     else
       error("select must be a function or an array of nodes")
     end

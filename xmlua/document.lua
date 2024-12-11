@@ -181,18 +181,8 @@ end
 
 
 do  -- C14N methods
-  -- list can be a string (space separated), an array of strings, or nil
   local function create_xml_string_array(list)
-    local list = list or {}
-
-    if type(list) == "string" then
-      -- list is a string, assume it is the space separated PrefixList attribute, split it
-      local list_str = list
-      list = {}
-      list_str:gsub("([^%s]+)", function(cap) list[#list+1] = cap end)
-    end
-
-    if #list == 0 then
+    if list == nil or #list == 0 then
       return nil
     end
 
@@ -324,7 +314,7 @@ do  -- C14N methods
   --        array, which canonicalizes the entire document.
   -- @tparam[opt] table opts options table with the following fields:
   -- @tparam[opt="C14N_EXCLUSIVE_1_0"] string|number opts.mode any of C14N_1_0, C14N_EXCLUSIVE_1_0, C14N_1_1
-  -- @tparam[opt] array|string opts.inclusive_ns_prefixes array, or space-separated string, of namespace prefixes to include
+  -- @tparam[opt] array opts.inclusive_ns_prefixes array of namespace prefixes to include
   -- @tparam[opt=false] boolean with_comments if truthy, comments will be included
   -- @return string containing canonicalized XML, or throws an error if it fails
   function methods:canonicalize(select, opts)

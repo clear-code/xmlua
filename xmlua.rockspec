@@ -38,8 +38,8 @@ build = {
     ["xmlua.attribute"] = "xmlua/attribute.lua",
     ["xmlua.attribute-declaration"] = "xmlua/attribute-declaration.lua",
     ["xmlua.cdata-section"] = "xmlua/cdata-section.lua",
-    ["xmlua.converter"] = "xmlua/converter.lua",
     ["xmlua.comment"] = "xmlua/comment.lua",
+    ["xmlua.converter"] = "xmlua/converter.lua",
     ["xmlua.document"] = "xmlua/document.lua",
     ["xmlua.document-fragment"] = "xmlua/document-fragment.lua",
     ["xmlua.document-type"] = "xmlua/document-type.lua",
@@ -77,8 +77,8 @@ build = {
     ["xmlua.serializable"] = "xmlua/serializable.lua",
     ["xmlua.text"] = "xmlua/text.lua",
     ["xmlua.xml"] = "xmlua/xml.lua",
-    ["xmlua.xml-stream-sax-parser"] = "xmlua/xml-stream-sax-parser.lua",
     ["xmlua.xml-sax-parser"] = "xmlua/xml-sax-parser.lua"
+    ["xmlua.xml-stream-sax-parser"] = "xmlua/xml-stream-sax-parser.lua",
   },
   copy_directories = {
     "docs"

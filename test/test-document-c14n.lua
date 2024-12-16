@@ -65,7 +65,7 @@ end
 function TestDocumentC14N.test_mode()
   local document = xmlua.XML.parse(input)
   local options = {
-    mode = "C14N_1_0",
+    mode = "1_0",
   }
   luaunit.assertEquals(document:canonicalize(nil, options),
                        [[

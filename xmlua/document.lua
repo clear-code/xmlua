@@ -42,12 +42,12 @@ function Document.lazy_load()
   Text = require("xmlua.text")
 end
 
-local DEFAULT_C14N_MODE = "C14N_EXCLUSIVE_1_0"
+local DEFAULT_C14N_MODE = "EXCLUSIVE_1_0"
 
 local C14N_MODES = {
-  C14N_1_0            = ffi.C.XML_C14N_1_0,           -- Original C14N 1.0 spec
-  C14N_EXCLUSIVE_1_0  = ffi.C.XML_C14N_EXCLUSIVE_1_0, -- Exclusive C14N 1.0 spec
-  C14N_1_1            = ffi.C.XML_C14N_1_1,           -- C14N 1.1 spec
+  ["1_0"]           = ffi.C.XML_C14N_1_0,           -- Original C14N 1.0 spec
+  ["EXCLUSIVE_1_0"] = ffi.C.XML_C14N_EXCLUSIVE_1_0, -- Exclusive C14N 1.0 spec
+  ["1_1"]           = ffi.C.XML_C14N_1_1,           -- C14N 1.1 spec
 }
 
 local C14N_MODES_LOOKUP = {} -- lookup by name or number, returns the number
@@ -313,7 +313,7 @@ do  -- C14N methods
   --        included in the canonicalized output. Signature: `boolean = function(node, parent)`. Defaults to an empty
   --        array, which canonicalizes the entire document.
   -- @tparam[opt] table opts options table with the following fields:
-  -- @tparam[opt="C14N_EXCLUSIVE_1_0"] string|number opts.mode any of C14N_1_0, C14N_EXCLUSIVE_1_0, C14N_1_1
+  -- @tparam[opt="EXCLUSIVE_1_0"] string|number opts.mode any of '1_0", "EXCLUSIVE_1_0", "1_1"
   -- @tparam[opt] array opts.inclusive_ns_prefixes array of namespace prefixes to include
   -- @tparam[opt=false] boolean with_comments if truthy, comments will be included
   -- @return string containing canonicalized XML, or throws an error if it fails

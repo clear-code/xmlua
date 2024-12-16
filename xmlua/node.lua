@@ -38,4 +38,5 @@ end
 function Node:unlink()
   return libxml2.xmlUnlinkNode(self.node)
 end
+
 return Node

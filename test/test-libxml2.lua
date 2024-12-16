@@ -51,7 +51,11 @@ function TestLibxml2XML.test_parse_invalid()
   local document = libxml2.xmlCtxtReadMemory(context, xml)
   luaunit.assertEquals(ffi.typeof(document),
                        ffi.typeof("xmlDocPtr"))
-  if tonumber(libxml2.VERSION) >= 20910 then
+  -- This condition may be loose
+  if tonumber(libxml2.VERSION) >= 20913 then
+    luaunit.assertEquals(ffi.string(context.lastError.message),
+                         "Premature end of data in tag root line 1\n")
+  elseif tonumber(libxml2.VERSION) >= 20910 then
     luaunit.assertEquals(ffi.string(context.lastError.message),
                          "EndTag: '</' not found\n")
   else

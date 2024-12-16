@@ -4,6 +4,9 @@ ffi.cdef[[
 typedef struct _xmlParserInputBuffer xmlParserInputBuffer;
 typedef xmlParserInputBuffer *xmlParserInputBufferPtr;
 
+typedef struct _xmlOutputBuffer xmlOutputBuffer;
+typedef xmlOutputBuffer *xmlOutputBufferPtr;
+
 typedef struct _xmlParserInput xmlParserInput;
 typedef xmlParserInput *xmlParserInputPtr;
 
@@ -87,6 +90,7 @@ typedef enum {
 } xmlBufferAllocationScheme;
 
 typedef struct _xmlBuffer xmlBuffer;
+typedef xmlBuffer *xmlBufferPtr;
 struct _xmlBuffer {
     xmlChar *content;		/* The buffer content UTF8 */
     unsigned int use;		/* The buffer size used */
@@ -94,6 +98,9 @@ struct _xmlBuffer {
     xmlBufferAllocationScheme alloc; /* The realloc method */
     xmlChar *contentIO;		/* in IO mode we may have a different base */
 };
+
+typedef struct _xmlBuf xmlBuf;
+typedef xmlBuf *xmlBufPtr;
 
 xmlBuffer *xmlBufferCreate(void);
 void xmlBufferFree(xmlBuffer *buf);

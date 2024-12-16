@@ -77,7 +77,7 @@ build = {
     ["xmlua.serializable"] = "xmlua/serializable.lua",
     ["xmlua.text"] = "xmlua/text.lua",
     ["xmlua.xml"] = "xmlua/xml.lua",
-    ["xmlua.xml-sax-parser"] = "xmlua/xml-sax-parser.lua"
+    ["xmlua.xml-sax-parser"] = "xmlua/xml-sax-parser.lua",
     ["xmlua.xml-stream-sax-parser"] = "xmlua/xml-stream-sax-parser.lua",
   },
   copy_directories = {

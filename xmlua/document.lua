@@ -228,67 +228,67 @@ do  -- C14N methods
   local wrap_raw_node do
     -- order is according to the constant value of xmlElementType enum in libxml2
     local type_generators = setmetatable({
-      [ffi.C.XML_ELEMENT_NODE] = function(document, raw_node)
-        return Element.new(document, raw_node)
+      [ffi.C.XML_ELEMENT_NODE] = function(document, xml_node)
+        return Element.new(document, xml_node)
       end,
-      [ffi.C.XML_ATTRIBUTE_NODE] = function(document, raw_node)
-        return Attribute.new(document, raw_node)
+      [ffi.C.XML_ATTRIBUTE_NODE] = function(document, xml_node)
+        return Attribute.new(document, xml_node)
       end,
-      [ffi.C.XML_TEXT_NODE] = function(document, raw_node)
-        return Text.new(document, raw_node)
+      [ffi.C.XML_TEXT_NODE] = function(document, xml_node)
+        return Text.new(document, xml_node)
       end,
-      [ffi.C.XML_CDATA_SECTION_NODE] = function(document, raw_node)
-        return CDATASection.new(document, raw_node)
+      [ffi.C.XML_CDATA_SECTION_NODE] = function(document, xml_node)
+        return CDATASection.new(document, xml_node)
       end,
-      [ffi.C.XML_ENTITY_REF_NODE] = function(document, raw_node)
+      [ffi.C.XML_ENTITY_REF_NODE] = function(document, xml_node)
         error("XML_ENTITY_REF_NODE not implemented")        -- TODO: implement
       end,
-      [ffi.C.XML_ENTITY_NODE] = function(document, raw_node)
+      [ffi.C.XML_ENTITY_NODE] = function(document, xml_node)
         error("XML_ENTITY_NODE not implemented")            -- TODO: implement
       end,
-      [ffi.C.XML_PI_NODE] = function(document, raw_node)
-        return ProcessingInstruction.new(document, raw_node)
+      [ffi.C.XML_PI_NODE] = function(document, xml_node)
+        return ProcessingInstruction.new(document, xml_node)
       end,
-      [ffi.C.XML_COMMENT_NODE] = function(document, raw_node)
-        return Comment.new(document, raw_node)
+      [ffi.C.XML_COMMENT_NODE] = function(document, xml_node)
+        return Comment.new(document, xml_node)
       end,
-      [ffi.C.XML_DOCUMENT_NODE] = function(document, raw_node)
-        return Document.new(raw_node)
+      [ffi.C.XML_DOCUMENT_NODE] = function(document, xml_node)
+        return Document.new(xml_node)
       end,
-      [ffi.C.XML_DOCUMENT_TYPE_NODE] = function(document, raw_node)
-        return DocumentType.new(document, raw_node)
+      [ffi.C.XML_DOCUMENT_TYPE_NODE] = function(document, xml_node)
+        return DocumentType.new(document, xml_node)
       end,
-      [ffi.C.XML_DOCUMENT_FRAG_NODE] = function(document, raw_node)
-        return DocumentFragment.new(document, raw_node)
+      [ffi.C.XML_DOCUMENT_FRAG_NODE] = function(document, xml_node)
+        return DocumentFragment.new(document, xml_node)
       end,
-      [ffi.C.XML_NOTATION_NODE] = function(document, raw_node)
-        return Notation.new(document, raw_node)
+      [ffi.C.XML_NOTATION_NODE] = function(document, xml_node)
+        return Notation.new(document, xml_node)
       end,
-      [ffi.C.XML_HTML_DOCUMENT_NODE] = function(document, raw_node)
+      [ffi.C.XML_HTML_DOCUMENT_NODE] = function(document, xml_node)
         error("XML_HTML_DOCUMENT_NODE not implemented")     -- TODO: implement
       end,
-      [ffi.C.XML_DTD_NODE] = function(document, raw_node)
+      [ffi.C.XML_DTD_NODE] = function(document, xml_node)
         error("XML_DTD_NODE not implemented")               -- TODO: implement
       end,
-      [ffi.C.XML_ELEMENT_DECL] = function(document, raw_node)
-        return ElementDeclaration.new(document, raw_node)
+      [ffi.C.XML_ELEMENT_DECL] = function(document, xml_node)
+        return ElementDeclaration.new(document, xml_node)
       end,
-      [ffi.C.XML_ATTRIBUTE_DECL] = function(document, raw_node)
-        return AttributeDeclaration.new(document, raw_node)
+      [ffi.C.XML_ATTRIBUTE_DECL] = function(document, xml_node)
+        return AttributeDeclaration.new(document, xml_node)
       end,
-      [ffi.C.XML_ENTITY_DECL] = function(document, raw_node)
-        return EntityDeclaration.new(document, raw_node)
+      [ffi.C.XML_ENTITY_DECL] = function(document, xml_node)
+        return EntityDeclaration.new(document, xml_node)
       end,
-      [ffi.C.XML_NAMESPACE_DECL] = function(document, raw_node)
-        return NamespaceDeclaration.new(document, raw_node)
+      [ffi.C.XML_NAMESPACE_DECL] = function(document, xml_node)
+        return NamespaceDeclaration.new(document, xml_node)
       end,
-      [ffi.C.XML_XINCLUDE_START] = function(document, raw_node)
+      [ffi.C.XML_XINCLUDE_START] = function(document, xml_node)
         error("XML_XINCLUDE_START not implemented")         -- TODO: implement
       end,
-      [ffi.C.XML_XINCLUDE_END] = function(document, raw_node)
+      [ffi.C.XML_XINCLUDE_END] = function(document, xml_node)
         error("XML_XINCLUDE_END not implemented")           -- TODO: implement
       end,
-      [ffi.C.XML_DOCB_DOCUMENT_NODE] = function(document, raw_node)
+      [ffi.C.XML_DOCB_DOCUMENT_NODE] = function(document, xml_node)
         error("XML_DOCB_DOCUMENT_NODE not implemented")     -- TODO: implement
       end,
     }, {
@@ -297,11 +297,11 @@ do  -- C14N methods
       end
     })
 
-    function wrap_raw_node(document, raw_node)
-      if raw_node == ffi.NULL then
+    function wrap_xml_node(document, xml_node)
+      if xml_node == ffi.NULL then
         return nil
       end
-      return type_generators[tonumber(raw_node.type)](document, raw_node)
+      return type_generators[tonumber(xml_node.type)](document, xml_node)
     end
   end
 
@@ -337,8 +337,10 @@ do  -- C14N methods
     end
     if type(select) == "function" then  -- callback function
       -- wrap the callback to pass wrapped objects, and return 1 or 0
-      local callback = function(_, nodePtr, parentPtr)
-        if select(wrap_raw_node(self, nodePtr), wrap_raw_node(self, parentPtr)) then
+      local callback = function(_, xml_node, xml_parent)
+        local node = wrap_xml_node(self, xml_node)
+        local parent = wrap_xml_node(self, xml_parent)
+        if select(node, parent) then
           return 1
         else
           return 0

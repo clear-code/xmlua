@@ -10,6 +10,10 @@ function metatable.__index(document_fragment, key)
     document_fragment.parent[key]
 end
 
+function methods:node_name()
+  return "document-fragment"
+end
+
 function DocumentFragment.new(document, node)
   local document_fragment = {
     document = document,

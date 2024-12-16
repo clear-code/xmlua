@@ -3,6 +3,17 @@ local xmlua = require("xmlua")
 
 TestComment = {}
 
+function TestComment.test_node_Name()
+  local document = xmlua.XML.parse([[
+<root>
+  <!--This is comment!-->
+</root>
+]])
+  local comment = document:search("/root/comment()")
+  luaunit.assertEquals(comment[1]:node_name(),
+                       "comment")
+end
+
 function TestComment.test_path()
   local document = xmlua.XML.parse([[
 <root>

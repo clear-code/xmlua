@@ -11,6 +11,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "processing-instruction"
+end
+
 function methods:target()
   return ffi.string(self.node.name)
 end

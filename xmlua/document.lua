@@ -39,6 +39,10 @@ function metatable.__index(document, key)
     Searchable[key]
 end
 
+function methods:node_name()
+  return "document"
+end
+
 function methods:root()
   local root_element = libxml2.xmlDocGetRootElement(self.document)
   if not root_element then

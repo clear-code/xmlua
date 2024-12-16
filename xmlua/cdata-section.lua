@@ -10,6 +10,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "cdata-section"
+end
+
 function CDATASection.new(document, node)
   local cdata_section = {
     document = document,

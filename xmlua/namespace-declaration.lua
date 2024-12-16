@@ -10,6 +10,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "namespace-declaration"
+end
+
 function NameSpaceDeclaration.new(document, node)
   local namespace_declaration = {
     document = document,

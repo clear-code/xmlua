@@ -10,6 +10,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "attribute-declaration"
+end
+
 function AttributeDeclaration.new(document, node)
   local attribute_declaration = {
     document = document,

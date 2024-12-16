@@ -11,6 +11,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "entity-reference"
+end
+
 function methods:name()
   return ffi.string(self.node.name)
 end

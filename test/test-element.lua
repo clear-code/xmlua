@@ -12,6 +12,19 @@ local function get_prop(node, name, namespace_uri)
   end
 end
 
+function TestElement.test_node_name()
+  local document = xmlua.XML.parse([[
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+</html>
+]])
+  local node_set = document:search("//title")
+  luaunit.assertEquals(node_set[1]:node_name(),
+                       "element")
+end
+
 function TestElement.test_to_html()
   local document = xmlua.XML.parse([[
 <html>

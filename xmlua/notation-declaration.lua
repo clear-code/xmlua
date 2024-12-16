@@ -10,6 +10,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "notation-declaration"
+end
+
 function NotationDeclaration.new(document, node)
   local notation_declaration = {
     document = document,

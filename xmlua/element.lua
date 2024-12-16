@@ -33,6 +33,10 @@ function metatable.__newindex(element, key, value)
   return methods.set_attribute(element, key, value)
 end
 
+function methods:node_name()
+  return "element"
+end
+
 local function parse_name(name)
   local colon_start = name:find(":")
   local namespace_prefix

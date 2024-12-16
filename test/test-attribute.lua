@@ -3,6 +3,13 @@ local xmlua = require("xmlua")
 
 TestAttribute = {}
 
+function TestAttribute.test_node_name()
+  local document = xmlua.XML.build({"root", {["id"]="1"}})
+  local attr = document:search("/root/@id")
+  luaunit.assertEquals(attr[1]:node_name(),
+                       "attribute")
+end
+
 function TestAttribute.test_path()
   local document =
     xmlua.XML.build({"root", {["id"]="1"}})

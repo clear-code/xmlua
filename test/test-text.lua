@@ -3,6 +3,15 @@ local xmlua = require("xmlua")
 
 TestText = {}
 
+function TestText.test_node_name()
+  local document = xmlua.XML.parse([[
+<root>text</root>
+]])
+  local text = document:search("/root/text()")
+  luaunit.assertEquals(text[1]:node_name(),
+                       "text")
+end
+
 function TestText.test_path()
   local document = xmlua.XML.parse([[
 <root>text</root>

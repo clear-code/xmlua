@@ -10,6 +10,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "entity-declaration"
+end
+
 function EntityDeclaration.new(document, node)
   local entity_declaration = {
     document = document,

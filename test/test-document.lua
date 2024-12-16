@@ -4,6 +4,12 @@ local ffi = require("ffi")
 
 TestDocument = {}
 
+function TestDocument.test_node_name()
+  local document = xmlua.XML.build({"root"})
+  luaunit.assertEquals(document:node_name(),
+                       "document")
+end
+
 function TestDocument.test_create_cdata_section()
   local document = xmlua.XML.build({"root"})
   local cdata_section_node =

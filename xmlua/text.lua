@@ -12,6 +12,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "text"
+end
+
 function methods:text()
   return self:content()
 end

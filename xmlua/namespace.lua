@@ -11,6 +11,10 @@ function metatable.__index(element, key)
     Node[key]
 end
 
+function methods:node_name()
+  return "namespace"
+end
+
 function methods:prefix()
   if self.node.prefix == ffi.NULL then
     return nil

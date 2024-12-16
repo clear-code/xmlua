@@ -3,6 +3,15 @@ local xmlua = require("xmlua")
 
 TestCDATASection = {}
 
+function TestCDATASection.test_node_name()
+  local document = xmlua.XML.parse([=[
+<root><![CDATA[This is <CDATA>]]></root>
+]=])
+  local cdata_section = document:search("/root/text()")
+  luaunit.assertEquals(cdata_section[1]:node_name(),
+                       "cdata-section")
+end
+
 function TestCDATASection.test_path()
   local document = xmlua.XML.parse([=[
 <root><![CDATA[This is <CDATA>]]></root>

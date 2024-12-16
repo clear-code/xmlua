@@ -981,6 +981,12 @@ function TestXMLSAXParser.test_set_pedantic_as_option()
 end
 
 function TestXMLSAXParser.test_set_pedantic()
+  if jit.os ~= "Linux" then
+    -- parser.warning doesn't work because warningSAXFunc accepts
+    -- variable length arguments.
+    return
+  end
+
   local xml = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE root SYSTEM "file:///usr/local/share/test.dtd" [

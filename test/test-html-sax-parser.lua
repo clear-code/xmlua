@@ -1,4 +1,5 @@
 local luaunit = require("luaunit")
+local libxml2 = require("xmlua").libxml2
 local xmlua = require("xmlua")
 
 local ffi = require("ffi")
@@ -213,6 +214,12 @@ local function collect_errors(chunk)
 end
 
 function TestHTMLSAXParser.test_error()
+  -- This condition may be loose
+  if tonumber(libxml2.VERSION) >= 21207 then
+    -- This error doesn't happen with at least libxml2 2.12.7.
+    return
+  end
+
   local expected = {
     {
       domain = ffi.C.XML_FROM_HTML,

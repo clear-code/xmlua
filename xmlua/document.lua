@@ -312,6 +312,7 @@ do  -- C14N methods
   -- @tparam[opt=false] boolean with_comments if truthy, comments will be included
   -- @return string containing canonicalized XML, or throws an error if it fails
   function methods:canonicalize(select, opts)
+    select = select or {} -- default to include all nodes in the output
     opts = opts or {}
     local with_comments = opts.with_comments and 1 or 0 -- default = not including comments
 
@@ -326,9 +327,6 @@ do  -- C14N methods
     local output_buffer = libxml2.xmlOutputBufferCreate(buffer)
 
     local success
-    if select == nil then
-      select = {} -- default to include all nodes in the output
-    end
     if type(select) == "function" then  -- callback function
       -- wrap the callback to pass wrapped objects, and return 1 or 0
       local callback = function(_, xml_node, xml_parent)

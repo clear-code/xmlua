@@ -307,7 +307,7 @@ do  -- C14N methods
 
 
 
-  --- Canonicalise an XML document or set of elements.
+  --- Canonicalize an XML document or set of elements.
   -- @param self xmlua.Document from which to canonicalize elements
   -- @tparam[opt={}] array|function select array of nodes to include, or function to determine if a node should be
   --        included in the canonicalized output. Signature: `boolean = function(node, parent)`. Defaults to an empty

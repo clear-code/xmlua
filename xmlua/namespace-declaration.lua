@@ -1,4 +1,4 @@
-local NameSpaceDeclaration = {}
+local NamespaceDeclaration = {}
 
 local Node = require("xmlua.node")
 
@@ -14,7 +14,7 @@ function methods:node_name()
   return "namespace-declaration"
 end
 
-function NameSpaceDeclaration.new(document, node)
+function NamespaceDeclaration.new(document, node)
   local namespace_declaration = {
     document = document,
     node = node,
@@ -23,4 +23,4 @@ function NameSpaceDeclaration.new(document, node)
   return namespace_declaration
 end
 
-return NameSpaceDeclaration
+return NamespaceDeclaration

@@ -267,6 +267,8 @@ local function create_end_element_callback(user_callback)
 end
 
 local function create_warning_callback(user_callback)
+  -- This isn't portable because warningSAXFunc accepts variable
+  -- length arguments.
   local callback = function(user_data,
                             raw_warning_message,
                             raw_string_value)

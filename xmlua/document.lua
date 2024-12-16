@@ -187,17 +187,17 @@ do  -- C14N methods
     end
 
     local result = ffi.new('xmlChar*[?]', #list+1)
-    local refs = {}
+    local xml_nses = {}
     for i, prefix in ipairs(list) do
-      local c_ns = ffi.new("unsigned char[?]", #prefix+1, prefix)
-      ffi.copy(c_ns, prefix)
-      result[i-1] = c_ns
-      refs[i] = c_ns -- hold on to refs to prevent GC while in use
+      local xml_ns = ffi.new("unsigned char[?]", #prefix+1, prefix)
+      ffi.copy(xml_ns, prefix)
+      result[i-1] = xml_ns
+      xml_nses[i] = xml_ns -- hold on to xml_nses to prevent GC while in use
     end
     result[#list] = nil
 
     return ffi.gc(result, function(ptr)
-      refs = nil -- release references, so they can be GC'ed
+      xml_nses = nil -- release references, so they can be GC'ed
     end)
   end
 

@@ -210,7 +210,7 @@ do  -- C14N methods
 
     local nodeTab = ffi.new("xmlNodePtr[?]", #nodes)
     for i = 1, #nodes do
-        nodeTab[i - 1] = nodes[i] -- FFI side is 0 indexed
+        nodeTab[i - 1] = nodes[i].node -- FFI side is 0 indexed
     end
 
     local set = ffi.new("xmlNodeSet")

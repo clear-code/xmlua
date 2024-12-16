@@ -938,6 +938,12 @@ local function collect_warnings(chunk)
 end
 
 function TestXMLSAXParser.test_warning()
+  if jit.os ~= "Linux" then
+    -- parser.warning doesn't work because warningSAXFunc accepts
+    -- variable length arguments.
+    return
+  end
+
   local xml = [[
 <?xml version="1.0"?>
 <?xmlo ?>
@@ -1029,12 +1035,6 @@ local function collect_xml_errors(chunk)
 end
 
 function TestXMLSAXParser.test_xml_structured_error()
-  if jit.os ~= "Linux" then
-    -- parser.warning doesn't work because warningSAXFunc accepts
-    -- variable length arguments.
-    return
-  end
-
   local xml = [[
 <?xml version="1.0"?>
 <id>&aaa;</id>

@@ -208,18 +208,18 @@ do  -- C14N methods
       return nil
     end
 
-    local nodeTab = ffi.new("xmlNodePtr[?]", #nodes)
+    local xml_nodes = ffi.new("xmlNodePtr[?]", #nodes)
     for i = 1, #nodes do
-      nodeTab[i - 1] = nodes[i].node -- FFI side is 0 indexed
+      xml_nodes[i - 1] = nodes[i].node -- FFI side is 0 indexed
     end
 
     local set = ffi.new("xmlNodeSet")
     set.nodeNr = #nodes
     set.nodeMax = #nodes
-    set.nodeTab = nodeTab
+    set.nodeTab = xml_nodes
 
     return ffi.gc(set, function(ptr)
-      nodeTab = nil -- release references, so they can be GC'ed
+      xml_nodes = nil -- release references, so they can be GC'ed
     end)
   end
 

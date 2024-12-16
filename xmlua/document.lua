@@ -182,7 +182,7 @@ end
 
 do  -- C14N methods
   local function create_xml_string_array(list)
-    if list == nil or #list == 0 then
+    if (not list) or #list == 0 then
       return nil
     end
 

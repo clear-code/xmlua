@@ -314,7 +314,11 @@ do  -- C14N methods
   function methods:canonicalize(select, opts)
     select = select or {} -- default to include all nodes in the output
     opts = opts or {}
-    local with_comments = opts.with_comments and 1 or 0 -- default = not including comments
+
+    local with_comments = 0 -- default = not including comments
+    if opts.with_comments then
+      with_comments = 1
+    end
 
     local mode = opts.mode or DEFAULT_C14N_MODE
     if not C14N_MODES_LOOKUP[mode] then

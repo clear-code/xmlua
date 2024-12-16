@@ -201,8 +201,6 @@ do  -- C14N methods
     end)
   end
 
-
-
   local function create_xml_node_set(nodes)
     if (not nodes) or #nodes == 0 then
       return nil
@@ -222,8 +220,6 @@ do  -- C14N methods
       xml_nodes = nil -- release references, so they can be GC'ed
     end)
   end
-
-
 
   local wrap_raw_node do
     -- order is according to the constant value of xmlElementType enum in libxml2
@@ -305,8 +301,6 @@ do  -- C14N methods
     end
   end
 
-
-
   --- Canonicalize an XML document or set of elements.
   -- @param self xmlua.Document from which to canonicalize elements
   -- @tparam[opt={}] array|function select array of nodes to include, or function to determine if a node should be
@@ -362,7 +356,6 @@ do  -- C14N methods
     end
     return libxml2.xmlBufferGetContent(buffer)
   end
-
 end -- end of C14N methods
 
 local function build_element(element, tree)

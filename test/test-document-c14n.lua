@@ -4,70 +4,102 @@ local ffi = require("ffi")
 
 TestDocumentC14N = {}
 
--- From: https://www.w3.org/2008/xmlsec/Drafts/c14n-20/test-cases/Overview.src.html
-
-function TestDocumentC14N.test_PIs_Comments_and_Outside_of_Document_Element()
-  -- https://www.w3.org/2008/xmlsec/Drafts/c14n-20/test-cases/files/inC14N1.xml
-  local input = [[
+local input = [[
 <?xml version="1.0"?>
-
-<?xml-stylesheet   href="doc.xsl"
-   type="text/xsl"   ?>
-
-<!DOCTYPE doc SYSTEM "doc.dtd">
-
-<doc>Hello, world!<!-- Comment 1 --></doc>
-
-<?pi-without-data     ?>
-
-<!-- Comment 2 -->
-
-<!-- Comment 3 -->
+<root xml:space="default" xmlns:ns1="http://example.com/ns1" xmlns:ns2="http://example.com/ns2">
+  <ns1:child ns2:attribute="ns2-value">
+    <!-- comment --><ns2:grand-child/>
+  </ns1:child>
+</root>
 ]]
-  local options = {}
-  -- https://www.w3.org/2008/xmlsec/Drafts/c14n-20/test-cases/files/out_inC14N1_c14nDefault.xml
-  local expected = [[
-<?xml-stylesheet href="doc.xsl"
-   type="text/xsl"   ?>
-<doc>Hello, world!</doc>
-<?pi-without-data?>]]
 
+function TestDocumentC14N.test_select_nil()
   local document = xmlua.XML.parse(input)
-  local c14n = document:canonicalize(nil, options)
-  luaunit.assertEquals(c14n, expected)
+  luaunit.assertEquals(document:canonicalize(),
+                       [[
+<root xml:space="default">
+  <ns1:child xmlns:ns1="http://example.com/ns1" xmlns:ns2="http://example.com/ns2" ns2:attribute="ns2-value">
+    <ns2:grand-child></ns2:grand-child>
+  </ns1:child>
+</root>]])
 end
 
-function TestDocumentC14N.test_PIs_Comments_and_Outside_of_Document_Element_with_comments()
-  -- https://www.w3.org/2008/xmlsec/Drafts/c14n-20/test-cases/files/inC14N1.xml
-  local input = [[
-<?xml version="1.0"?>
-
-<?xml-stylesheet   href="doc.xsl"
-   type="text/xsl"   ?>
-
-<!DOCTYPE doc SYSTEM "doc.dtd">
-
-<doc>Hello, world!<!-- Comment 1 --></doc>
-
-<?pi-without-data     ?>
-
-<!-- Comment 2 -->
-
-<!-- Comment 3 -->
-]]
-  local options = {
-    with_comments = true
-  }
-  -- https://www.w3.org/2008/xmlsec/Drafts/c14n-20/test-cases/files/out_inC14N1_c14nComment.xml
-  local expected = [[
-<?xml-stylesheet href="doc.xsl"
-   type="text/xsl"   ?>
-<doc>Hello, world!<!-- Comment 1 --></doc>
-<?pi-without-data?>
-<!-- Comment 2 -->
-<!-- Comment 3 -->]]
-
+function TestDocumentC14N.test_select_function()
   local document = xmlua.XML.parse(input)
-  local c14n = document:canonicalize(nil, options)
-  luaunit.assertEquals(c14n, expected)
+  local function is_grand_child(node, parent)
+    if not node then
+      return false
+    end
+    if node:node_name() ~= "element" then
+      return false
+    end
+    return node:name() == "grand-child"
+  end
+  luaunit.assertEquals(document:canonicalize(is_grand_child),
+                       [[<ns2:grand-child></ns2:grand-child>]])
+end
+
+function TestDocumentC14N.test_select_function()
+  local document = xmlua.XML.parse(input)
+  local function is_grand_child(node, parent)
+    if not node then
+      return false
+    end
+    if node:node_name() ~= "element" then
+      return false
+    end
+    return node:name() == "grand-child"
+  end
+  luaunit.assertEquals(document:canonicalize(is_grand_child),
+                       [[<ns2:grand-child></ns2:grand-child>]])
+end
+
+function TestDocumentC14N.test_select_array()
+  local document = xmlua.XML.parse(input)
+  local child = document:search("/root/ns1:child")[1]
+  local grand_child = document:search("/root/ns1:child/ns2:grand-child")[1]
+  luaunit.assertEquals(document:canonicalize({child, grand_child}),
+                       [[<ns1:child><ns2:grand-child></ns2:grand-child></ns1:child>]])
+end
+
+function TestDocumentC14N.test_mode()
+  local document = xmlua.XML.parse(input)
+  local options = {
+    mode = "C14N_1_0",
+  }
+  luaunit.assertEquals(document:canonicalize(nil, options),
+                       [[
+<root xmlns:ns1="http://example.com/ns1" xmlns:ns2="http://example.com/ns2" xml:space="default">
+  <ns1:child ns2:attribute="ns2-value">
+    <ns2:grand-child></ns2:grand-child>
+  </ns1:child>
+</root>]])
+end
+
+function TestDocumentC14N.test_inclusive_ns_prefixes()
+  local document = xmlua.XML.parse(input)
+  local options = {
+    inclusive_ns_prefixes = {"ns1"},
+  }
+  luaunit.assertEquals(document:canonicalize(nil, options),
+                       [[
+<root xmlns:ns1="http://example.com/ns1" xml:space="default">
+  <ns1:child xmlns:ns2="http://example.com/ns2" ns2:attribute="ns2-value">
+    <ns2:grand-child></ns2:grand-child>
+  </ns1:child>
+</root>]])
+end
+
+function TestDocumentC14N.test_with_comments()
+  local document = xmlua.XML.parse(input)
+  local options = {
+    with_comments = true,
+  }
+  luaunit.assertEquals(document:canonicalize(nil, options),
+                       [[
+<root xml:space="default">
+  <ns1:child xmlns:ns1="http://example.com/ns1" xmlns:ns2="http://example.com/ns2" ns2:attribute="ns2-value">
+    <!-- comment --><ns2:grand-child></ns2:grand-child>
+  </ns1:child>
+</root>]])
 end

@@ -4,6 +4,29 @@ title: おしらせ
 
 # おしらせ
 
+## 1.2.2: 2024-12-18 {#version-1-2-2}
+
+### 改善
+
+  * `xmlua.Element`や`xmlua.Attribute`などすべてのノードオブジェクトに
+    `:node_name`メソッドを追加しました。
+
+  * `xml.Document:canonicalize`を追加しました。
+    * GH-36
+    * GH-37
+    * Thijs Schreijerさんがパッチを提供
+
+### 修正
+
+  * `xmlua/notation.lua`が含まれていない問題を修正しました。
+    * GH-38
+    * GH-39
+    * Thijs Schreijerさんがパッチを提供
+
+### 感謝
+
+  * Thijs Schreijerさん
+
 ## 1.2.1: 2023-02-03 {#version-1-2-1}
 
 ### 改善

@@ -4,6 +4,29 @@ title: News
 
 # News
 
+## 1.2.2: 2024-12-18 {#version-1-2-2}
+
+### Improvements
+
+  * Added `:node_name` method to all node objects such as
+    `xmlua.Element` and `xmlua.Attribute`.
+
+  * Added `xml.Document:canonicalize`
+    * GH-36
+    * GH-37
+    * Patch by Thijs Schreijer
+
+### Fixes
+
+  * Fixed a bug that `xmlua/notation.lua` isn't included.
+    * GH-38
+    * GH-39
+    * Patch by Thijs Schreijer
+
+### Thanks
+
+  * Thijs Schreijer
+
 ## 1.2.1: 2023-02-03 {#version-1-2-1}
 
 ### Improvements

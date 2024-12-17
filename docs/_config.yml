@@ -1,8 +1,8 @@
 title: XMLua
 markdown: kramdown
 highlighter: rouge
-version: 1.2.1
-release_date: 2023-02-03
+version: 1.2.2
+release_date: 2024-12-18
 exclude:
   - "Rakefile"
   - "Gemfile"

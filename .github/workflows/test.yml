@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install XMLua
         run: |
           docker build \
@@ -31,10 +31,10 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           path: "xmlua"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: "clear-code/luacs"
           path: "luacs"

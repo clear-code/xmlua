@@ -23,7 +23,10 @@ function XML.parse(xml, options)
       error("Failed to parse XML: " .. ffi.string(context.lastError.message))
     end
   end
-  return Document.new(document)
+  local doc = Document.new(document)
+  -- attach context to extend lifetime of dictionaries
+  doc.__context__ = context
+  return doc
 end
 
 return XML

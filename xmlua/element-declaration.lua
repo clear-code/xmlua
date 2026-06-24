@@ -17,7 +17,7 @@ end
 function ElementDeclaration.new(document, node)
   local element_declaration = {
     document = document,
-    node = node,
+    node = node
   }
   setmetatable(element_declaration, metatable)
   return element_declaration

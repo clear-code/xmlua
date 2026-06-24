@@ -12,6 +12,32 @@ typedef enum {
     XML_SAVE_WSNONSIG   = 1<<7  /* format with non-significant whitespace */
 } xmlSaveOption;
 
+typedef struct _xmlCharEncodingHandler xmlCharEncodingHandler;
+typedef struct _xmlOutputBuffer xmlOutputBuffer;
+typedef xmlOutputBuffer *xmlOutputBufferPtr;
+
+typedef int (* xmlCharEncodingOutputFunc)(unsigned char *out, int *outlen,
+                                          const unsigned char *in, int *inlen);
+
+struct _xmlSaveCtxt {
+    void *_private;
+    int type;
+    int fd;
+    const xmlChar *filename;
+    const xmlChar *encoding;
+    xmlCharEncodingHandler *handler;
+    xmlOutputBufferPtr buf;
+    xmlDocPtr doc;
+    int options;
+    int level;
+    int format;
+    char indent[60 + 1];	/* array for indenting output */
+    int indent_nr;
+    int indent_size;
+    xmlCharEncodingOutputFunc escape;	/* used for element content */
+    xmlCharEncodingOutputFunc escapeAttr;/* used for attribute content */
+};
+
 typedef struct _xmlSaveCtxt xmlSaveCtxt;
 typedef xmlSaveCtxt *xmlSaveCtxtPtr;
 
@@ -23,4 +49,5 @@ long xmlSaveTree(xmlSaveCtxtPtr ctxt, xmlNodePtr node);
 int xmlSaveClose(xmlSaveCtxtPtr ctxt);
 int xmlSaveSetEscape(xmlSaveCtxtPtr ctxt,
                      xmlCharEncodingOutputFunc escape);
+int xmlCharEncCloseFunc(xmlCharEncodingHandler *handler);
 ]]
